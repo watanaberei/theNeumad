@@ -1,0 +1,63 @@
+.icon-search {
+    background: url('images/icon/icon_search.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
+    /* Other styles here */
+}
+
+.icon-close {
+    background: url('images/icon/icon_close.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
+    /* Other styles here */
+}
+
+.icon-plus {
+    background: url('images/icon/icon_plus.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
+    /* Other styles here */
+}
+
+.icon-hamburger {
+    background: url('images/icon/icon_hamburger.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
+    /* Other styles here */
+}
+
+.icon-Work {
+    background: url('images/icon/icon_work.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
+    /* Other styles here */
+}
+
+.icon-Unwind {
+    background: url('images/icon/icon_unwind.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
+    /* Other styles here */
+}
+
+.icon-Dine {
+    background: url('images/icon/icon_dine.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
+    /* Other styles here */
+}
+
+.icon-Shorts {
+    background: url('images/icon/icon_shorts.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
+    /* Other styles here */
+}
