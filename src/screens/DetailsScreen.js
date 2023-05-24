@@ -160,13 +160,10 @@ const DetailsScreen = {
                 </div>
                 <div class="article-info d-flex">
                   <span class="d-flex text01"
-                    ><i class="bx bx-user"></i> ${blog.authorName}</span
-                  >
-                  <span class="d-flex text01"
-                    ><i class="bx bx-time-five"></i> ${format(
-                                                        parseISO(blog.createdAt),
-                                                        "PPP"
-                                                      )}
+                    ><i class="bx bx-user"></i> ${blog.authorName}</span>
+                  <span class="d-flex text01">
+                    <i class="bx bx-time-five"></i> 
+                    ${format(parseISO(blog.createdAt),"PPP")}
                   </span>
                 </div>
                 <div class="lineH"></div>

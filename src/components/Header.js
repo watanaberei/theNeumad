@@ -169,18 +169,49 @@ const Header = {
                       </div>
                     </a>
                   </li>
-                  
-                  <a href="/#/shorts">
-                    <div class="section-tag" id="Shorts">
+
+                  <li>
+                    <a href="/#/shorts">
+                      <div class="section-tag" id="Shorts">
                         <i class="section-tag-icon icon-Shorts"></i>
                         <span class="section-tag-divider">
                           <div class="lineV"></div>
                         </span>
                         <span class="section-tag-text medium01">
-                            Shorts
+                          Shorts
                         </span>
-                    </div>
-                  </a>
+                      </div>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="/#/shorts">
+                      <div class="section-tag" id="Shorts">
+                        <i class="section-tag-icon icon-Shorts"></i>
+                        <span class="section-tag-divider">
+                          <div class="lineV"></div>
+                        </span>
+                        <span class="section-tag-text medium01">
+                          Shorts
+                        </span>
+                      </div>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="/#/series">
+                      <div class="section-tag" id="Series">
+                        <i class="section-tag-icon icon-Series"></i>
+                        <span class="section-tag-divider">
+                          <div class="lineV"></div>
+                        </span>
+                        <span class="section-tag-text medium01">
+                          Series
+                        </span>
+                      </div>
+                    </a>
+                  </li>
+                  
                   <div class="nav-list-divider">
                     <div class="lineV"></div>
                   </div>
@@ -206,6 +237,11 @@ const Header = {
                     <a href="/#/shorts"> 
                       <span class="text01">Shorts</span>
                     </a> 
+                  </li>
+                  <li>
+                    <a href="/#/series">
+                      <span class="text01">Series</span>
+                    </a>
                   </li>
                   <div class="nav-list-divider">
                     <div class="lineV"></div> 

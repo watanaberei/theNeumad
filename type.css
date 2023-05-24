@@ -16,10 +16,10 @@
     --text00-letting_D: 1.00rem;
     --text01-letting_D: 1.00rem;
     --text02-letting_D: 1.00rem;
-    --text03-letting_D: 1.26rem;
-    --text04-letting_D: 1.00rem;
-    --text05-letting_D: 1.00rem;
-    --text06-letting_D: 1.00rem;
+    --text03-letting_D: 1.50rem;
+    --text04-letting_D: 2.10rem;
+    --text05-letting_D: 2.40rem;
+    --text06-letting_D: 3.00rem;
 
     --display01_D: 0.60rem;
     --display02_D: 0.90rem;
@@ -32,14 +32,14 @@
     --display02-tracking_D: -0.015rem;
     --display03-tracking_D: -0.015rem;
     --display04-tracking_D: -0.015rem;
-    --display05-tracking_D: 0.012rem;
+    --display05-tracking_D: -0.108rem;
     --display06-tracking_D: 0.012rem;
     --display00-letting_D: 1.00rem;
     --display01-letting_D: 1.00rem;
     --display02-letting_D: 1.00rem;
     --display03-letting_D: 1.26rem;
     --display04-letting_D: 1.00rem;
-    --display05-letting_D: 1.00rem;
+    --display05-letting_D: 1.50rem;
     --display06-letting_D: 1.00rem;
 
     --header01_D: 0.51rem;
@@ -126,7 +126,7 @@
     font-size: var(--display06_D);
     letter-spacing: var(--display06-tracking_D);
     line-height: var(--display06-letting_D);
-    text-transform: capitalize;
+    text-transform: uppercase;
 }
 
 .display05 {
@@ -134,7 +134,7 @@
     font-size: var(--display05_D);
     letter-spacing: var(--display05-tracking_D);
     line-height: var(--display05-letting_D);
-    text-transform: capitalize;
+    text-transform: uppercase;
 }
 
 .display04 {
@@ -142,7 +142,7 @@
     font-size: var(--display04_D);
     letter-spacing: var(--display04-tracking_D);
     line-height: var(--display04-letting_D);
-    text-transform: capitalize;
+    text-transform: uppercase;
 }
 
 .display03 {
@@ -151,7 +151,7 @@
     font-size: var(--display03_D);
     letter-spacing: var(--display03-tracking_D);
     line-height: var(--display03-letting_D);
-    text-transform: capitalize;
+    text-transform: uppercase;
 }
 
 .display02 {
@@ -169,7 +169,7 @@
     font-size: var(--display01_D);
     letter-spacing: var(--display01-tracking_D);
     line-height: var(--display01-letting_D);
-    text-transform: capitalize;
+    text-transform: uppercase;
 }
 
 

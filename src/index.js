@@ -5,16 +5,20 @@ import HeaderSecondary from "./components/HeaderSecondary";
 import HeaderWork from "./components/HeaderWork";
 import HeaderUnwind from "./components/HeaderUnwind";
 import HeaderShorts from "./components/HeaderShorts";
+import HeaderSeries from"./components/Header";
 import HeaderDine from "./components/HeaderDine";
 import HomeScreen from "./screens/HomeScreen.js";
 import WorkScreen from "./screens/WorkScreen.js";
 import UnwindScreen from "./screens/UnwindScreen.js";
 import DineScreen from "./screens/DineScreen.js";
 import DetailsScreen from "./screens/DetailsScreen.js";
+import ArticleScreen from "./screens/ArticleScreen.js";
 import ShortsScreen from "./screens/ShortsScreen.js";
+import SeriesScreen from "./screens/SeriesScreen.js";
 import AboutScreen from "./screens/AboutScreen.js";
 import ContactScreen from "./screens/ContactScreen.js";
 import Error404Page from "./screens/Error404Page.js";
+
 // import { parseRequestUrl, showLoading, hideLoading } from "./utils.js";
 import { parseRequestUrl } from "./utils.js";
 
@@ -25,8 +29,10 @@ const routes = {
   "/dine": DineScreen,
   "/shorts": ShortsScreen,
   "/blogs/:slug": DetailsScreen,
+  "/article/:slug" :  ArticleScreen,
   "/about": AboutScreen,
   "/contact": ContactScreen,
+  "/series" :  SeriesScreen,
 };
 
 const router = async () => {
@@ -53,6 +59,9 @@ const router = async () => {
   } else if (parseUrl === "/shorts") {
     header.innerHTML = await HeaderShorts.render();
     await HeaderShorts.after_render();
+  } else if (parseUrl === "/series/:slug") {
+    header.innerHTML = await HeaderSecondary.render();
+    await HeaderSeries.after_render();
   } else {
     header.innerHTML = await Header.render();
     await Header.after_render();

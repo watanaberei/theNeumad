@@ -12,7 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@contentful/rich-text-html-renderer": "^15.0.0",
+    "@contentful/rich-text-html-renderer": "^15.15.1",
+    "@contentful/rich-text-plain-text-renderer": "^16.0.4",
     "@contentful/rich-text-types": "^15.0.0",
     "contentful": "^8.4.2",
     "date-fns": "^2.23.0",
