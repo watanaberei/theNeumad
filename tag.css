@@ -68,13 +68,13 @@
     background-color: var(--blue03);
   }
   #Unwind {
-    background-color: var(--orange01);
+    background-color: var(--yellow01);
   }
   #Unwind:hover {
-    background-color: var(--orange02);
+    background-color: var(--yellow02);
   }
   #Unwind:active {
-    background-color: var(--orange03);
+    background-color: var(--yellow03);
   }
   #Shorts {
     background-color: var(--purple01);
@@ -84,6 +84,15 @@
   }
   #Shorts:active {
     background-color: var(--purple03);
+  }
+  #Series {
+    background-color: var(--red01);
+  }
+  #Series:hover {
+    background-color: var(--red02);
+  }
+  #Series:active {
+    background-color: var(--red03);
   }
 
 
@@ -102,7 +111,7 @@
 
   .metadata-tag {
     /* margin-right: var(--s03); */
-    background-color: var(--grey06);
+    background-color: var(--white03);
     border-radius: 33px;
     font-size: var(--text01_D);
     letter-spacing: var(--tracking03_D);

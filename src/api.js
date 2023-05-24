@@ -33,106 +33,6 @@ const client = createClient({
 
 
 
-
-// export const getArticleNeumadsTrail = async (limit = 9, skip = 0) => {
-//   try {
-//     const query = `
-//         query {
-//           articleNeumadsTrailCollection(limit: 9, skip: 0) {
-//             items {
-//               title
-//               slug
-//               category
-//               featured
-//               series
-//             }
-//           }
-//           snippetDefaultCollection {
-//             items {
-//               thumbnail {
-//                 url
-//               }
-//               subtext
-//             }
-//           }
-//           heroDefaultCollection {
-//             items {
-//               slug
-//               heroImage {
-//                 url
-//               }
-//             }
-//           }
-//           contentDefaultCollection {
-//             items {
-//               title
-//               introduction {
-//                 __typename
-//               }
-//             }
-//           }
-//           referenceDefaultCollection {
-//             items {
-//               relatedReferencesCollection(limit: 6, skip: 0) {
-//                 __typename
-//                 total
-//                 items {
-//                   __typename
-//                 }
-//               }
-//               suggestedReferencesCollection(limit: 6, skip: 0) {
-//                 items {
-//                   __typename
-//                 }
-//               }
-//               similarReferencesCollection(limit: 6, skip: 0) {
-//                 total
-//                 items {
-//                   __typename
-//                 }
-//               }
-//             }
-//           }
-//         }
-//       `;
-
-//       const response = await fetch(
-//         "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
-//         {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//           body: JSON.stringify({ query }),
-//           limit,
-//           skip,
-//         }
-//       );
-  
-//       const json = await response.json();
-//       console.log('articleNeumadsTrail SON:', json); // Debugging information
-  
-//       if (json.errors) {
-//         console.error("articleNeumadsTrail GraphQL errors:", json.errors);
-//       }
-  
-//       // if (!json.data || !json.data.articleNeumadsTrailCollection || !json.data.articleNeumadsTrailCollection.items) {
-//       //   throw new Error("Invalid data format");
-//       // }
-  
-//       if (!json.data || !json.data.articleNeumadsTrailCollection) {
-//         return []; // Return an empty array if no data is found
-//       }
-//       const articleNeumadsTrail = json.data.articleNeumadsTrailCollection.items;
-//       const data = articleNeumadsTrail;
-  
-//       console.log('Data:', data);
-//       return data;
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-
 export const getArticleNeumadsTrail = async (limit = 9, skip = 0) => {
   try {
     const query = `
@@ -422,34 +322,55 @@ export const getBlogs = async (limit = 9, skip = 0) => {
  export const getNonFeaturedBlog = async (limit = 9, skip = 0) => {
   try {
     const query = `
-    query {
-      appFastFoodHomePage031523Collection(where: {featured: false}, limit: ${limit}, skip: ${skip}) {
-         items {
-           title
-           featured
-           section
-           overview
-           introduction
-           slug
-           authorName
-           category
-           tag
-           metatag
-           featuredImage {
-           title
-           url
-           }
-           thumbnail {
-             title
-             url
-           }
-           authorImage {
-             title
-             url(transform: {cornerRadius: 300, width: 150, height: 150})
-           }
-         }
-       }
-     }
+  appFastFoodHomePage031523Collection(where: {featured: false}, limit: ${limit}, skip: ${skip}) {
+    items {
+      title
+      featured
+      section
+      overview
+      introduction
+      slug
+      authorName
+      category
+      tag
+      metatag
+      featuredImage {
+        title
+        url
+      }
+      thumbnail {
+        title
+        url
+      }
+      authorImage {
+        title
+        url(transform: {cornerRadius: 300, width: 150, height: 150})
+      }
+    }
+  }
+  articleNeumadsTrailCollection {
+    items {
+      sys {
+        id
+        publishedAt
+      }
+      title
+      category
+      featured
+      slug
+      series
+    }
+  }
+  snippetDefaultCollection {
+    items {
+      title
+      subtext
+      thumbnail {
+        url
+      }
+    }
+  }
+}
     `;
 
     const response = await fetch(

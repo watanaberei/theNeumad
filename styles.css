@@ -1,8 +1,13 @@
 :root {
   /* PRIMARY */
-  --primary01: #98d1b0;
+  --primary01: #052213;
   --primary02: #6FCF97;
   --primary03: #49af74;
+
+  /* INK */
+  --ink01: #165937;
+  --ink02: #6FCF97;
+  --ink03: #052213;
 
   /* SECONDART */
   --secondary01: #6eaade;
@@ -20,14 +25,18 @@
   --accent03: #e9c638;
 
   /* GREEN */
-  --green01: #AFFDDB;
-  --green02: #35FFA8;
-  --green03: #35FFA8;
+  --green01: #6FB866;
+  --green02: #165937;
+  --green03: #0b3520;
 
   /* BLUE */
-  --blue01: #C6E3FE;
-  --blue02: #5FE2FF;
-  --blue03: #5FE2FF;
+  --blue01: #AAE2F4;
+  --blue02: #45AFE2;
+  --blue03: #3E93D6;
+
+  --yellow01: #FED259;
+  --yellow02: #FED259;
+  --yellow03: #FED259;
 
   --orange01: #FFDBB0;
   --orange02: #FFBF44;
@@ -37,7 +46,13 @@
   --purple02: #E3A9FF;
   --purple03: #E3A9FF;
 
-  --white01: #fff;
+  --red01: #F97C58;
+  --red02: #EC4010;
+  --red03: #EC4010;
+
+  --white01: #FDFDFD;
+  --white02: #FDFDFD;
+  --white03: #E9E9E9;
   --black01: #202521;
   --black02: #192721;
   --grey01: #F4F4F3;
@@ -125,8 +140,8 @@ html {
 body {
   /* font-family: "Roboto", sans-serif;
   font-size: var(--text01_D); */
-  background-color: #fcfafa;
-  color: var(--black01);
+  background-color: var(--white01);
+  color: var(--primary01);
   font-weight: 00;
   width: 100%;
   height: 100%;
@@ -135,7 +150,7 @@ body {
 #content {
   min-height: 70vh;
   background-color: var(--white01);
-  padding-top: var(--s03);
+  padding-top: var(--s05);
   padding-left: 0px;
   padding-right: 0px;
 }
@@ -205,7 +220,7 @@ li {
 .load {
   outline: none;
   border: none;
-  background-color: var(--primary01);
+  background-color: var(--ink01);
   color: var(--white01);
   padding: 1rem 2rem;
   font-size: var(--text03_D);
@@ -215,7 +230,7 @@ li {
 }
 
 .load:hover {
-  background-color: var(--black01);
+  background-color: var(--primary01);
 }
 
 /* Footer */
@@ -372,7 +387,7 @@ li {
   transition: all 300ms ease-in-out;
 }
 .form button:hover {
-  background-color: var(--primary01);
+  background-color: var(--ink01);
 }
 /*  .form span {
   font-size: 12px;

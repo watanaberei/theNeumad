@@ -20,7 +20,7 @@ const PrimaryFeaturedBlog = {
                         <div class="featured-blog-header">
                             
                             <div class="featured-blog-header-container">
-                                <span class="featured-blog-title-text header04">
+                                <span class="featured-blog-title-text header06">
                                     ${primaryFeaturedBlog.title}
                                     <!--${
                                         primaryFeaturedBlog.title.length > 40 
@@ -28,10 +28,11 @@ const PrimaryFeaturedBlog = {
                                         : primaryFeaturedBlog.title
                                     } -->
                                 </span> 
+                                <!--
                                 <span class="featured-blog-overview-text text02">
                                     ${primaryFeaturedBlog.overview}
                                 </span>
-                        
+                                -->
                             </div>
 
                         </div>

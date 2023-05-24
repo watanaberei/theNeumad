@@ -56,7 +56,7 @@
   
   .featured-blog .featured-blog-text .featured-blog-header {
     margin-bottom: var(--s03);
-    color: var(--black01);
+    color: var(--primary01);
     display: flex;
     flex-direction: row;
     /* font-size: var(--text03_D);
@@ -73,14 +73,14 @@
 
   .featured-blog-title-text {
     /* margin-bottom: var(--s03); */
-    color: var(--black01);
+    color: var(--primary01);
     font-weight: 900;
     text-transform: capitalize;
     /* height: 60px; */
   }
 
   .featured-blog-overview-text {
-    color: var(--black01);
+    color: var(--primary01);
     /* font-size: var(--text03_D); */
     font-weight: 500;
   }

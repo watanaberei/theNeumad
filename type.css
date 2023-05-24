@@ -54,14 +54,14 @@
     --header03-tracking_D: -0.009rem;
     --header04-tracking_D: -0.012rem;
     --header05-tracking_D: 0.012rem;
-    --header06-tracking_D: 0.012rem;
+    --header06-tracking_D: -0.015rem;
     --header00-letting_D: 1.00rem;
     --header01-letting_D: 1.00rem;
     --header02-letting_D: 1.00rem;
     --header03-letting_D: 1.26rem;
     --header04-letting_D: 1.35rem;
-    --header05-letting_D: 1.00rem;
-    --header06-letting_D: 1.00rem;
+    --header05-letting_D: 1.80rem;
+    --header06-letting_D: 2.40rem;
 
     /* --tracking01_D: -0.030rem;
     --tracking02_D: -0.009rem;

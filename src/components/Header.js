@@ -37,7 +37,7 @@ const Header = {
               <div class="nav-utility-mid">
                 <div class="nav-utility-mid-logo">
                     <!-- logo -->
-                    <img src="./images/brand/twn_brand_logo-H-med_v08.svg" alt="">
+                    <img src="./_assets/_brand/logo/neumad_logo_text_light.svg" alt="">
                 </div>
               </div>
               <div class="nav-utility-right">
@@ -92,7 +92,7 @@ const Header = {
             <div class="nav-brand-logo">
               <!-- logo -->
               <a class="logo" href="/"> 
-                <img src="./images/brand/twn_brand_logo-H-med_v08.svg" alt="" />
+                <img src="./_assets/_brand/logo/neumad_logo_text_light.svg" alt="" />
               </a>
             </div>
             <div class="nav-mid-right">
@@ -185,20 +185,6 @@ const Header = {
                   </li>
 
                   <li>
-                    <a href="/#/shorts">
-                      <div class="section-tag" id="Shorts">
-                        <i class="section-tag-icon icon-Shorts"></i>
-                        <span class="section-tag-divider">
-                          <div class="lineV"></div>
-                        </span>
-                        <span class="section-tag-text medium01">
-                          Shorts
-                        </span>
-                      </div>
-                    </a>
-                  </li>
-
-                  <li>
                     <a href="/#/series">
                       <div class="section-tag" id="Series">
                         <i class="section-tag-icon icon-Series"></i>
@@ -211,6 +197,8 @@ const Header = {
                       </div>
                     </a>
                   </li>
+
+                  
                   
                   <div class="nav-list-divider">
                     <div class="lineV"></div>

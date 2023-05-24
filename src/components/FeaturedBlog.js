@@ -17,17 +17,18 @@ const FeaturedBlog = {
                 <div class="featured-blog-header">
                     <a href="/#/blogs/${featuredBlog.slug}">
                         <div class="featured-blog-header-container">
-                            <span class="featured-blog-title-text header03">
+                            <span class="featured-blog-title-text header05  ">
                             ${
                             featuredBlog.title.length > 90 
                                 ? featuredBlog.title.substr(0, 90) + " ..."
                                 : featuredBlog.title
                             } 
                             </span> 
+                            <!--
                             <span class="featured-blog-overview-text text02">
                             ${featuredBlog.overview}
                             </span>
-                    
+                            -->
                         </div>
                     </a>
                 </div>

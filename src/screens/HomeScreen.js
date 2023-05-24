@@ -1,10 +1,11 @@
 // HomeScreen.js
-import { getBlogs, getNonFeaturedBlog, getFeaturedBlog, getPrimaryFeaturedBlog } from "../api.js";
+import { getBlogs, getNonFeaturedBlog, getFeaturedBlog, getArticleNeumadsTrail, getPrimaryFeaturedBlog } from "../api.js";
 
 import Blog from "../components/Blog.js";
 import NonFeaturedBlog from "../components/NonFeaturedBlog.js";
 import FeaturedBlog from "../components/FeaturedBlog.js";
 import PrimaryFeaturedBlog from "../components/PrimaryFeaturedBlog.js";
+import ArticleNeumadsTrail from "../components/ArticleNeumadsTrail";
 
 const HomeScreen = {
   render: async () => {
@@ -12,21 +13,16 @@ const HomeScreen = {
     const nonFeaturedBlogs = await getNonFeaturedBlog();
     const featuredBlogs = await getFeaturedBlog();
     const primaryFeaturedBlogs = await getPrimaryFeaturedBlog();
+    const articleNeumadsTrail = await getArticleNeumadsTrail();
 
     console.log("getBlogs:" + blogs);
     console.log("getNonFeaturedBlog:" + nonFeaturedBlogs);
     console.log("getFeaturedBlog:" + featuredBlogs);
     console.log("getPrimaryFeaturedBlog:" + primaryFeaturedBlogs);
+    console.log("getArticleNeumadsTrail:" + articleNeumadsTrail);
 
     return `<div>
     
-    <div class="section-header container" id="section-header">
-        <div class="work-title">
-            <span class="display03">
-                Neumadic Reads
-            </span>
-        </div>
-    </div>
     <div class="featured-blog-layout container" id="featured-blog-layout">
     ${primaryFeaturedBlogs.map((primaryFeaturedBlog) => `${PrimaryFeaturedBlog.render(primaryFeaturedBlog)}`).join("\n")}
     ${featuredBlogs.map((featuredBlog) => `${FeaturedBlog.render(featuredBlog)}`).join("\n")}

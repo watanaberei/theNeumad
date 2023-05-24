@@ -35,8 +35,8 @@
     /* height: 15px; */
     width: 100vw;
     overflow-x: hidden;
-    color: var(--black01);
-    background-color: var(--green03);
+    color: var(--white01);
+    background-color: var(--green02);
 }
 
 .nav-reportBar-container {
@@ -287,7 +287,7 @@
   
   .nav-tags-list li a span {
     display: inline-block;
-    color: var(--black02);
+    color: var(--ink03);
     font-weight: 500;
     transition: color 300ms ease-out;
   }
