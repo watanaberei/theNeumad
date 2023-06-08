@@ -37,52 +37,64 @@ export const getArticleNeumadsTrail = async (limit = 9, skip = 0) => {
   try {
     const query = `
     query {
-      articleNeumadsTrailCollection(limit: 6, skip: 0) {
+      articleNeumadsTrailCollection(limit: ${limit}, skip: ${skip}) {
         items {
           sys {
             id
             publishedAt
           }
           title
-          category
+          headline {
+            ... on Headline {
+              text
+            }
+          }
           featured
           slug
-          series 
-          summary {
-            bullets
-          }
-          hero {
-            ... on HeroDefault {
-              heroImage {
+          category
+          series
+          media {
+            ... on Media {
+              title
+              hero {
                 url
               }
-              slug
+              thumbnail {
+                url
+              }
+              galleryCollection {
+                items {
+                  url
+                }
+              }
             }
           }
           author {
             ... on Author {  # Use the correct type for author entries
               social
-              pseudonym
+              authorPseudonym
               slug
               authorPicture {
                 url
               }
             }
+          } 
+          summary {
+            ... on Summary {
+              text
+            }
           }
           snippet {
-            ... on SnippetDefault {  # Use the correct type for snippet entries
+            ... on Snippet {
               title
-              subtext
-              thumbnail {
-                url
+              text {
+                json
               }
             }
           }
+          
           content {
-            ... on ContentDefault {  # Use the correct type for content entries
-              summary {
-                json
-              }
+            ... on Content {
               introduction {
                 json
               }
@@ -92,15 +104,6 @@ export const getArticleNeumadsTrail = async (limit = 9, skip = 0) => {
               conclusion {
                 json
               }
-              postscript {
-                json
-              }
-            }
-          }
-          summary {
-            ... on SummaryDefault { 
-              bullets
-              text
             }
           }
           reference {
@@ -164,71 +167,79 @@ export const getArticleNeumadsTrail = async (limit = 9, skip = 0) => {
     
       `;
 
-    const response = await fetch(
-      "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query }),
+      const response = await fetch(
+        "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ query }),
+        }
+      );
+  
+      const json = await response.json();
+      // console.log('articleNeumadsTrail JSON:', json); // Debugging information
+  
+      if (json.errors) {
+        console.error("articleNeumadsTrail GraphQL errors:", json.errors);
       }
-    );
-
-    const json = await response.json();
-    console.log('articleNeumadsTrail JSON:', json); // Debugging information
-
-    if (json.errors) {
-      console.error("articleNeumadsTrail GraphQL errors:", json.errors);
-    }
-
-    if (!json.data) {
-      return []; // Return an empty array if no data is found
-    }
-
-    const articles = json.data.articleNeumadsTrailCollection.items;
-
-    const data = articles.map((article) => {
+  
+      if (!json.data) {
+        return []; // Return an empty array if no data is found
+      }
+  
+      const articles = json.data.articleNeumadsTrailCollection.items;
+  
+      const data = articles.map((article) => {
       return {
         ...article,
-        thumbnail: article?.snippet?.thumbnail?.url,
-        subtext: article?.snippet?.subtext,
+        title: article?.title,
+        headline: {
+          text: article?.headline?.text,
+        },
+        featured: article?.featured,
+        slug: article?.slug,
+        category: article?.category,
+        series: article?.series,
+        media: {
+          hero: article?.media?.hero?.url,
+          thumbnail: article?.media?.thumbnail?.url,
+          gallery: article?.media?.galleryCollection?.items.map(item => ({
+            url: item?.url,
+          })),
+        },
         author: {
-          name: article?.author?.pseudonym,
+          name: article?.author?.authorPseudonym,
           socials: article?.author?.social,
           picture: article?.author?.authorPicture?.url,
           slug: article?.author?.slug,
         },
-        hero: {
-          heroImage: article?.hero?.heroImage?.url,
-          slug: article?.hero?.slug,
+        summary: {
+          text: article?.summary?.text,
         },
         snippet: {
           title: article?.snippet?.title,
-          subtext: article?.snippet?.subtext,
-          thumbnail: article?.snippet?.thumbnail?.url,
+          text: article?.snippet?.text?.json,  // corrected field
         },
-        summary: {
-          bullets: article.summary.bullets,
-          text: documentToPlainTextString(article.content.summary.json),
-        },  
-        
         content: {
           introduction: documentToHtmlString(article?.content?.introduction?.json),
           body: documentToHtmlString(article?.content?.body?.json),
           conclusion: documentToHtmlString(article?.content?.conclusion?.json),
-          postscript: documentToHtmlString(article?.content?.postscript?.json),
         },
         relatedReferences: article?.reference?.relatedReferencesCollection?.items.map(item => ({
           title: item.title,
+          headline: item.headline,
           section: item.section,
           thumbnail: item.thumbnail.url,
           overview: item.overview,
           slug: item.slug,
           tag: item.tag,
+          category: item.category,
         })),
         suggestedReferences: article?.reference?.suggestedReferencesCollection?.items.map(item => ({
           title: item.title,
+          headline: item.headline,
           section: item.section,
           thumbnail: item.thumbnail.url,
           overview: item.overview,
@@ -237,20 +248,21 @@ export const getArticleNeumadsTrail = async (limit = 9, skip = 0) => {
         })),
         similarReferences: article?.reference?.similarReferencesCollection?.items.map(item => ({
           title: item.title,
+          headline: item.headline,
           section: item.section,
           thumbnail: item.thumbnail.url,
           overview: item.overview,
           slug: item.slug,
           tag: item.tag,
         })),
-        tags: article?.tagsCollection?.items.map(item => ({
-          tag: item?.tags,
+        tag: article?.tagsCollection?.items.map(item => ({
+          tags: item?.tags,
           metatag: item?.metatag,
         })),
       };
     });
     documentToPlainTextString(getArticleNeumadsTrail);
-    console.log('Data for getArticleNeumadsTrail:', data);
+    // console.log('Data for getArticleNeumadsTrail:', data);
     return data;
   } catch (err) {
     console.error(err);
@@ -258,6 +270,439 @@ export const getArticleNeumadsTrail = async (limit = 9, skip = 0) => {
     return null; 
   }
 };
+
+
+
+
+
+
+
+
+
+export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
+  try {
+    const query = `
+    query {
+      storesNeumadsReviewCollection(limit: 6, skip: 0) {
+        items {
+          sys {
+            id
+          }
+          title
+          featured
+          store{
+            ... on Stores {
+              storeName
+              storeNickname
+              hours
+              storeWebsite
+              storeGeolocation {
+                lat
+                lon
+              }
+              storeAddress
+              storeChain
+              storeChainStoresCollection{
+                items{
+                  storeName
+                  storeNickname
+                  hours
+                  storeWebsite
+                }
+              }
+              neumadScore
+              storeRating
+              storeRatingsCount
+              storeReviewOverview
+              handles
+              contact
+              storeReviewSource
+              storeBio {
+                title
+                introduction {
+                  json
+                }
+                body {
+                  json
+                }
+                conclusion {
+                  json
+                }
+                postscript {
+                  json
+                }
+              }
+              storeTagsCollection {
+                items {
+                  tags
+                  metatag
+                }
+              }
+            }
+          }
+          headline {
+            text
+            eyebrow
+          }
+          slug
+          featured
+          category {
+            category
+          }
+          series {
+            series
+          }
+          author {
+            authorName
+            authorPseudonym
+            authorPicture {
+              url
+            }
+            slug
+          }
+          media {
+            ... on Media {
+              title
+              hero {
+                url
+              }
+              thumbnail {
+                url
+              }
+              galleryCollection {
+                items {
+                  url
+                }
+              }
+            }
+          }
+          snippet {
+            ... on Snippet {
+              title
+              text {
+                json
+              }
+            }
+          }
+          summary {
+            ... on Summary {
+              text
+            }
+          }
+          content {
+            ... on Content {
+              introduction {
+                json
+              }
+              body {
+                json
+              }
+              conclusion {
+                json
+              }
+            }
+          }
+          attributes {
+            amenities
+            offers
+          }
+          postscript {
+            ... on Postscript {
+              text {
+                json
+              }
+            }
+          }
+          reference {
+            ... on ReferenceDefault {
+              relatedReferencesCollection(limit: 6) {
+                items {
+                  ... on AppFastFoodHomePage031523 {
+                    title
+                    section
+                    thumbnail {
+                      url
+                    }
+                    slug
+                    overview
+                    tag
+                  }
+                }
+              }
+              suggestedReferencesCollection(limit: 6) {
+                items {
+                  ... on AppFastFoodHomePage031523 {
+                    title
+                    section
+                    media: {
+                      thumbnail: item.media.thumbnail.url,
+                    },
+                    slug
+                    overview
+                    tag
+                  }
+                }
+              }
+              similarReferencesCollection(limit: 6) {
+                items {
+                  ... on AppFastFoodHomePage031523 {
+                    title
+                    section
+                    media: {
+                      thumbnail: item.media.thumbnail.url,
+                    },
+                    slug
+                    overview
+                    tag
+                  }
+                }
+              }
+            }
+          }
+          tagsCollection {
+            items {
+              tags
+              metatag
+            }
+          }
+        }
+      }
+    }
+    
+      `;
+
+      const response = await fetch(
+        "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ query }),
+        }
+      );
+  
+      const json = await response.json();
+      // console.log('storesNeumadsTrail JSON:', json); // Debugging information
+  
+      if (json.errors) {
+        console.error("storesNeumadsTrail GraphQL errors:", json.errors);
+      }
+  
+      if (!json.data) {
+        return []; // Return an empty array if no data is found
+      }
+  
+      const stores = json.data.storesNeumadsReviewCollection.items;
+  
+      const data = stores.map((stores) => {
+      return {
+        ...stores,
+        title: stores?.title,
+        slug: stores?.slug,
+        featured: stores?.featured,
+        store: {
+          storeName: stores?.store?.storeName,
+          storeNickname: stores?.store?.storeNickname,
+          hours: stores?.store?.hours,
+          storeWebsite: stores?.store?.storeWebsite,
+          storeGeolocation: {
+            lat: stores?.store?.storeGeolocation?.lat,
+            lon: stores?.store?.storeGeolocation?.lon,
+          },
+          storeAddress: {
+            lat: stores?.store?.storeAddress?.lat,
+            lon: stores?.store?.storeAddress?.lon,
+          },
+          storeChain: stores?.store?.storeChain,
+          storeChainStoresCollection: stores?.store?.storeChainStoresCollection?.items.map(item => ({
+            storeName: item?.storeName,
+            storeNickname: item?.storeNickname,
+            hours: item?.hours,
+            storeWebsite: item?.storeWebsite,
+            storeGeolocation: {
+              lat: item?.storeGeolocation?.lat,
+              lon: item?.storeGeolocation?.lon,
+            },
+            storeAddress: item?.storeAddress,
+            storeChain: item?.storeChain,
+            storeChainStoresCollection: item?.storeChainStoresCollection?.items.map(item => ({
+              storeName: item?.storeName,
+              storeNickname: item?.storeNickname,
+              hours: item?.hours,
+              storeWebsite: item?.storeWebsite,
+            })),
+            neumadScore: item?.neumadScore,
+            storeRating: item?.storeRating,
+            storeRatingsCount: item?.storeRatingsCount,
+            storeReviewOverview: item?.storeReviewOverview,
+            handles: item?.handles,
+            contact: item?.contact,
+            storeReviewSource: item?.storeReviewSource,
+            storeBio: {
+              title: item?.storeBio?.title,
+              introduction: item?.storeBio?.introduction?.json,
+              body: item?.storeBio?.body?.json,
+              conclusion: item?.storeBio?.conclusion?.json,
+              postscript: item?.storeBio?.postscript?.json,
+            },
+            storeTagsCollection: item?.storeTagsCollection?.items.map(item => ({
+              tags: item?.tags,
+              metatag: item?.metatag,
+            })),
+          })),
+        },
+        headline: {
+          text: stores?.headline?.text,
+          slug: stores?.headline?.slug,
+        },
+        category: {
+          category: stores?.category?.category,
+        },
+        series: {
+          series: stores?.series?.series,
+        },
+        author: {
+          name: stores?.author?.authorPseudonym,
+          picture: stores?.author?.authorPicture?.url,
+          slug: stores?.author?.slug,
+        },
+        media: {
+          hero: stores?.media?.hero?.url,
+          thumbnail: stores?.media?.thumbnail?.url,
+          gallery: stores?.media?.galleryCollection?.items.map(item => ({
+            url: item?.url,
+          })),
+        },
+        snippet: {
+          title: stores?.snippet?.title,
+          text: documentToHtmlString(stores?.snippet?.text?.json),
+        },
+        summary: {
+          text: stores?.summary?.text,
+        },
+        content: {
+          introduction: documentToHtmlString(stores?.content?.introduction?.json),
+          body: documentToHtmlString(stores?.content?.body?.json),
+          conclusion: documentToHtmlString(stores?.content?.conclusion?.json),
+        },
+        attributes: {
+          amentities: stores?.attributes?.amentities,
+          offers: stores?.attributes?.offers,
+        },
+        postscript: {
+          text: documentToHtmlString(stores?.postscript?.text?.json),
+        },
+        relatedReferences: stores?.reference?.relatedReferencesCollection?.items.map(item => ({
+          title: item.title,headline: item.headline,
+          section: item.section,
+          media: {
+            thumbnail: item.media.thumbnail.url,
+          },
+          overview: item.overview,
+          slug: item.slug,
+          tag: item.tag,
+          category: item.category,
+        })),
+        suggestedReferences: stores?.reference?.suggestedReferencesCollection?.items.map(item => ({
+          title: item.title,
+          section: item.section,
+          media: {
+            thumbnail: item.media.thumbnail.url,
+          },
+          overview: item.overview,
+          slug: item.slug,
+          tag: item.tag,
+        })),
+        similarReferences: stores?.reference?.similarReferencesCollection?.items.map(item => ({
+          title: item.title,
+          section: item.section,
+          media: {
+            thumbnail: item.media.thumbnail.url,
+          },
+          overview: item.overview,
+          slug: item.slug,
+          tag: item.tag,
+        })),
+        tag: stores?.tagsCollection?.items.map(item => ({
+          tags: item?.tags,
+          metatag: item?.metatag,
+        })),
+      };
+    });
+    documentToPlainTextString(getStoresNeumadsReview);
+    console.log('Data for getStoresNeumadsReview data:', data);
+    console.log('Data for getStoresNeumadsReview:', getStoresNeumadsReview);
+    return data;
+  } catch (err) {
+    console.error(err);
+    // You can decide what to return in case of error, perhaps null or an empty array
+    return null; 
+  }
+};
+
+
+
+
+
+
+
+
+
+// src/api.js
+const API = {
+  fetchLocationDetails: async (input, token) => {
+    try {
+      const response = await fetch(
+        `https://api.foursquare.com/v2/venues/search?near=${input}&v=20210501&limit=5&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&sessionToken=${token}`,
+        { method: "GET" }
+      );
+
+      const json = await response.json();
+
+      if (json.errors) {
+        console.error("API errors:", json.errors);
+      }
+
+      if (!json.response) {
+        return []; // Return an empty array if no data is found
+      }
+  
+      const venues = json.response.venues;
+
+      const data = venues.map((venue) => {
+        // Implement your data transformation logic here
+      });
+
+      // console.log('Data:', data);
+      return data;
+    } catch (err) {
+      console.error(err);
+      return null; 
+    }
+  }
+};
+
+export default API;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -310,67 +755,65 @@ export const getBlogs = async (limit = 9, skip = 0) => {
 
 
 
-
-
-
-
-
-
-
-
-
- export const getNonFeaturedBlog = async (limit = 9, skip = 0) => {
+export const getNonFeaturedBlog = async (limit = 9, skip = 0) => {
   try {
     const query = `
-  appFastFoodHomePage031523Collection(where: {featured: false}, limit: ${limit}, skip: ${skip}) {
-    items {
-      title
-      featured
-      section
-      overview
-      introduction
-      slug
-      authorName
-      category
-      tag
-      metatag
-      featuredImage {
-        title
-        url
+      query getAllFeaturedBlog {
+        appFastFoodHomePage031523Collection(where: { featured: false }, limit: ${limit}, skip: ${skip}) {
+          items {
+            title
+            featured
+            section
+            overview
+            introduction
+            slug
+            authorName
+            category
+            tag
+            metatag
+            featuredImage {
+              title
+              url
+            }
+            thumbnail {
+              title
+              url
+            }
+            authorImage {
+              title
+              url(transform: {cornerRadius: 300, width: 150, height: 150})
+            }
+          }
+        }
+        articleNeumadsTrailCollection {
+          items {
+            sys {
+              id
+              publishedAt
+            }
+            title
+            category
+            featured
+            slug
+            series
+          }
+        }
+        snippetDefaultCollection {
+          items {
+            title
+            subtext
+            thumbnail {
+              url
+            }
+          }
+        }
+        tagsCollection {
+          items {
+            tags
+            metatag
+          }
+        }
       }
-      thumbnail {
-        title
-        url
-      }
-      authorImage {
-        title
-        url(transform: {cornerRadius: 300, width: 150, height: 150})
-      }
-    }
-  }
-  articleNeumadsTrailCollection {
-    items {
-      sys {
-        id
-        publishedAt
-      }
-      title
-      category
-      featured
-      slug
-      series
-    }
-  }
-  snippetDefaultCollection {
-    items {
-      title
-      subtext
-      thumbnail {
-        url
-      }
-    }
-  }
-}
     `;
 
     const response = await fetch(
@@ -381,35 +824,39 @@ export const getBlogs = async (limit = 9, skip = 0) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ query }),
-        limit,
-        skip,
       }
     );
 
     const json = await response.json();
-    console.log('getNonFeaturedBlog JSON:', json); // Debugging information
+    // console.log('getNonFeaturedBlog JSON:', json); // Debugging information
 
     if (json.errors) {
       console.error("getNonFeaturedBlog GraphQL errors:", json.errors);
     }
-
-    // if (!json.data || !json.data.appFastFoodHomePage031523Collection || !json.data.appFastFoodHomePage031523Collection.items) {
-    //   throw new Error("Invalid data format");
-    // }
-
     if (!json.data || !json.data.appFastFoodHomePage031523Collection) {
       return []; // Return an empty array if no data is found
     }
-    const getNonFeaturedBlogData = json.data.appFastFoodHomePage031523Collection.items;
-    const data = getNonFeaturedBlogData;
 
-    console.log('Data:', data);
+    const appFastFoodItems = json.data.appFastFoodHomePage031523Collection.items;
+    const articleNeumadsItems = json.data.articleNeumadsTrailCollection.items;
+
+    const data = {
+      title: appFastFoodItems.map((item) => item.title).concat(articleNeumadsItems.map((item) => item.title)),
+      category: appFastFoodItems.map((item) => item.category).concat(articleNeumadsItems.map((item) => item.category)),
+      featured: appFastFoodItems.map((item) => item.featured).concat(articleNeumadsItems.map((item) => item.featured)),
+      subtext: appFastFoodItems.map((item) => item.overview).concat(articleNeumadsItems.map((item) => item.subtext)),
+      thumbnail: appFastFoodItems.map((item) => item.thumbnail.url).concat(articleNeumadsItems.map((item) => item.thumbnail.url)),
+      slug: appFastFoodItems.map((item) => item.slug).concat(articleNeumadsItems.map((item) => item.slug)),
+      section: appFastFoodItems.map((item) => item.section).concat(articleNeumadsItems.map((item) => item.section)),
+    };
+
+    // console.log('Data:', data);
     return data;
   } catch (err) {
     console.log(err);
   }
 };
-
+      
 
 
 
@@ -468,7 +915,7 @@ export const getFeaturedBlog = async (limit = 6, skip = 1) => {
     );
 
     const json = await response.json();
-    console.log('JSON:', json); // Debugging information
+    // console.log('JSON:', json); 
 
     if (json.errors) {
       console.error("GraphQL errors:", json.errors);

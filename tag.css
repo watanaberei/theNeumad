@@ -1,3 +1,66 @@
+ /* NAV tags */
+ .nav-tags {
+  border-top: 1px solid var(--grey01);
+  display: block;
+  width: 100%;
+}
+
+.nav-tags-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s03);
+}
+
+.nav-tags-menu {
+  display: block;
+  border-bottom: 1px solid var(--grey01);
+  padding-top: 2px;
+  padding-bottom: 2px;
+  width: 100%;
+
+}
+
+.nav-tags-list {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: var(--s03);
+  padding: 5px 0 4px;
+  margin: 0 20px;
+}
+
+.nav-tags-flex {
+  margin: 0px;
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-tags-list li:not(:last-child) {
+
+}
+
+.nav-tags-list li a span {
+  display: inline-block;
+  /* color: var(--ink03); */
+  font-weight: 500;
+  transition: color 300ms ease-out;
+}
+
+.nav-tags-list-divider {
+  height: 10px;
+  color: var(--grey03);
+}
+
+.nav-tags-list li a:hover {
+  color: var(--primary01);
+}
+
+
 .blog-data {
     display: flex;
     flex-direction: row;
@@ -17,15 +80,21 @@
     /* margin-right: var(--s03); */
     /* background-color: var(--primary01); */
     border-radius: 33px;
+    outline-width: 2px;
+    outline-style: solid;
     font-size: var(--text01_D);
     letter-spacing: var(--tracking01_D);
     font-weight: bold;
     text-transform: uppercase;
-    padding: 3px 6px;
+    padding: 6px 9px;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: var(--s03);
+    background: var(--texture);
+  }
+  .section-tag:hover {
+
   }
 
   .section-tag-icon {
@@ -36,7 +105,7 @@
 
   span.section-tag-divider {
     height: 9px;
-    background-color: var(--grey03);
+    /* background-color: var(--grey03); */
   }
 
   .section-tag-text {
@@ -50,16 +119,31 @@
   }
 
   #Work {
-    background-color: var(--green01);
+    outline-color: var(--ink03);
+    background-color: var(--white01);
+    background-image: var(--texture);
+    background-repeat: repeat;
+    color: var(--ink03);
   }
   #Work:hover {
-    background-color: var(--green02);
+    outline-color: var(--ink03);
+    background-color: var(--work02);
+    background-image: var(--texture);
+    background-repeat: repeat;
+    color: var(--white01);
   }
   #Work:active {
-    background-color: var(--green03);
+    background-color: var(--work03);
+    background: var(--texture);
+    outline-color: var(--ink03);
+    color: var(--white03);
   }
   #Dine {
-    background-color: var(--blue01);
+    outline-color: var(--ink03);
+    background-color: var(--white01);
+    background-image: var(--texture);
+    background-repeat: repeat;
+    color: var(--ink03);
   }
   #Dine:hover {
     background-color: var(--blue02);
@@ -68,7 +152,11 @@
     background-color: var(--blue03);
   }
   #Unwind {
-    background-color: var(--yellow01);
+    outline-color: var(--ink03);
+    background-color: var(--white01);
+    background-image: var(--texture);
+    background-repeat: repeat;
+    color: var(--ink03);
   }
   #Unwind:hover {
     background-color: var(--yellow02);
@@ -77,7 +165,11 @@
     background-color: var(--yellow03);
   }
   #Shorts {
-    background-color: var(--purple01);
+    outline-color: var(--ink03);
+    background-color: var(--white01);
+    background-image: var(--texture);
+    background-repeat: repeat;
+    color: var(--ink03);
   }
   #Shorts:hover {
     background-color: var(--purple02);
@@ -86,7 +178,11 @@
     background-color: var(--purple03);
   }
   #Series {
-    background-color: var(--red01);
+    outline-color: var(--ink03);
+    background-color: var(--white01);
+    background-image: var(--texture);
+    background-repeat: repeat;
+    color: var(--ink03);
   }
   #Series:hover {
     background-color: var(--red02);

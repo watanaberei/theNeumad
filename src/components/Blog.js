@@ -16,18 +16,21 @@ function generateTags(keywords) {
 const Blog = {
   
   render: (blog) => {
+    const { tag, thumbnail, slug, title, overview, section, category } = blog;
+    const categories = category.fromEntries(category.entries(categories).map(([ key, val ]) =>
+  [ key.toLowerCase(), val ]))
     const tagElements = generateTags(blog.tag);
 
     return `
           <!--BLOG--> 
           <div class="blog"> 
             <div class="blog-img">
-              <a href="/#/blogs/${blog.slug}">
-              <img src="https:${blog.thumbnail}" alt="" /></a>
+            <a href="/#/article/${categories}/${slug}">
+              <img src="https:${thumbnail}" alt="" /></a>
             </div>
             <div class="blog-text">
               <div class="blog-header">
-                <a href="/#/blogs/${blog.slug}">
+                <a href="/#/${section}/${slug}">
                   <div class="blog-header-container">
                     <span class="blog-title-text bold03">
                     ${
@@ -37,7 +40,7 @@ const Blog = {
                     } 
                     </span> 
                     <span class="blog-overview-text text02">
-                      ${blog.overview}
+                      ${overview}
                     </span>
                   </div>
                 </a>
@@ -48,9 +51,9 @@ const Blog = {
                   <div class="tag-collection">
                       <div class="featured-blog-data-container">
                         
-                          <div class="section-tag" id="${blog.section}">
+                          <div class="section-tag" id="${section}">
                               <span class="section-tag-text text01">
-                                  ${blog.section}
+                                  ${section}
                               </span>
                           </div>
                       </div>
@@ -59,13 +62,13 @@ const Blog = {
                           </div>
                       </div>
                       <div class="featured-blog-data-container">
-                          ${tagElements}
+                          ${tag}
                       </div>   
                       <!--
                       <div class="featured-blog-data-container">
                           <div class="metadata-tag">
                               <span class="metadata-tag-text text01">
-                                ${blog.tag} 
+                                ${tag} 
                               </span>
                           </div>   
                       </div>   

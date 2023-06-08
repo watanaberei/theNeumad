@@ -59,5 +59,94 @@
     height: 12px;
     width: 12px;
     display: block;
+/* Other styles here */
+}
+
+.icon-Places {
+    background: url('images/icon/icon_places.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
     /* Other styles here */
+}
+
+.icon-Series {
+    background: url('images/icon/icon_series.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
+    /* Other styles here */
+}
+
+
+.icon-Stars {
+    background: url('images/icon/icon_stars.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
+    color: var(--white01);
+}
+
+
+
+
+
+
+/* NEUSTAR */
+.icon-Neustar-0of4 {
+    background: url('_assets/icon/neustar/icon_Neustar-0of4.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
+    color: var(--white01);
+}
+
+.icon-Neustar-1of4 {
+    background: url('_assets/icon/neustar/icon_Neustar-0of4.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
+    color: var(--white01);
+}
+
+.icon-Neustar-2of4 {
+    background: url('_assets/icon/neustar/icon_Neustar-0of4.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
+    color: var(--white01);
+}
+
+.icon-Neustar-3of4 {
+    background: url('_assets/icon/neustar/icon_Neustar-0of4.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
+    color: var(--white01);
+}
+
+.icon-Neustar-4of4 {
+    background: url('_assets/icon/neustar/icon_Neustar-0of4.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
+    color: var(--white01);
+}
+/* NEUSTAR */
+
+
+
+
+
+
+
+
+
+/* WEATHER */
+.icon-weather-default {
+    background: url('images/icon/weather/icon-weather-default.svg') no-repeat;
+    height: 15px;
+    width: 15px;
+    display: block;
+    color: var(--white01);
 }

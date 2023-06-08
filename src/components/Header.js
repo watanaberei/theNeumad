@@ -1,24 +1,35 @@
-// Header.js
+// src/screens/Header.js
+import { weatherData, fetchCityWeatherData } from './weatherReport.js';
+import LocationInput from '../components/locationInput.js';
+import fetchDateTime from  '../components/timeApi.js';
 
-import { getBlogs } from "../api";
+// Add city to timezone mapping
+const cityTimezoneMapping = {
+  'New York': 'America/New_York',
+  'Texas': 'America/Chicago',
+  // Add other city to timezone mappings here
+};
+
+
+
 
 const Header = {
-  
-  render: () => {
+  render: async () => {
+    const weatherReport = await fetchCityWeatherData('New York'); // replace 'New York' with the desired location
+    const { datetime } = await fetchDateTime(cityTimezoneMapping['New York']); // replace 'New York' with the same location as above
+
+    const currentTemp = weatherReport.main.temp;
+    const currentLocation = weatherReport.name;
+    const currentDate = new Date(datetime).toDateString();
+
+
     const newLocal=`<nav class="navigation container nav-top">
 
           <section class="nav-reportBar">
             <div class="nav-reportBar-content">
               <div class="nav-reportBar-content-container">
                 <div class="nav-reportBar-content-wrapper">
-                  <span class="text01">Report Bar Content 01</span>
-                  <span class="text01">Data 01</span>
-                  <span class="text01">Data 02</span>
-                </div>
-                <div class="nav-reportBar-content-wrapper">
-                  <span class="text01">Report Bar Content 01</span>
-                  <span class="text01">Data 01</span>
-                  <span class="text01">Data 02</span>
+                  
                 </div>
               </div>
             </div>
@@ -40,8 +51,10 @@ const Header = {
                     <img src="./_assets/_brand/logo/neumad_logo_text_light.svg" alt="">
                 </div>
               </div>
+              <!-- search -->
+              
               <div class="nav-utility-right">
-                <!-- search -->
+                <!--
                 <div class="search-wrapper">
                     <header class="main-search clearfix">
                       <button type="button" class="btn pull-right" id="search-toggle">
@@ -56,8 +69,8 @@ const Header = {
                         </div>
                       </div>
                     </header>
-                    <!--
-                    div class="search-container">
+
+                    <div class="search-container">
                       <div class="search-results">
                         <ul>
                           <li>You can show search results here.</li>
@@ -67,7 +80,13 @@ const Header = {
                         </ul>
                       </div>
                     </div>
-                    -->
+
+                  </div>
+                  -->
+                  <div class="search-wrapper">
+                    <header class="main-search clearfix">
+                      <div id="location-input-container"></div>
+                    </header>
                   </div>
               </div>
             </div>
@@ -79,13 +98,13 @@ const Header = {
           <section class="nav-mid">
             <div class="nav-mid-left"> 
               <div class="current-date current-data">
-                <span class="text01" data-testid="current-date">
-                  Friday, April 7, 2023
+                <span class="bold01" data-testid="current-date">
+                  ${currentDate}
                 </span>
               </div> 
               <div class="current-location current-data">
                 <span class="text01" data-testid="current-location">
-                  LA, California
+                  ${currentLocation}
                 </span>
               </div>
             </div> 
@@ -98,16 +117,16 @@ const Header = {
             <div class="nav-mid-right">
               <div class="current-temp current-data">
                 <i class="bx bx-cloud"></i>
-                <span class="text01" data-testid="current-temp">
-                  63°F 
+                <span class="bold01" data-testid="current-temp">
+                  ${currentTemp}°F 
                 </span>
               </div>
-              <div class="current-location current-data">
-                <span class="text01" data-testid="current-location">
-                  LA, California
+              <div class="current-time current-data">
+                <span class="text01" data-testid="current-time">
+                  ${datetime}
                 </span>
               </div>
-           </div>
+            </div>
           </section>
   
           <section class="nav-tags">
@@ -132,10 +151,10 @@ const Header = {
                     <a href="/#/work">
                       <div class="section-tag" id="Work">
                         <i class="section-tag-icon icon-Work"></i>
-                        <span class="section-tag-divider">
+                        <!--<span class="section-tag-divider">
                           <div class="lineV"></div>
-                        </span>
-                        <span class="section-tag-text medium01">
+                        </span>-->
+                        <span class="section-tag-text bold01">
                             Work
                         </span>
                       </div>
@@ -146,10 +165,10 @@ const Header = {
                     <a href="/#/dine">
                       <div class="section-tag" id="Dine">
                         <i class="section-tag-icon icon-Dine"></i>
-                        <span class="section-tag-divider">
+                        <!--<span class="section-tag-divider">
                           <div class="lineV"></div>
-                        </span>
-                        <span class="section-tag-text medium00">
+                        </span>-->
+                        <span class="section-tag-text bold01">
                             Dine
                         </span>
                       </div>
@@ -160,10 +179,10 @@ const Header = {
                     <a href="/#/unwind">
                       <div class="section-tag" id="Unwind">
                         <i class="section-tag-icon icon-Unwind"></i>
-                        <span class="section-tag-divider">
+                        <!--<span class="section-tag-divider">
                           <div class="lineV"></div>
-                        </span>
-                        <span class="section-tag-text medium01">
+                        </span>-->
+                        <span class="section-tag-text bold01">
                             Unwind
                         </span>
                       </div>
@@ -174,10 +193,10 @@ const Header = {
                     <a href="/#/shorts">
                       <div class="section-tag" id="Shorts">
                         <i class="section-tag-icon icon-Shorts"></i>
-                        <span class="section-tag-divider">
+                        <!--<span class="section-tag-divider">
                           <div class="lineV"></div>
-                        </span>
-                        <span class="section-tag-text medium01">
+                        </span>-->
+                        <span class="section-tag-text bold01">
                           Shorts
                         </span>
                       </div>
@@ -188,16 +207,43 @@ const Header = {
                     <a href="/#/series">
                       <div class="section-tag" id="Series">
                         <i class="section-tag-icon icon-Series"></i>
-                        <span class="section-tag-divider">
+                        <!--<span class="section-tag-divider">
                           <div class="lineV"></div>
-                        </span>
-                        <span class="section-tag-text medium01">
+                        </span>-->
+                        <span class="section-tag-text bold01">
                           Series
                         </span>
                       </div>
                     </a>
                   </li>
 
+                  <li>
+                    <a href="/#/Map">
+                      <div class="section-tag" id="Location">
+                        <i class="section-tag-icon icon-Places"></i>
+                        <!--<span class="section-tag-divider">
+                          <div class="lineV"></div>
+                        </span>-->
+                        <span class="section-tag-text bold01">
+                          Places
+                        </span>
+                      </div>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="/#/reviews">
+                      <div class="section-tag" id="Reviews">
+                        <i class="section-tag-icon icon-Reviews"></i>
+                        <!--<span class="section-tag-divider">
+                          <div class="lineV"></div>
+                        </span>-->
+                        <span class="section-tag-text bold01">
+                        Reviews
+                        </span>
+                      </div>
+                    </a>
+                  </li>
                   
                   
                   <div class="nav-list-divider">
@@ -337,7 +383,101 @@ const Header = {
         </nav>`;  
     return newLocal;  
   },
-  after_render: () => {
+  after_render: async () => {
+    const cityName = "New York";
+
+    await fetchCityWeatherData(cityName);
+
+    const locationInput = new LocationInput();
+    locationInput.create();
+    document.getElementById('location-input-container').appendChild(locationInput.inputElement);
+    document.getElementById('location-input-container').appendChild(locationInput.submitButton);
+
+    // Update event listener for submitButton
+    // Inside the event listener in after_render
+    locationInput.submitButton.addEventListener('click', async () => {
+      const cityName = locationInput.inputElement.value;
+      const urlFriendlyCityName = cityName.replace(' ', '_'); // Replace spaces with underscore for URLs
+
+      await fetchCityWeatherData(urlFriendlyCityName);
+
+      // Fetch the time for the entered city
+      const timezone = cityTimezoneMapping[location];
+      fetchDateTime(timezone).then(dateTime => {
+        //use dateTime here
+        document.querySelector('[data-testid="current-date"]').innerText = dateTime;
+      });
+      if (!timezone) {
+        console.error(`No timezone mapping for city: ${cityName}`);
+      } else {
+        const dateTimeData = await fetchDateTime(timezone);
+        const dateTime = dateTimeData.datetime; // Replace this with actual property key if different
+      }
+
+      const weatherDataForCity = weatherData[cityName];
+
+      if (!weatherDataForCity) {
+        console.error(`No weather data for city: ${cityName}`);
+        return;
+      }
+
+      // Update the date and location spans
+      const currentDateElement = document.querySelector('[data-testid="current-date"]');
+      const currentLocationElement = document.querySelectorAll('[data-testid="current-location"]');
+      const currentTempElement = document.querySelector('[data-testid="current-temp"]');
+      const currentTimeElement = document.querySelector('[data-testid="current-time"]');
+
+      if (currentDateElement) {
+        currentDateElement.innerText = dateTime; // Updated with the fetched dateTime
+      }
+
+      currentLocationElement.forEach((element) => {
+        element.innerText = cityName;
+      });
+
+      if (currentTempElement) {
+        currentTempElement.innerText = `${weatherDataForCity.temperature}°F`;
+      }
+
+      // Also update time
+      if (currentTimeElement) {
+        currentTimeElement.innerText = dateTime; // Replace with the correct property for time
+      }
+
+
+      // Then, use the data to update your span elements
+      const weatherReportTitle = document.querySelector('.weatherReport_title');
+      if (weatherReportTitle) {
+        weatherReportTitle.innerText = weatherDataForCity.cityTitle;
+      }
+
+      document.querySelector('.weatherReport_temp').innerText = `${weatherDataForCity.temperature}°F`;
+      document.querySelector('.weatherReport_description').innerText = weatherDataForCity.description;
+      document.querySelector('.weatherReport_humidity').innerText = `${weatherDataForCity.humidity}% Humidity`;
+      document.querySelector('.weatherReport_wind').innerText = `${weatherDataForCity.windSpeed} Km/h Wind speed`;
+    });
+    // const cityName = "New York";
+
+    // await fetchCityWeatherData(cityName);
+
+    // const weatherDataForCity = weatherData[cityName];
+
+    // if (!weatherDataForCity) {
+    //   console.error(`No weather data for city: ${cityName}`);
+    //   return;
+    // }
+
+    // // Then, use the data to update your span elements
+    // const weatherReportTitle = document.querySelector('.weatherReport_title');
+    // if (weatherReportTitle) {
+    //   weatherReportTitle.innerText = weatherDataForCity.cityTitle;
+    // }
+
+    // document.querySelector('.weatherReport_temp').innerText = `${weatherDataForCity.temperature}°F`;
+    // document.querySelector('.weatherReport_description').innerText = weatherDataForCity.description;
+    // document.querySelector('.weatherReport_humidity').innerText = `${weatherDataForCity.humidity}% Humidity`;
+    // document.querySelector('.weatherReport_wind').innerText = `${weatherDataForCity.windSpeed} Km/h Wind speed`;
+
     const navList = document.querySelector(".nav-menu");
     const hamburger = document.querySelector(".hamburger");
     const header = document.querySelector(".header");
@@ -362,6 +502,7 @@ const Header = {
         headerMid.classList.remove("hide");
         utilityLogo.classList.remove("show");
       }
+      
     });
 
     // Search

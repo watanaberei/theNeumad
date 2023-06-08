@@ -33,10 +33,11 @@
 /* REPORT BAR NAV  */
 .nav-reportBar {
     /* height: 15px; */
+    height: 30px;
     width: 100vw;
     overflow-x: hidden;
-    color: var(--white01);
-    background-color: var(--green02);
+    color: var(--ink03);
+    /* background-color: var(--green02); */
 }
 
 .nav-reportBar-container {
@@ -68,12 +69,12 @@
 
 .nav-reportBar-content {
   display: block; /* Important to give the content a width */
-
+  height: 100%;
   width: 100%;
-  transform: translateX(100%); /* Animation start out of the screen */
+  transform: translateX(-30%); /* Animation start out of the screen */
 
   /* Add the animation */
-  animation: move 30s linear infinite /* infinite make reapeat the animation indefinitely */;
+  animation: move 130s linear infinite /* infinite make reapeat the animation indefinitely */;
 }
 
 /* Create the animation */
@@ -82,9 +83,15 @@
 }
 
 .nav-reportBar-content-container {
- display: flex;
- flex-direction: row;
- gap: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  margin: auto;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .nav-reportBar-content-item{
@@ -95,7 +102,40 @@
 .nav-reportBar-content-wrapper {
  display: flex;
  flex-direction: row;
+ gap: 30px;
 }
+
+.nav-reportBar-content-wrapper-item {
+  display: flex;
+  flex-direction: row;
+  gap: var(--s03);
+}
+
+.weatherReport {
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.weather-description-icon {
+  height: 18px;  
+  height: 18px;
+
+}
+
+.weatherReport_description {
+  display: flex;
+  flex-direction: row;
+  gap: var(--s02);
+}
+
+.weatherReport_details {
+  display: flex;
+  flex-direction: row;
+  gap: var(--s02);
+}
+
 
 
 
@@ -239,67 +279,7 @@
 
 
 
-  /* NAV tags */
-  .nav-tags {
-    border-top: 1px solid var(--grey01);
-    display: block;
-    width: 100%;
-  }
-
-  .nav-tags-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--s03);
-  }
-
-  .nav-tags-menu {
-    display: block;
-    border-bottom: 1px solid var(--grey01);
-    padding-top: 2px;
-    padding-bottom: 2px;
-    width: 100%;
-
-  }
-
-  .nav-tags-list {
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    gap: var(--s02);
-    padding: 5px 0 4px;
-    margin: 0 20px;
-  }
-
-  .nav-tags-flex {
-    margin: 0px;
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .nav-tags-list li:not(:last-child) {
-
-  }
-  
-  .nav-tags-list li a span {
-    display: inline-block;
-    color: var(--ink03);
-    font-weight: 500;
-    transition: color 300ms ease-out;
-  }
-
-  .nav-tags-list-divider {
-    height: 10px;
-    color: var(--grey03);
-  }
-  
-  .nav-tags-list li a:hover {
-    color: var(--primary01);
-  }
+ 
 
 
 

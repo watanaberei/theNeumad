@@ -1,4 +1,4 @@
-// WorkBlog.js
+// src/component/WorkBlog.js
 import { format, parseISO } from "date-fns";
 
 const WorkBlog = {

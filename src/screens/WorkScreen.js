@@ -1,4 +1,4 @@
-// HomeScreen.js
+// src/Screen/WorkScreen.js
 import { getWorkBlog, getWorkFeaturedBlog } from "../api.js";
 
 import WorkBlog from "../components/WorkBlog.js";

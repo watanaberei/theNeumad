@@ -50,6 +50,39 @@
   --red02: #EC4010;
   --red03: #EC4010;
 
+
+  --texture: url('images/brand/style/background/solid/neumad_background_solid-pattern.png') repeat;
+
+
+
+  --work01: #43F53F;
+  --work02: #295528;
+  --work03: #0A2D09;
+
+  --dine01: #AAE2F4;
+  --dine02: #45AFE2;
+  --dine03: #3E93D6;
+
+  --unwind01: #FED259;
+  --unwind02: #FED259;
+  --unwind03: #FED259;
+
+  --shorts01: #DFD7FF;
+  --shorts02: #E3A9FF;
+  --shorts03: #E3A9FF;
+
+  --series01: #F97C58;
+  --series02: #EC4010;
+  --series03: #EC4010;
+
+  --map01: #F97C58;
+  --map02: #EC4010;
+  --map03: #EC4010;
+
+
+
+
+
   --white01: #FDFDFD;
   --white02: #FDFDFD;
   --white03: #E9E9E9;
