@@ -34,7 +34,7 @@ const HomeScreen = {
     const primaryFeaturedBlogs = articlePrimaryBlogNeumadsItems.slice(0).slice(-1);
     const featuredBlogs = articleFeaturedBlogNeumadsItems.slice(1).slice(-2);
     const blogs = blogDatas.slice(3);
-  
+  console.log("blogs",blogs);
     return `
       <div>
         <div class="featured-blog-layout container" id="featured-blog-layout">

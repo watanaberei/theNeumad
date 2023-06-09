@@ -2,14 +2,18 @@
 const PrimaryFeaturedBlog = {
     render: (primaryFeaturedBlog) => {
       // Destructure the properties from the primaryFeaturedBlog object
-      const {tag, relatedReferences, slug,  media, category, headline } = primaryFeaturedBlog;
+      const {tag, relatedReferences, slug,  media, category, headline, location } = primaryFeaturedBlog;
       const tags = tag && tag.length ? tag[0].tags : [];
       const headlines = headline || [];
       const title = headlines.text;
       const medias = media || [];
+      const locations = location || [];
+      const coordinate = locations.geolocation;
       const thumbnail = medias.thumbnail;
       const references = relatedReferences || [];
-        console.log("title: ", title);
+        console.log("coordinate: ", coordinate);
+
+        
   
       // Generate tags HTML
       const limitedTags03 = tags.slice(0, 3);

@@ -1,0 +1,90 @@
+const CustomMarker = (props) => {
+    const { name, address, phone } = props.properties;
+    const marker = document.createElement('div');
+    marker.className = 'custom-marker';
+    marker.title = name;
+    // create and add icon image to marker
+    const icon = document.createElement('img');
+    icon.src = 'url/to/custom/icon.png';
+    marker.appendChild(icon);
+    
+    // create and add popup to marker
+    const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
+        <h3>${name}</h3>
+        <p>${address}</p>
+        <p>${phone}</p>
+    `);
+    marker.addEventListener('mouseenter', () => popup.addTo(map));
+    marker.addEventListener('mouseleave', () => popup.remove());
+    
+    return new mapboxgl.Marker(marker).setLngLat(props.geometry.coordinates);
+    };
+    export default CustomMarker;
+
+
+
+
+
+
+// import mapboxgl from 'mapbox-gl';
+
+// function Marker(feature) {
+//   const el = document.createElement('div');
+//   el.className = 'marker';
+//   el.style.backgroundImage = `url(https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png)`;
+//   el.style.width = '50px';
+//   el.style.height = '50px';
+
+//   el.addEventListener('click', () => {
+//     window.alert(feature.properties.title);
+//   });
+
+//   return new mapboxgl.Marker(el)
+//     .setLngLat(feature.geometry.coordinates);
+// }
+// export default Marker;
+
+// function Marker(feature) {
+//     const el = document.createElement('div');
+//     el.className = 'marker';
+//     el.style.backgroundImage = `url(https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png)`;
+//     el.style.width = '50px';
+//     el.style.height = '50px';
+  
+//     el.addEventListener('click', () => {
+//       window.alert(feature.properties.title);
+//     });
+  
+//     return new mapboxgl.Marker(el)
+//       .setLngLat(feature.geometry.coordinates);
+//   }
+//   export default Marker;
+
+
+
+
+//   CustomMarker.js:
+//   This file should contain the code for creating custom markers with icons, popups, and other styles. You can use the Mapbox API's Maki icon set or create your custom icons with SVG or PNG images. Here is an example CustomMarker component structure:
+
+//   const CustomMarker = (props) => {
+//     const { name, address, phone } = props.properties;
+//     const marker = document.createElement('div');
+//     marker.className = 'custom-marker';
+//     marker.title = name;
+//     // create and add icon image to marker
+//     const icon = document.createElement('img');
+//     icon.src = 'url/to/custom/icon.png';
+//     marker.appendChild(icon);
+    
+//     // create and add popup to marker
+//     const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
+//         <h3>${name}</h3>
+//         <p>${address}</p>
+//         <p>${phone}</p>
+//     `);
+//     marker.addEventListener('mouseenter', () => popup.addTo(map));
+//     marker.addEventListener('mouseleave', () => popup.remove());
+    
+//     return new mapboxgl.Marker(marker).setLngLat(props.geometry.coordinates);
+//     };
+    

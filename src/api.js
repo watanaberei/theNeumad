@@ -33,7 +33,7 @@ const client = createClient({
 
 
 
-export const getArticleNeumadsTrail = async (limit = 9, skip = 0) => {
+export async function getArticleNeumadsTrail(limit = 9, skip = 0) {
   try {
     const query = `
     query {
@@ -47,6 +47,17 @@ export const getArticleNeumadsTrail = async (limit = 9, skip = 0) => {
           headline {
             ... on Headline {
               text
+            }
+          }
+          location {
+            ... on ContentTypeLocation {
+              type
+              geolocation {
+                lat
+                lon
+              }
+              address
+              region
             }
           }
           featured
@@ -198,6 +209,15 @@ export const getArticleNeumadsTrail = async (limit = 9, skip = 0) => {
         headline: {
           text: article?.headline?.text,
         },
+        location: {
+          type: article?.location?.type,
+          geolocation: {
+            lat: article?.location?.geolocation?.lat,
+            lon: article?.location?.geolocation?.lon,
+          },
+          address: article?.location?.address,
+          region: article?.location?.region,
+        },
         featured: article?.featured,
         slug: article?.slug,
         category: article?.category,
@@ -289,6 +309,17 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
             id
           }
           title
+          location {
+            ... on ContentTypeLocation {
+              type
+              geolocation {
+                lat
+                lon
+              }
+              address
+              region
+            }
+          }
           featured
           store{
             ... on Stores {
@@ -481,6 +512,8 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
           body: JSON.stringify({ query }),
         }
       );
+
+    
   
       const json = await response.json();
       // console.log('storesNeumadsTrail JSON:', json); // Debugging information
@@ -499,6 +532,15 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
       return {
         ...stores,
         title: stores?.title,
+        location: {
+          type: store?.location?.type,
+          geolocation: {
+            lat: store?.location?.geolocation?.lat,
+            lon: store?.location?.geolocation?.lon,
+          },
+          address: store?.location?.address,
+          region: store?.location?.region,
+        },
         slug: stores?.slug,
         featured: stores?.featured,
         store: {
@@ -631,8 +673,8 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
       };
     });
     documentToPlainTextString(getStoresNeumadsReview);
-    console.log('Data for getStoresNeumadsReview data:', data);
-    console.log('Data for getStoresNeumadsReview:', getStoresNeumadsReview);
+    // console.log('Data for getStoresNeumadsReview data:', data);
+    // console.log('Data for getStoresNeumadsReview:', getStoresNeumadsReview);
     return data;
   } catch (err) {
     console.error(err);

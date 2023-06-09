@@ -1,45 +1,197 @@
 // src/screens/MapScreen.js
-import { getArticleNeumadsTrail } from "../api.js";
 import MapApi from '../components/MapApi.js';
+import { geojsonStore } from '../components/GeojsonStores.js';  
+import CustomMarker from '../components/MapMarker.js';
+import GeojsonListing from '../components/GeojsonListing.js';
+import { getArticleNeumadsTrail } from "../api.js";
 
 
 
 const MapScreen = {
   render: async () => {
     return `
-    <div class="content">
-      <div class="mapContainer">
-        <div class="sidebar">
-          <div class="heading">
-            <h1>Nearby Articles</h1>
+      <div class="content">
+        <div class="map-container">
+          <div class="sidebar">
+            <div class="heading">
+              <h1>Nearby Storesf</h1>
+              <input id="search-input" type="text" placeholder="Search Stores">
+              <button id="search-button">Go</button>
+            </div>
+            <div id="listings-container" class="listings"></div>
           </div>
-          <div id="listings" class="listings"></div>
+          <div id="map-container" class="map"></div>
         </div>
-        <div id="map" class="map"></div>
-      </div> 
-    </div>
+      </div>
     `;
-  },
+  }, 
   after_render: async () => {
-    const mapComponent = new MapApi();
+    // Initialize the map and markers
+    const { map, markers } = MapApi.initMap();
+  
+    const storeData = await getArticleNeumadsTrail(); // Use the function that fetches your data
+    const Geojson = geojsonStore(storeData);
+
+    console.log("storeData",storeData);
+    console.log("Geojson",Geojson);
+    console.log("markers",markers);
+    // Create custom markers for each store
+    Geojson.forEach((feature, index) => {
+      const { geometry, properties } = feature;
+      const { coordinates } = geometry;
+      const { title, description } = properties;
+
+      console.log("geometry",geometry);
+      console.log("properties",properties);
+
     
-    const contentElement = document.getElementById("content");
-    const listingsElement = contentElement.querySelector("#listings");
-    const mapElement = contentElement.querySelector("#map");
+      const marker = CustomMarker(feature);
+      console.log("marker",marker);
+      marker.addTo(map);
+      markers[index] = marker;
+    });
+  
+    // Create and add listings to the map screen
+    const listings = GeojsonListing(Geojson);
+    document.getElementById('listings-container').appendChild(listings);
 
-    console.log("Listings Element:", listingsElement); // Add logging
-    console.log("Map Element:", mapElement); // Add logging
+    // Add search input and button event listeners
+    document.getElementById('search-input').addEventListener('input', (e) => {
+      const filter = e.target.value.trim().toLowerCase();
+      listings.querySelectorAll('.store').forEach((store) => {
+        const { name, address } = Geojson.features[store.dataset.id].properties;
+        const text = `${name} ${address}`.toLowerCase();
+        store.style.display = text.includes(filter) ? 'block' : 'none';
+      });
+    });
+    document.getElementById('search-button').addEventListener('click', () => {
+      const id = listings.querySelector('.store.active').dataset.id;
+      const marker = markers[id];
+      map.flyTo({ center: marker.getLngLat(), zoom: 16 });
+    });
 
-    const mapData = await getArticleNeumadsTrail();
-    console.log("Map Data:", mapData); // Add logging
-
-    mapComponent.initializeMap(mapData, mapElement, listingsElement);
-    console.log("mapComponent has been loaded", mapData);
+    console.log("Markers:", markers); // Add logging
   }
 };
 
 export default MapScreen;
 
+
+
+// initialize Mapbox API and create custom markers
+// const { map, markers } = MapApi.initMap();
+// Geojson.features.forEach((feature) => {
+//   const marker = CustomMarker(feature);
+//   marker.addTo(map);
+//   markers.push(marker);
+// });
+
+// // create and add listings to the map screen
+// const listings = GeojsonListing(Geojson);
+// document.getElementById('listings-container').appendChild(listings);
+// // add search input and button event listeners
+// document.getElementById('search-input').addEventListener('input', (e) => {
+//   const filter = e.target.value.trim().toLowerCase();
+//   listings.querySelectorAll('.store').forEach((store) => {
+//     const { name, address } = Geojson.features[store.dataset.id].properties;
+//     const text = `${name} ${address}`.toLowerCase();
+//     store.style.display = text.includes(filter) ? 'block' : 'none';
+//   });
+// });
+// document.getElementById('search-button').addEventListener('click', () => {
+//   const id = listings.querySelector('.store.active').dataset.id;
+//   const marker = markers[id];
+//   map.flyTo({ center: marker.getLngLat(), zoom: 16 });
+// });
+// // render the map screen
+// document.getElementById('map-container').appendChild(map.getCanvasContainer());
+
+
+
+
+
+// import { getArticleNeumadsTrail } from "../api.js";
+// import MapApi from '../components/MapApi.js';
+// import GeopostReviews from '../components/GeopostReviews.js';
+
+// const MapScreen = {
+//   render: async () => {
+//     return `
+//     <div class="content">
+//       <div class="mapContainer">
+//         <div class="sidebar">
+//           <div class="heading">
+//             <h1>Nearby Articles</h1>
+//           </div>
+//           <div id="listings" class="listings"></div>
+//         </div>
+//         <div id="map" class="map"></div>
+//       </div> 
+//     </div>
+//     `;
+//   },
+//   after_render: async () => {
+//     const mapComponent = await MapApi(); // You need to await for MapApi() to resolve
+//     await mapComponent.initMap();
+
+//     const contentElement = document.getElementById("content");
+//     const listingsElement = contentElement.querySelector("#listings");
+//     const mapElement = contentElement.querySelector("#map");
+
+//     console.log("Listings Element:", listingsElement); // Add logging
+//     console.log("Map Element:", mapElement); // Add logging
+//   }
+// };
+
+// export default MapScreen;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { getArticleNeumadsTrail } from "../api.js";
+// import MapApi from '../components/MapApi.js';
+// import GeopostReviews from '../components/GeopostReviews.js';
+
+// const MapScreen = {
+//   render: async () => {
+//     return `
+//     <div class="content">
+//       <div class="mapContainer">
+//         <div class="sidebar">
+//           <div class="heading">
+//             <h1>Nearby Articles</h1>
+//           </div>
+//           <div id="listings" class="listings"></div>
+//         </div>
+//         <div id="map" class="map"></div>
+//       </div> 
+//     </div>
+//     `;
+//   },
+//   after_render: async () => {
+//     const mapComponent = MapApi();
+//     await mapComponent.initMap();
+
+//     const contentElement = document.getElementById("content");
+//     const listingsElement = contentElement.querySelector("#listings");
+//     const mapElement = contentElement.querySelector("#map");
+
+//     console.log("Listings Element:", listingsElement); // Add logging
+//     console.log("Map Element:", mapElement); // Add logging
+//   }
+// };
+
+// export default MapScreen;
 
 
 

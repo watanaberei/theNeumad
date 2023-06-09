@@ -6,6 +6,11 @@
   height:50%;
   width: 75%;
 }
+.map-container {
+  position: fixed;
+  min-height: 70%;
+  width: 100%;
+}
 .sidebar {
   position: absolute;
   width: 33.3333%;

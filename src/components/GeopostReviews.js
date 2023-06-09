@@ -1,11 +1,11 @@
-// src/component/GeopostReviews.js
-import { getArticleNeumadsTrail } from '../api';
+// src/components/GeopostReviews.js
+
+import * as turf from '@turf/turf';
+import { getStoresNeumadsReview, getArticleNeumadsTrail } from '../api.js';
 
 class GeopostReviews {
   constructor() {
-    this.stores = null;
-    this.mapboxgl.accessToken = 'pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsaG53eXJjbjFwbWEzbnFzNms1bzhpYXUifQ.y-7_YrQsMtwBcyreTeqOww';
-    this.map = null;
+    this.data = [];
   }
 
   async initializeMap() {
@@ -13,43 +13,67 @@ class GeopostReviews {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/neumad/cli7nxj9700wz01r50nn9d19d',
-      center: [this.stores.features[0].geometry.coordinates[0], this.stores.features[0].geometry.coordinates[1]],
+      center: [this.stores.location[0].geolocation.coordinates.lat, this.stores.location[0].geolocation.coordinates.lon],
       zoom: 13,
-      scrollZoom: false
+      scrollZoom: true
     });
+    console.log("map:",map);
+    console.log("stores:",stores[0]);
+    
 
     // Proceed with the same map functionalities as in the MapApi.js file...
   }
 
-  async getStoreData() {
-    let articles = await getArticleNeumadsTrail();
-    let features = articles.map((article, i) => {
-      let feature = {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [
-            article.storeNeumadsReviewCollection.storeGeolocation.lon,
-            article.storeNeumadsReviewCollection.storeGeolocation.lat
-          ]
-        },
-        "properties": {
-          "id": i,
-          "address": article.storeNeumadsReviewCollection.address,
-          "phone": article.storeNeumadsReviewCollection.phone,
-          // Add here the other properties required for the marker...
-        }
-      };
-      return feature;
-    });
+  async getStoreData(searchResult) {
+    try {
+      const data = await getArticleNeumadsTrail();
+      if (data) {
+        const processedData = data.map(store => {
+          if (store.storeNeumadsReviewCollection && store.storeNeumadsReviewCollection.location) {
+            let lat = store.location.geolocation.lat;
+            console.log("lat:",lat);
+            let lon = store.location.geolocation.lon;
+            let coordinates = [lon, lat];
+            let from = turf.point(searchResult);
+            let to = turf.point(coordinates);
+            let options = {units: 'miles'};
+            let distance = turf.distance(from, to, options);
 
-    return {
-      "type": "FeatureCollection",
-      "features": features
-    };
+
+            console.log("coordinates:",coordinates[0]);
+            
+            // Construct a GeoJSON feature for each store
+            return {
+              type: 'Feature',
+              properties: {
+                ...store,
+                distance
+              },
+              geometry: {
+                type: 'Point',
+                coordinates
+              }
+            };
+
+
+            
+          } else {
+            console.warn('Review does not have valid storeGeolocation data.');
+            return null;
+          }
+        }).filter(item => item !== null);  // Filter out null items
+        
+        // Construct a GeoJSON feature collection
+        this.data = {
+          type: 'FeatureCollection',
+          features: processedData
+        };
+        console.error('data', data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch store data:', error);
+    }
   }
-
-  // Add here other functions like addMarkers(), buildLocationList()...
 }
 
 export default GeopostReviews;
