@@ -32,7 +32,7 @@ import { parseRequestUrl } from "./utils.js";
 // app.use(express.json());
 
 // Enable CORS
-// app.use(cors());
+//  
 
 const routes = {
   "/": HomeScreen,

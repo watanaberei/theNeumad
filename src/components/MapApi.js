@@ -3,44 +3,126 @@ import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsaHZxdzJrMDBhbjkzZm4weXI1bGlybTMifQ.oQDmvQmIA04AVPDNOV-l8Q';
 
-const MapApi = {
-  initMap: () => {
-    const map = new mapboxgl.Map({
-      container: 'map-container',
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-118.1937, 33.7701], // default coordinates
-      zoom: 12 // default zoom level
-    });
-    const markers = [];
-    return { map, markers };
-  },
+export function initMap() {
+  const map = new mapboxgl.Map({
+    container: 'map-container',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-77.04, 38.907],
+    zoom: 11.15
+  });
+  return map;
+}
 
-  addMarker: (lngLat) => {
-    new mapboxgl.Marker()
-      .setLngLat(lngLat)
-      .addTo(MapApi.map);
-  },
+// mapboxgl.accessToken = 'pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsaHZxdzJrMDBhbjkzZm4weXI1bGlybTMifQ.oQDmvQmIA04AVPDNOV-l8Q';
+// const MapApi = {
+//   initMap: () => {
+//     const map = new mapboxgl.Map({
+//       container: 'map-container',
+//       style: 'mapbox://styles/mapbox/streets-v11',
+//       center: [-118.1937, 33.7701], // default coordinates
+//       zoom: 12 // default zoom level
+//     });
+//     const markers = [];
+//     const listings =  [];
+//     return { map, markers, listings };
+//   },
 
-  addPopup: (lngLat, text) => {
-    new mapboxgl.Popup()
-      .setLngLat(lngLat)
-      .setHTML(text)
-      .addTo(MapApi.map);
-  },
+//   addMarker: (lngLat) => {
+//     new mapboxgl.Marker()
+//       .setLngLat(lngLat)
+//       .addTo(MapApi.map);
+//   },
 
-  geolocate: () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        const { longitude, latitude } = position.coords;
-        MapApi.map.flyTo({ center: [longitude, latitude], zoom: 15 });
-      });
-    } else {
-      alert('Geolocation is not supported by this browser.');
-    }
-  }
-};
+//   addPopup: (lngLat, text) => {
+//     new mapboxgl.Popup()
+//       .setLngLat(lngLat)
+//       .setHTML(text)
+//       .addTo(MapApi.map);
+//   },
 
-export default MapApi;
+//   buildLocationList(stores, listingsContainer) {
+//     stores.forEach((store) => {
+//       const { properties } = store;
+//       const { id, address, city, phoneFormatted, distance } = properties;
+  
+//       /* Add a new listing section to the sidebar. */
+//       const listing = document.createElement('div');
+//       const link = document.createElement('a');
+//       const details = document.createElement('div');
+  
+//       /* Assign a unique `id` to the listing. */
+//       listing.id = `listing-${id}`;
+//       /* Assign the `item` class to each listing for styling. */
+//       listing.className = 'item';
+  
+//       /* Add the link to the individual listing created above. */
+//       link.href = '#';
+//       link.className = 'title';
+//       link.id = `link-${id}`;
+//       link.innerHTML = `${address}`;
+  
+//       /* Add details to the individual listing. */
+//       details.innerHTML = `${city}`;
+//       if (phoneFormatted) {
+//         details.innerHTML += ` · ${phoneFormatted}`;
+//       }
+//       if (distance) {
+//         const roundedDistance = Math.round(distance * 100) / 100;
+//         details.innerHTML += `<div><strong>${roundedDistance} miles away</strong></div>`;
+//       }
+  
+//       /* Append the link and details to the listing. */
+//       listing.appendChild(link);
+//       listing.appendChild(details);
+  
+//       /* Add the listing to the listings container. */
+//       listingsContainer.appendChild(listing);
+  
+//       /* Add a click event listener to the link that pans to the corresponding marker. */
+//       link.addEventListener('click', () => {
+//         const marker = markers.find((m) => m.getElement().dataset.id === id);
+//         map.flyTo({ center: marker.getLngLat(), zoom: 16 });
+//         marker.togglePopup();
+//       });
+//     });
+//   },
+
+//   geolocate: () => {
+//     if (navigator.geolocation) {
+//       navigator.geolocation.getCurrentPosition(position => {
+//         const { longitude, latitude } = position.coords;
+//         MapApi.map.flyTo({ center: [longitude, latitude], zoom: 15 });
+//       });
+//     } else {
+//       alert('Geolocation is not supported by this browser.');
+//     }
+//   },
+
+//   addListing: (stores) => {
+//     buildLocationList(stores);
+//   }
+
+  
+// };
+
+// export default MapApi;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // import GeopostReviews from './GeopostReviews';

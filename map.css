@@ -7,10 +7,14 @@
   width: 75%;
 }
 .map-container {
-  position: fixed;
-  min-height: 70%;
-  width: 100%;
+  display: block;
+  z-index: 33;
+  position: absolute;
+  bottom: 0;
+  height:50%;
+  width: 75%;
 }
+
 .sidebar {
   position: absolute;
   width: 33.3333%;

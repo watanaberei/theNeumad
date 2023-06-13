@@ -1,86 +1,194 @@
 // src/screens/MapScreen.js
-import MapApi from '../components/MapApi.js';
-import { geojsonStore } from '../components/GeojsonStores.js';  
-import CustomMarker from '../components/MapMarker.js';
-import GeojsonListing from '../components/GeojsonListing.js';
-import { getArticleNeumadsTrail } from "../api.js";
-
-
+import { initMap } from '../components/MapApi';
+import { geojsonStore } from '../components/GeojsonStores';
+import { createMapMarker } from '../components/MapMarker';
+import { createGeojsonListing } from '../components/GeojsonListing';
 
 const MapScreen = {
-  render: async () => {
+  render: () => {
     return `
-      <div class="content">
-        <div class="map-container">
-          <div class="sidebar">
-            <div class="heading">
-              <h1>Nearby Storesf</h1>
-              <input id="search-input" type="text" placeholder="Search Stores">
-              <button id="search-button">Go</button>
-            </div>
-            <div id="listings-container" class="listings"></div>
-          </div>
-          <div id="map-container" class="map"></div>
+      <div class="sidebar">
+        <div class="heading">
+          <h1>Nearby Storesf</h1>
+          <input id="search-input" type="text" placeholder="Search Stores">
+          <button id="search-button">Go</button>
         </div>
+        <div id="listings"></div>
       </div>
+      <div id="map-container" class="map"></div>
     `;
-  }, 
+  },
+
   after_render: async () => {
-    // Initialize the map and markers
-    const { map, markers } = MapApi.initMap();
-  
-    const storeData = await getArticleNeumadsTrail(); // Use the function that fetches your data
-    const Geojson = geojsonStore(storeData);
+    const map = initMap();
 
-    console.log("storeData",storeData);
-    console.log("Geojson",Geojson);
-    console.log("markers",markers);
-    // Create custom markers for each store
-    Geojson.forEach((feature, index) => {
-      const { geometry, properties } = feature;
-      const { coordinates } = geometry;
-      const { title, description } = properties;
+    const { features } = await geojsonStore();
 
-      console.log("geometry",geometry);
-      console.log("properties",properties);
+    if (features && features.length > 0) {
+      features.forEach(store => {
+        const marker = createMapMarker(store, map);
+        const listing = createGeojsonListing(store);
 
-    
-      const marker = CustomMarker(feature);
-      console.log("marker",marker);
-      marker.addTo(map);
-      markers[index] = marker;
-    });
-  
-    // Create and add listings to the map screen
-    const listings = GeojsonListing(Geojson);
-    document.getElementById('listings-container').appendChild(listings);
-
-    // Add search input and button event listeners
-    document.getElementById('search-input').addEventListener('input', (e) => {
-      const filter = e.target.value.trim().toLowerCase();
-      listings.querySelectorAll('.store').forEach((store) => {
-        const { name, address } = Geojson.features[store.dataset.id].properties;
-        const text = `${name} ${address}`.toLowerCase();
-        store.style.display = text.includes(filter) ? 'block' : 'none';
+        document.getElementById('listings').appendChild(listing);
       });
-    });
-    document.getElementById('search-button').addEventListener('click', () => {
-      const id = listings.querySelector('.store.active').dataset.id;
-      const marker = markers[id];
-      map.flyTo({ center: marker.getLngLat(), zoom: 16 });
-    });
-
-    console.log("Markers:", markers); // Add logging
-  }
+    } else {
+      console.error('No features found for the map');
+    }
+  },
 };
 
 export default MapScreen;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+// import MapApi from '../components/MapApi.js';
+// import { geojsonStore } from '../components/GeojsonStores.js';  
+// import CustomMarker from '../components/MapMarker.js';
+// import CreateListing  from '../components/GeojsonListing.js';
+// import { getArticleNeumadsTrail } from "../api.js";
+
+
+
+// const MapScreen = {
+//   render: async () => {
+//     return `
+//       <div class="content">
+//         <div class="map-container">
+//           <div class="sidebar">
+//             <div class="heading">
+//               <h1>Nearby Storesf</h1>
+//               <input id="search-input" type="text" placeholder="Search Stores">
+//               <button id="search-button">Go</button>
+//             </div>
+//             <div id="listings-container" class="listings"></div>
+//           </div>
+//           <div id="map-container" class="map"></div>
+//         </div>
+//       </div>
+//     `;
+//   }, 
+//   after_render: async () => {
+//     // Initialize the map and markers
+//     const { map, markers, listings } = MapApi.initMap();
+  
+//     const storeData = await getArticleNeumadsTrail(); // Use the function that fetches your data
+//     const Geojson = geojsonStore(storeData);
+
+//     console.log("storeData",storeData);
+//     console.log("Geojson",Geojson);
+//     console.log("listings",listings);
+//     // Create custom markers for each store
+//     // map.on("load", () => {
+//     //   Geojson.features.forEach((store) => {
+//     //     createMarker(store);
+//     //     const listing = createListing(store);
+//     //     document.getElementById("store-listings").appendChild(listing);
+//     //   });
+//     // });
+
+//     // Add the markers and listings to the map
+// map.on('load', () => {
+//   stores.features.forEach((features) => {
+    
+
+//     const listings = createListing(features);
+//     console.log("listings",listings);
+//     document.getElementById('listings').appendChild(listings);
+//   });
+// });
+//     Geojson.forEach((features, index) => {
+//       const { geometry, properties } = features;
+//       const feature =  properties.features;
+
+//       const { coordinates } = geometry;
+//       const { name, address, phone }  = properties;
+
+//       console.log("geometry",geometry);
+//       console.log("features",features);
+//       console.log("properties",properties);
+
+    
+//       const marker = CustomMarker(features);
+//       console.log("marker",marker);
+//       const listings = CreateListing(properties);
+      
+  
+      
+//       console.log("listings",listings);
+//       console.log("listing",listing);
+
+//       marker.addTo(map);
+//       listings.appendChild(listing);
+//       markers[index] = map;
+      
+     
+//     });
+
+//     // const addListing = MapApi.addListing;
+//     // console.log("addListing",addListing);
+  
+//     // // Create and add listings to the map screen
+//     // Geojson.forEach((stores, index) => {
+//     //   const { geometry, properties } = stores;
+//     //   const { coordinates } = geometry;
+//     //   const property = stores.properties;
+
+
+//     //   console.log("property",property);
+
+//     //   const listings = GeojsonListing(stores);
+//     //   console.log("listings",listings);
+//     //   listing.buildLocationList(stores);
+//     //   listing[index] = listings;  
+      
+  
+//     // });
+//     document.getElementById('listings-container').appendChild(listings);
+
+//     // Add search input and button event listeners
+//     document.getElementById('search-input').addEventListener('input', (e) => {
+//       const filter = e.target.value.trim().toLowerCase();
+//       listings.querySelectorAll('.stores').forEach((stores) => {
+//         const { name, address } = Geojson.features[stores.dataset.id].properties;
+//         const text = `${name} ${address}`.toLowerCase();
+//         console.log("text",text);
+//         stores.style.display = text.includes(filter) ? 'block' : 'none';
+//       });
+//     });
+//     document.getElementById('search-button').addEventListener('click', () => {
+//       const id = listings.querySelector('.stores.active').dataset.id;
+//       const marker = markers[id];
+//       map.flyTo({ center: marker.getLngLat(), zoom: 16 });
+//     });
+
+//     console.log("Markers:", markers); // Add logging
+//   }
+// };
+
+// export default MapScreen;
+
+
+
+
+
+
+
+
+
 // initialize Mapbox API and create custom markers
 // const { map, markers } = MapApi.initMap();
-// Geojson.features.forEach((feature) => {
+// features.forEach((feature) => {
 //   const marker = CustomMarker(feature);
 //   marker.addTo(map);
 //   markers.push(marker);
@@ -93,7 +201,7 @@ export default MapScreen;
 // document.getElementById('search-input').addEventListener('input', (e) => {
 //   const filter = e.target.value.trim().toLowerCase();
 //   listings.querySelectorAll('.store').forEach((store) => {
-//     const { name, address } = Geojson.features[store.dataset.id].properties;
+//     const { name, address } = features[store.dataset.id].properties;
 //     const text = `${name} ${address}`.toLowerCase();
 //     store.style.display = text.includes(filter) ? 'block' : 'none';
 //   });

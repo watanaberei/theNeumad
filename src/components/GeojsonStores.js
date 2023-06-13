@@ -1,50 +1,155 @@
 //src/components/GeojsonStores.js
 import { getArticleNeumadsTrail } from "../api.js";
-const articleNeumadsTrail = await getArticleNeumadsTrail();
 
-export function geojsonStore(storeData) {
-    const stores = articleNeumadsTrail;
-  const features = stores.map(features => {
-    // Extract properties from the store object
-    const {
-      title,
-      headline: { text: headline },
-      slug,
-      location: { address, geolocation: { lat, lon }, type },
-    //   lat: {geolocation:{lat}},
-    //   log: {geolocation:{log}},
-      category,
-      series,
-      media: { thumbnail },
-      snippet: { text: snippet },
-      tags,
-    } = features;
-    
+export async function geojsonStore() {
+  try {
+    const articleNeumadsTrail = await getArticleNeumadsTrail();
 
-    return {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [lon, lat],
-      },
-      "properties": {
+    const features = articleNeumadsTrail.map((store) => {
+      // Extract properties from the store object
+      const {
         title,
-        headline,
+        headline: { text: headline },
         slug,
-        address,
-        type,
+        location: { address, geolocation: { lat, lon }, type },
         category,
         series,
-        thumbnail,
-        snippet,
+        media: { thumbnail },
+        snippet: { text: snippet },
         tags,
-      },
-    };
-  });
+      } = store;
 
-  return storeData, features;
+      return {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [lon, lat],
+        },
+        "properties": {
+          title,
+          headline,
+          slug,
+          address,
+          type,
+          category,
+          series,
+          thumbnail,
+          snippet,
+          tags,
+        },
+      };
+    });
+
+    return { features };
+  } catch (error) {
+    console.error('Error fetching store data:', error);
+    return { features: [] };
+  }
 }
 
+
+
+
+
+
+
+
+
+// import { getArticleNeumadsTrail } from "../api.js";
+// const articleNeumadsTrail = await getArticleNeumadsTrail();
+
+// export function geojsonStore(storeData) {
+//     const stores = articleNeumadsTrail;
+//   const features = stores.map(features => {
+//     // Extract properties from the store object
+//     const {
+//       title,
+//       headline: { text: headline },
+//       slug,
+//       location: { address, geolocation: { lat, lon }, type },
+//     //   lat: {geolocation:{lat}},
+//     //   log: {geolocation:{log}},
+//       category,
+//       series,
+//       media: { thumbnail },
+//       snippet: { text: snippet },
+//       tags,
+//     } = features;
+    
+
+//     return {
+//       "type": "Feature",
+//       "geometry": {
+//         "type": "Point",
+//         "coordinates": [lon, lat],
+//       },
+//       "properties": {
+//         title,
+//         headline,
+//         slug,
+//         address,
+//         type,
+//         category,
+//         series,
+//         thumbnail,
+//         snippet,
+//         tags,
+//       },
+//     };
+//   });
+
+//   return storeData, features;
+// }
+
+
+
+
+
+// WORKS
+// //src/components/GeojsonStores.js
+// import { getArticleNeumadsTrail } from "../api.js";
+// const articleNeumadsTrail = await getArticleNeumadsTrail();
+
+// export function geojsonStore(storeData) {
+//     const store = articleNeumadsTrail;
+//   const features = store.map(features => {
+//     // Extract properties from the store object
+//     const {
+//       title,
+//       headline: { text: headline },
+//       slug,
+//       location: { address, geolocation: { lat, lng }, type },
+//       category,
+//       series,
+//       media: { thumbnail },
+//       snippet: { text: snippet },
+//       tags,
+//     } = features;
+    
+
+//     return {
+//       "type": "Feature",
+//       "geometry": {
+//         "type": "Point",
+//         "coordinates": [lng, lat],
+//       },
+//       "properties": {
+//         title,
+//         headline,
+//         slug,
+//         address,
+//         type,
+//         category,
+//         series,
+//         thumbnail,
+//         snippet,
+//         tags,
+//       },
+//     };
+//   });
+
+//   return storeData, features;
+// }
 
 
 
@@ -91,35 +196,35 @@ export function geojsonStore(storeData) {
 
 
 // export function geojsonStore(storeList) {
-//     const stores = getArticleNeumadsTrail;
-//   //console.log("stores", stores);
+//     const store = getArticleNeumadsTrail;
+//   //console.log("store", store);
 
-//     const title = stores.title;
-//     const headline = stores.headline.text;
-//     const slug = stores.slug;
-//     const type = stores.location.type;
-//     const coordinatesLat = stores.location.geolocation.lat;
-//     const coordinatesLog = stores.location.geolocation.log;
-//     const address = stores.location.address;
-//     const featured = stores.featured;
-//     const category = stores.category;
-//     const series = stores.series;
-//     const storeName = stores.store.storeName;
-//     const storeHours = stores.store.hours;
-//     const storeWebsite = stores.store.storeWebsite;
-//     const neumadScore = stores.store.neumadScore;
-//     const storeRating = stores.store.storeRating;
-//     const storeRatingsCount = stores.store.storeRatingsCount;
-//     const storeHandles = stores.store.handles;
-//     const storeContact = stores.store.contact;
-//     const storeBio = stores.store.storeBio.introduction;
-//     const storeTags = stores.store.storeTagsCollection.tags;
-//     const thumbnail = stores.media.thumbnail;
-//     const snippet = stores.snippet.text;
-//     const summary = stores.summary.text;
-//     const amentities = stores.attriubutes.amentities;
-//     const offers = stores.attriubutes.offers;
-//     const tags = stores.tags.tags;
+//     const title = store.title;
+//     const headline = store.headline.text;
+//     const slug = store.slug;
+//     const type = store.location.type;
+//     const coordinatesLat = store.location.geolocation.lat;
+//     const coordinatesLog = store.location.geolocation.log;
+//     const address = store.location.address;
+//     const featured = store.featured;
+//     const category = store.category;
+//     const series = store.series;
+//     const storeName = store.store.storeName;
+//     const storeHours = store.store.hours;
+//     const storeWebsite = store.store.storeWebsite;
+//     const neumadScore = store.store.neumadScore;
+//     const storeRating = store.store.storeRating;
+//     const storeRatingsCount = store.store.storeRatingsCount;
+//     const storeHandles = store.store.handles;
+//     const storeContact = store.store.contact;
+//     const storeBio = store.store.storeBio.introduction;
+//     const storeTags = store.store.storeTagsCollection.tags;
+//     const thumbnail = store.media.thumbnail;
+//     const snippet = store.snippet.text;
+//     const summary = store.summary.text;
+//     const amentities = store.attriubutes.amentities;
+//     const offers = store.attriubutes.offers;
+//     const tags = store.tags.tags;
 
 //     const features = storeList.map(store => ({
 //         "type": "Feature",
@@ -159,35 +264,35 @@ export function geojsonStore(storeData) {
 // // const geojson = {
 
 // export const geojsonStore = async (limit = 9, skip = 0) => {
-//   const stores = await getArticleNeumadsTrail();
-//   console.log("stores", stores);
+//   const store = await getArticleNeumadsTrail();
+//   console.log("store", store);
 
-//   const title = stores.title;
-//   const headline = stores.headline.text;
-//   const slug = stores.slug;
-//   const type = stores.location.type;
-//   const coordinatesLat = stores.location.geolocation.lat;
-//   const coordinatesLog = stores.location.geolocation.log;
-//   const address = stores.location.address;
-//   const featured = stores.featured;
-//   const category = stores.category;
-//   const series = stores.series;
-//   const storeName = stores.store.storeName;
-//   const storeHours = stores.store.hours;
-//   const storeWebsite = stores.store.storeWebsite;
-//   const neumadScore = stores.store.neumadScore;
-//   const storeRating = stores.store.storeRating;
-//   const storeRatingsCount = stores.store.storeRatingsCount;
-//   const storeHandles = stores.store.handles;
-//   const storeContact = stores.store.contact;
-//   const storeBio = stores.store.storeBio.introduction;
-//   const storeTags = stores.store.storeTagsCollection.tags;
-//   const thumbnail = stores.media.thumbnail;
-//   const snippet = stores.snippet.text;
-//   const summary = stores.summary.text;
-//   const amentities = stores.attriubutes.amentities;
-//   const offers = stores.attriubutes.offers;
-//   const tags = stores.tags.tags;
+//   const title = store.title;
+//   const headline = store.headline.text;
+//   const slug = store.slug;
+//   const type = store.location.type;
+//   const coordinatesLat = store.location.geolocation.lat;
+//   const coordinatesLog = store.location.geolocation.log;
+//   const address = store.location.address;
+//   const featured = store.featured;
+//   const category = store.category;
+//   const series = store.series;
+//   const storeName = store.store.storeName;
+//   const storeHours = store.store.hours;
+//   const storeWebsite = store.store.storeWebsite;
+//   const neumadScore = store.store.neumadScore;
+//   const storeRating = store.store.storeRating;
+//   const storeRatingsCount = store.store.storeRatingsCount;
+//   const storeHandles = store.store.handles;
+//   const storeContact = store.store.contact;
+//   const storeBio = store.store.storeBio.introduction;
+//   const storeTags = store.store.storeTagsCollection.tags;
+//   const thumbnail = store.media.thumbnail;
+//   const snippet = store.snippet.text;
+//   const summary = store.summary.text;
+//   const amentities = store.attriubutes.amentities;
+//   const offers = store.attriubutes.offers;
+//   const tags = store.tags.tags;
 
 //   const geojson = {
 //     type: "FeatureCollection",
