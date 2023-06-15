@@ -10,8 +10,13 @@ export function initMap() {
     container: 'map-container',
     style: 'mapbox://styles/neumad/cli7nxj9700wz01r50nn9d19d',
     center: defaultCoordinates,
+    pitch: 0,
+    bearing: 41,
     zoom: 12,
   });
+
+  
+
 
   // Get user's current location and set it as the center point
   if (navigator.geolocation) {
