@@ -1,16 +1,21 @@
 // src/component/MapMarker.js
 import mapboxgl from 'mapbox-gl';
 
-export function createMapMarker(store, map) {
-  const marker = new mapboxgl.Marker()
+export function createMapMarker(store, map, onClick) {
+  const marker = document.createElement('div');
+  marker.className = 'marker';
+
+  // make a marker for each feature and add to the map
+  new mapboxgl.Marker(marker)
     .setLngLat(store.geometry.coordinates)
     .addTo(map);
+
 
   return marker;
 }
 
 
-
+ 
 
 
 

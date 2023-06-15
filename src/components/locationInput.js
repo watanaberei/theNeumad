@@ -1,4 +1,4 @@
-// src/component/locationInput.js
+// src/component/locationInput061223.js
 const fetchDateTime = require('./timeApi.js');
 
 class LocationInput {

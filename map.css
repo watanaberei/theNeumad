@@ -1,22 +1,23 @@
 .mapContainer {
   display: block;
   z-index: 33;
-  position: absolute;
+  /* position: absolute; */
   bottom: 0;
-  height:50%;
-  width: 75%;
+  height: 100%;
+  /* width: 75%; */
 }
 .map-container {
-  display: block;
-  z-index: 33;
-  position: absolute;
-  bottom: 0;
-  height:50%;
-  width: 75%;
+  /* position: absolute; */
+  /* min-height: 70%; */
+  /* overflow-x: hidden; */
+  width: 100vw !important;
+  height: 100vh !important;
+  display: flex;
+  gap: 0;
 }
 
 .sidebar {
-  position: absolute;
+  /* position: absolute; */
   width: 33.3333%;
   height: 100%;
   top: 0;
@@ -28,12 +29,22 @@
   padding: 20px;
 }
 
-.map {
-  position: absolute;
-  left: 33.3333%;
-  width: 66.6666%;
+.map { 
+  /* position: absolute; */
+  /* left: 33.3333%; */
+  width: 100% ;
+  height: 100%;
   top: 0;
   bottom: 0;
+}
+
+.mapboxgl-canvas-container {
+  height: 100%;
+  width: 100%;
+}
+
+.mapboxgl-canvas {
+  height: 100%;
 }
 
 
@@ -48,26 +59,30 @@
   padding-bottom: 60px;
 }
 
-.listings .item {
+.listing-icon {
+  margin-right: 5px;
+}
+
+.listings .listing {
   border-bottom: 1px solid #eee;
   padding: 10px;
   text-decoration: none;
 }
 
-.listings .item:last-child { border-bottom: none; }
+.listings .listing:last-child { border-bottom: none; }
 
-.listings .item .title {
+.listings .listing .title {
   display: block;
   color: #00853e;
   font-weight: 700;
 }
 
-.listings .item .title small { font-weight: 400; }
+.listings .listing .title small { font-weight: 400; }
 
-.listings .item.active .title,
-.listings .item .title:hover { color: #8cc63f; }
+.listings .listing.active .title,
+.listings .listing .title:hover { color: #8cc63f; }
 
-.listings .item.active {
+.listings .listing.active {
   background-color: #f8f8f8;
 }
 
@@ -101,9 +116,9 @@
 }
 
 .mapboxgl-popup-content {
-  font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+  /* font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', sans-serif; */
   padding: 0;
-  width: 180px;
+  width: 300px;
 }
 
 .mapboxgl-popup-content h3 {
@@ -112,7 +127,7 @@
   margin: 0;
   padding: 10px;
   border-radius: 3px 3px 0 0;
-  font-weight: 700;
+  /* font-weight: 700; */
   margin-top: -15px;
 }
 
@@ -146,11 +161,11 @@
 .marker {
   border: none;
   cursor: pointer;
-  height: 46px;
-  width: 46px;
+  height: 60px;
+  width: 60px;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url(_assets/_brand/symbol/favicon/neumad-symbolContained-favicon-green.svg);
+  background-image: url(_assets/_brand/symbol/map/neumad-mapMarker-favicon-green.svg);
 }
 /* CUSTOM MAP MARKER */
 
@@ -160,6 +175,15 @@
 
 
 /* GEOCODER CONTROLS */
+.geocoder {
+  position: absolute;
+  z-index: 1;
+  width: 50%;
+  left: 50%;
+  margin-left: -25%;
+  top: 10px;
+  }
+  
 .mapboxgl-ctrl-geocoder {
   border: 0;
   border-radius: 0;
@@ -219,29 +243,29 @@ a:hover {
   padding-bottom: 60px;
 }
 
-.listings .item {
+.listings .listing {
   border-bottom: 1px solid #eee;
   padding: 10px;
   text-decoration: none;
 }
 
-.listings .item:last-child {
+.listings .listing:last-child {
   border-bottom: none;
 }
-.listings .item .title {
+.listings .listing .title {
   display: block;
   color: #00853e;
   font-weight: 700;
 }
 
-.listings .item .title small {
+.listings .listing .title small {
   font-weight: 400;
 }
-.listings .item.active .title,
-.listings .item .title:hover {
+.listings .listing.active .title,
+.listings .listing .title:hover {
   color: #8cc63f;
 }
-.listings .item.active {
+.listings .listing.active {
   background-color: #f8f8f8;
 }
 ::-webkit-scrollbar {
@@ -421,17 +445,17 @@ a:hover {
     overflow-y: scroll;
   }
   
-  .explorer--dropdown-item:hover {
+  .explorer--dropdown-listing:hover {
     background-color: #F1F1F1;
   }
   
-  .explorer--dropdown-item {
+  .explorer--dropdown-listing {
     padding: 16px;
     background: #FFFFFF;
     box-shadow: inset 0px -1px 0px #F4F4F4;
   }
   
-  .explorer--dropdown-item div {
+  .explorer--dropdown-listing div {
     pointer-events: none;
   }
   
@@ -440,7 +464,7 @@ a:hover {
     height: 40px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-listings: center;
   }
   
   .explorer--error {

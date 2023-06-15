@@ -1,20 +1,83 @@
 // src/components/GeojsonListing.js
-export function createGeojsonListing(store) {
-    const listing = document.createElement('div');
-    listing.className = 'listing';
-    listing.textContent = store.properties.address;
-  
+export function createGeojsonListing(store, onClick) {
+  const listing = document.createElement('div');
+    listing.className = 'item';
+    listing.addEventListener('click', () => onClick(store));
+
+  const link = document.createElement('a');
+    link.className = 'title header03';
+    link.textContent = store.properties.headline;
+    listing.appendChild(link);
+
+  const subtext = document.createElement('div');
+    subtext.className = 'details bold01';
+    subtext.innerHTML = `
+    <div class="listing listing-subtext">
+      <span class="listing-address">
+        <span class="listing-icon text03">${store.properties.address}</span>
+        <span class="listing-icon text03">📍</span>
+      </span>
+      <div class="cta-tertiary">
+        <a href="/#/Article/${store.properties.category}/${store.properties.slug}" class="listing-address">
+          <span class="link03 bold01">Read More</span>
+        </a>
+      </div>
+    </div>
+    <div class="lineH"></div>
+    `
+    listing.appendChild(subtext);
+
+  listing.addEventListener('click', () => {
+    const isActive = listing.classList.contains('active');
+    const isActives= isActive.createElement('div');
+    isActives.className = 'details bold01';
+    isActives.innerHTML = `
     
+      <span class="listing-address">
+        <span class="listing-icon text03">${store.properties.address}</span>
+        <span class="listing-icon text03">📍</span>
+      </span>
+    
+        <a href="/#/Article/${store.properties.category}/${store.properties.slug}" class="listing-address">
+          <span class="link03 bold01">Read More</span>
+        </a>
+    `
+    
+    if (isActive) {
+      listing.classList.remove('active');
+      listing.appendChild(isActives);
+    } else {
+      listing.classList.add('active');
+    }
+  });
+  return listing;
+}
 
-    return listing;
-  }
 
 
+  
 
-
-
-
-
+// src/components/GeojsonListing.js
+// export function createGeojsonListing(store, map) {
+//     const listing = document.createElement('div');
+//     listing.className = 'listing';
+//     listing.textContent = store.properties.address;
+  
+//     // Add an icon next to the listing suggestion
+//     const icon = document.createElement('span');
+//     icon.className = 'listing-icon';
+//     icon.textContent = '📍';
+//     listing.appendChild(icon);
+  
+//     const address = document.createElement('span');
+//     address.textContent = store.properties.address;
+//     listing.appendChild(address);
+  
+//     // Add event listener to the listing
+//     listing.addEventListener('click', () => onClick(store));
+  
+//     return listing;
+//   }
 
 
 
