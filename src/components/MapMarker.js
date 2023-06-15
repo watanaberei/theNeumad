@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl';
 
 export function createMapMarker(store, map, onClick) {
   const marker = document.createElement('div');
+  // create a HTML element for each feature
   marker.className = 'marker';
 
   // make a marker for each feature and add to the map

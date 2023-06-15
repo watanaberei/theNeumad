@@ -29,25 +29,24 @@ export function createGeojsonListing(store, onClick) {
 
   listing.addEventListener('click', () => {
     const isActive = listing.classList.contains('active');
-    const isActives= isActive.createElement('div');
+    const isActives = document.createElement('div'); // moved here
     isActives.className = 'details bold01';
     isActives.innerHTML = `
-    
       <span class="listing-address">
         <span class="listing-icon text03">${store.properties.address}</span>
         <span class="listing-icon text03">📍</span>
       </span>
-    
-        <a href="/#/Article/${store.properties.category}/${store.properties.slug}" class="listing-address">
-          <span class="link03 bold01">Read More</span>
-        </a>
-    `
-    
+      <a href="/#/Article/${store.properties.category}/${store.properties.slug}" class="listing-address">
+        <span class="link03 bold01">Read More</span>
+      </a>
+    `;
+
     if (isActive) {
       listing.classList.remove('active');
-      listing.appendChild(isActives);
+      listing.removeChild(listing.lastChild); // remove last appended child
     } else {
       listing.classList.add('active');
+      listing.appendChild(isActives); // append when active
     }
   });
   return listing;
