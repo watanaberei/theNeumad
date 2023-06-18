@@ -2,6 +2,9 @@
 import { weatherData, fetchCityWeatherData } from './weatherReport.js';
 import LocationInput from '../components/locationInput.js';
 import fetchDateTime from  '../components/timeApi.js';
+import { geojsonStore } from '../components/GeojsonStores';
+import { createGeocoderInput } from '../components/GeocoderInput';
+
 
 // Add city to timezone mapping
 const cityTimezoneMapping = {
@@ -54,6 +57,7 @@ const Header = {
               <!-- search -->
               
               <div class="nav-utility-right">
+              <div id="geocoder-container"></div>
                 <!--
                 <div class="search-wrapper">
                     <header class="main-search clearfix">
@@ -82,12 +86,13 @@ const Header = {
                     </div>
 
                   </div>
-                  -->
+                 
                   <div class="search-wrapper">
                     <header class="main-search clearfix">
                       <div id="location-input-container"></div>
                     </header>
                   </div>
+                  -->
               </div>
             </div>
           </section>
@@ -300,7 +305,7 @@ const Header = {
                   <li>
                       <div class="nav-utility-right">
                           <!-- search -->
-                          <div class="search-wrapper">
+                          <!-- <div class="search-wrapper">
                               <header class="main-search clearfix">
                               <button type="button" class="btn pull-right" id="search-toggle">
                                   <span class="fa fa-search icon-search"></i>
@@ -314,7 +319,7 @@ const Header = {
                                   </div>
                               </div>
                               </header>
-                          </div>
+                          </div>-->
                       </div>
                   </li>
 
@@ -388,74 +393,74 @@ const Header = {
 
     await fetchCityWeatherData(cityName);
 
-    const locationInput = new LocationInput();
-    locationInput.create();
-    document.getElementById('location-input-container').appendChild(locationInput.inputElement);
-    document.getElementById('location-input-container').appendChild(locationInput.submitButton);
+    // const locationInput = new LocationInput();
+    // locationInput.create();
+    // document.getElementById('location-input-container').appendChild(locationInput.inputElement);
+    // document.getElementById('location-input-container').appendChild(locationInput.submitButton);
 
-    // Update event listener for submitButton
-    // Inside the event listener in after_render
-    locationInput.submitButton.addEventListener('click', async () => {
-      const cityName = locationInput.inputElement.value;
-      const urlFriendlyCityName = cityName.replace(' ', '_'); // Replace spaces with underscore for URLs
+    // // Update event listener for submitButton
+    // // Inside the event listener in after_render
+    // locationInput.submitButton.addEventListener('click', async () => {
+    //   const cityName = locationInput.inputElement.value;
+    //   const urlFriendlyCityName = cityName.replace(' ', '_'); // Replace spaces with underscore for URLs
 
-      await fetchCityWeatherData(urlFriendlyCityName);
+    //   await fetchCityWeatherData(urlFriendlyCityName);
 
-      // Fetch the time for the entered city
-      const timezone = cityTimezoneMapping[location];
-      fetchDateTime(timezone).then(dateTime => {
-        //use dateTime here
-        document.querySelector('[data-testid="current-date"]').innerText = dateTime;
-      });
-      if (!timezone) {
-        console.error(`No timezone mapping for city: ${cityName}`);
-      } else {
-        const dateTimeData = await fetchDateTime(timezone);
-        const dateTime = dateTimeData.datetime; // Replace this with actual property key if different
-      }
+    //   // Fetch the time for the entered city
+    //   const timezone = cityTimezoneMapping[location];
+    //   fetchDateTime(timezone).then(dateTime => {
+    //     //use dateTime here
+    //     document.querySelector('[data-testid="current-date"]').innerText = dateTime;
+    //   });
+    //   if (!timezone) {
+    //     console.error(`No timezone mapping for city: ${cityName}`);
+    //   } else {
+    //     const dateTimeData = await fetchDateTime(timezone);
+    //     const dateTime = dateTimeData.datetime; // Replace this with actual property key if different
+    //   }
 
-      const weatherDataForCity = weatherData[cityName];
+    //   const weatherDataForCity = weatherData[cityName];
 
-      if (!weatherDataForCity) {
-        console.error(`No weather data for city: ${cityName}`);
-        return;
-      }
+    //   if (!weatherDataForCity) {
+    //     console.error(`No weather data for city: ${cityName}`);
+    //     return;
+    //   }
 
-      // Update the date and location spans
-      const currentDateElement = document.querySelector('[data-testid="current-date"]');
-      const currentLocationElement = document.querySelectorAll('[data-testid="current-location"]');
-      const currentTempElement = document.querySelector('[data-testid="current-temp"]');
-      const currentTimeElement = document.querySelector('[data-testid="current-time"]');
+    //   // Update the date and location spans
+    //   const currentDateElement = document.querySelector('[data-testid="current-date"]');
+    //   const currentLocationElement = document.querySelectorAll('[data-testid="current-location"]');
+    //   const currentTempElement = document.querySelector('[data-testid="current-temp"]');
+    //   const currentTimeElement = document.querySelector('[data-testid="current-time"]');
 
-      if (currentDateElement) {
-        currentDateElement.innerText = dateTime; // Updated with the fetched dateTime
-      }
+    //   if (currentDateElement) {
+    //     currentDateElement.innerText = dateTime; // Updated with the fetched dateTime
+    //   }
 
-      currentLocationElement.forEach((element) => {
-        element.innerText = cityName;
-      });
+    //   currentLocationElement.forEach((element) => {
+    //     element.innerText = cityName;
+    //   });
 
-      if (currentTempElement) {
-        currentTempElement.innerText = `${weatherDataForCity.temperature}°F`;
-      }
+    //   if (currentTempElement) {
+    //     currentTempElement.innerText = `${weatherDataForCity.temperature}°F`;
+    //   }
 
-      // Also update time
-      if (currentTimeElement) {
-        currentTimeElement.innerText = dateTime; // Replace with the correct property for time
-      }
+    //   // Also update time
+    //   if (currentTimeElement) {
+    //     currentTimeElement.innerText = dateTime; // Replace with the correct property for time
+    //   }
 
 
-      // Then, use the data to update your span elements
-      const weatherReportTitle = document.querySelector('.weatherReport_title');
-      if (weatherReportTitle) {
-        weatherReportTitle.innerText = weatherDataForCity.cityTitle;
-      }
+    //   // Then, use the data to update your span elements
+    //   const weatherReportTitle = document.querySelector('.weatherReport_title');
+    //   if (weatherReportTitle) {
+    //     weatherReportTitle.innerText = weatherDataForCity.cityTitle;
+    //   }
 
-      document.querySelector('.weatherReport_temp').innerText = `${weatherDataForCity.temperature}°F`;
-      document.querySelector('.weatherReport_description').innerText = weatherDataForCity.description;
-      document.querySelector('.weatherReport_humidity').innerText = `${weatherDataForCity.humidity}% Humidity`;
-      document.querySelector('.weatherReport_wind').innerText = `${weatherDataForCity.windSpeed} Km/h Wind speed`;
-    });
+    //   document.querySelector('.weatherReport_temp').innerText = `${weatherDataForCity.temperature}°F`;
+    //   document.querySelector('.weatherReport_description').innerText = weatherDataForCity.description;
+    //   document.querySelector('.weatherReport_humidity').innerText = `${weatherDataForCity.humidity}% Humidity`;
+    //   document.querySelector('.weatherReport_wind').innerText = `${weatherDataForCity.windSpeed} Km/h Wind speed`;
+    // });
     // const cityName = "New York";
 
     // await fetchCityWeatherData(cityName);
@@ -483,7 +488,7 @@ const Header = {
     const header = document.querySelector(".header");
     const headerMid = document.querySelector(".nav-mid");
     const utilityLogo = document.querySelector(".nav-utility-mid-logo");
-    const search = document.querySelector("#search-toggle");
+    // const search = document.querySelector("#search-toggle");
 
     hamburger.addEventListener("click", () => {
       navList.classList.toggle("show");
@@ -506,21 +511,41 @@ const Header = {
     });
 
     // Search
+    const { features } = await geojsonStore();
 
-    const searchToggle = document.querySelector("#search-toggle");
-    searchToggle.addEventListener("click", function () {
-      const searchInput = document.querySelector("#search");
-      const searchIcon = this.querySelector("span");
+    const geocoder = createGeocoderInput(features);
+    geocoder.addTo('#geocoder-container');
 
-      searchInput.value = "";
-      if (searchIcon.classList.contains("fa-search")) {
-        searchInput.focus();
+
+    // Listen for the 'results' event and log the result
+    geocoder.on('results', function (results) {
+      console.log(results);
+      if (results.query[0].toLowerCase() === 'current location') {
+        setCurrentLocation(features);
       }
-
-      document.querySelector(".main-search").classList.toggle("active");
-      searchIcon.classList.toggle("icon-search");
-      searchIcon.classList.toggle("icon-close");
     });
+
+    // Clear results container when search is cleared.
+    geocoder.on('clear', () => {
+      results.innerText = '';
+    });
+
+
+
+    // const searchToggle = document.querySelector("#search-toggle");
+    // searchToggle.addEventListener("click", function () {
+    //   const searchInput = document.querySelector("#search");
+    //   const searchIcon = this.querySelector("span");
+
+    //   searchInput.value = "";
+    //   if (searchIcon.classList.contains("fa-search")) {
+    //     searchInput.focus();
+    //   }
+
+    //   document.querySelector(".main-search").classList.toggle("active");
+    //   searchIcon.classList.toggle("icon-search");
+    //   searchIcon.classList.toggle("icon-close");
+    // });
 
 
 
@@ -536,6 +561,52 @@ const Header = {
       });
     },
 };
+
+function setCurrentLocation(map, features) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const userCoordinates = [position.coords.longitude, position.coords.latitude];
+      
+      const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
+      const sortedFeatures = sortFeaturesByDistance(filteredFeatures, userCoordinates);
+      renderFeatures(sortedFeatures, map);
+
+      zoomToShowAtLeastThreePins(map, features, userCoordinates);
+    });
+  } else {
+    renderFeatures(features, map);
+  }
+}
+
+function filterFeaturesInBounds(features, bounds) {
+  return features.filter((feature) => {
+    const coordinates = feature.geometry.coordinates;
+    return bounds.contains(coordinates);
+  });
+}
+
+function sortFeaturesByDistance(features, center) {
+  return features.sort((a, b) => {
+    const distanceA = getDistance(center, a.geometry.coordinates);
+    const distanceB = getDistance(center, b.geometry.coordinates);
+    return distanceA - distanceB;
+  });
+}
+
+function renderFeatures(features, map) {
+  document.getElementById('listings').innerHTML = '';
+  features.forEach((store) => {
+    const onClick = (store) => {
+      flyToStore(store, map);
+      createPopUp(store, map);
+    };
+
+    const marker = createMapMarker(store, map, onClick);
+    const listing = createGeojsonListing(store, onClick);
+
+    document.getElementById('listings').appendChild(listing);
+  });
+}
 
 export default Header;
 

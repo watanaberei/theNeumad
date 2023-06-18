@@ -33,7 +33,7 @@ export function createGeojsonListing(store, onClick) {
     isActives.className = 'details bold01';
     isActives.innerHTML = `
       <span class="listing-address">
-        <span class="listing-icon text03">${store.properties.address}</span>
+        <span class="listing-icon text03">${store.properties.address}${store.properties.snippet}</span>
         <span class="listing-icon text03">📍</span>
       </span>
       <a href="/#/Article/${store.properties.category}/${store.properties.slug}" class="listing-address">

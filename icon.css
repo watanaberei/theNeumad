@@ -87,6 +87,14 @@
     color: var(--white01);
 }
 
+.icon-Reviews {
+    background: url('images/icon/icon_stars.svg') no-repeat;
+    height: 12px;
+    width: 12px;
+    display: block;
+    color: var(--white01);
+}
+
 
 
 

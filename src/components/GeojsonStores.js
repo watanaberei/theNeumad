@@ -1,10 +1,18 @@
 //src/components/GeojsonStores.js
-import { getArticleNeumadsTrail } from "../api.js";
+import { getStoresNeumadsReview, getArticleNeumadsTrail } from "../api.js";
+
 
 export async function geojsonStore() {
   try {
-    const articleNeumadsTrail = await getArticleNeumadsTrail();
-
+    // const articleData = await getArticleNeumadsTrail(9, 0);
+    // const storeData = await getStoresNeumadsReview(9, 0);
+    // const getAllBlogData = [...articleData, ...storeData];
+    // console.log("getAllBlogData", getAllBlogData);
+    // const articleNeumadsTrail = getAllBlogData;
+    const articleData = await getArticleNeumadsTrail(9, 0);
+    const storeData = await getStoresNeumadsReview(9, 0);
+    const articleNeumadsTrail = [...articleData, ...storeData];
+    // const articleNeumadsTrail = await getArticleNeumadsTrail();
     const features = articleNeumadsTrail.map((store) => {
       // Extract properties from the store object
       const {
@@ -12,11 +20,12 @@ export async function geojsonStore() {
         headline: { text: headline },
         slug, 
         location: { address, geolocation: { lat, lon }, type },
-        category,
-        series,
+        category: { category }, 
+        series: { series },
         media: { thumbnail },
         snippet: { text: snippet },
         tags,
+
       } = store;
 
       return {
@@ -40,12 +49,51 @@ export async function geojsonStore() {
       };
     });
 
+    // const features = articleNeumadsTrail.map((store) => {
+    //   // Extract properties from the store object
+    //   const {
+    //     title,
+    //     headline: { text: headline },
+    //     slug, 
+    //     location: { address, geolocation: { lat, lon }, type },
+    //     category,
+    //     series,
+    //     media: { thumbnail },
+    //     snippet: { text: snippet },
+    //     tags,
+    //   } = store;
+
+    //   return {
+    //     "type": "Feature",
+    //     "geometry": {
+    //       "type": "Point",
+    //       "coordinates": [lon, lat],
+    //     },
+    //     "properties": {
+    //       title,
+    //       headline,
+    //       slug,
+    //       address,
+    //       type,
+    //       category,
+    //       series,
+    //       thumbnail,
+    //       snippet,
+    //       tags,
+    //     },
+    //   };
+    // });
+
     return { features };
   } catch (error) {
     console.error('Error fetching store data:', error);
     return { features: [] };
   }
 }
+
+
+
+
 
 
 

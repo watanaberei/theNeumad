@@ -1,8 +1,8 @@
-// ./src/components/FeaturedBlog053023.js
-const FeaturedBlog = {
-  render: (featuredBlog) => {
-    // Destructure the properties from the primaryFeaturedBlog object
-    const {tag, relatedReferences, slug,  media, category, headline } = featuredBlog;
+// ./src/components/AllBlog053023.js
+const AllBlog = {
+  render: (allBlog) => {
+    // Destructure the properties from the primaryAllBlog object
+    const {tag, relatedReferences, slug,  media, category, headline } = allBlog;
     const tags = tag && tag.length ? tag[0].tags : [];
     const title = headline || [];
     const medias = media || [];
@@ -24,15 +24,15 @@ const FeaturedBlog = {
       limitedReferences.forEach((reference, index) => {
           console.log("reference object: ", reference);
           referencesHTML += `
-          <div class="featured-blog-text">
-              <div class="featured-blog-header">
+          <div class="blog-text">
+              <div class="blog-header">
               <a href="/#/${reference.category}/${reference.slug}">
-                  <div class="featured-blog-header-container">
-                  <span class="featured-blog-title-text header03">
+                  <div class="blog-header-container">
+                  <span class="blog-title-text header03">
                       ${reference.title}
                   </span> 
                   
-                  <span class="featured-blog-overview-text text02">
+                  <span class="blog-overview-text text02">
                       ${reference.overview}
                   </span>
               
@@ -58,25 +58,24 @@ const FeaturedBlog = {
       }, {});
     }
 
-  // Generate the HTML content for the PrimaryFeaturedBlog component
+  // Generate the HTML content for the PrimaryAllBlog component
   return `
-  <!-- BLOG --> 
-  <div class="featured-blog-container"> 
-    <div class="featured-blog"> 
-      <div class="featured-blog-img">
+  <!--BLOG--> 
+  <div class="blog"> 
+    <div class="blog-img">
         <a href="/#/article/${category}/${slug}"> <!-- Update the href here -->
           <img src="${medias.thumbnail}" alt="" />
         </a>
       </div>
-    <div class="featured-blog-text">
-      <div class="featured-blog-header">
+    <div class="blog-text">
+      <div class="blog-header">
         <a href="/#/${category}/${slug}">
-          <div class="featured-blog-header-container">
-            <span class="featured-blog-title-text header04">
+          <div class="blog-header-container">
+            <span class="blog-title-text header04">
               ${title.text}
             </span> 
             <!--
-            <span class="featured-blog-overview-text text02">
+            <span class="blog-overview-text text02">
               
             </span>
             -->
@@ -87,7 +86,7 @@ const FeaturedBlog = {
 
       <div class="blog-data">
           <div class="tag-collection">
-              <div class="featured-blog-data-container">
+              <div class="blog-data-container">
                   <a href="/#/dine">
                       <div class="section-tag" id="${category}">
                           <i class="section-tag-icon icon-${category}"></i>
@@ -127,4 +126,4 @@ const FeaturedBlog = {
   },
 };  
 
-export default FeaturedBlog;
+export default AllBlog;

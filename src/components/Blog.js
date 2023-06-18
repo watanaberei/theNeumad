@@ -16,7 +16,7 @@ function generateTags(keywords) {
 const Blog = {
   
   render: (blog) => {
-    const { tag, thumbnail, slug, title, overview, section, category } = blog;
+    const { tag, thumbnail, slug, headline, overview, section, category } = blog;
     const categories = category.fromEntries(category.entries(categories).map(([ key, val ]) =>
   [ key.toLowerCase(), val ]))
     const tagElements = generateTags(blog.tag);
@@ -33,11 +33,7 @@ const Blog = {
                 <a href="/#/${section}/${slug}">
                   <div class="blog-header-container">
                     <span class="blog-title-text bold03">
-                    ${
-                      blog.title.length > 90
-                        ? blog.title.substr(0, 90) + " ..."
-                        : blog.title
-                    } 
+                    ${headline} 
                     </span> 
                     <span class="blog-overview-text text02">
                       ${overview}
