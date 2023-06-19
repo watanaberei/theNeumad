@@ -1,51 +1,36 @@
 // HomeScreen.js
-import { getStoresNeumadsReview, getArticleNeumadsTrail, getAllBlogs } from "../api.js";
+import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost } from "../api.js";
 import PrimaryFeaturedBlog from "../components/PrimaryFeaturedBlog";
 import FeaturedBlog from "../components/FeaturedBlog";
 import AllBlog from "../components/AllBlog.js";
 
+    
 const HomeScreen = {
   render: async () => {
-    const articleNeumadsTrailData = await getArticleNeumadsTrail();
-    const storesNeumadsReviewData = await getStoresNeumadsReview();
     const articleData = await getArticleNeumadsTrail(9, 0);
     const storeData = await getStoresNeumadsReview(9, 0);
-    const allBlogData = [...articleData, ...storeData];
+    const postData = await getArticlePost(9, 0);
+    console.log("articleData", articleData);
+    console.log("storeData", storeData);
+    console.log("postData", postData);
+    const BlogData = [...articleData, ...storeData, ...postData];
+
     
     // console.log("getAllBlogsData", getBlogData);
     // console.log("getBlogData", getBlogData);
     // console.log("getBlogsData", getBlogsData);
 
-    const primaryFeaturedBlogDatas = allBlogData;
-    const featuredBlogDatas = allBlogData;
-    const allBlogDatas = allBlogData;
+    const primaryFeaturedBlogDatas = BlogData;
+    const featuredBlogDatas = BlogData;
+    const allBlogDatas = BlogData;
 
     console.log(`primaryFeaturedBlogDatas`, primaryFeaturedBlogDatas);
     console.log(`featuredBlogDatas`, featuredBlogDatas);
     console.log(`getBlogData`, allBlogDatas);
 
-    const articlePrimaryBlogNeumadsItems = primaryFeaturedBlogDatas
-      .filter((primaryFeaturedBlogData) => primaryFeaturedBlogData.featured)
-      .slice(0, 1)
-      .concat(
-        primaryFeaturedBlogDatas.filter(
-          (primaryFeaturedBlogData) => !primaryFeaturedBlogData.featured
-        )
-      );
-
-    const articleFeaturedBlogNeumadsItems = featuredBlogDatas
-      .filter((featuredBlogData) => featuredBlogData.featured)
-      .slice(0, 1)
-      .concat(
-        featuredBlogDatas.filter(
-          (featuredBlogData) => !featuredBlogData.featured
-        )
-      );
-
-
-    const primaryFeaturedBlogs = allBlogDatas.slice(1).slice(-1);
-    const featuredBlogs = allBlogDatas.slice(1).slice(-3);
-    const allBlogs = allBlogDatas.slice(3);
+    const primaryFeaturedBlogs = postData.slice(1).slice(-1);
+    const featuredBlogs = postData.slice(1).slice(-3);
+    const allBlogs = postData.slice(3);
 
     return `
       <div>

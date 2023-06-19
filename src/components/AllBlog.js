@@ -2,11 +2,10 @@
 const AllBlog = {
   render: (allBlog) => {
     // Destructure the properties from the primaryAllBlog object
-    const {tag, relatedReferences, slug,  media, category, headline } = allBlog;
+    const {tag, slug,  media, category, headline } = allBlog;
     const tags = tag && tag.length ? tag[0].tags : [];
     const title = headline || [];
     const medias = media || [];
-    const references = relatedReferences || [];
 
     // Generate tags HTML
     const limitedTags03 = tags.slice(0, 3);
@@ -19,35 +18,35 @@ const AllBlog = {
 
   
       // Limit to the first two references
-      const limitedReferences = references.slice(0, 2);
-      let referencesHTML = '';
-      limitedReferences.forEach((reference, index) => {
-          console.log("reference object: ", reference);
-          referencesHTML += `
-          <div class="blog-text">
-              <div class="blog-header">
-              <a href="/#/${reference.category}/${reference.slug}">
-                  <div class="blog-header-container">
-                  <span class="blog-title-text header03">
-                      ${reference.title}
-                  </span> 
+    //   const limitedReferences = references.slice(0, 2);
+    //   let referencesHTML = '';
+    //   limitedReferences.forEach((reference, index) => {
+    //       console.log("reference object: ", reference);
+    //       referencesHTML += `
+    //       <div class="blog-text">
+    //           <div class="blog-header">
+    //           <a href="/#/${reference.category}/${reference.slug}">
+    //               <div class="blog-header-container">
+    //               <span class="blog-title-text header03">
+    //                   ${reference.title}
+    //               </span> 
                   
-                  <span class="blog-overview-text text02">
-                      ${reference.overview}
-                  </span>
+    //               <span class="blog-overview-text text02">
+    //                   ${reference.overview}
+    //               </span>
               
-                  </div>
-              </a>
-              </div>
-          </div>`;
+    //               </div>
+    //           </a>
+    //           </div>
+    //       </div>`;
   
-      // If this is not the last reference, add the divider
-      if (index !== limitedReferences.length - 1) {
-          referencesHTML += '<div class="lineV"></div>';
-      }
+    //   // If this is not the last reference, add the divider
+    //   if (index !== limitedReferences.length - 1) {
+    //       referencesHTML += '<div class="lineV"></div>';
+    //   }
 
   
-    });
+    // });
 
     // Convert category object to lowercase key entries if it's an object
     let categories = {};
@@ -115,7 +114,7 @@ const AllBlog = {
           </div>
       </div>
       <div class="lineH"></div>
-      ${referencesHTML}
+
 
   </div>
 

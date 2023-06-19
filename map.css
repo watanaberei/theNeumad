@@ -157,28 +157,6 @@
 
 
 
-/* CUSTOM MAP MARKER */
-.marker {
-  border: none;
-  cursor: pointer;
-  height: 60px;
-  width: 60px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-image: url(_assets/_brand/symbol/map/neumad-mapMarker-favicon-green.svg);
-}
-
-.marker-userLocation {
-  border: none;
-  cursor: pointer;
-  height: 600px;
-  width: 600px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-image: url(_assets/_brand/symbol/map/neumad-mapMarker-favicon-green.svg);
-}
-/* CUSTOM MAP MARKER */
-
 
 
 

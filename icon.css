@@ -158,3 +158,99 @@
     display: block;
     color: var(--white01);
 }
+
+
+
+
+
+
+
+
+
+
+/* CUSTOM MAP MARKER */
+.icon-mapMarker {
+    border: none;
+    cursor: pointer;
+    height: 60px;
+    width: 60px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(_assets/_brand/symbol/map/neumad-mapMarker-favicon-green.svg);
+  }
+  
+  .icon-mapMarker-userLocation {
+    border: none;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(_assets/_brand/symbol/map/neumad-mapMarker-favicon-green.svg);
+  }
+  
+  .icon-mapMarker-Dine {
+    border: none;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(_assets/icon/map/markers/icon-mapMarker-dine.svg);
+  }
+  
+  .icon-mapMarker-Place {
+    border: none;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(_assets/icon/map/markers/icon-mapMarker-places.svg);
+  }
+
+  .icon-mapMarker-Review {
+    border: none;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(_assets/icon/map/markers/icon-mapMarker-reviews.svg);
+  }
+  
+  .icon-mapMarker-Unwind {
+    border: none;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(_assets/icon/map/markers/icon-mapMarker-unwind.svg);
+  }
+  
+  .icon-mapMarker-Work {
+    border: none;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(_assets/icon/map/markers/icon-mapMarker-work.svg);
+  }
+
+    
+  .icon-mapMarker-Rest {
+    border: none;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(_assets/icon/map/markers/icon-mapMarker-rest.svg);
+  }
+
+
+  /* CUSTOM MAP MARKER */
+  
+  

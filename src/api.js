@@ -1,4 +1,4 @@
-// // src/api.js
+// src/api.js
 
 // // API for blog
 // import { createClient } from "contentful";
@@ -260,7 +260,13 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
           title
           featured
           slug
-          series
+          featured
+          category {
+            category
+          }
+          series {
+            series
+          }
           headline {
               text
           }
@@ -332,27 +338,99 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
           }
           reference {
             ... on ReferenceDefault {
-              relatedReferencesCollection(limit: 6) {
+              relatedReferencesCollection(limit: 3) {
                 items {
                   ... on AppFastFoodHomePage031523 {
                     title
+                    category {
+                      category
+                    }
+                    media {
+                      ... on Media {
+                        thumbnail {
+                          url
+                        }
+                      }
+                    }
                     slug
+                    snippet {
+                      ... on Snippet {
+                        title
+                        text {
+                          json
+                        }
+                      }
+                    }
+                    tagsCollection {
+                      items {
+                        tags
+                        metatag
+                      }
+                    }
                   }
                 }
               }
-              suggestedReferencesCollection(limit: 6) {
+              suggestedReferencesCollection(limit: 3) {
                 items {
                   ... on AppFastFoodHomePage031523 {
                     title
+                    category {
+                      category
+                    }
+                    media {
+                      ... on Media {
+                        thumbnail {
+                          url
+                        }
+                      }
+                    }
                     slug
+                    snippet {
+                      ... on Snippet {
+                        title
+                        text {
+                          json
+                        }
+                      }
+                    }
+                    tagsCollection {
+                      items {
+                        tags
+                        metatag
+                      }
+                    }
                   }
                 }
               }
-              similarReferencesCollection(limit: 6) {
+              similarReferencesCollection(limit: 3) {
                 items {
                   ... on AppFastFoodHomePage031523 {
                     title
+                    category {
+                      category
+                    }
+                    media {
+                      ... on Media {
+                        thumbnail {
+                          url
+                        }
+                      }
+                    }
                     slug
+                    snippet {
+                      ... on Snippet {
+                        title
+                        text {
+                          json
+                        }
+                      }
+                    }
+                    tagsCollection {
+                      items {
+                        tags
+                        metatag
+                      }
+                    }
                   }
                 }
               }
@@ -364,7 +442,7 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
               metatag
             }
           }
-        }
+        } 
       }
     }
     
@@ -462,7 +540,7 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
                 overview: item.overview,
                 slug: item.slug,
                 tag: item.tag,
-                category: item.category,
+                relatedCategory: item.category,
               })
             ),
           suggestedReferences:
@@ -507,15 +585,9 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
     // You can decide what to return in case of error, perhaps null or an empty array
     return null;
   }
-  };
+};
 
 
-
-
-
-
-
-  
 export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
   try {
     const query = `
@@ -839,7 +911,7 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
                 overview: item.overview,
                 slug: item.slug,
                 tag: item.tag,
-                category: item.category,
+                relatedCategory: item.category,
               })
             ),
           suggestedReferences:
@@ -885,6 +957,370 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
     return null;
   }
 };
+
+
+export const getArticlePost = async (limit = 9, skip = 0) => {
+  try {
+    const query = `
+    query {
+      appFastFoodHomePage031523Collection(limit: ${limit}, skip: ${skip}) {
+        items {
+          sys {
+            id
+            publishedAt
+          }
+          title
+          location {
+            ... on ContentTypeLocation {
+              type
+              geolocation {
+                lat
+                lon
+              }
+              address
+              region
+            }
+          }
+          headline {
+            ... on Headline {
+              text
+            }
+          }
+          featured
+          slug
+          category {
+            title
+            category
+          }
+          series {
+            title
+          }
+          media {
+            ... on Media {
+              title
+              hero {
+                url
+              }
+              thumbnail {
+                url
+              }
+              galleryCollection {
+                items {
+                  url
+                }
+              }
+            }
+          }
+          author {
+            ... on Author {  # Use the correct type for author entries
+              social
+              authorPseudonym
+              slug
+              authorPicture {
+                url
+              }
+            }
+          } 
+          summary {
+            ... on Summary {
+              text
+            }
+          }
+          snippet {
+            ... on Snippet {
+              title
+              text {
+                json
+              }
+            }
+          }
+          
+          content {
+            ... on Content {
+              introduction {
+                json
+              }
+              body {
+                json
+              }
+              conclusion {
+                json
+              }
+            }
+          }
+          postscript {
+            ...on Postscript {
+              text {
+                json
+              }
+            }
+          }
+          reference {
+            ... on ReferenceDefault {
+              relatedReferencesCollection(limit: 3) {
+                items {
+                  ... on AppFastFoodHomePage031523 {
+                    title
+                    category {
+                      category
+                    }
+                    series {
+                      series
+                    }
+                    media {
+                      ... on Media {
+                        thumbnail {
+                          url
+                        }
+                      }
+                    }
+                    slug
+                    snippet {
+                      ... on Snippet {
+                        title
+                        text {
+                          json
+                        }
+                      }
+                    }
+                    tagsCollection {
+                      items {
+                        tags
+                        metatag
+                      }
+                    }
+                  }
+                }
+              }
+              suggestedReferencesCollection(limit: 3) {
+                items {
+                  ... on AppFastFoodHomePage031523 {
+                    title
+                    category {
+                      category
+                    }
+                    series {
+                      series
+                    }
+                    media {
+                      ... on Media {
+                        thumbnail {
+                          url
+                        }
+                      }
+                    }
+                    slug
+                    snippet {
+                      ... on Snippet {
+                        title
+                        text {
+                          json
+                        }
+                      }
+                    }
+                    tagsCollection {
+                      items {
+                        tags
+                        metatag
+                      }
+                    }
+                  }
+                }
+              }
+              similarReferencesCollection(limit: 3) {
+                items {
+                  ... on AppFastFoodHomePage031523 {
+                    title
+                    category {
+                      category
+                    }
+                    series {
+                      series
+                    }
+                    media {
+                      ... on Media {
+                        thumbnail {
+                          url
+                        }
+                      }
+                    }
+                    slug
+                    snippet {
+                      ... on Snippet {
+                        title
+                        text {
+                          json
+                        }
+                      }
+                    }
+                    tagsCollection {
+                      items {
+                        tags
+                        metatag
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          tagsCollection {
+            items {
+              tags
+              metatag
+            }
+          }
+        } 
+      }
+    }
+    
+    
+      `;
+    const response = await fetch(
+      "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query }),
+      }
+    );
+
+    const json = await response.json();
+    
+
+    if (json.errors) {
+      console.error("articleNeumadsTrail GraphQL errors:", json.errors);
+    }
+
+    if (!json.data) {
+      return []; // Return an empty array if no data is found
+    }
+
+    const blogs = json.data.appFastFoodHomePage031523Collection.items;
+    console.log("store", blogs);
+
+    const data = blogs.map((blogs) => {
+      return {
+        ...blogs,
+        title: blogs?.title,
+        location: {
+          type: blogs?.location?.type,
+          geolocation: {
+            lat: blogs?.location?.geolocation?.lat,
+            lon: blogs?.location?.geolocation?.lon,
+          },
+          address: blogs?.location?.address,
+          region: blogs?.location?.region,
+        },
+        slug: blogs?.slug,
+        featured: blogs?.featured,
+        headline: {
+          text: blogs?.headline?.text,
+          slug: blogs?.headline?.slug,
+        },
+        category: {
+          category: blogs?.category?.category,
+        },
+        series: {
+          series: blogs?.series?.series,
+        },
+        author: {
+          name: blogs?.author?.authorPseudonym,
+          picture: blogs?.author?.authorPicture?.url,
+          slug: blogs?.author?.slug,
+        },
+        media: {
+          hero: blogs?.media?.hero?.url,
+          thumbnail: blogs?.media?.thumbnail?.url,
+          gallery: blogs?.media?.galleryCollection?.items.map((item) => ({
+            url: item?.url,
+          })),
+        },
+        snippet: {
+          title: blogs?.snippet?.title,
+          text: documentToHtmlString(blogs?.snippet?.text?.json),
+        },
+        summary: {
+          text: blogs?.summary?.text,
+        },
+        content: {
+          introduction: documentToHtmlString(
+            blogs?.content?.introduction?.json
+          ),
+          body: documentToHtmlString(blogs?.content?.body?.json),
+          conclusion: documentToHtmlString(blogs?.content?.conclusion?.json),
+        },
+        postscript: {
+          text: documentToHtmlString(blogs?.postscript?.text?.json),
+        },
+        references: {
+          relatedReferences:
+            blogs?.reference?.relatedReferencesCollection?.items.map(
+              (item) => ({
+                title: item.title,
+                headline: item.headline,
+                section: item.section,
+                // media: {
+                //   thumbnail: item.media.thumbnail.url,
+                // },
+                overview: item.overview,
+                slug: item.slug,
+                tag: item.tag,
+                relatedCategory: item.category,
+              })
+            ),
+          suggestedReferences:
+            blogs?.reference?.suggestedReferencesCollection?.items.map(
+              (item) => ({
+                title: item.title,
+                section: item.section,
+                // media: {
+                //   thumbnail: item.media.thumbnail.url,
+                // },
+                overview: item.overview,
+                slug: item.slug,
+                tag: item.tag,
+              })
+            ),
+          similarReferences:
+            blogs?.reference?.similarReferencesCollection?.items.map(
+              (item) => ({
+                title: item.title,
+                section: item.section,
+                // media: {
+                //   thumbnail: item.media.thumbnail.url,
+                // },
+                overview: item.overview,
+                slug: item.slug,
+                tag: item.tag,
+              })
+            ),
+        },
+        tag: blogs?.tagsCollection?.items.map((item) => ({
+          tags: item?.tags,
+          metatag: item?.metatag,
+        })),
+      };
+    });
+    documentToPlainTextString(getArticlePost);
+    // console.log('Data for getStoresNeumadsReview data:', data);
+    // console.log('Data for getStoresNeumadsReview:', getStoresNeumadsReview);
+    return data;
+  } catch (err) {
+    console.error(err);
+    // You can decide what to return in case of error, perhaps null or an empty array
+    return null;
+  }
+};
+
+
+
+
+
+
+
 
 // getAllBlogs
 // export const getAllBlogs = async (limit = 9, skip = 0) => {

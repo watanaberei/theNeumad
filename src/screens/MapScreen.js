@@ -24,40 +24,67 @@ const MapScreen = {
 
   after_render: async () => {
     const map = initMap();
-    map.on('load', function () {
-      map.resize();
-    });
     const { features } = await geojsonStore();
 
     const geocoder = createGeocoderInput(features);
     document.getElementById('geocoder-container').appendChild(geocoder.onAdd(map));
 
-    // Listen for the 'result' event and fit the map to the selected location's boundaries
     geocoder.on('result', function (result) {
-      if (result.result.bbox) {
-        map.fitBounds(result.result.bbox, { padding: 50 });
+      const searchedCityName = result.result.text;
 
-        // Check for land features within the bounding box
-        const landFeatures = map.queryRenderedFeatures(result.result.bbox, {
-          layers: ['land'],
+      const cityBoundaryFeatures = map.querySourceFeatures('city-boundaries', {
+        filter: ['==', 'NAME', searchedCityName],
+      });
+
+      if (cityBoundaryFeatures.length > 0) {
+        const cityBoundary = cityBoundaryFeatures[0];
+        const cityBoundaryCoordinates = cityBoundary.geometry.coordinates;
+
+        const bounds = cityBoundaryCoordinates.reduce((bounds, coord) => {
+          return bounds.extend(coord);
+        }, new mapboxgl.LngLatBounds(cityBoundaryCoordinates[0][0], cityBoundaryCoordinates[0][0]));
+ 
+        map.fitBounds(bounds, { padding: 50, duration: 1000 });
+
+        if (map.getLayer('searched-city-boundary')) {
+          map.removeLayer('searched-city-boundary');
+        }
+
+        if (map.getLayer('searched-city-fill')) {
+          map.removeLayer('searched-city-fill');
+        }
+
+        map.addLayer({
+          id: 'searched-city-boundary',
+          type: 'line',
+          source: 'city-boundaries',
+          paint: {
+            'line-color': '#f00',
+            'line-width': 3,
+          },
+          filter: ['==', 'NAME', searchedCityName],
         });
 
-        // If there are no land features, fall back to the flyToStore method
-        if (landFeatures.length === 0) {
+        map.addLayer({
+          id: 'searched-city-fill',
+          type: 'fill',
+          source: 'city-boundaries',
+          paint: {
+            'fill-color': '#ff0000',
+            'fill-opacity': 31,
+          },
+          filter: ['==', 'NAME', searchedCityName],
+        });
+      } else {
+        geocoder.on('result', function (event) {
           const store = {
             geometry: {
-              coordinates: result.result.geometry.coordinates,
+              coordinates: event.result.geometry.coordinates,
             },
           };
-          flyToSearch(store, map);
-        }
-      } else {
-        const store = {
-          geometry: {
-            coordinates: result.result.geometry.coordinates,
-          },
-        };
-        flyToSearch(store, map);
+          const bbox = event.result.bbox;
+          flyToSearch(store, map, bbox);
+        });
       }
     });
 
@@ -147,14 +174,21 @@ function flyToStore(store, map) {
 }
 
 
-function flyToSearch(store, map) {
-  map.flyTo({
-    center: store.geometry.coordinates,
-    zoom: 15,
-    essential: true,
-  });
+function flyToSearch(store, map, bbox) {
+  if (bbox) {
+    map.fitBounds(bbox, {
+      padding: { top: 10, bottom: 10, left: 10, right: 10 },
+      maxZoom: 15,
+      essential: true,
+    });
+  } else {
+    map.flyTo({
+      center: store.geometry.coordinates,
+      zoom: 15,
+      essential: true,
+    });
+  }
 }
-
 
 
 
@@ -179,7 +213,7 @@ function createPopUp(store, map) {
 
 function createUserLocationMarker(coordinates, map) {
   const marker = document.createElement('div');
-  marker.className = 'marker-userLocation';
+  marker.className = 'icon-mapMarker-userLocation';
 
   return new mapboxgl.Marker(marker)
     .setLngLat(coordinates)
@@ -190,9 +224,12 @@ function zoomToShowAtLeastThreePins(map, features, center) {
   const zoomOut = () => {
     const mapBounds = map.getBounds();
     const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
+
     if (filteredFeatures.length < 3) {
       map.zoomOut(1, { around: center });
       setTimeout(zoomOut, 100);
+    } else {
+      renderFeatures(filteredFeatures, map);
     }
   };
 
@@ -220,6 +257,266 @@ function getDistance(coord1, coord2) {
 export default MapScreen;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // src/screens/MapScreen.js
+// import mapboxgl from 'mapbox-gl';
+// import { initMap } from '../components/MapApi';
+// import { geojsonStore } from '../components/GeojsonStores';
+// import { createMapMarker } from '../components/MapMarker';
+// import { createGeojsonListing } from '../components/GeojsonListing';
+// import { createGeocoderInput } from '../components/GeocoderInput';
+
+// const MapScreen = {
+//   render: () => {
+//     return `
+//     <div class= "map-container">
+//       <div class="sidebar">
+//         <div class="heading">
+//           <span class="header01">Nearby Stores</span>
+//           <div id="geocoder-container"></div>
+//         </div>
+//         <div id="listings" class="listings"></div>
+//       </div>
+//       <div id="map-container" class="map"></div>
+//     </div>
+//   `;
+//   },
+
+//   after_render: async () => {
+//     const map = initMap();
+//     const { features } = await geojsonStore();
+
+//     const geocoder = createGeocoderInput(features);
+//     document.getElementById('geocoder-container').appendChild(geocoder.onAdd(map));
+
+//     geocoder.on('result', function (result) {
+//       const searchedCityName = result.result.text;
+
+//       const cityBoundaryFeatures = map.querySourceFeatures('city-boundaries', {
+//         filter: ['==', 'NAME', searchedCityName],
+//       });
+
+//       if (cityBoundaryFeatures.length > 0) {
+//         const cityBoundary = cityBoundaryFeatures[0];
+//         const cityBoundaryCoordinates = cityBoundary.geometry.coordinates;
+
+//         const bounds = cityBoundaryCoordinates.reduce((bounds, coord) => {
+//           return bounds.extend(coord);
+//         }, new mapboxgl.LngLatBounds(cityBoundaryCoordinates[0][0], cityBoundaryCoordinates[0][0]));
+
+//         map.fitBounds(bounds, { padding: 50, duration: 1000 });
+
+//         if (map.getLayer('searched-city-boundary')) {
+//           map.removeLayer('searched-city-boundary');
+//         }
+
+//         if (map.getLayer('searched-city-fill')) {
+//           map.removeLayer('searched-city-fill');
+//         }
+
+//         map.addLayer({
+//           id: 'searched-city-boundary',
+//           type: 'line',
+//           source: 'city-boundaries',
+//           paint: {
+//             'line-color': '#f00',
+//             'line-width': 3,
+//           },
+//           filter: ['==', 'NAME', searchedCityName],
+//         });
+
+//         map.addLayer({
+//           id: 'searched-city-fill',
+//           type: 'fill',
+//           source: 'city-boundaries',
+//           paint: {
+//             'fill-color': '#ff0000',
+//             'fill-opacity': 1,
+//           },
+//           filter: ['==', 'NAME', searchedCityName],
+//         });
+//       } else {
+//         const store = {
+//           geometry: {
+//             coordinates: result.result.geometry.coordinates,
+//           },
+//         };
+//         flyToSearch(store, map);
+//       }
+//     });
+
+//     map.on('moveend', function() {
+//       const mapBounds = map.getBounds();
+//       const center = map.getCenter();
+//       const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
+//       const sortedFeatures = sortFeaturesByDistance(filteredFeatures, center);
+//       renderFeatures(sortedFeatures, map);
+//     });
+
+//     setCurrentLocation(map, features);
+//   },
+// };
+
+// function setCurrentLocation(map, features) {
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition((position) => {
+//       const userCoordinates = [position.coords.longitude, position.coords.latitude];
+//       const userLocationMarker = createUserLocationMarker(userCoordinates, map);
+
+//       const mapBounds = map.getBounds();
+//       const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
+//       const sortedFeatures = sortFeaturesByDistance(filteredFeatures, userCoordinates);
+//       renderFeatures(sortedFeatures, map);
+
+//       zoomToShowAtLeastThreePins(map, features, userCoordinates);
+//     });
+//   } else {
+//     renderFeatures(features, map);
+//   }
+// }
+
+// function filterFeaturesInBounds(features, bounds) {
+//   return features.filter((feature) => {
+//     const coordinates = feature.geometry.coordinates;
+//     return bounds.contains(coordinates);
+//   });
+// }
+
+// function sortFeaturesByDistance(features, center) {
+//   return features.sort((a, b) => {
+//     const distanceA = getDistance(center, a.geometry.coordinates);
+//     const distanceB = getDistance(center, b.geometry.coordinates);
+//     return distanceA - distanceB;
+//   });
+// }
+
+// function renderFeatures(features, map) {
+//   document.getElementById('listings').innerHTML = '';
+//   features.forEach((store) => {
+//     const onClick = (store) => {
+//       flyToStore(store, map);
+//       createPopUp(store, map);
+//     };
+
+//     const marker = createMapMarker(store, map, onClick);
+//     const listing = createGeojsonListing(store, onClick);
+
+//     document.getElementById('listings').appendChild(listing);
+//   });
+// }
+
+// function flyToStore(store, map) {
+//   map.flyTo({
+//     center: store.geometry.coordinates,
+//     zoom: 15,
+//     pitch: 80,
+//     bearing: 41,
+//     essential: true,
+//   });
+
+//   map.once('moveend', () => {
+//     map.on('move', () => {
+//       const pitch = map.getPitch();
+//       const bearing = map.getBearing();
+
+//       if (pitch > 0) {
+//         map.setPitch(pitch - 1);
+//       }
+
+//       if (bearing !== 0) {
+//         map.setBearing(bearing - 1);
+//       }
+//     });
+//   });
+// }
+
+
+// function flyToSearch(store, map) {
+//   map.flyTo({
+//     center: store.geometry.coordinates,
+//     zoom: 15,
+//     essential: true,
+//   });
+// }
+
+
+
+
+// function createPopUp(store, map) {
+//   const popup = new mapboxgl.Popup({ closeOnClick: true, offset: 50 })
+//     .setLngLat(store.geometry.coordinates)
+//     .setHTML(`
+//       <div class="title">
+//         <span class="header03">${store.properties.headline}</span>
+//       </div>
+//       <div class="subtitle">
+//         <span class="text01">${store.properties.address}</span>
+//       </div>
+//       <div class="subtitle">
+//       <i class="icon-${store.properties.category}"></i>
+//         <span class="text01">${store.properties.category}</span>
+//       </div>
+//       `)
+
+//     .addTo(map);
+// }
+
+// function createUserLocationMarker(coordinates, map) {
+//   const marker = document.createElement('div');
+//   marker.className = 'marker-userLocation';
+
+//   return new mapboxgl.Marker(marker)
+//     .setLngLat(coordinates)
+//     .addTo(map);
+// }
+
+// function zoomToShowAtLeastThreePins(map, features, center) {
+//   const zoomOut = () => {
+//     const mapBounds = map.getBounds();
+//     const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
+//     if (filteredFeatures.length < 3) {
+//       map.zoomOut(1, { around: center });
+//       setTimeout(zoomOut, 100);
+//     }
+//   };
+
+//   zoomOut();
+// }
+
+// // Helper function to calculate distance between two coordinates
+// function getDistance(coord1, coord2) {
+//   const toRadians = (degrees) => degrees * (Math.PI / 180);
+
+//   const R = 6371e3; // Earth's radius in meters
+//   const lat1 = toRadians(coord1[1]);
+//   const lat2 = toRadians(coord2[1]);
+//   const deltaLat = toRadians(coord2[1] - coord1[1]);
+//   const deltaLng = toRadians(coord2[0] - coord1[0]);
+
+//   const a =
+//     Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+//     Math.cos(lat1) * Math.cos(lat2) * Math.sin(deltaLng / 2) * Math.sin(deltaLng / 2);
+//   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+//   return R * c;
+// }
+
+// export default MapScreen;
 
 
 

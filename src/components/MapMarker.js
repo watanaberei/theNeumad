@@ -3,18 +3,21 @@ import mapboxgl from 'mapbox-gl';
 
 export function createMapMarker(store, map, onClick) {
   const marker = document.createElement('div');
-  // create a HTML element for each feature
-  marker.className = 'marker';
-
-  // make a marker for each feature and add to the map
+  
+  // Check if the category property exists and is not "userLocation"
+  if (store.properties.category && store.properties.category !== 'userLocation') {
+    marker.className = 'icon-mapMarker-' + store.properties.category;
+  } else {
+    // Assign the default class name if the category is not available or is "userLocation"
+    marker.className = 'icon-mapMarker-default';
+  }
+  
   new mapboxgl.Marker(marker)
     .setLngLat(store.geometry.coordinates)
     .addTo(map);
-
-
+    
   return marker;
 }
-
 
  
 

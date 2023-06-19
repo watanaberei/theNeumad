@@ -1,4 +1,4 @@
-// Header.js
+// src/components/Header.js
 
 import { getBlogs } from "../api";
 
@@ -253,7 +253,7 @@ const HeaderMap = {
     });
 
     // Search
-
+//REPLACE THIS CODE BELOW WITH GEOCODER FUNCTIONS AND CONST
     const searchToggle = document.querySelector("#search-toggle");
     searchToggle.addEventListener("click", function () {
       const searchInput = document.querySelector("#search");
