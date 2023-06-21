@@ -1,4 +1,4 @@
-// ./src/components/AllBlog053023.js
+// ./src/components/AllBlog.js
 const AllBlog = {
   render: (allBlog) => {
     // Destructure the properties from the primaryAllBlog object

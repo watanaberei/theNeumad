@@ -1,45 +1,81 @@
-// HomeScreen.js
+// src/Screens/HomeScreen.js
 import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost } from "../api.js";
 import PrimaryFeaturedBlog from "../components/PrimaryFeaturedBlog";
 import FeaturedBlog from "../components/FeaturedBlog";
 import AllBlog from "../components/AllBlog.js";
+import { sortByDistance } from '../utils';
+import { createGeojsonListing } from '../components/GeojsonListing';
+
 
     
 const HomeScreen = {
-  render: async () => {
+render: async () => {
     const articleData = await getArticleNeumadsTrail(9, 0);
     const storeData = await getStoresNeumadsReview(9, 0);
     const postData = await getArticlePost(9, 0);
-    console.log("articleData", articleData);
-    console.log("storeData", storeData);
-    console.log("postData", postData);
-    const BlogData = [...articleData, ...storeData, ...postData];
+    // console.log("articleData", articleData);
+    // console.log("storeData", storeData);
+    // console.log("postData", postData);
+    const BlogData = [...articleData, ...storeData, ...postData];  
+    
 
     
     // console.log("getAllBlogsData", getBlogData);
     // console.log("getBlogData", getBlogData);
     // console.log("getBlogsData", getBlogsData);
-
+    
     const primaryFeaturedBlogDatas = BlogData;
     const featuredBlogDatas = BlogData;
     const allBlogDatas = BlogData;
+    const allGeojsonStores = BlogData;
 
-    console.log(`primaryFeaturedBlogDatas`, primaryFeaturedBlogDatas);
-    console.log(`featuredBlogDatas`, featuredBlogDatas);
-    console.log(`getBlogData`, allBlogDatas);
+    // console.log(`primaryFeaturedBlogDatas`, primaryFeaturedBlogDatas);
+    // console.log(`featuredBlogDatas`, featuredBlogDatas);
+    // console.log(`getBlogData`, allBlogDatas);
 
-    const primaryFeaturedBlogs = postData.slice(1).slice(-1);
-    const featuredBlogs = postData.slice(1).slice(-3);
-    const allBlogs = postData.slice(3);
+    // console.log("BlogData", BlogData.slice(0,1));
+    const primaryFeaturedBlogs = BlogData.slice(0,1);
+    const featuredBlogs = BlogData.slice(2,5);
+    const allBlogs = BlogData.slice(3);
+    
+    // const createListing = (store) => {
+    //   const onClick = () => {}; // Define the onClick behavior if needed
+
+    //   // Convert the blog data into the expected format for createGeojsonListing
+    //   const geojsonStore = {
+    //     type: 'Feature',
+    //     properties: store,
+    //     geometry: {
+    //       type: 'Point',
+    //       coordinates: store.coordinates || [0, 0], // Provide default coordinates if not available
+    //     },
+    //   };
+    const selectedLocation = JSON.parse(localStorage.getItem('selectedLocation') || 'null');
+    const sortedBlogData = sortByDistance(selectedLocation, BlogData);
+  
+    const createListing = (store) => {
+      const onClick = () => {}; // Define the onClick behavior if needed
+      return createGeojsonListing(store, onClick).outerHTML;
+    };  
+  
+    const geojsonListings = sortedBlogData.slice(0, 3).map(createListing).join('\n');
+
+    //   return createGeojsonListing(geojsonStore, onClick).outerHTML;
+    // };
+
+    // const geojsonListings = allBlogs.slice(0, -3).map(createListing).join('\n');
 
     return `
-      <div>
-        <div class="featured-blog-layout container" id="featured-blog-layout">
-          ${primaryFeaturedBlogs.map((primaryFeaturedBlog) => `${PrimaryFeaturedBlog.render(primaryFeaturedBlog)}`).join("\n")}
-  
-          ${featuredBlogs
-            .map((featuredBlog) => FeaturedBlog.render(featuredBlog))
-            .join("\n")}
+    <div>
+      <div class="geojson-listings container" id="geojson-listings">
+        ${geojsonListings}
+      </div>
+      <div class="featured-blog-layout container" id="featured-blog-layout">
+        ${primaryFeaturedBlogs.map((primaryFeaturedBlog) => `${PrimaryFeaturedBlog.render(primaryFeaturedBlog)}`).join("\n")}
+
+        ${featuredBlogs
+          .map((featuredBlog) => FeaturedBlog.render(featuredBlog))
+          .join("\n")}
         </div>
         <div class="section-header container" id="section-header">
           <div class="work-title">
@@ -49,11 +85,9 @@ const HomeScreen = {
           </div>
         </div>
         <div class="blog-layout container" id="blog-layout">
- 
           ${allBlogs
             .map((allBlog) => AllBlog.render(allBlog))
             .join("\n")}
-
         </div>
         <div class="load-btn">
           <button class="load" id="load">Load more</button>

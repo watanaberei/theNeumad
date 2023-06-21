@@ -1,33 +1,37 @@
-//src/components/GeojsonStores.js
-import { getStoresNeumadsReview, getArticleNeumadsTrail } from "../api.js";
+// //src/components/GeojsonStores.js
+import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost } from "../api.js";
 
 
 export async function geojsonStore() {
   try {
-    // const articleData = await getArticleNeumadsTrail(9, 0);
-    // const storeData = await getStoresNeumadsReview(9, 0);
-    // const getAllBlogData = [...articleData, ...storeData];
-    // console.log("getAllBlogData", getAllBlogData);
-    // const articleNeumadsTrail = getAllBlogData;
     const articleData = await getArticleNeumadsTrail(9, 0);
     const storeData = await getStoresNeumadsReview(9, 0);
-    const articleNeumadsTrail = [...articleData, ...storeData];
-    // const articleNeumadsTrail = await getArticleNeumadsTrail();
-    const features = articleNeumadsTrail.map((store) => {
+    const postData = await getArticlePost(9, 0);
+    const BlogData = [...articleData, ...storeData, ...postData];
+
+    
+
+
+    console.log("BlogData GeojsonStore.js: ", BlogData);
+    const features = BlogData.map((store) => {
       // Extract properties from the store object
       const {
         title,
         headline: { text: headline },
         slug, 
         location: { address, geolocation: { lat, lon }, type },
-        category: { category }, 
-        series: { series },
-        media: { thumbnail },
+        category,
+        series,
+        media: { 
+          thumbnail  
+        },
         snippet: { text: snippet },
+        // tags: { tagsCollection: { items: { tags } } },
         tags,
 
       } = store;
 
+      // console.log("store: ", store);
       return {
         "type": "Feature",
         "geometry": {
@@ -39,61 +43,26 @@ export async function geojsonStore() {
           headline,
           slug,
           address,
+          lat,
+          lon,
           type,
           category,
           series,
           thumbnail,
           snippet,
           tags,
+
         },
       };
     });
-
-    // const features = articleNeumadsTrail.map((store) => {
-    //   // Extract properties from the store object
-    //   const {
-    //     title,
-    //     headline: { text: headline },
-    //     slug, 
-    //     location: { address, geolocation: { lat, lon }, type },
-    //     category,
-    //     series,
-    //     media: { thumbnail },
-    //     snippet: { text: snippet },
-    //     tags,
-    //   } = store;
-
-    //   return {
-    //     "type": "Feature",
-    //     "geometry": {
-    //       "type": "Point",
-    //       "coordinates": [lon, lat],
-    //     },
-    //     "properties": {
-    //       title,
-    //       headline,
-    //       slug,
-    //       address,
-    //       type,
-    //       category,
-    //       series,
-    //       thumbnail,
-    //       snippet,
-    //       tags,
-    //     },
-    //   };
-    // });
-
+    console.log("features: ", features[0]);
     return { features };
+    
   } catch (error) {
     console.error('Error fetching store data:', error);
     return { features: [] };
   }
 }
-
-
-
-
 
 
 

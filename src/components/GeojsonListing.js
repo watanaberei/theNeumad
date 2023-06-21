@@ -1,57 +1,76 @@
-// src/components/GeojsonListing.js
 export function createGeojsonListing(store, onClick) {
+   console.log("Creating listing for properties:", store); // Add this line
+  if (!store.properties) {
+    return '';
+  }
+
+  const { tag, slug,  thumbnail,media, category, headline } = store.properties;
+  const tags = tag && tag.length ? tag[0].tags : [];
+  const title = headline || [];
+  const medias = media || [];
+
+  const thumbnailss = medias.url;
+
+  const limitedTags03 = tags.slice(0, 3);
+  let tagsHTML = '';
+  limitedTags03.forEach(tag => {
+    tagsHTML += `<div class="metadata-tag">
+                   <span class="metadata-tag-text text01">${tag}</span>
+                 </div>`;
+  });
+
   const listing = document.createElement('div');
-    listing.className = 'item';
-    listing.addEventListener('click', () => onClick(store));
+  listing.className = 'blog';
+  listing.addEventListener('click', () => onClick(store));
 
-  const link = document.createElement('a');
-    link.className = 'title header03';
-    link.textContent = store.properties.headline;
-    listing.appendChild(link);
-
-  const subtext = document.createElement('div');
-    subtext.className = 'details bold01';
-    subtext.innerHTML = `
-    <div class="listing listing-subtext">
-      <span class="listing-address">
-        <span class="listing-icon text03">${store.properties.address}</span>
-        <span class="listing-icon text03">📍</span>
-      </span>
-      <div class="cta-tertiary">
-        <a href="/#/Article/${store.properties.category}/${store.properties.slug}" class="listing-address">
-          <span class="link03 bold01">Read More</span>
+  listing.innerHTML = `
+    <div class="blog-img">
+      <a href="/#/article/${category}/${slug}">
+        <img src="${thumbnail}" alt="" />
+      </a>
+    </div>
+    <div class="blog-text">
+      <div class="blog-header">
+        <a href="/#/${category}/${slug}">
+          <div class="blog-header-container">
+            <span class="blog-title-text header04">
+              ${title}
+            </span>
+          </div>
         </a>
       </div>
+      <div class="blog-data">
+        <div class="tag-collection">
+          <div class="blog-data-container">
+            <a href="/#/dine">
+              <div class="section-tag" id="${category}">
+                <i class="section-tag-icon icon-${category}"></i>
+                <span class="section-tag-divider">
+                  <div class="lineV"></div>
+                </span>
+                <span class="section-tag-text medium00">
+                  ${category}
+                </span>
+              </div>
+            </a>
+          </div>
+          <div class="nav-list-divider">
+            <div class="lineV"></div>
+          </div>
+          <div class="blog-data">
+            ${tag}
+          </div>
+        </div>
+        <div class="data-time">
+          <span class="data-time-text text01">2m Read</span>
+        </div>
+      </div>
+      <div class="lineH"></div>
     </div>
-    <div class="lineH"></div>
-    `
-    listing.appendChild(subtext);
+  `;
 
-  listing.addEventListener('click', () => {
-    const isActive = listing.classList.contains('active');
-    const isActives = document.createElement('div'); // moved here
-    isActives.className = 'details bold01';
-    isActives.innerHTML = `
-      <span class="listing-address">
-        <span class="listing-icon text03">${store.properties.address}${store.properties.snippet}</span>
-        <span class="listing-icon text03">📍</span>
-      </span>
-      <a href="/#/Article/${store.properties.category}/${store.properties.slug}" class="listing-address">
-        <span class="link03 bold01">Read More</span>
-      </a>
-    `;
-
-    if (isActive) {
-      listing.classList.remove('active');
-      listing.removeChild(listing.lastChild); // remove last appended child
-    } else {
-      listing.classList.add('active');
-      listing.appendChild(isActives); // append when active
-    }
-  });
   return listing;
 }
-
 
 
   

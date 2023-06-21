@@ -54,7 +54,7 @@ const router = async () => {
   const request = parseRequestUrl();
   const parseUrl =
     (request.resource ? `/${request.resource}` : "/") +
-    (request.category ? `/article/${request.category}` : "") + // Update the URL construction here
+    (request.category ? `/article/${request.category}/${request.slug}` : "") + // Update the URL construction here
     (request.slug ? `/${request.slug}` : "") +
     (request.verb ? `/${request.verb}` : "");
   const screen = routes[parseUrl] ? routes[parseUrl] : Error404Page;

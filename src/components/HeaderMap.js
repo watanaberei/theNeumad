@@ -1,11 +1,11 @@
-// src/components/Header.js
-
-import { getBlogs } from "../api";
+// src/components/HeaderMap.js
+import { createGeocoderInput } from '../components/GeocoderInput';
+import { geojsonStore } from '../components/GeojsonStores';
 
 const HeaderMap = {
-  
   render: () => {
-    const newLocal=`<nav class="navigation container nav-top">
+    const newLocal = `
+    <nav class="navigation container nav-top">
 
           <section class="nav-reportBar">
             <div class="nav-reportBar-content">
@@ -26,92 +26,24 @@ const HeaderMap = {
 
 
 
-
-
           <section class="nav-utility">
-            <div class="nav-utility-container">
-              <div class="nav-utility-left">
-                <!-- hamburger --> 
-                <div class="hamburger"><i class="icon-hamburger"></i></div>
-              </div>
-              <div class="nav-utility-mid">
-                <div class="navSecondary-utility-mid-logo">
-                    <!-- logo -->
-                    <a class="navSecondary-utility-mid-logo-container" href="/"> 
-                      <img src="./images/brand/twn_brand_logo-H-med_v08.svg" alt="">
-                    </a>
-                </div>
-              </div>
-              <div class="nav-utility-right">
-                <!-- search -->
-                <div class="search-wrapper">
-                    <header class="main-search clearfix">
-                      <button type="button" class="btn pull-right" id="search-toggle">
-                        <span class="fa fa-search icon-search"></i>
-                      </button>
-                      <div class="form-search stretch-to-fit">
-                        <label for="search" class="btn pull-left">
-                          <span class="btn fa fa-search icon-search"></i>
-                        </label>
-                        <div class="search-control stretch-to-fit">
-                          <input type="text" id="search" placeholder="Search...">
-                        </div>
-                      </div>
-                    </header>
-                    <!--
-                    div class="search-container">
-                      <div class="search-results">
-                        <ul>
-                          <li>You can show search results here.</li>
-                          <li>Lorem ipsum dolor sit amet, consectetur.</li>
-                          <li>Lorem ipsum dolor sit amet, consectetur.</li>
-                          <li>Lorem ipsum dolor sit amet, consectetur.</li>
-                        </ul>
-                      </div>
-                    </div>
-                    -->
-                  </div>
+          <div class="nav-utility-container">
+            <div class="nav-utility-left">
+              <div class="hamburger"><i class="icon-hamburger"></i></div>
+            </div>
+            <div class="nav-utility-mid">
+              <div class="navSecondary-utility-mid-logo">
+                <a class="navSecondary-utility-mid-logo-container" href="/"> 
+                  <img src="./images/brand/twn_brand_logo-H-med_v08.svg" alt="">
+                </a>
               </div>
             </div>
-          </section>
-
-
-
-
-          <!--
-          <section class="nav-mid">
-            <div class="nav-mid-left"> 
-              <div class="current-date current-data">
-                <span class="text01" data-testid="current-date">
-                  Friday, April 7, 2023
-                </span>
-              </div> 
-              <div class="current-location current-data">
-                <span class="text01" data-testid="current-location">
-                  LA, California
-                </span>
+            <div class="nav-utility-right">
+              <div class="search-wrapper" id="geocoder-container">
               </div>
-            </div> 
-            <div class="nav-brand-logo">
-              <a class="logo" href="#"> 
-                <img src="./images/brand/twn_brand_logo-H-med_v08.svg" alt="" />
-              </a>
             </div>
-            <div class="nav-mid-right">
-              <div class="current-temp current-data">
-                <i class="bx bx-cloud"></i>
-                <span class="text01" data-testid="current-temp">
-                  63°F 
-                </span>
-              </div>
-              <div class="current-location current-data">
-                <span class="text01" data-testid="current-location">
-                  LA, California
-                </span>
-              </div>
-           </div>
-          </section>
-          -->
+          </div>
+
 
   
           <section class="nav-tags">
@@ -225,7 +157,9 @@ const HeaderMap = {
         </nav>`;  
     return newLocal;  
   },
-  after_render: () => {
+  after_render: async () => {
+    const features = await geojsonStore();
+    const geocoder = createGeocoderInput(features);
     const navList = document.querySelector(".nav-list");
     const hamburger = document.querySelector(".hamburger");
     const header = document.querySelector(".header");
@@ -254,20 +188,39 @@ const HeaderMap = {
 
     // Search
 //REPLACE THIS CODE BELOW WITH GEOCODER FUNCTIONS AND CONST
-    const searchToggle = document.querySelector("#search-toggle");
-    searchToggle.addEventListener("click", function () {
-      const searchInput = document.querySelector("#search");
-      const searchIcon = this.querySelector("span");
+    // const searchToggle = document.querySelector("#search-toggle");
+    // searchToggle.addEventListener("click", function () {
+    //   const searchInput = document.querySelector("#search");
+    //   const searchIcon = this.querySelector("span");
 
-      searchInput.value = "";
-      if (searchIcon.classList.contains("fa-search")) {
-        searchInput.focus();
-      }
+    //   searchInput.value = "";
+    //   if (searchIcon.classList.contains("fa-search")) {
+    //     searchInput.focus();
+    //   }
 
-      document.querySelector(".main-search").classList.toggle("active");
-      searchIcon.classList.toggle("icon-search");
-      searchIcon.classList.toggle("icon-close");
+    //   document.querySelector(".main-search").classList.toggle("active");
+    //   searchIcon.classList.toggle("icon-search");
+    //   searchIcon.classList.toggle("icon-close");
+    // });    
+    const geocoderContainer =document.getElementById('geocoder-container')
+    document.getElementById('geocoder-container').appendChild(geocoder.onAdd(window.map));
+    geocoder.on('result', function (result) {
+      window.handleGeocoderResult(result);
+      console.log(result);
     });
+
+    // // Get the geocoder results container.
+    // const results = document.getElementById('result');
+    
+    // // Add geocoder result to container.
+    // geocoder.on('result', (e) => {
+    // results.innerText = JSON.stringify(e.result, null, 2);
+    // });
+    
+    // // Clear results container when search is cleared.
+    // geocoder.on('clear', () => {
+    // results.innerText = '';
+    // });
 
 
 

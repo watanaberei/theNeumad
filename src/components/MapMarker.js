@@ -5,12 +5,13 @@ export function createMapMarker(store, map, onClick) {
   const marker = document.createElement('div');
   
   // Check if the category property exists and is not "userLocation"
-  if (store.properties.category && store.properties.category !== 'userLocation') {
-    marker.className = 'icon-mapMarker-' + store.properties.category;
+  if (store.category && store.category !== 'userLocation') {
+    marker.className = 'icon-mapMarker-' + store.category;
   } else {
     // Assign the default class name if the category is not available or is "userLocation"
     marker.className = 'icon-mapMarker-default';
   }
+  
   
   new mapboxgl.Marker(marker)
     .setLngLat(store.geometry.coordinates)

@@ -31,7 +31,8 @@ export function createGeocoderInput(features) {
     }
 
     // Prioritize store matches over location matches
-    return [...storeMatches, ...locationMatches];
+    return [...locationMatches, ...storeMatches];
+    // return [...storeMatches, ...locationMatches];
   };
 
   const geocoder = new MapboxGeocoder({

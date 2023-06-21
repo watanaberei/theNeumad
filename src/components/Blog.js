@@ -1,4 +1,4 @@
-//Blog.js
+// src/components/Blog.js
 import { format, parseISO } from "date-fns";
 
 function generateTags(keywords) {

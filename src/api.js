@@ -156,7 +156,7 @@ const client = createClient({
 //       }
 
 //       const articles = json.data.articleNeumadsTrailCollection.items;
-//       console.log("articles", articles)
+//       // console.log("articles", articles)
 //       const data = articles.map((article) => {
 //       return {
 //         ...article,
@@ -470,7 +470,7 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
     }
 
     const articles = json.data.articleNeumadsTrailCollection.items;
-    console.log("articles", articles);
+    // console.log("articles", articles);
 
     const data = articles.map((articles) => {
       return {
@@ -791,7 +791,7 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
     }
 
     const stores = json.data.storesNeumadsReviewCollection.items;
-    console.log("store", stores);
+// console.log("store", stores);
 
     const data = stores.map((stores) => {
       return {
@@ -1199,7 +1199,7 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
     }
 
     const blogs = json.data.appFastFoodHomePage031523Collection.items;
-    console.log("store", blogs);
+    // console.log("store", blogs);
 
     const data = blogs.map((blogs) => {
       return {
@@ -1334,7 +1334,7 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
    
 
 //     // const stores = json.data.storesNeumadsReviewCollection.items;
-//     // console.log("store", stores);
+//     // // console.log("store", stores);
 //     console.log("blogs  !!", blogs);
 //     const item = blogs.data.items;
     
@@ -1701,7 +1701,7 @@ export default API;
 
 //     // const blogs = json.data.appFastFoodHomePage031523Collection.items;
 //     // const articles = json.data.articleNeumadsTrailCollection.items;
-//     // console.log("store", stores)
+//     // // console.log("store", stores)
 
 //     // const data = blogs.map((blogs, articles) => {
 //     //   return {
@@ -2038,7 +2038,7 @@ export default API;
 
 //     const blogs = json.data.appFastFoodHomePage031523Collection.items;
 //     const articles = json.data.articleNeumadsTrailCollection.items;
-//     console.log("store", stores)
+//     // console.log("store", stores)
 
 //     // const data = blogs.map((blogs, articles) => {
 //     //   return {
@@ -2102,7 +2102,7 @@ export default API;
 //   return []; // Return an empty array if no data is found
 // }
 // const blogs = json.data.appFastFoodHomePage031523Collection.items;
-// console.log("store", blogs)
+// // console.log("store", blogs)
 //   const data = blogs.map((blogs) => {
 //   return {
 //     ...blogs,
