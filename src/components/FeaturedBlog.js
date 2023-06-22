@@ -1,4 +1,6 @@
-// ./src/components/FeaturedBlog053023.js
+// ./src/components/FeaturedBlog.js
+import allTags from './DataTags';
+
 const FeaturedBlog = {
   render: (featuredBlog) => {
     const {tag, slug, references, media, category, headline} = featuredBlog;
@@ -8,15 +10,19 @@ const FeaturedBlog = {
     const title = headline || [];
     const medias = media || [];
     const reference = references.relatedReferences || [];
-
+    
     // Generate tags HTML
     const limitedTags03 = tags.slice(0, 3);
-    let tagsHTML = '';
-    limitedTags03.forEach(tags => {
-      tagsHTML += `<div class="metadata-tag">
-                     <span class="metadata-tag-text text01">${tags}</span>
-                   </div>`;
-    });
+    const tagsHTML = allTags(limitedTags03);
+
+    // Generate tags HTML
+    // const limitedTags03 = tags.slice(0, 3);
+    // let tagsHTML = '';
+    // limitedTags03.forEach(tags => {
+    //   tagsHTML += `<div class="metadata-tag">
+    //                  <span class="metadata-tag-text text01">${tags}</span>
+    //                </div>`;
+    // });
 
   
       // Limit to the first two references

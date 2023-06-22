@@ -1,6 +1,7 @@
 .mapContainer {
   display: block;
   z-index: 33;
+  
   /* position: absolute; */
   bottom: 0;
   height: 100%;

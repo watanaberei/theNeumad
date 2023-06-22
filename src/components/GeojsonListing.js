@@ -6,6 +6,8 @@ export function createGeojsonListing(store, onClick) {
 
   const { tag, slug,  thumbnail, media, category, headline } = store.properties;
   const tags = tag && tag.length ? tag[0].tags : [];
+  const categories = category.category;
+
   // const categories = category || [];
   console.log("categories: ", category);
   const title = headline || [];
@@ -27,13 +29,13 @@ export function createGeojsonListing(store, onClick) {
 
   listing.innerHTML = `
     <div class="blog-img">
-      <a href="/#/article/${category}/${slug}">
+      <a href="/#/article/${categories}/${slug}">
         <img src="${thumbnail}" alt="" />
       </a>
     </div>
     <div class="blog-text">
       <div class="blog-header">
-        <a href="/#/${category}/${slug}">
+        <a href="/#/${categories}/${slug}">
           <div class="blog-header-container">
             <span class="blog-title-text header04">
               ${title}
@@ -45,13 +47,13 @@ export function createGeojsonListing(store, onClick) {
         <div class="tag-collection">
           <div class="blog-data-container">
             <a href="/#/dine">
-              <div class="section-tag" id="${category}">
-                <i class="section-tag-icon icon-${category}"></i>
+              <div class="section-tag" id="${categories}">
+                <i class="section-tag-icon icon-${categories}"></i>
                 <span class="section-tag-divider">
                   <div class="lineV"></div>
                 </span>
                 <span class="section-tag-text medium00">
-                  ${category}
+                  ${categories}
                 </span>
               </div>
             </a>
