@@ -4,12 +4,14 @@ export function createGeojsonListing(store, onClick) {
     return '';
   }
 
-  const { tag, slug,  thumbnail,media, category, headline } = store.properties;
+  const { tag, slug,  thumbnail, media, category, headline } = store.properties;
   const tags = tag && tag.length ? tag[0].tags : [];
+  // const categories = category || [];
+  console.log("categories: ", category);
   const title = headline || [];
-  const medias = media || [];
+  // const medias = media || [];
 
-  const thumbnailss = medias.url;
+  // const thumbnailss = medias.url;
 
   const limitedTags03 = tags.slice(0, 3);
   let tagsHTML = '';

@@ -17,7 +17,7 @@
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
 
-import { createClient } from "contentful";
+import { createClient } from "contentful"; 
 
 const client = createClient({
   space: "i1hcb4885ci0",

@@ -27,7 +27,9 @@ export async function geojsonStore() {
         },
         snippet: { text: snippet },
         // tags: { tagsCollection: { items: { tags } } },
-        tags,
+
+        tag: { tag },
+        references: { relatedReferencesCollection:references },
 
       } = store;
 
@@ -50,8 +52,8 @@ export async function geojsonStore() {
           series,
           thumbnail,
           snippet,
-          tags,
-
+          tag,
+          references,
         },
       };
     });

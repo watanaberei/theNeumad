@@ -2,15 +2,17 @@
 const PrimaryFeaturedBlog = {
   render: (primaryFeaturedBlog) => {
     // Destructure the properties from the primaryFeaturedBlog object
-    const {tag, relatedReferences, slug,  media, category, headline, location } = primaryFeaturedBlog;
+    const {tag, references, slug,  media, category, headline, location } = primaryFeaturedBlog;
     const tags = tag && tag.length ? tag[0].tags : [];
+    const categories = category.category;
+    // const metatags = metatag && metatag.length ? metatag[0].metatags : [];
     const headlines = headline || [];
     const title = headlines.text;
     const medias = media || [];
     const locations = location || [];
     const coordinate = locations.geolocation;
     const thumbnail = medias.thumbnail;
-    const references = relatedReferences || [];
+    const reference = references.relatedReferences || [];
       console.log("coordinate: ", coordinate);
 
       
@@ -18,52 +20,51 @@ const PrimaryFeaturedBlog = {
     // Generate tags HTML
     const limitedTags03 = tags.slice(0, 3);
     let tagsHTML = '';
-    limitedTags03.forEach(tag => {
+    limitedTags03.forEach(tags => {
       tagsHTML += `<div class="metadata-tag">
-                     <span class="metadata-tag-text bold01">${tag}</span>
+                     <span class="metadata-tag-text text01">${tags}</span>
                    </div>`;
     });
 
   
-      // Limit to the first two references
-      const limitedReferences = references.slice(0, 2);
-      let referencesHTML = '';
-      limitedReferences.forEach((reference, index) => {
-          console.log("reference object: ", reference);
-          referencesHTML += `
-          <div class="primary-featured-blog-text">
-              <div class="primary-featured-blog-header">
-              <a href="/#/${reference.category}/${reference.slug}">
-                  <div class="primary-featured-blog-header-container">
-                  <span class="primary-featured-blog-title-text header03">
-                      ${reference.title}
-                  </span> 
-                  
-                  <span class="primary-featured-blog-overview-text text02">
-                      ${reference.overview}
-                  </span>
-              
-                  </div>
-              </a>
-              </div>
-          </div>`;
-  
-      // If this is not the last reference, add the divider
-      if (index !== limitedReferences.length - 1) {
-          referencesHTML += '<div class="lineV"></div>';
-      }
-
+     // Limit to the first two references
+     const limitedReferences = reference.slice(0, 2);
+     let referencesHTML = '';
+     limitedReferences.forEach((reference, index) => {
+         console.log("reference object: ", reference);
+         referencesHTML += `
+         <div class="featured-blog-text">
+             <div class="featured-blog-header">
+             <a href="/#/${reference.category}/${reference.slug}">
+                 <div class="featured-blog-header-container">
+                 <span class="featured-blog-title-text header03">
+                     ${reference.title}
+                 </span> 
+                 
+                 <span class="featured-blog-overview-text text02">
+                     ${reference.overview}
+                 </span>
+             
+                 </div>
+             </a>
+             </div>
+         </div>`;
+ 
+     // If this is not the last reference, add the divider
+     if (index !== limitedReferences.length - 1) {
+         referencesHTML += '<div class="lineV"></div>';
+     }
   
     });
 
     // Convert category object to lowercase key entries if it's an object
-    let categories = {};
-    if (typeof category === 'object') {
-      categories = Object.entries(category).reduce((acc, [key, val]) => {
-        acc[key.toLowerCase()] = val;
-        return acc;
-      }, {});
-    }
+    // let categories = {};
+    // if (typeof category === 'object') {
+    //   categories = Object.entries(category).reduce((acc, [key, val]) => {
+    //     acc[key.toLowerCase()] = val;
+    //     return acc;
+    //   }, {});
+    // }
 
   // Generate the HTML content for the PrimaryFeaturedBlog component
   return `
@@ -71,13 +72,13 @@ const PrimaryFeaturedBlog = {
   <div class="primary-featured-blog-container"> 
     <div class="primary-featured-blog"> 
       <div class="primary-featured-blog-img">
-        <a href="/#/article/${category}/${slug}"> <!-- Update the href here -->
+        <a href="/#/article/${categories}/${slug}"> <!-- Update the href here -->
           <img src="${thumbnail}" alt="" />
         </a>
       </div>
       <div class="primary-featured-blog-text">
         <div class="primary-featured-blog-header">
-          <a href="/#/article/${category}/${slug}"> <!-- Update the href here -->
+          <a href="/#/article/${categories}/${slug}"> <!-- Update the href here -->
             <div class="primary-featured-blog-header-container">
               <span class="primary-featured-blog-title-text header05">
                 ${title}
@@ -89,14 +90,16 @@ const PrimaryFeaturedBlog = {
           <div class="tag-collection">
             <div class="featured-blog-data-container">
               <a href="/#/dine">
-                <div class="section-tag" id="${category}">
-                  <i class="section-tag-icon icon-${category}"></i>
+                <div class="section-tag" id="${categories}">
+                  <i class="section-tag-icon icon-${categories}"></i>
                   <span class="section-tag-divider">
                     <div class="lineV"></div>
                   </span>
-                  <span class="section-tag-text bold01">
-                    ${category}
-                  </span>
+                  <a href="/#/${categories}">
+                    <span class="section-tag-text medium00">
+                        ${categories}
+                    </span>
+                  </a>
                 </div>
               </a>
             </div>

@@ -5,17 +5,17 @@ import { geojsonStore } from '../components/GeojsonStores';
 const HeaderMap = {
   render: () => {
     const newLocal = `
-    <nav class="navigation container nav-top">
+    <nav class="navigation container nav-map-top">
 
-          <section class="nav-reportBar">
-            <div class="nav-reportBar-content">
-              <div class="nav-reportBar-content-container">
-                <div class="nav-reportBar-content-wrapper">
+          <section class="nav-map-reportBar">
+            <div class="nav-map-reportBar-content">
+              <div class="nav-map-reportBar-content-container">
+                <div class="nav-map-reportBar-content-wrapper">
                   <span class="text01">Report Bar Content 01</span>
                   <span class="text01">Data 01</span>
                   <span class="text01">Data 02</span>
                 </div>
-                <div class="nav-reportBar-content-wrapper">
+                <div class="nav-map-reportBar-content-wrapper">
                   <span class="text01">Report Bar Content 01</span>
                   <span class="text01">Data 01</span>
                   <span class="text01">Data 02</span>
@@ -26,19 +26,19 @@ const HeaderMap = {
 
 
 
-          <section class="nav-utility">
-          <div class="nav-utility-container">
-            <div class="nav-utility-left">
+          <section class="nav-map-utility">
+          <div class="nav-map-utility-container">
+            <div class="nav-map-utility-left">
               <div class="hamburger"><i class="icon-hamburger"></i></div>
             </div>
-            <div class="nav-utility-mid">
+            <div class="nav-map-utility-mid">
               <div class="navSecondary-utility-mid-logo">
                 <a class="navSecondary-utility-mid-logo-container" href="/"> 
                   <img src="./images/brand/twn_brand_logo-H-med_v08.svg" alt="">
                 </a>
               </div>
             </div>
-            <div class="nav-utility-right">
+            <div class="nav-map-utility-right">
               <div class="search-wrapper" id="geocoder-container">
               </div>
             </div>
@@ -49,7 +49,7 @@ const HeaderMap = {
           <section class="nav-tags">
             <div class="nav-tags-container">
               <!--
-              <div class="nav-search">
+              <div class="nav-map-search">
                 <fieldset class="nav-search-container" id="nav-search-container">
                     <i class="bx bx-search"></i>
                     <div class="nav-list-divider"> 
@@ -117,7 +117,7 @@ const HeaderMap = {
                         </span>
                     </div>
                   </a>
-                  <div class="nav-list-divider">
+                  <div class="nav-map-list-divider">
                     <div class="lineV"></div>
                   </div>
 
@@ -127,7 +127,7 @@ const HeaderMap = {
                       <span class="text01">Dine</span>
                     </a>
                   </li>
-                  <div class="nav-list-divider">
+                  <div class="nav-map-list-divider">
                     <div class="lineV"></div>
                   </div> 
                   <li>
@@ -135,7 +135,7 @@ const HeaderMap = {
                       <span class="text01">Unwind</span>
                     </a>
                   </li>
-                  <div class="nav-list-divider">
+                  <div class="nav-map-list-divider">
                     <div class="lineV"></div>
                   </div>
                   <li>
@@ -143,7 +143,7 @@ const HeaderMap = {
                       <span class="text01">Shorts</span>
                     </a> 
                   </li>
-                  <div class="nav-list-divider">
+                  <div class="nav-map-list-divider">
                     <div class="lineV"></div> 
                   </div> 
                   -->
@@ -160,11 +160,11 @@ const HeaderMap = {
   after_render: async () => {
     const features = await geojsonStore();
     const geocoder = createGeocoderInput(features);
-    const navList = document.querySelector(".nav-list");
+    const navList = document.querySelector(".nav-map-list");
     const hamburger = document.querySelector(".hamburger");
     const header = document.querySelector(".header");
-    const headerMid = document.querySelector(".nav-mid");
-    const utilityLogo = document.querySelector(".nav-utility-mid-logo");
+    const headerMid = document.querySelector(".nav-map-mid");
+    const utilityLogo = document.querySelector(".nav-map-utility-mid-logo");
     const search = document.querySelector("#search-toggle");
 
     hamburger.addEventListener("click", () => {
@@ -202,12 +202,12 @@ const HeaderMap = {
     //   searchIcon.classList.toggle("icon-search");
     //   searchIcon.classList.toggle("icon-close");
     // });    
-    const geocoderContainer =document.getElementById('geocoder-container')
-    document.getElementById('geocoder-container').appendChild(geocoder.onAdd(window.map));
-    geocoder.on('result', function (result) {
-      window.handleGeocoderResult(result);
-      console.log(result);
-    });
+    // const geocoderContainer =document.getElementById('geocoder-container')
+    // document.getElementById('geocoder-container').appendChild(geocoder.onAdd(window.map));
+    // geocoder.on('result', function (result) {
+    //   window.handleGeocoderResult(result);
+    //   console.log(result);
+    // });
 
     // // Get the geocoder results container.
     // const results = document.getElementById('result');
@@ -224,7 +224,7 @@ const HeaderMap = {
 
 
 
-    const links = [...document.querySelectorAll(".nav-list a")];
+    const links = [...document.querySelectorAll(".nav-map-list a")];
     links.map((link) => {
       link.addEventListener("click", () => {
         window.scrollTo({
