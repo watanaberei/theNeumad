@@ -3,12 +3,12 @@ import allTags from './DataTags';
 
 const FeaturedBlog = {
   render: (featuredBlog) => {
-    const {tag, slug, references, media, category, headline} = featuredBlog;
+    const {tag, slug, thumbnail, references, category, headline} = featuredBlog;
     const tags = tag && tag.length ? tag[0].tags : [];
-    const categories = category.category;
+    // const categories = category.category;
     // const metatags = metatag && metatag.length ? metatag[0].metatags : [];
     const title = headline || [];
-    const medias = media || [];
+    // const medias = media || [];
     const reference = references.relatedReferences || [];
     
     // Generate tags HTML
@@ -71,13 +71,13 @@ const FeaturedBlog = {
   <div class="featured-blog-container"> 
     <div class="featured-blog"> 
       <div class="featured-blog-img">
-        <a href="/#/article/${categories}/${slug}"> <!-- Update the href here -->
-          <img src="${medias.thumbnail}" alt="" />
+        <a href="/#/article/${category}/${slug}"> <!-- Update the href here -->
+          <img src="${thumbnail}" alt="" />
         </a>
       </div>
     <div class="featured-blog-text">
       <div class="featured-blog-header">
-        <a href="/#/${categories}/${slug}">
+        <a href="/#/${category}/${slug}">
           <div class="featured-blog-header-container">
             <span class="featured-blog-title-text header04">
               ${title.text}
@@ -96,14 +96,14 @@ const FeaturedBlog = {
           <div class="tag-collection">
               <div class="featured-blog-data-container">
                   <a href="/#/dine">
-                      <div class="section-tag" id="${categories}">
-                          <i class="section-tag-icon icon-${categories}"></i>
+                      <div class="section-tag" id="${category}">
+                          <i class="section-tag-icon icon-${category}"></i>
                           <span class="section-tag-divider">
                           <div class="lineV"></div>
                           </span>
-                          <a href="/#/${categories}">
+                          <a href="/#/${category}">
                             <span class="section-tag-text medium00">
-                                ${categories}
+                                ${category}
                             </span>
                           </a>
                       </div>

@@ -492,7 +492,7 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
           text: articles?.headline?.text,
           slug: articles?.headline?.slug,
         },
-        category: {
+        categories: {
           category: articles?.category?.category,
         },
         series: {
@@ -859,7 +859,7 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
           text: stores?.headline?.text,
           slug: stores?.headline?.slug,
         },
-        category: {
+        categories: {
           category: stores?.category?.category,
         },
         series: {
@@ -1220,7 +1220,7 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
           text: blogs?.headline?.text,
           slug: blogs?.headline?.slug,
         },
-        category: {
+        categories: {
           category: blogs?.category?.category,
         },
         series: {

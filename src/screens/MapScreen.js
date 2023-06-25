@@ -43,21 +43,21 @@ const MapScreen = {
       if (cityBoundaryFeatures.length > 0) {
         const cityBoundary = cityBoundaryFeatures[0];
         const cityBoundaryCoordinates = cityBoundary.geometry.coordinates;
-    
+
         const bounds = cityBoundaryCoordinates.reduce((bounds, coord) => {
           return bounds.extend(coord);
         }, new mapboxgl.LngLatBounds(cityBoundaryCoordinates[0][0], cityBoundaryCoordinates[0][0]));
-    
+
         map.fitBounds(bounds, { padding: 50, duration: 1000 });
-    
+
         if (map.getLayer("searched-city-boundary")) {
           map.removeLayer("searched-city-boundary");
         }
-    
+
         if (map.getLayer("searched-city-fill")) {
           map.removeLayer("searched-city-fill");
         }
-    
+
         map.addLayer({
           id: "searched-city-boundary",
           type: "line",
@@ -68,7 +68,7 @@ const MapScreen = {
           },
           filter: ["==", "NAME", searchedCityName],
         });
-    
+
         map.addLayer({
           id: "searched-city-fill",
           type: "fill",
@@ -79,38 +79,38 @@ const MapScreen = {
           },
           filter: ["==", "NAME", searchedCityName],
         });
-    
-        map.addLayer(
-          {
-            id: "counties",
-            type: "fill",
-            source: "counties",
-            "source-layer": "original",
-            paint: {
-              "fill-outline-color": "rgba(0,0,0,0.1)",
-              "fill-color": "rgba(0,0,0,0.1)",
-            },
-          },
-          // Place polygons under labels, roads and buildings.
-          "building"
-        );
-    
-        map.addLayer(
-          {
-            id: "counties-highlighted",
-            type: "fill",
-            source: "counties",
-            "source-layer": "original",
-            paint: {
-              "fill-outline-color": "#484896",
-              "fill-color": "#6e599f",
-              "fill-opacity": 0.75,
-            },
-            filter: ["in", "FIPS", ""],
-          },
-          // Place polygons under labels, roads and buildings.
-          "building"
-        );
+
+        // map.addLayer(
+        //   {
+        //     id: "counties",
+        //     type: "fill",
+        //     source: "counties",
+        //     "source-layer": "original",
+        //     paint: {
+        //       "fill-outline-color": "rgba(0,0,0,0.1)",
+        //       "fill-color": "rgba(0,0,0,0.1)",
+        //     },
+        //   },
+        //   // Place polygons under labels, roads and buildings.
+        //   "building"
+        // );
+
+        // map.addLayer(
+        //   {
+        //     id: "counties-highlighted",
+        //     type: "fill",
+        //     source: "counties",
+        //     "source-layer": "original",
+        //     paint: {
+        //       "fill-outline-color": "#484896",
+        //       "fill-color": "#6e599f",
+        //       "fill-opacity": 0.75,
+        //     },
+        //     filter: ["in", "FIPS", ""],
+        //   },
+        //   // Place polygons under labels, roads and buildings.
+        //   "building"
+        // );
       } else {
         geocoder.on("result", function (event) {
           const store = {
@@ -237,7 +237,7 @@ function renderFeatures(features, map) {
 //     };
 
 //     const marker = createMapMarker(store, map, onClick);
-//     const listing = createGeojsonListing(store, onClick);
+//     const listing = AllBlog(store, onClick);
 
 //     // Render AllBlog component for each store
 //     const allBlogHTML = AllBlog.render(store);

@@ -3,7 +3,7 @@ import mapboxgl from 'mapbox-gl';
 
 export function createMapMarker(store, map, onClick) {
   const marker = document.createElement('div');
-  const { tag, slug,  thumbnail,media, category, headline } = store.properties;
+    const { tag, slug, media, category, headline } = store.properties;
   const { geometry } = store.geometry;
   const tags = tag && tag.length ? tag[0].tags : [];
   const title = headline || [];

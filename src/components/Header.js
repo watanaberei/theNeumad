@@ -14,8 +14,10 @@ import { sortByDistance } from "../utils";
 
 function getTopTags(BlogData, limit = 10) {
   const tagCounts = {};
+  console.log("Header tagCounts",tagCounts);
   BlogData.forEach((blog) => {
     const tags = blog.tag && blog.tag.length ? blog.tag[0].tags : [];
+    console.log("Header tags",tags);
     tags.forEach((tag) => {
       tagCounts[tag] = (tagCounts[tag] || 0) + 1;
     });
@@ -24,7 +26,7 @@ function getTopTags(BlogData, limit = 10) {
   const sortedTags = Object.entries(tagCounts)
     .sort((a, b) => b[1] - a[1])
     .map((entry) => entry[0]);
-
+    console.log("Header sortedTags",sortedTags);
   return sortedTags.slice(0, limit);
 }
 
@@ -42,7 +44,7 @@ const HeaderMap = {
     const storeData = await getStoresNeumadsReview(9, 0);
     const postData = await getArticlePost(9, 0);
     const BlogData = [...articleData, ...storeData, ...postData];
-
+    console.log("Header BlogData",BlogData);
     const topTags = getTopTags(BlogData, 10);
     const tagsHTML = allTags(topTags);
 

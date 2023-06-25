@@ -47,43 +47,43 @@ export function initMap() {
     // ];
 
     // Add a style layer with the admin-1 source below map labels
-    map.addLayer(
-      {
-        id: "admin-1-fill",
-        type: "fill",
-        source: "admin-1",
-        "source-layer": "boundaries_admin_1",
-        filter: worldviewFilter,
-        paint: {
-          "fill-color": "#CCCCCC",
-          "fill-opacity": 0.5,
-        },
-      },
-      // This final argument indicates that we want to add the Boundaries layer
-      // before the `waterway-label` layer that is in the map from the Mapbox
-      // Light style. This ensures the admin polygons are rendered below any labels
-      "waterway-label"
-    );
+    // map.addLayer(
+    //   {
+    //     id: "admin-1-fill",
+    //     type: "fill",
+    //     source: "admin-1",
+    //     "source-layer": "boundaries_admin_1",
+    //     filter: worldviewFilter,
+    //     paint: {
+    //       "fill-color": "#CCCCCC",
+    //       "fill-opacity": 0.5,
+    //     },
+    //   },
+    //   // This final argument indicates that we want to add the Boundaries layer
+    //   // before the `waterway-label` layer that is in the map from the Mapbox
+    //   // Light style. This ensures the admin polygons are rendered below any labels
+    //   "waterway-label"
+    // );
 
     map.addSource("counties", {
       type: "vector",
       url: "mapbox://mapbox.82pkq93d",
     });
 
-    map.addLayer(
-      {
-        id: "counties",
-        type: "fill",
-        source: "counties",
-        "source-layer": "original",
-        paint: {
-          "fill-outline-color": "rgba(0,0,0,0.1)",
-          "fill-color": "rgba(0,0,0,0.1)",
-        },
-      },
-      // Place polygons under labels, roads and buildings.
-      "building"
-    );
+    // map.addLayer(
+    //   {
+    //     id: "counties",
+    //     type: "fill",
+    //     source: "counties",
+    //     "source-layer": "original",
+    //     paint: {
+    //       "fill-outline-color": "rgba(0,0,0,0.1)",
+    //       "fill-color": "rgba(0,0,0,0.1)",
+    //     },
+    //   },
+    //   // Place polygons under labels, roads and ildings.
+    //   "building"
+    // );
 
     map.addLayer(
       {
@@ -246,46 +246,46 @@ export function initMap() {
 
   // Run a timing loop to switch between day and night
 
-  function frame(time) {
-    const elapsedTime = (time - lastTime) / 1000.0;
+  // function frame(time) {
+  //   const elapsedTime = (time - lastTime) / 1000.0;
 
-    animationTime += elapsedTime;
-    cycleTime += elapsedTime;
+  //   animationTime += elapsedTime;
+  //   cycleTime += elapsedTime;
 
-    if (cycleTime >= 10.0) {
-      if (night) {
-        // night fog styling
-        map.setFog({
-          range: [-1, 2],
-          "horizon-blend": 0.3,
-          color: "#242B4B",
-          "high-color": "#161B36",
-          "space-color": "#0B1026",
-          "star-intensity": 0.8,
-        });
-      } else {
-        // day fog styling
-        map.setFog({
-          range: [-1, 2],
-          "horizon-blend": 0.3,
-          color: "white",
-          "high-color": "#add8e6",
-          "space-color": "#d8f2ff",
-          "star-intensity": 0.0,
-        });
-      }
+  //   if (cycleTime >= 10.0) {
+  //     if (night) {
+  //       // night fog styling
+  //       map.setFog({
+  //         range: [-1, 2],
+  //         "horizon-blend": 0.3,
+  //         color: "#242B4B",
+  //         "high-color": "#161B36",
+  //         "space-color": "#0B1026",
+  //         "star-intensity": 0.8,
+  //       });
+  //     } else {
+  //       // day fog styling
+  //       map.setFog({
+  //         range: [-1, 2],
+  //         "horizon-blend": 0.3,
+  //         color: "white",
+  //         "high-color": "#add8e6",
+  //         "space-color": "#d8f2ff",
+  //         "star-intensity": 0.0,
+  //       });
+  //     }
 
-      night = !night;
-      cycleTime = 0.0;
-    }
+  //     night = !night;
+  //     cycleTime = 0.0;
+  //   }
 
-    const rotation = initialBearing + animationTime * 2.0;
-    map.setBearing(rotation % 360);
+  //   const rotation = initialBearing + animationTime * 2.0;
+  //   map.setBearing(rotation % 360);
 
-    lastTime = time;
+  //   lastTime = time;
 
-    window.requestAnimationFrame(frame);
-  }
+  //   window.requestAnimationFrame(frame);
+  // }
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -296,7 +296,7 @@ export function initMap() {
       map.setCenter(userCoordinates);
     });
   }
-  window.requestAnimationFrame(frame);
+  // window.requestAnimationFrame(frame);
   return map;
 }
 

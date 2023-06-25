@@ -8,7 +8,6 @@ export async function geojsonStore() {
     const storeData = await getStoresNeumadsReview(9, 0);
     const postData = await getArticlePost(9, 0);
     const BlogData = [...articleData, ...storeData, ...postData];
-
     
 
 
@@ -26,9 +25,9 @@ export async function geojsonStore() {
           thumbnail  
         },
         snippet: { text: snippet },
-        // tags: { tagsCollection: { items: { tags } } },
+        tag,
 
-        tag: { tag },
+        // tag: { tag },
         references: { relatedReferencesCollection:references },
 
       } = store;

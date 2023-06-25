@@ -1,10 +1,15 @@
 // ./src/components/PrimaryFeaturedBlog.js
+import allTags from './DataTags';
+
+
 const PrimaryFeaturedBlog = {
   render: (primaryFeaturedBlog) => {
     // Destructure the properties from the primaryFeaturedBlog object
     const {tag, references, slug,  media, category, headline, location } = primaryFeaturedBlog;
     const tags = tag && tag.length ? tag[0].tags : [];
-    const categories = category.category;
+    // const tags = tag || [];
+    console.log("tags", tag)
+    // const categories = category;
     // const metatags = metatag && metatag.length ? metatag[0].metatags : [];
     const headlines = headline || [];
     const title = headlines.text;
@@ -13,18 +18,20 @@ const PrimaryFeaturedBlog = {
     const coordinate = locations.geolocation;
     const thumbnail = medias.thumbnail;
     const reference = references.relatedReferences || [];
-      console.log("coordinate: ", coordinate);
-
-      
-
+    
     // Generate tags HTML
     const limitedTags03 = tags.slice(0, 3);
-    let tagsHTML = '';
-    limitedTags03.forEach(tags => {
-      tagsHTML += `<div class="metadata-tag">
-                     <span class="metadata-tag-text text01">${tags}</span>
-                   </div>`;
-    });
+    const tagsHTML = allTags(limitedTags03);
+      
+
+    // // Generate tags HTML
+    // const limitedTags03 = tags.slice(0, 3);
+    // let tagsHTML = '';
+    // limitedTags03.forEach(tags => {
+    //   tagsHTML += `<div class="metadata-tag">
+    //                  <span class="metadata-tag-text text01">${tags}</span>
+    //                </div>`;
+    // });
 
   
      // Limit to the first two references
@@ -72,13 +79,13 @@ const PrimaryFeaturedBlog = {
   <div class="primary-featured-blog-container"> 
     <div class="primary-featured-blog"> 
       <div class="primary-featured-blog-img">
-        <a href="/#/article/${categories}/${slug}"> <!-- Update the href here -->
+        <a href="/#/article/${category}/${slug}"> <!-- Update the href here -->
           <img src="${thumbnail}" alt="" />
         </a>
       </div>
       <div class="primary-featured-blog-text">
         <div class="primary-featured-blog-header">
-          <a href="/#/article/${categories}/${slug}"> <!-- Update the href here -->
+          <a href="/#/article/${category}/${slug}"> <!-- Update the href here -->
             <div class="primary-featured-blog-header-container">
               <span class="primary-featured-blog-title-text header05">
                 ${title}
@@ -90,14 +97,14 @@ const PrimaryFeaturedBlog = {
           <div class="tag-collection">
             <div class="featured-blog-data-container">
               <a href="/#/dine">
-                <div class="section-tag" id="${categories}">
-                  <i class="section-tag-icon icon-${categories}"></i>
+                <div class="section-tag" id="${category}">
+                  <i class="section-tag-icon icon-${category}"></i>
                   <span class="section-tag-divider">
                     <div class="lineV"></div>
                   </span>
-                  <a href="/#/${categories}">
+                  <a href="/#/${category}">
                     <span class="section-tag-text medium00">
-                        ${categories}
+                        ${category}
                     </span>
                   </a>
                 </div>

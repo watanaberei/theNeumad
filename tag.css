@@ -114,6 +114,7 @@
   }
 
   .metadata-tag-text {
+    text-wrap: nowrap;
     font-weight: bold;
     letter-spacing: 0.06rem;
   }

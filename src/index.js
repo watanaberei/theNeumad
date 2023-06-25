@@ -40,7 +40,7 @@ const routes = {
   "/unwind": UnwindScreen,
   "/dine": DineScreen,
   "/shorts": ShortsScreen,
-  "/blogs/:category/:slug": DetailsScreen,
+  "/article/:category/:slug": DetailsScreen,
   "/article/:category/:slug": ArticleScreen,
   "/about": AboutScreen,
   "/contact": ContactScreen,
@@ -76,7 +76,7 @@ const router = async () => {
     header.innerHTML = await HeaderShorts.render();
     await HeaderShorts.after_render();
   } else if (parseUrl === "/map") {
-    header.innerHTML = await HeaderMap.render();
+    header.innerHTML = await Header.render();
     await HeaderMap.after_render();
   } else if (parseUrl === "/reviews") {
     header.innerHTML = await HeaderReviews.render();
