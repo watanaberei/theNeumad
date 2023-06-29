@@ -1,14 +1,16 @@
 // //src/components/GeojsonStores.js
 import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost } from "../api.js";
+import DataBlog from "../components/DataBlog";
 
+let dataBlog = new DataBlog();
 
 export async function geojsonStore() {
   try {
-    const articleData = await getArticleNeumadsTrail(9, 0);
-    const storeData = await getStoresNeumadsReview(9, 0);
-    const postData = await getArticlePost(9, 0);
-    const BlogData = [...articleData, ...storeData, ...postData];
-    
+    // const articleData = await getArticleNeumadsTrail(9, 0);
+    // const storeData = await getStoresNeumadsReview(9, 0);
+    // const postData = await getArticlePost(9, 0);
+    // const BlogData = [...articleData, ...storeData, ...postData];
+    const BlogData = await dataBlog.getData();
 
 
     console.log("BlogData GeojsonStore.js: ", BlogData);

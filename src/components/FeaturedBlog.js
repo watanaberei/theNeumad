@@ -3,12 +3,18 @@ import allTags from './DataTags';
 
 const FeaturedBlog = {
   render: (featuredBlog) => {
-    const {tag, slug, thumbnail, references, category, headline} = featuredBlog;
+    const {tag, references, slug,  media, category, headline, location } = featuredBlog;
     const tags = tag && tag.length ? tag[0].tags : [];
-    // const categories = category.category;
+    // const tags = tag || [];
+    console.log("tags", tag)
+    // const categories = category;
     // const metatags = metatag && metatag.length ? metatag[0].metatags : [];
-    const title = headline || [];
-    // const medias = media || [];
+    const headlines = headline || [];
+    const title = headlines.text;
+    const medias = media || [];
+    const locations = location || [];
+    const coordinate = locations.geolocation;
+    const thumbnail = medias.thumbnail;
     const reference = references.relatedReferences || [];
     
     // Generate tags HTML
@@ -71,16 +77,16 @@ const FeaturedBlog = {
   <div class="featured-blog-container"> 
     <div class="featured-blog"> 
       <div class="featured-blog-img">
-        <a href="/#/article/${category}/${slug}"> <!-- Update the href here -->
+        <a href="/#/article/${category.category}/${slug}"> <!-- Update the href here -->
           <img src="${thumbnail}" alt="" />
         </a>
       </div>
     <div class="featured-blog-text">
       <div class="featured-blog-header">
-        <a href="/#/${category}/${slug}">
+        <a href="/#/${category.category}/${slug}">
           <div class="featured-blog-header-container">
             <span class="featured-blog-title-text header04">
-              ${title.text}
+              ${title}
             </span> 
             <!--
             <span class="featured-blog-overview-text text02">
@@ -96,14 +102,14 @@ const FeaturedBlog = {
           <div class="tag-collection">
               <div class="featured-blog-data-container">
                   <a href="/#/dine">
-                      <div class="section-tag" id="${category}">
-                          <i class="section-tag-icon icon-${category}"></i>
+                      <div class="section-tag" id="${category.category}">
+                          <i class="section-tag-icon icon-${category.category}"></i>
                           <span class="section-tag-divider">
                           <div class="lineV"></div>
                           </span>
-                          <a href="/#/${category}">
+                          <a href="/#/${category.category}">
                             <span class="section-tag-text medium00">
-                                ${category}
+                                ${category.category}
                             </span>
                           </a>
                       </div>

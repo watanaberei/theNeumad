@@ -10,6 +10,7 @@ export function initMap() {
     container: "map-container",
     // style: "mapbox://styles/neumad/clj0u2c9b00o601pw61e31wdc",
     style: "mapbox://styles/neumad/clj35mzky00sa01q1btc85vwz",
+    // style: "mapbox://styles/neumad/cljbyenya003401ps5vqkdya3",
     center: defaultCoordinates,
     pitch: 0,
     bearing: 0,
@@ -23,13 +24,46 @@ export function initMap() {
     // -----------------FOG----------------- //
     map.setFog({
       range: [-1, 2],
-      "horizon-blend": 0.3,
+      "horizon-blend": 0.15,
       color: "white",
       "high-color": "#add8e6",
       "space-color": "#d8f2ff",
       "star-intensity": 0.0,
     });
     // -----------------FOG----------------- //
+
+    // map.setPaintProperty('building', 'fill-opacity', [
+    //   'interpolate',
+    //   // Set the exponential rate of change to 0.5
+    //   ['exponential', 0.5],
+    //   ['zoom'],
+    //   // When zoom is 10, buildings will be 100% transparent.
+    //   ,
+    //   0.5,
+    //   // When zoom is 18 or higher, buildings will be 100% opaque.
+    //   18,
+    //   1
+    //   ]);
+    map.addSource('my-building-footprints', {
+      type: 'vector',
+      url: '_assets/geojson/building/RhodeIsland.ldgeojson'
+      });
+      // Use the source to add a layer to the map.
+      map.addLayer({
+      'id': 'buildings-i1',
+      'type': 'line',
+      'source': 'my-building-footprints',
+      'source-layer': 'building_footprints',
+      'layout': {
+      'line-join': 'round',
+      'line-cap': 'round'
+      },
+      'paint': {
+      'line-color': '#ff69b4',
+      'line-width': 1
+      }
+      });
+
 
     // -----------------BOUNDARIES----------------- //
     // // Add a vector source for admin-1 boundaries
@@ -91,11 +125,11 @@ export function initMap() {
         type: "fill",
         source: "counties",
         "source-layer": "original",
-        paint: {
-          "fill-outline-color": "#484896",
-          "fill-color": "#6e599f",
-          "fill-opacity": 0.75,
-        },
+        // paint: {
+        //   "fill-outline-color": "#484896",
+        //   "fill-color": "#6e599f",
+        //   "fill-opacity": 0.75,
+        // },
         filter: ["in", "FIPS", ""],
       },
       // Place polygons under labels, roads and buildings.
@@ -106,21 +140,21 @@ export function initMap() {
 
     // -----------------BOUNDARIES----------------- //
     // CITY
-    map.addSource("city-boundaries", {
-      type: "geojson",
-      data: "https://raw.githubusercontent.com/uber-web/kepler.gl-data/master/county_unemployment/data.geojson",
-    });
+    // map.addSource("city-boundaries", {
+    //   type: "geojson",
+    //   data: "https://raw.githubusercontent.com/uber-web/kepler.gl-data/master/county_unemployment/data.geojson",
+    // });
 
-    // Create a layer to display city boundaries
-    map.addLayer({
-      id: "city-boundaries-layer",
-      type: "line",
-      source: "city-boundaries",
-      paint: {
-        "line-color": "#000",
-        "line-width": 1,
-      },
-    });
+    // // Create a layer to display city boundaries
+    // map.addLayer({
+    //   id: "city-boundaries-layer",
+    //   type: "line",
+    //   source: "city-boundaries",
+    //   // paint: {
+    //   //   "line-color": "#000",
+    //   //   "line-width": 1,
+    //   // },
+    // });
     // CITY
     // -----------------BOUNDARIES----------------- //
 
@@ -138,10 +172,10 @@ export function initMap() {
         // Make the layer visible by default.
         visibility: "visible",
       },
-      paint: {
-        "circle-radius": 8,
-        "circle-color": "rgba(55,148,179,1)",
-      },
+      // paint: {
+      //   "circle-radius": 8,
+      //   "circle-color": "rgba(55,148,179,1)",
+      // },
       "source-layer": "museum-cusco",
     });
     // -----------------POIS----------------- //
@@ -165,32 +199,32 @@ export function initMap() {
         filter: ["==", "extrude", "true"],
         type: "fill-extrusion",
         minzoom: 15,
-        paint: {
-          "fill-extrusion-color": "#aaa",
+        // paint: {
+        //   "fill-extrusion-color": "#aaa",
 
-          // Use an 'interpolate' expression to
-          // add a smooth transition effect to
-          // the buildings as the user zooms in.
-          "fill-extrusion-height": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            15,
-            0,
-            15.05,
-            ["get", "height"],
-          ],
-          "fill-extrusion-base": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            15,
-            0,
-            15.05,
-            ["get", "min_height"],
-          ],
-          "fill-extrusion-opacity": 0.6,
-        },
+        //   // Use an 'interpolate' expression to
+        //   // add a smooth transition effect to
+        //   // the buildings as the user zooms in.
+        //   "fill-extrusion-height": [
+        //     "interpolate",
+        //     ["linear"],
+        //     ["zoom"],
+        //     15,
+        //     0,
+        //     15.05,
+        //     ["get", "height"],
+        //   ],
+        //   "fill-extrusion-base": [
+        //     "interpolate",
+        //     ["linear"],
+        //     ["zoom"],
+        //     15,
+        //     0,
+        //     15.05,
+        //     ["get", "min_height"],
+        //   ],
+        //   "fill-extrusion-opacity": 0.6,
+        // },
       },
       labelLayerId
     );

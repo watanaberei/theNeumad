@@ -41,13 +41,13 @@ const AllBlog = {
   <!--BLOG--> 
   <div class="blog"> 
     <div class="blog-img">
-        <a href="/#/article/${category}/${slug}"> <!-- Update the href here -->
+        <a href="/#/article/${category.category}/${slug}"> <!-- Update the href here -->
           <img src="${thumbnail}" alt="" />
         </a>
       </div>
     <div class="blog-text">
       <div class="blog-header">
-        <a href="/#/${category}/${slug}">
+        <a href="/#/${category.category}/${slug}">
           <div class="blog-header-container">
             <span class="blog-title-text header04">
               ${title}
@@ -66,14 +66,14 @@ const AllBlog = {
           <div class="tag-collection">
               <div class="blog-data-container">
                   <a href="/#/dine">
-                      <div class="section-tag" id="${category}">
-                          <i class="section-tag-icon icon-${category}"></i>
+                      <div class="section-tag" id="${category.category}">
+                          <i class="section-tag-icon icon-${category.category}"></i>
                           <span class="section-tag-divider">
                           <div class="lineV"></div>
                           </span>
-                          <a href="/#/${category}">
+                          <a href="/#/${category.category}">
                             <span class="section-tag-text medium00">
-                                ${category}
+                                ${category.category}
                             </span>
                           </a>
                       </div>

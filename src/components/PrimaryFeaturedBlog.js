@@ -79,13 +79,13 @@ const PrimaryFeaturedBlog = {
   <div class="primary-featured-blog-container"> 
     <div class="primary-featured-blog"> 
       <div class="primary-featured-blog-img">
-        <a href="/#/article/${category}/${slug}"> <!-- Update the href here -->
+        <a href="/#/article/${category.category}/${slug}"> <!-- Update the href here -->
           <img src="${thumbnail}" alt="" />
         </a>
       </div>
       <div class="primary-featured-blog-text">
         <div class="primary-featured-blog-header">
-          <a href="/#/article/${category}/${slug}"> <!-- Update the href here -->
+          <a href="/#/article/${category.category}/${slug}"> <!-- Update the href here -->
             <div class="primary-featured-blog-header-container">
               <span class="primary-featured-blog-title-text header05">
                 ${title}
@@ -97,14 +97,14 @@ const PrimaryFeaturedBlog = {
           <div class="tag-collection">
             <div class="featured-blog-data-container">
               <a href="/#/dine">
-                <div class="section-tag" id="${category}">
-                  <i class="section-tag-icon icon-${category}"></i>
+                <div class="section-tag" id="${category.category}">
+                  <i class="section-tag-icon icon-${category.category}"></i>
                   <span class="section-tag-divider">
                     <div class="lineV"></div>
                   </span>
-                  <a href="/#/${category}">
+                  <a href="/#/${category.category}">
                     <span class="section-tag-text medium00">
-                        ${category}
+                        ${category.category}
                     </span>
                   </a>
                 </div>

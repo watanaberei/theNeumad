@@ -11,6 +11,11 @@ import fetchDateTime from "../components/timeApi.js";
 import { createGeocoderInput } from "../components/GeocoderInput";
 import { geojsonStore } from "../components/GeojsonStores";
 import { sortByDistance } from "../utils";
+import DataBlog from "../components/DataBlog";
+import DataFilter from "../components/DataFilter";
+
+
+let dataBlog = new DataBlog();
 
 function getTopTags(BlogData, limit = 10) {
   const tagCounts = {};
@@ -40,13 +45,35 @@ function storeSelectedLocation(result) {
 }
 const HeaderMap = {
   render: async () => {
-    const articleData = await getArticleNeumadsTrail(9, 0);
-    const storeData = await getStoresNeumadsReview(9, 0);
-    const postData = await getArticlePost(9, 0);
-    const BlogData = [...articleData, ...storeData, ...postData];
-    console.log("Header BlogData",BlogData);
-    const topTags = getTopTags(BlogData, 10);
-    const tagsHTML = allTags(topTags);
+    const BlogData = await dataBlog.getData();
+    const allTags = BlogData.reduce((tags, blog) => {
+      const blogTags = blog.tag && blog.tag.length ? blog.tag[0].tags : [];
+      return [...tags, ...blogTags];
+    }, []);
+    const topTags = allTags.slice(0, 10);
+    
+    const dataFilter = new DataFilter(topTags, dataBlog.activeTags, dataBlog.setActiveTags.bind(dataBlog));
+
+    const primaryFeaturedBlogs = BlogData.slice(0, 1);
+    const featuredBlogs = BlogData.slice(2, 5);
+    const allBlogs = BlogData.slice(3);
+
+    const selectedLocation = JSON.parse(localStorage.getItem('selectedLocation') || 'null');
+    const sortedBlogData = sortByDistance(selectedLocation, BlogData);
+
+    const createListing = (store) => {
+      const onClick = () => {}; // Define the onClick behavior if needed
+      return createGeojsonListing(store, onClick).outerHTML;
+    };
+
+
+    // const articleData = await getArticleNeumadsTrail(9, 0);
+    // const storeData = await getStoresNeumadsReview(9, 0);
+    // const postData = await getArticlePost(9, 0);
+    // const BlogData = [...articleData, ...storeData, ...postData];
+    // console.log("Header BlogData",BlogData);
+    // const topTags = getTopTags(BlogData, 10);
+    // const tagsHTML = allTags(topTags);
 
     const newLocal = `
         <nav class="navigation container nav-top">
@@ -80,7 +107,7 @@ const HeaderMap = {
                 <div class="nav-utility-mid">
                     <div class="nav-utility-mid-logo">
                         <!-- logo -->
-                        <img src="./_assets/_brand/logo/neumad_logo_text_light.svg" alt="">
+                        <img src="./_assets/_brand/logo/neumad_logo_text_white.svg" alt="">
                     </div>
                 </div>
                 <!-- search -->
@@ -245,9 +272,7 @@ const HeaderMap = {
             
             <!-- DATA -->
             <section class="data">
-                <div class="blog-data">
-                ${tagsHTML}
-                </div>
+            <div id="blog-filter blog-data">${dataFilter.element.outerHTML}</div>
             </section>
 
 
@@ -388,6 +413,21 @@ const HeaderMap = {
         });
       });
     });
+    document.querySelectorAll('.tag').forEach(tagElement => {
+        tagElement.addEventListener('click', async () => {
+          const tag = tagElement.dataset.tag;
+          const newActiveTags = dataBlog.activeTags.includes(tag)
+                ? dataBlog.activeTags.filter(activeTag => activeTag !== tag)
+                : [...dataBlog.activeTags, tag];
+  
+          dataBlog.setActiveTags(newActiveTags);
+  
+          // Then render your content as needed...
+          // For example:
+          document.querySelector('#blog-layout').innerHTML = await this.render();
+          this.after_render();
+        });
+      });
   },
 };
 export default HeaderMap;

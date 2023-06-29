@@ -13,6 +13,7 @@
     display: grid;
     gap: var(--s03);
     align-items: flex-start;
+    display: grid;
   }
 
   .section-header {
@@ -26,7 +27,7 @@
   .blog .blog-img {
     /* margin: 1.5rem 1.5rem 0; */
     /* height: 15rem; */
-    height: 9rem;
+    /* height: 9rem; */
   }
   
   .blog .blog-img img {

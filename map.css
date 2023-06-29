@@ -13,13 +13,14 @@
   /* overflow-x: hidden; */
   width: 100vw !important;
   height: 100vh !important;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 0;
 }
 
 .sidebar {
   /* position: absolute; */
-  width: 33.3333%;
+  width: 50vw;
   height: 100%;
   top: 0;
   left: 0;
@@ -55,8 +56,16 @@
 
 /* STORELIST */
 .listings {
-  height: 100%;
+  /* height: 100%;
   overflow: auto;
+  padding-bottom: 60px; */
+  height: 100%;
+  padding-right: 20px;
+  gap: 20px;
+  display: grid;
+  align-items: flex-start;
+  overflow: auto;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   padding-bottom: 60px;
 }
 

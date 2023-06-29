@@ -149,6 +149,9 @@
   --s04: 12px;
   --s05: 15px;
   --s06: 30px;
+  
+
+  --border: 90px;
 
 }
 
@@ -199,7 +202,9 @@ li {
 }
 
 .container {
-  max-width: 60%;
+  /* max-width: 100%; */
+  padding-left: var(--border);
+  padding-right: var(--border);
   /* max-width: 110rem; */
   margin: 0 auto;
 }

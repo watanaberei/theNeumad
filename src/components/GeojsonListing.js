@@ -1,3 +1,4 @@
+// src/components/GeojsonListing.js
 export function createGeojsonListing(store, onClick) {
    console.log("Creating listing for properties:", store); // Add this line
   if (!store.properties) {
@@ -25,13 +26,13 @@ console.log("tags", tags);
 
   listing.innerHTML = `
     <div class="blog-img">
-      <a href="/#/article/${category}/${slug}">
+      <a href="/#/article/${category.category}/${slug}">
         <img src="${thumbnail}" alt="" />
       </a>
     </div>
     <div class="blog-text">
       <div class="blog-header">
-        <a href="/#/${category}/${slug}">
+        <a href="/#/${category.category}/${slug}">
           <div class="blog-header-container">
             <span class="blog-title-text header04">
               ${title}
@@ -43,13 +44,13 @@ console.log("tags", tags);
         <div class="tag-collection">
           <div class="blog-data-container">
             <a href="/#/dine">
-              <div class="section-tag" id="${category}">
-                <i class="section-tag-icon icon-${category}"></i>
+              <div class="section-tag" id="${category.category}">
+                <i class="section-tag-icon icon-${category.category}"></i>
                 <span class="section-tag-divider">
                   <div class="lineV"></div>
                 </span>
                 <span class="section-tag-text medium00">
-                  ${category}
+                  ${category.category}
                 </span>
               </div>
             </a>
@@ -58,7 +59,7 @@ console.log("tags", tags);
             <div class="lineV"></div>
           </div>
           <div class="blog-data">
-            ${tag}
+            ${tagsHTML}
           </div>
         </div>
         <div class="data-time">

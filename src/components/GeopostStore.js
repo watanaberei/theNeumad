@@ -1,13 +1,18 @@
 //src/components/GeojsonStores.js
-
 import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost } from "../api.js";
+import DataBlog from "../components/DataBlog";
+import DataFilter from "../components/DataFilter";
+
+let dataBlog = new DataBlog();
 
 export async function geojsonStore() {
   try {
-    const articleData = await getArticleNeumadsTrail(9, 0);
-    const storeData = await getStoresNeumadsReview(9, 0);
-    const postData = await getArticlePost(9, 0);
-    const BlogData = [...articleData, ...storeData, ...postData];
+    // const articleData = await getArticleNeumadsTrail(9, 0);
+    // const storeData = await getStoresNeumadsReview(9, 0);
+    // const postData = await getArticlePost(9, 0);
+    // const BlogData = [...articleData, ...storeData, ...postData];
+
+    const BlogData = await dataBlog.getData();
 
     console.log("BlogData: ", BlogData);
     const features = BlogData.map((stores) => {
@@ -23,7 +28,7 @@ export async function geojsonStore() {
           thumbnail  
         } = { thumbnail: undefined },
         snippet: { text: snippet } = { text: undefined },
-        tags,
+        tag,
       } = stores;
 
       console.log("store: ", stores);
@@ -45,7 +50,7 @@ export async function geojsonStore() {
           series,
           thumbnail,
           snippet,
-          tags,
+          tag,
         },
       };
     });
