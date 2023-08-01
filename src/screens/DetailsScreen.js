@@ -1,6 +1,7 @@
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { parseRequestUrl } from "../utils.js";
-import { getBlog } from "../api.js";
+import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../api.js";
+import DataBlog from "../components/DataBlog";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import { format, parseISO } from "date-fns";
 
@@ -61,14 +62,21 @@ const renderOptions = {
     },
   },
 };
+
+let dataBlog = new DataBlog();
+
 const DetailsScreen = {
   render: async () => {
     const request = parseRequestUrl();
-    const blogdetails = await getBlog(request.slug);
-    return blogdetails.map(
-      (blog) => {
-        return `
+    const blogDetails = await dataBlog.getData();
+    const blog = blogDetails.find((blog) => blog.slug === request.slug);
+    if (!blog) {
+      return `<div>Blog not found</div>`;
+    }
+    // console.log(blogDetails);
+    return `
         <div class="main">
+        BLOGGGGGGGG
           <div class="blog-detail">
             <!--
             <div class="side-ad">
@@ -221,17 +229,14 @@ const DetailsScreen = {
 
           </div>
         </div>
-    `;
-      }
-    );
-  },
-  after_render: () => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
-  },
-};
-
-export default DetailsScreen;
+        `;
+      },
+      after_render: () => {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth",
+        });
+      },
+    };
+    export default DetailsScreen;

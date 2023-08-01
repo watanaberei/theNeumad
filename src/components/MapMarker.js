@@ -1,5 +1,5 @@
 // src/component/MapMarker.js
-import mapboxgl from 'mapbox-gl';
+// import mapboxgl from 'mapbox-gl';
 
 export function createMapMarker(store, map, onClick) {
   const marker = document.createElement('div');

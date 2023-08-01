@@ -8,7 +8,7 @@ import {
 import { weatherData, fetchCityWeatherData } from "./weatherReport.js";
 import LocationInput from "../components/locationInput.js";
 import fetchDateTime from "../components/timeApi.js";
-import { createGeocoderInput } from "../components/GeocoderInput";
+// import { createGeocoderInput } from "../components/GeocoderInput";
 import { geojsonStore } from "../components/GeojsonStores";
 import { sortByDistance } from "../utils";
 import DataBlog from "../components/DataBlog";
@@ -19,10 +19,10 @@ let dataBlog = new DataBlog();
 
 function getTopTags(BlogData, limit = 10) {
   const tagCounts = {};
-  console.log("Header tagCounts",tagCounts);
+//   console.log("Header tagCounts",tagCounts);
   BlogData.forEach((blog) => {
     const tags = blog.tag && blog.tag.length ? blog.tag[0].tags : [];
-    console.log("Header tags",tags);
+    // console.log("Header tags",tags);
     tags.forEach((tag) => {
       tagCounts[tag] = (tagCounts[tag] || 0) + 1;
     });
@@ -31,7 +31,7 @@ function getTopTags(BlogData, limit = 10) {
   const sortedTags = Object.entries(tagCounts)
     .sort((a, b) => b[1] - a[1])
     .map((entry) => entry[0]);
-    console.log("Header sortedTags",sortedTags);
+    // console.log("Header sortedTags",sortedTags);
   return sortedTags.slice(0, limit);
 }
 
@@ -80,212 +80,145 @@ const HeaderMap = {
 
             <section class="nav-reportBar">
                 <div class="nav-reportBar-content">
-                <div class="nav-reportBar-content-container">
-                    <div class="nav-reportBar-content-wrapper">
-                    <span class="text01">Report Bar Content 01</span>
-                    <span class="text01">Data 01</span>
-                    <span class="text01">Data 02</span>
+                    <div class="nav-reportBar-content-container">
+                        <div class="nav-reportBar-content-wrapper">
+                            <span class="text01">Report Bar Content 01</span>
+                            <span class="text01">Data 01</span>
+                            <span class="text01">Data 02</span>
+                        </div>
+                        <div class="nav-reportBar-content-wrapper">
+                            <span class="text01">Report Bar Content 01</span>
+                            <span class="text01">Data 01</span>
+                            <span class="text01">Data 02</span>
+                        </div>
                     </div>
-                    <div class="nav-reportBar-content-wrapper">
-                    <span class="text01">Report Bar Content 01</span>
-                    <span class="text01">Data 01</span>
-                    <span class="text01">Data 02</span>
-                    </div>
-                </div>
                 </div>
             </section>
 
 
 
 
-            <section class="nav-utility">
-                <div class="nav-utility-container">x
-                <div class="nav-utility-left">
-                    <!-- hamburger --> 
-                    <div class="hamburger"><i class="icon-hamburger"></i></div>
-                </div>
-                <div class="nav-utility-mid">
-                    <div class="nav-utility-mid-logo">
-                        <!-- logo -->
-                        <img src="./_assets/_brand/logo/neumad_logo_text_white.svg" alt="">
+            <section class="grid base nav-main">
+                
+                    <div class="nav-main-left left">
+                        <div class="nav-main-logo">
+                            <!-- hamburger -->  
+                            <img class="img-logo" src="./_assets/_brand/logo/neumad_brand_logo-H-med_v02.svg" alt="">
+                        </div>
                     </div>
-                </div>
-                <!-- search -->
-                <div class="nav-utility-right">
-                    <div class="search-wrapper" id="geocoder-container">
+                    <div class="nav-main-center center">
+                        <div id="geocoder"></div>
+                        <pre id="result"></pre>
                     </div>
-                </div>
-                </div>
+                    <div class="nav-main-right right">
+                        <div class="nav-main-right-container">
+                            <a href="/#/Map">
+                                <div class="section-tag" id="Location">
+                                    <div class="section-tag-container">
+                                        <i class="section-tag-icon icon-Map"></i>
+                                        <span class="section-tag-text bold03">
+                                        Map View
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="section-tag" id="Location">
+                                <div class="section-tag-icon hamburger">
+                                    <i class="icon-hamburger">
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
             </section>
 
 
 
-            <section class="nav-mid">
-                <div class="nav-mid-left"> 
-                <div class="current-date current-data">
-                    <span class="bold01" data-testid="current-date">
-                    $ with {currentDate}
-                    </span>
-                </div> 
-                <div class="current-location current-data">
-                    <span class="text01" data-testid="current-location">
-                    $ with {currentLocation}
-                    </span>
-                </div>
-                </div> 
-                <div class="nav-brand-logo">
-                <!-- logo -->
-                <a class="logo" href="/"> 
-                    <img src="./_assets/_brand/logo/neumad_logo_text_light.svg" alt="" />
-                </a>
-                </div>
-                <div class="nav-mid-right">
-                <div class="current-temp current-data">
-                    <i class="bx bx-cloud"></i>
-                    <span class="bold01" data-testid="current-temp">
-                    $ with {currentTemp}°F 
-                    </span>
-                </div>
-                <div class="current-time current-data">
-                    <span class="text01" data-testid="current-time">
-                    $ with {datetime}
-                    </span>
-                </div>
-                </div>
-            </section>
+
     
-            <section class="nav-tags">
-                <div class="nav-tags-container">
-                <div class="nav-tags-menu"> 
-                    <!-- menu -->  
-                    <ul class="nav-tags-list nav-tags-flex"> 
-                
-                    <li>
-                        <a href="/#/work">
-                        <div class="section-tag" id="Work">
-                            <i class="section-tag-icon icon-Work"></i>
-                            <!--<span class="section-tag-divider">
-                            <div class="lineV"></div>
-                            </span>-->
-                            <span class="section-tag-text bold01">
-                                Work
-                            </span>
-                        </div>
-                        </a>
-                    </li>
+            <section class="grid base nav-secondary">
+                <div class="full nav-tags">
+                    <div class="nav-tags-container">
+                    <div class="nav-tags-menu"> 
                     
-                    <li>
-                        <a href="/#/dine">
-                        <div class="section-tag" id="Dine">
-                            <i class="section-tag-icon icon-Dine"></i>
-                            <!--<span class="section-tag-divider">
+                        <!-- menu -->  
+                        <ul class="nav-tags-list nav-tags-flex"> 
+                        
+                            <li>
+                                <a href="/#/work">
+                                    <div class="metadata-tag-icon" id="Work">
+                                        <i class="section-tag-icon icon-Work"></i>
+                                        <span class="metadata-tag-divider">
+                                            <div class="lineV"></div>
+                                        </span>
+                                        <span class="metadata-tag-text medium00">
+                                            Work
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/#/dine">
+                                    <div class="metadata-tag-icon" id="Dine">
+                                        <i class="section-tag-icon icon-Dine"></i>
+                                        <span class="metadata-tag-divider">
+                                            <div class="lineV"></div>
+                                        </span>
+                                        <span class="metadata-tag-text medium00">
+                                            Work
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/#/unwind">
+                                    <div class="metadata-tag-icon" id="Unwind">
+                                        <i class="section-tag-icon icon-Unwind"></i>
+                                        <span class="metadata-tag-divider">
+                                            <div class="lineV"></div>
+                                        </span>
+                                        <span class="metadata-tag-text medium00">
+                                            Work
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        
+                        
+                        
+                        <div class="nav-list-divider">
                             <div class="lineV"></div>
-                            </span>-->
-                            <span class="section-tag-text bold01">
-                                Dine
-                            </span>
                         </div>
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="/#/unwind">
-                        <div class="section-tag" id="Unwind">
-                            <i class="section-tag-icon icon-Unwind"></i>
-                            <!--<span class="section-tag-divider">
-                            <div class="lineV"></div>
-                            </span>-->
-                            <span class="section-tag-text bold01">
-                                Unwind
-                            </span>
-                        </div>
-                        </a>
-                    </li>
 
-                    <li>
-                        <a href="/#/shorts">
-                        <div class="section-tag" id="Shorts">
-                            <i class="section-tag-icon icon-Shorts"></i>
-                            <!--<span class="section-tag-divider">
-                            <div class="lineV"></div>
-                            </span>-->
-                            <span class="section-tag-text bold01">
-                            Shorts
-                            </span>
-                        </div>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="/#/series">
-                        <div class="section-tag" id="Series">
-                            <i class="section-tag-icon icon-Series"></i>
-                            <!--<span class="section-tag-divider">
-                            <div class="lineV"></div>
-                            </span>-->
-                            <span class="section-tag-text bold01">
-                            Series
-                            </span>
-                        </div>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="/#/Map">
-                        <div class="section-tag" id="Location">
-                            <i class="section-tag-icon icon-Places"></i>
-                            <!--<span class="section-tag-divider">
-                            <div class="lineV"></div>
-                            </span>-->
-                            <span class="section-tag-text bold01">
-                            Places
-                            </span>
-                        </div>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="/#/reviews">
-                        <div class="section-tag" id="Reviews">
-                            <i class="section-tag-icon icon-Reviews"></i>
-                            <!--<span class="section-tag-divider">
-                            <div class="lineV"></div>
-                            </span>-->
-                            <span class="section-tag-text bold01">
-                            Reviews
-                            </span>
-                        </div>
-                        </a>
-                    </li>
+                        </ul>
                     
-                    
-                    <div class="nav-list-divider">
-                        <div class="lineV"></div>
-                    </div>
-
-                    </ul>
-                </div>  
-
-                
+                        <div class="data">
+                            <div id="blog-filter blog-data">${dataFilter.element.outerHTML}</div>
+                        </div>
+                    </div>  
                 </div>   
             </section>
             
-            <!-- DATA -->
+            <!-- DATA
             <section class="data">
             <div id="blog-filter blog-data">${dataFilter.element.outerHTML}</div>
-            </section>
+            </section> -->
 
 
             <!--SIDEBAR-->
             <!-- menu -->  
             <section class="nav-menu">
                 <div class="nav-menu-container">
+                
             
-                <ul class="nav-menu-list nav-menu-flex"> 
+                    <ul class="nav-menu-list nav-menu-flex"> 
+
                     <li>
-                        <div class="nav-utility-right">
+                        <div class="nav-main-right">
                             <!-- search -->
-                            <!-- <div class="search-wrapper">
+                            <div class="search-wrapper">
                                 <header class="main-search clearfix">
                                 <button type="button" class="btn pull-right" id="search-toggle">
                                     <span class="fa fa-search icon-search"></i>
@@ -299,7 +232,7 @@ const HeaderMap = {
                                     </div>
                                 </div>
                                 </header>
-                            </div>-->
+                            </div>
                         </div>
                     </li>
 
@@ -358,61 +291,66 @@ const HeaderMap = {
                     <div class="navWork-list-divider">
                         <div class="lineV"></div>
                     </div>
-                </ul>
+                    </ul>
                 </div> 
-            </div>   
-            </section>        
+            
+
+                
+                </div>   
+            </section>            
         </nav>`;
     return newLocal;
   },
   after_render: async () => {
-    const features = await geojsonStore();
-    const geocoder = createGeocoderInput(features);
+    // const features = await geojsonStore();
+    // const geocoder = createGeocoderInput(features);
+    // document.getElementById('geocoder').appendChild(geocoder.onAdd(window.map));
+    geocoder.on('result', function (result) {
+      window.handleGeocoderResult(result);
+    });
+    // const geocoder = createGeocoderInput(features);
 
-    geocoder.on("result", storeSelectedLocation);
+    // geocoder.on("result", storeSelectedLocation);
 
     const navList = document.querySelector(".nav-list");
-    const hamburger = document.querySelector(".hamburger");
     const header = document.querySelector(".header");
     const headerMid = document.querySelector(".nav-mid");
     const utilityLogo = document.querySelector(".nav-utility-mid-logo");
     const search = document.querySelector("#search-toggle");
 
-    hamburger.addEventListener("click", () => {
-      navList.classList.toggle("show");
-    });
 
-    const navHeight = header.getBoundingClientRect().height;
-    window.addEventListener("scroll", () => {
-      const scrollHeight = window.pageYOffset;
-      if (scrollHeight > navHeight) {
-        header.classList.add("fix");
-        headerMid.classList.add("hide");
-        utilityLogo.classList.add("show");
-      } else {
-        header.classList.remove("fix");
-        headerMid.classList.remove("hide");
-        utilityLogo.classList.remove("show");
-      }
-    });
+    // const navHeight = header.getBoundingClientRect().height;
+    // window.addEventListener("scroll", () => {
+    //   const scrollHeight = window.pageYOffset;
+    //   if (scrollHeight > navHeight) {
+    //     header.classList.add("fix");
+    //     headerMid.classList.add("hide");
+    //     utilityLogo.classList.add("show");
+    //   } else {
+    //     header.classList.remove("fix");
+    //     headerMid.classList.remove("hide");
+    //     utilityLogo.classList.remove("show");
+    //   }
+    // });
 
-    const geocoderContainer = document.getElementById("geocoder-container");
-    document
-      .getElementById("geocoder-container")
-      .appendChild(geocoder.onAdd(window.map));
+    // const geocoderContainer = document.getElementById("geocoder");
+    // document
+    //   .getElementById("geocoder")
+    //   .appendChild(geocoder.onAdd(window.map));
 
     // Removed geocoder.on('result', ...) event listener
 
-    const links = [...document.querySelectorAll(".nav-list a")];
-    links.map((link) => {
-      link.addEventListener("click", () => {
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "smooth",
-        });
-      });
-    });
+
+    // const links = [...document.querySelectorAll(".nav-list a")];
+    // links.map((link) => {
+    //   link.addEventListener("click", () => {
+    //     window.scrollTo({
+    //       top: 0,
+    //       left: 0,
+    //       behavior: "smooth",
+    //     });
+    //   });
+    // });
     document.querySelectorAll('.tag').forEach(tagElement => {
         tagElement.addEventListener('click', async () => {
           const tag = tagElement.dataset.tag;
@@ -428,6 +366,37 @@ const HeaderMap = {
           this.after_render();
         });
       });
-  },
+
+
+    const hamburger = document.querySelector(".hamburger");
+
+    hamburger.addEventListener("click", () => {
+      navList.classList.toggle("show");
+    });
+    const navHeight = header.getBoundingClientRect().height;
+        window.addEventListener("scroll", () => {
+        const scrollHeight = window.pageYOffset;
+        if (scrollHeight > navHeight) {
+            header.classList.add("fix"); 
+            headerMid.classList.add("hide");
+            utilityLogo.classList.add("show");
+
+        } else {
+            header.classList.remove("fix");
+            headerMid.classList.remove("hide");
+            utilityLogo.classList.remove("show");
+        }
+    });
+    const links = [...document.querySelectorAll(".nav-menu a")];
+      links.map((link) => {
+        link.addEventListener("click", () => {
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+          });
+        });
+      });
+    },
 };
 export default HeaderMap;

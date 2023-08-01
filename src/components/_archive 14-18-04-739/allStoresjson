@@ -1,0 +1,1181 @@
+[
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -118.193741,
+        33.77005
+      ]
+    },
+    "properties": {
+      "title": "The Neumads Trail: Downtown, Long Beach, CA",
+      "variant": "articles",
+      "headline": "The Neumads Trail: Downtown, Long Beach, CA",
+      "slug": "the-neumads-trail-downtown-long-beach-ca",
+      "address": "Downtown, Long Beach, CA 90802",
+      "region": null,
+      "lat": 33.77005,
+      "lon": -118.193741,
+      "type": "Area",
+      "category": {
+        "category": "Dine"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/251MEw6UIXiL5F7r9AvyWb/b25cd91c628bd800c0bdd899beeecd4b/The_Neumadic_Trails__Bay_Area_thumbnail.png",
+      "snippet": "<p>The Neumads Trail: Downtown, Long Beach, CA</p>",
+      "tag": [
+        {
+          "tags": [
+            "Digital Nomad",
+            "Networking",
+            "Luxury",
+            "Popular",
+            "Fast Wifi",
+            "Great Neighborhood",
+            "Walking Distance",
+            "Must Try"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -122.4,
+        37.78502
+      ]
+    },
+    "properties": {
+      "title": "CA, SoMa, San Francisco, Neumads Trail: SoMa",
+      "variant": "articles",
+      "headline": "The Neumads Trail: SoMa, San Francisco, CA",
+      "slug": "ca-soma-san-fransisco-neumads-trail-soma",
+      "address": "SoMa, San Francisco, CA, USA",
+      "region": null,
+      "lat": 37.78502,
+      "lon": -122.4,
+      "type": "Area",
+      "category": {
+        "category": "Work"
+      },
+      "series": {
+        "series": [
+          "Neumadic Trails"
+        ]
+      },
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/4VwZBP3rExRuz31j6e8imN/094e3519bba48b46fd6f875181af47cf/ca-soma-san-fransisco-neumads-trail-soma-thumbnail.png",
+      "snippet": "<p>This odyssey goes out to all you creative wizards in search of a workspace where the Wi-Fi is as strong as the espresso, and where every corner is Instagrammable. </p>",
+      "tag": [
+        {
+          "tags": [
+            "Guide",
+            "People",
+            "Food",
+            "Clients",
+            "Pastry",
+            "Coffee-maniacs",
+            "Freelancers",
+            "Adventurous",
+            "Live Performance",
+            "Developers",
+            "Designers",
+            "Popular",
+            "Packed",
+            "Social",
+            "Professional",
+            "Friendly",
+            "Matcha",
+            "Freelance",
+            "Hidden Gem",
+            "Clean",
+            "Single Bathroom",
+            "Public Bathrooms",
+            "Writers"
+          ],
+          "tagMetatag": [
+            "Blue Bottle Coffee",
+            "Philz Coffee",
+            "Verve Coffee Roasters",
+            " Bay Area",
+            "Sightglass Coffee",
+            "Peet's Coffee",
+            "Equator Coffees"
+          ],
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -118.175,
+        33.85325
+      ]
+    },
+    "properties": {
+      "title": "HQ",
+      "variant": "articles",
+      "headline": "Neumad: modern Individuals who roams about",
+      "slug": "hq",
+      "address": "1414 E Plymouth St, Long Beach, CA 90805, USA",
+      "region": "Long Beach",
+      "lat": 33.85325,
+      "lon": -118.175,
+      "type": "Address",
+      "category": {
+        "category": "Place"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/51iSBsQ5u7pemkixmw9sRS/596c567619e9bd0bd6a485a62c8eea2e/neuland-hq-thumbnail.png",
+      "snippet": "<p>HQ</p>",
+      "tag": [
+        {
+          "tags": [
+            "Guide",
+            "People",
+            "Designers",
+            "Developers",
+            "Digital Nomad",
+            "Nomad",
+            "Freelance",
+            "Professional",
+            "Social",
+            "Artists",
+            "Writers",
+            "Free",
+            "Serious",
+            "Freelancers",
+            "Virtual",
+            "Adventurous",
+            "Curious",
+            "Connect",
+            "Friendly"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -118.1937,
+        33.7701
+      ]
+    },
+    "properties": {
+      "title": "The Neumads Trail: Long Beach, CA",
+      "variant": "articles",
+      "headline": "The Neumads Trail: Long Beach, CA",
+      "slug": "the-neumads-trail-long-beach-ca",
+      "address": "Long Beach, CA",
+      "region": null,
+      "lat": 33.7701,
+      "lon": -118.1937,
+      "type": "City",
+      "category": {
+        "category": "Work"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/251MEw6UIXiL5F7r9AvyWb/b25cd91c628bd800c0bdd899beeecd4b/The_Neumadic_Trails__Bay_Area_thumbnail.png",
+      "snippet": "",
+      "tag": [
+        {
+          "tags": [
+            "Highly Reviewed",
+            "Top 3",
+            "Verified",
+            "Must Try",
+            "Virtual",
+            "Clients",
+            "Popular",
+            "Students",
+            "Free",
+            "Developers",
+            "Designers",
+            "Artists",
+            "Clean",
+            "Freelancers"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -122.417,
+        37.76356
+      ]
+    },
+    "properties": {
+      "title": "The Neumads Trail: Mission District, San Fransisco, CA",
+      "variant": "articles",
+      "headline": "The Neumads Trail: Mission District, San Fransisco, CA",
+      "slug": "the-neumadic-trails-mission-district-san-fransisco-ca",
+      "address": "Mission District, San Fransisco, CA",
+      "region": null,
+      "lat": 37.76356,
+      "lon": -122.417,
+      "type": "Area",
+      "category": {
+        "category": "Work"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/251MEw6UIXiL5F7r9AvyWb/b25cd91c628bd800c0bdd899beeecd4b/The_Neumadic_Trails__Bay_Area_thumbnail.png",
+      "snippet": "<p>This odyssey goes out to all you creative wizards in search of a workspace where the Wi-Fi is as strong as the espresso, and where every corner is Instagrammable. </p>",
+      "tag": [
+        {
+          "tags": [
+            "Coffee Shop",
+            "Food",
+            "Digital Nomad",
+            "Local",
+            "Top 3",
+            "Connect",
+            "Social",
+            "Professional",
+            "Busy",
+            "Pastry",
+            "Writers",
+            "Artists",
+            "Free",
+            "Virtual"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -122.291,
+        37.82717
+      ]
+    },
+    "properties": {
+      "title": "The Neumads Trail: Bay Area, San Fransisco, CA",
+      "variant": "articles",
+      "headline": "The Neumads Trail: Bay Area, San Fransisco, CA",
+      "slug": "the-neumadic-trails-bay-are-san-fransisco-ca",
+      "address": "Bay Area, ca",
+      "region": null,
+      "lat": 37.82717,
+      "lon": -122.291,
+      "type": "Region",
+      "category": {
+        "category": "Work"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/251MEw6UIXiL5F7r9AvyWb/b25cd91c628bd800c0bdd899beeecd4b/The_Neumadic_Trails__Bay_Area_thumbnail.png",
+      "snippet": "<p>This odyssey goes out to all you creative wizards in search of a workspace where the Wi-Fi is as strong as the espresso, and where every corner is Instagrammable. </p>",
+      "tag": [
+        {
+          "tags": [
+            "Networking",
+            "Hidden Gem",
+            "Freelance",
+            "Top 3",
+            "Verified",
+            "Highly Reviewed",
+            "Designers",
+            "Students",
+            "Free"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -73.9712,
+        40.78306
+      ]
+    },
+    "properties": {
+      "title": "The Neumads Trail: Manhattan, New York City, NY",
+      "variant": "articles",
+      "headline": "The Neumads Trail: Manhattan, New York City, NY",
+      "slug": "the-neumadic-trails-manhattan-new-york-city-ny",
+      "address": "Manhattan, New York City, NY",
+      "region": null,
+      "lat": 40.78306,
+      "lon": -73.9712,
+      "type": "Area",
+      "category": {
+        "category": "Work"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/4nyKuy8iTolw6uf7QSXgyf/f8f0b613e35e9475f22f60357aed6935/theNeumadsTrail_longBeach-CA_thumb.png",
+      "snippet": "<p>This odyssey goes out to all you creative wizards in search of a workspace where the Wi-Fi is as strong as the espresso, and where every corner is Instagrammable. </p>",
+      "tag": [
+        {
+          "tags": [
+            "Connect",
+            "Coffee-maniacs",
+            "Serious",
+            "Freelancers",
+            "Virtual",
+            "Writers",
+            "Public Bathrooms",
+            "Single Bathroom"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -122.418,
+        37.75877
+      ]
+    },
+    "properties": {
+      "title": "CA, San Fransisco, Top Three, Mission District",
+      "variant": "articles",
+      "headline": "Mission District Magic: Top Three Coffee Shops to Work in San Francisco's Vibrant Neighborhood",
+      "slug": "ca-san-fransisco-top-three-mission-district",
+      "address": "Mission District Therapy, 3490 20th St, San Francisco, California 94110, United States",
+      "region": "Mission District",
+      "lat": 37.75877,
+      "lon": -122.418,
+      "type": "Region",
+      "category": {
+        "category": "Work"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/6hfaVA1TiDdUVILNc4xihv/08e880a99958fcb962655d70f7deb711/The_Neumadic_Trails__Bay_Area_thumbnail.png",
+      "snippet": "<p>This odyssey goes out to all you creative wizards in search of a workspace where the Wi-Fi is as strong as the espresso, and where every corner is Instagrammable. </p>",
+      "tag": [
+        {
+          "tags": [
+            "Food",
+            "Freelancers",
+            "Large Space",
+            "Packed",
+            "Downtown",
+            "Adventurous",
+            "Meetings",
+            "Professional",
+            "Connect",
+            "Coffee Shop",
+            "Networking",
+            "People",
+            "Top 3",
+            "Highly Reviewed"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -118.192,
+        33.77673
+      ]
+    },
+    "properties": {
+      "title": "CA, Long Beach, Downtown, Rose Park Roasters",
+      "variant": "reviews",
+      "headline": "Rose Park Roasters: A Rare Gem Glowing in the Heart of Long Beach",
+      "slug": "ca-longBeach-downtown-roseParkRoasters",
+      "address": "800 Pine Ave Long Beach, CA 90813",
+      "region": null,
+      "lat": 33.77673,
+      "lon": -118.192,
+      "type": "Store",
+      "category": {
+        "category": "Review"
+      },
+      "series": {
+        "series": [
+          "Neumadic Reviews"
+        ]
+      },
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/70PAxCRvNV2DXoaKNPfgiv/fd49cef183a7dd3fb41083104a4f753a/ca-longBeach-downtown-roseParkRoasters_thumbnail.png",
+      "snippet": "<p>CA, Long Beach, Downtown, Rose Park Roasters</p>"
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -118.159,
+        33.77188
+      ]
+    },
+    "properties": {
+      "title": "CA, Long Beach, Downtown, Coffee Drunk",
+      "variant": "reviews",
+      "headline": "Coffee Drunk, daily early birds nest",
+      "slug": "ca-long-beach-downtown-coffee-drunk",
+      "address": "2743 E 4th St, Long Beach, CA 90814, USA",
+      "region": "Downtown",
+      "lat": 33.77188,
+      "lon": -118.159,
+      "type": "Store",
+      "category": {
+        "category": "Review"
+      },
+      "series": {
+        "series": [
+          "Neumadic Reviews"
+        ]
+      },
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/24lT1gZNJQhx1SS2BNjdpt/f1fae00de4e6b7970292e6ba98112015/ca-longbeach-downtown-coffeeDrunk-thumbnail.png",
+      "snippet": "<p>CA, Long Beach, Downtown, Rose Park Roasters</p>"
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -118.08,
+        33.8582
+      ]
+    },
+    "properties": {
+      "title": "CA, Lakewood, Downtown, Smoking Tiger Bread Factory",
+      "variant": "reviews",
+      "headline": "Smoking Tiger Bread Factory",
+      "slug": "ca-lakewood-downtown-smoking-tiger-bread-factory",
+      "address": "11900 South St  Ste 134  Cerritos, CA 90703",
+      "region": "Cerritos",
+      "lat": 33.8582,
+      "lon": -118.08,
+      "type": "Store",
+      "category": {
+        "category": "Review"
+      },
+      "series": {
+        "series": [
+          "Neumadic Trails"
+        ]
+      },
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/7xx5a2WGafmWXddJOLihdU/71117a2320893b53cadb294803cdd6fe/ca-cerritos-longbeach-smokingTigerCoffeeAndBread-thumbnail.png",
+      "snippet": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -122.418,
+        37.75877
+      ]
+    },
+    "properties": {
+      "title": "Table",
+      "variant": "blogs",
+      "headline": "Table",
+      "slug": "table",
+      "address": "Mission District Therapy, 3490 20th St, San Francisco, California 94110, United States",
+      "region": "Mission District",
+      "lat": 37.75877,
+      "lon": -122.418,
+      "type": "Region",
+      "category": {
+        "title": "Table",
+        "category": "Work"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/6hfaVA1TiDdUVILNc4xihv/08e880a99958fcb962655d70f7deb711/The_Neumadic_Trails__Bay_Area_thumbnail.png",
+      "snippet": "",
+      "tag": [
+        {
+          "tags": [
+            "Guide",
+            "Freelance",
+            "Developers",
+            "Nomad",
+            "Digital Nomad"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -73.6917,
+        40.84068
+      ]
+    },
+    "properties": {
+      "title": "ChatGBT Tutorial Title Goes Here",
+      "variant": "blogs",
+      "headline": "ChatGBT Tutorial Title Goes Here",
+      "slug": "chatgbt",
+      "address": "2 James Ave, Port Washington, NY 11050, USA",
+      "region": "Port Washington",
+      "lat": 40.84068,
+      "lon": -73.6917,
+      "type": "Address",
+      "category": {
+        "title": "ChatGBT Tutorial Title Goes Here",
+        "category": "Work"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/5QAIOG8AtUwjjXpviySjy7/2c88139707790d58088dc022f4873e40/usa.png",
+      "snippet": "<p>ChatGBT Tutorial Title Goes Here</p>",
+      "tag": [
+        {
+          "tags": [
+            "Nomad",
+            "Food",
+            "Digital Nomad",
+            "Guide",
+            "Freelancers",
+            "Developers"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -73.96297436557998,
+        40.68799963860863
+      ]
+    },
+    "properties": {
+      "title": "Good Price, Quality, and Flexible Hotel Soho NYC",
+      "variant": "blogs",
+      "headline": "Good Price, Quality, and Flexible Hotel Soho NYC",
+      "slug": "good-price-quality-and-flexible-hotel-soho-nyc",
+      "address": "37 Clifton Pl, Brooklyn, NY 11238, USA",
+      "region": "Soho",
+      "lat": 40.68799963860863,
+      "lon": -73.96297436557998,
+      "type": "Area",
+      "category": {
+        "title": "Good Price, Quality, and Flexible Hotel Soho NYC",
+        "category": "Rest"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/251MEw6UIXiL5F7r9AvyWb/b25cd91c628bd800c0bdd899beeecd4b/The_Neumadic_Trails__Bay_Area_thumbnail.png",
+      "snippet": "<p>Good Price, Quality, and Flexible Hotel Soho NYC</p>",
+      "tag": [
+        {
+          "tags": [
+            "Digital Nomad",
+            "Nomad",
+            "Luxury",
+            "Neustar",
+            "Local",
+            "Quiet",
+            "Highly Reviewed",
+            "Verified",
+            "Top 3",
+            "Open Late"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -118.26,
+        34.0504
+      ]
+    },
+    "properties": {
+      "title": "ca-losangeles-downtown-interContinental",
+      "variant": "blogs",
+      "headline": "ca-losangeles-downtown-interContinental",
+      "slug": "ca-losangeles-downtown-intercontinental",
+      "address": "900 Wilshire Boulevard, Los Angeles, California 90017 United States",
+      "region": "Downtown LA",
+      "lat": 34.0504,
+      "lon": -118.26,
+      "type": "Address",
+      "category": {
+        "title": "ca-losangeles-downtown-interContinental",
+        "category": "Rest"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/6MejbuZa7awxfP1srPkXxK/0c4d1da9b5cb261aa17c21380ee8e5d4/ny-manhattan-soho-arloHotel-thumbnail.png",
+      "snippet": "<p>ny-manhattan-soho-arloHotel</p>",
+      "tag": [
+        {
+          "tags": [
+            "Nomad",
+            "Guide",
+            "Coffee Shop",
+            "Coworking",
+            "People",
+            "Food",
+            "Digital Nomad",
+            "Public Bathrooms",
+            "Single Bathroom",
+            "Adventurous",
+            "Walking Distance",
+            "Open Late",
+            "Hidden Gem",
+            "Social",
+            "Professional",
+            "Busy"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -122.678,
+        45.51523
+      ]
+    },
+    "properties": {
+      "title": "Test API",
+      "variant": "blogs",
+      "headline": "Table",
+      "slug": "test-api",
+      "address": "Portland, OR, USA",
+      "region": "Portland",
+      "lat": 45.51523,
+      "lon": -122.678,
+      "type": "Address",
+      "category": {
+        "title": "Test API",
+        "category": "Review"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/251MEw6UIXiL5F7r9AvyWb/b25cd91c628bd800c0bdd899beeecd4b/The_Neumadic_Trails__Bay_Area_thumbnail.png",
+      "snippet": "<p>Grand Central Terminal, 89 E 42nd St, New York, NY 10017, USA</p>",
+      "tag": [
+        {
+          "tags": [
+            "Guide",
+            "Developers"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -74.0083,
+        40.72453
+      ]
+    },
+    "properties": {
+      "title": "ny-manhattan-soho-arloHotel",
+      "variant": "blogs",
+      "headline": "ca-losangeles-downtown-interContinental",
+      "slug": "arlo-soho-soho-overnight-last-minute-stays",
+      "address": "231 Hudson St, New York, NY 10013, USA",
+      "region": "Soho",
+      "lat": 40.72453,
+      "lon": -74.0083,
+      "type": "Store",
+      "category": {
+        "title": "ny-manhattan-soho-arloHotel",
+        "category": "Rest"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/6MejbuZa7awxfP1srPkXxK/0c4d1da9b5cb261aa17c21380ee8e5d4/ny-manhattan-soho-arloHotel-thumbnail.png",
+      "snippet": "<p>ny-manhattan-soho-arloHotel</p>",
+      "tag": [
+        {
+          "tags": [
+            "Digital Nomad",
+            "Nomad",
+            "Luxury",
+            "Quiet",
+            "Pricey",
+            "Neustar",
+            "Highly Reviewed",
+            "Verified",
+            "Top 3",
+            "Hidden Gem",
+            "Professional",
+            "Fast Wifi",
+            "Great Neighborhood",
+            "Walking Distance",
+            "Downtown",
+            "Large Space"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -73.9772,
+        40.75272
+      ]
+    },
+    "properties": {
+      "title": "The Perfect Matcha Latte for your Walk Home ",
+      "variant": "blogs",
+      "headline": "The Perfect Matcha Latte for your Walk Home ",
+      "slug": "the-perfect-matcha-latte-for-your-walk-home",
+      "address": "Grand Central Terminal, 89 E 42nd St, New York, NY 10017, USA",
+      "region": null,
+      "lat": 40.75272,
+      "lon": -73.9772,
+      "type": "Area",
+      "category": {
+        "title": "Late Hour Working for Night Owls in Long beach",
+        "category": "Place"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/6mlsl3TSwvNBlRpc2ttoiR/db6ad257d7188a3f88b7402837c8a920/matcha-room-thumbnail.png",
+      "snippet": "<p>Grand Central Terminal, 89 E 42nd St, New York, NY 10017, USA</p>",
+      "tag": [
+        {
+          "tags": [
+            "Nomad",
+            "Digital Nomad",
+            "Hidden Gem",
+            "Matcha",
+            "Tea",
+            "Great Neighborhood",
+            "Curious",
+            "Walking Distance"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -118.19772293065563,
+        33.78945470774987
+      ]
+    },
+    "properties": {
+      "title": "Late Hour Working for Night Owls in Long beach",
+      "variant": "blogs",
+      "headline": "Late Hour Working for Night Owls in Long beach",
+      "slug": "late-hour-working-for-night-owls-in-longbeach",
+      "address": "1770 Magnolia Ave, Long Beach, CA 90813, USA",
+      "region": null,
+      "lat": 33.78945470774987,
+      "lon": -118.19772293065563,
+      "type": "Area",
+      "category": {
+        "title": "Late Hour Working for Night Owls in Long beach",
+        "category": "Work"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/4UQhBkTNqXrqRHkZjWLihU/eaccf2b0174347a879c60e824ff493b2/food_thumbnail.png",
+      "snippet": "<p>Late Hour Working for Night Owls in Long beach</p>",
+      "tag": [
+        {
+          "tags": [
+            "Digital Nomad",
+            "Coffee Shop",
+            "Open Late",
+            "Freelance",
+            "Highly Reviewed",
+            "Designers",
+            "Developers",
+            "Students"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -74.0019,
+        40.72459
+      ]
+    },
+    "properties": {
+      "title": "Top Three Coworking spaces in Soho, NYC ",
+      "variant": "blogs",
+      "headline": "Top Three Coworking spaces in Soho, NYC ",
+      "slug": "top-three-coworking-spaces-in-soho-nyc",
+      "address": "SoHo, New York, NY, USA",
+      "region": "SoHo",
+      "lat": 40.72459,
+      "lon": -74.0019,
+      "type": "Area",
+      "category": {
+        "title": "Top Three Coworking spaces in Soho, NYC ",
+        "category": "Work"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/6ovMUOElz8ls1ukuf4A7Mm/d54137e643521b611ef199c9f796b996/soho.png",
+      "snippet": "<p>Top Three Coworking spaces in Soho, NYC </p>",
+      "tag": [
+        {
+          "tags": [
+            "Coworking",
+            "People",
+            "Nomad",
+            "Digital Nomad",
+            "Networking",
+            "Verified",
+            "Highly Reviewed",
+            "Top 3",
+            "Designers",
+            "Developers",
+            "Artists",
+            "Writers",
+            "Freelancers"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": null,
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": null,
+          "environmentTags": null,
+          "reviewTags": null,
+          "locationTags": null
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -117.853,
+        33.78774
+      ]
+    },
+    "properties": {
+      "title": "ca-orangeCounty-orange-urthCafe",
+      "variant": "stores",
+      "headline": "Smoking Tiger Bread Factory",
+      "slug": "ca-orangecounty-orange-urthcafe",
+      "address": "100 W Chapman Ave, Orange, CA 92866",
+      "region": "Orange Circle",
+      "lat": 33.78774,
+      "lon": -117.853,
+      "type": "Store",
+      "category": {
+        "category": "Work"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/10wMLFwpYNkNdytoJSVxJL/4e9df5d166b56b20c2edfe8da073b903/ca-cerritos-cerritosSouthwest-smokingTigerBreadFactory-media-thumbnail.png",
+      "snippet": "<p>The Smoking Tiger Bread Factory is an idyllic spot for remote workers, offering a peaceful ambiance, fast Wi-Fi, and an array of delectable treats.</p>",
+      "tag": [
+        {
+          "tags": [
+            "Nomad",
+            "Guide",
+            "Coffee Shop",
+            "Coworking",
+            "People",
+            "Food",
+            "Quiet",
+            "Highly Reviewed",
+            "Verified",
+            "Open Late",
+            "Hidden Gem",
+            "Popular",
+            "Busy"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": [
+            "Artisanal Bakery",
+            "Coffee Lover",
+            "Remote Work Friendly",
+            "Free Wifi",
+            "Ample Seating",
+            "Quiet Ambience"
+          ],
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": [
+            "Bakery",
+            "Cafe",
+            "Coffee Shop",
+            "Remote Working"
+          ],
+          "environmentTags": [
+            "Quiet",
+            "Comfortable",
+            "Natural Lighting"
+          ],
+          "reviewTags": [
+            "Highly Rated",
+            "Customer Favorites",
+            "Top Reviews"
+          ],
+          "locationTags": [
+            "Cerritos",
+            "Los Angeles",
+            "California"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -118.08,
+        33.8582
+      ]
+    },
+    "properties": {
+      "title": "stores-ca-cerritosSouthwest-cerritos-smokingTigerBreadFactory",
+      "variant": "stores",
+      "headline": "Smoking Tiger Bread Factory",
+      "slug": "stores-ca-cerritossouthwest-cerritos-smokingtigerbreadfactory",
+      "address": "11900 South St  Ste 134  Cerritos, CA 90703",
+      "region": "Cerritos",
+      "lat": 33.8582,
+      "lon": -118.08,
+      "type": "Store",
+      "category": {
+        "category": "Work"
+      },
+      "series": {},
+      "thumbnail": "https://images.ctfassets.net/i1hcb4885ci0/10wMLFwpYNkNdytoJSVxJL/4e9df5d166b56b20c2edfe8da073b903/ca-cerritos-cerritosSouthwest-smokingTigerBreadFactory-media-thumbnail.png",
+      "snippet": "<p>The Smoking Tiger Bread Factory is an idyllic spot for remote workers, offering a peaceful ambiance, fast Wi-Fi, and an array of delectable treats.</p>",
+      "tag": [
+        {
+          "tags": [
+            "Nomad",
+            "Guide",
+            "Coffee Shop",
+            "Coworking",
+            "People",
+            "Food",
+            "Quiet",
+            "Highly Reviewed",
+            "Verified",
+            "Open Late",
+            "Hidden Gem",
+            "Popular",
+            "Busy"
+          ],
+          "tagMetatag": null,
+          "serviceTags": null,
+          "attributeTags": [
+            "Artisanal Bakery",
+            "Coffee Lover",
+            "Remote Work Friendly",
+            "Free Wifi",
+            "Ample Seating",
+            "Quiet Ambience"
+          ],
+          "accessibilityTags": null,
+          "offeringTags": null,
+          "storeTags": [
+            "Bakery",
+            "Cafe",
+            "Coffee Shop",
+            "Remote Working"
+          ],
+          "environmentTags": [
+            "Quiet",
+            "Comfortable",
+            "Natural Lighting"
+          ],
+          "reviewTags": [
+            "Highly Rated",
+            "Customer Favorites",
+            "Top Reviews"
+          ],
+          "locationTags": [
+            "Cerritos",
+            "Los Angeles",
+            "California"
+          ]
+        }
+      ]
+    }
+  }
+]

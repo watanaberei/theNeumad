@@ -1,55 +1,57 @@
 // src/components/GeojsonListing.js
 export function createGeojsonListing(store, onClick) {
-   console.log("Creating listing for properties:", store); // Add this line
-  if (!store.properties) {
-    return '';
-  }
+  // console.log("Creating listing for properties:", store); // Add this line
+ if (!store.properties) {
+   return '';
+ }
 
-  const { tag, slug,  thumbnail, category, headline } = store.properties;
-  const tags = tag && tag.length ? tag[0].tags : [];
-  const title = headline || [];
-  // const medias = media || [];
+ const { region, tag, slug, variant, thumbnail, category, headline,location } = store.properties;
+ const tags = tag && tag.length ? tag[0].tags : [];
+ const title = headline || [];
+ const locations = location || [];
+ const coordinate = locations.geolocation;
+ const limitedTags03 = tags.slice(0, 3);
 
-  // const thumbnailss = medias.url;
-console.log("tags", tags);
-  const limitedTags03 = tags.slice(0, 3);
-  let tagsHTML = '';
-  limitedTags03.forEach(tag => {
-    tagsHTML += `<div class="metadata-tag">
-                   <span class="metadata-tag-text text01">${tag}</span>
-                 </div>`;
-  });
 
-  const listing = document.createElement('div');
-  listing.className = 'blog';
-  listing.addEventListener('click', () => onClick(store));
+ let tagsHTML = '';
+ limitedTags03.forEach(tag => {
+   tagsHTML += `<div class="metadata-tag">
+                  <span class="metadata-tag-text text01">${tag}</span>
+                </div>`;
+ });
 
-  listing.innerHTML = `
-    <div class="blog-img">
-      <a href="/#/article/${category.category}/${slug}">
-        <img src="${thumbnail}" alt="" />
-      </a>
-    </div>
-    <div class="blog-text">
-      <div class="blog-header">
-        <a href="/#/${category.category}/${slug}">
-          <div class="blog-header-container">
-            <span class="blog-title-text header04">
-              ${title}
-            </span>
-          </div>
-        </a>
+ const listing = document.createElement('a');
+ listing.className = 'card-blogListing-item';
+ listing.href = '/#/'+variant+'/'+slug;
+//  listing.addEventListener('click', () => onClick(store));
+
+
+ listing.innerHTML = `
+  <div class="p1-c2col1 ratioPlatinum card-blogListing-item-img">
+    <img class="item-img" src="${thumbnail}" alt="" />
+  </div>
+
+  <div class="c1col2-p2 card-blogListing-item-content">
+    <div class="content-title">
+      <span class="header05">
+        ${title}
+      </span>
+
+      <span class="paragraph">
+       ${region}
+      </span>
       </div>
+
       <div class="blog-data">
         <div class="tag-collection">
           <div class="blog-data-container">
             <a href="/#/dine">
-              <div class="section-tag" id="${category.category}">
-                <i class="section-tag-icon icon-${category.category}"></i>
-                <span class="section-tag-divider">
+              <div class="metadata-tag-icon" id="${category.category}">
+                <i class="icon-${category.category}"></i>
+                <span class="metadata-tag-divider">
                   <div class="lineV"></div>
                 </span>
-                <span class="section-tag-text medium00">
+                <span class="metadata-tag-text medium00">
                   ${category.category}
                 </span>
               </div>
@@ -65,36 +67,50 @@ console.log("tags", tags);
         <div class="data-time">
           <span class="data-time-text text01">2m Read</span>
         </div>
-      </div>
+
       <div class="lineH"></div>
     </div>
-  `;
-
-  return listing;
+  </div>
+ `;
+      // //   add click event listeners to each store listing
+      // const storeElements = listings.querySelectorAll('.store');
+      // storeElements.forEach((store) => {
+      //   store.addEventListener('click', () => {
+      //         const id = store.dataset.id;
+      //         const marker = markers[id];
+      //         map.flyTo({ center: marker.getLngLat(), zoom: 16 });
+     
+      //         // highlight selected store and unhighlight others
+      //         storeElements.forEach((el) => el.classList.remove('active'));
+      //         store.classList.add('active');
+      //     });
+      // });
+      
+ return listing;
 }
 
 
-  
+ 
 
 // src/components/GeojsonListing.js
 // export function createGeojsonListing(store, map) {
 //     const listing = document.createElement('div');
 //     listing.className = 'listing';
 //     listing.textContent = store.properties.address;
-  
+ 
 //     // Add an icon next to the listing suggestion
 //     const icon = document.createElement('span');
 //     icon.className = 'listing-icon';
 //     icon.textContent = '📍';
 //     listing.appendChild(icon);
-  
+ 
 //     const address = document.createElement('span');
 //     address.textContent = store.properties.address;
 //     listing.appendChild(address);
-  
+ 
 //     // Add event listener to the listing
 //     listing.addEventListener('click', () => onClick(store));
-  
+ 
 //     return listing;
 //   }
 
@@ -115,7 +131,7 @@ console.log("tags", tags);
 //     //     </div> 
 //     //     ;`
 //     //     }).join('');
-        
+       
 
 //         const listing = document.createElement('div');
 //         listings.className = 'listings';
@@ -125,16 +141,16 @@ console.log("tags", tags);
 //         title.textContent = properties.title;
 //         listing.appendChild(title);
 
-        
-    
+       
+   
 //         const headline = document.createElement('h3');
 //         headline.textContent = properties.headline;
 //         listing.appendChild(headline);
-    
+   
 //         const address = document.createElement('p');
 //         address.textContent = properties.address;
 //         listing.appendChild(address);
-        
+       
 
 //         address
 // : 
@@ -166,7 +182,7 @@ console.log("tags", tags);
 // type
 // : 
 // "Region"
-        
+       
 //         // add click event listeners to each store listing
 //         // const storeElements = listings.querySelectorAll('.store');
 //         // storeElements.forEach((store) => {
@@ -174,15 +190,14 @@ console.log("tags", tags);
 //         //         const id = stores.dataset.id;
 //         //         const marker = markers[id];
 //         //         map.flyTo({ center: marker.getLngLat(), zoom: 16 });
-        
+       
 //         //         // highlight selected store and unhighlight others
 //         //         storeElements.forEach((el) => el.classList.remove('active'));
 //         //         stores.classList.add('active');
 //         //     });
 //         // });
 //         // };
-  
+ 
 //     return listing;
 // };
 // export default CreateListing;
-

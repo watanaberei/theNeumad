@@ -2,20 +2,29 @@
 import PrimaryFeaturedBlog from "../components/PrimaryFeaturedBlog";
 import FeaturedBlog from "../components/FeaturedBlog";
 import AllBlog from "../components/AllBlog.js";
+import AllStore from "../components/AllStore.js";
 import { sortByDistance } from "../utils";
 import { createGeojsonListing } from "../components/GeojsonListing";
 import DataBlog from "../components/DataBlog";
 import DataFilter from "../components/DataFilter";
+import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../api.js";
 
 let dataBlog = new DataBlog();
 
 const HomeScreen = {
   render: async () => {
     const BlogData = await dataBlog.getData();
+    const allStores = BlogData.filter(data => data.variant === 'stores');
+    // const allArticles = BlogData.filter(data => data.variant === 'articles');
+  
+    const ReviewData = await getStoresNeumadsReview(9, 0);
+
 
     const primaryFeaturedBlogs = BlogData.slice(0, 1);
     const featuredBlogs = BlogData.slice(2, 5);
     const allBlogs = BlogData.slice(3);
+    
+    // const allStores = StoreData;
 
     const selectedLocation = JSON.parse(localStorage.getItem('selectedLocation') || 'null');
     const sortedBlogData = sortByDistance(selectedLocation, BlogData);
@@ -39,11 +48,39 @@ const HomeScreen = {
               </span>
             </div>
           </div>
-          <div class="blog-layout container" id="blog-layout">
-            ${allBlogs.map((allBlog) => AllBlog.render(allBlog)).join("\n")}
+          <div class="blog-allBlogs container" id="blog-list">
+            <div class="blog-layout container" id="blog-layout">
+              ${allBlogs.map((allBlog) => AllBlog.render(allBlog)).join("\n")}
+            </div>
+            <div class="load-btn">
+              <button class="load" id="load">Load more</button>
+            </div>
+          </div> 
+          <div class="blog-allStores container" id="blog-list">
+              <div class="store-title">
+                <span class="display03">
+                  All Stores
+                </span> 
+              </div>
+              <div class="blog-layout container" id="blog-layout">
+              ${allStores.map(allStore => AllStore.render(allStore)).join("\n")}
+              </div>
+              <div class="load-btn">
+                <button class="load" id="load">Load more</button>
+              </div>
           </div>
-          <div class="load-btn">
-            <button class="load" id="load">Load more</button>
+          <div class="blog-all container" id="blog-list">
+              <div class="store-title">
+                <span class="display03">
+                  All Stores
+                </span> 
+              </div>
+              <div class="blog-layout container" id="blog-layout">
+              {articleData.map(article => ArticleData.render(article)).join("\n")}
+              </div>
+              <div class="load-btn">
+                <button class="load" id="load">Load more</button>
+              </div>
           </div>
         </div>
       </div>

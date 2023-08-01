@@ -13,12 +13,12 @@ class GeopostReviews {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/neumad/cli7nxj9700wz01r50nn9d19d',
-      center: [this.stores.location[0].geolocation.coordinates.lat, this.stores.location[0].geolocation.coordinates.lon],
+      center: [this.stores.location[0].geolocation.coordinates.lat, this.stores.location[0].geolocation.coordinates.lng],
       zoom: 13,
       scrollZoom: true
     });
-    console.log("map:",map);
-    console.log("stores:",stores[0]);
+    // console.log("map:",map);
+    // console.log("stores:",stores[0]);
     
 
     // Proceed with the same map functionalities as in the MapApi.js file...
@@ -32,8 +32,8 @@ class GeopostReviews {
           if (store.storeNeumadsReviewCollection && store.storeNeumadsReviewCollection.location) {
             let lat = store.location.geolocation.lat;
             console.log("lat:",lat);
-            let lon = store.location.geolocation.lon;
-            let coordinates = [lon, lat];
+            let lng = store.location.geolocation.lng;
+            let coordinates = [lng, lat];
             let from = turf.point(searchResult);
             let to = turf.point(coordinates);
             let options = {units: 'miles'};

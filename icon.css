@@ -95,6 +95,14 @@
     color: var(--white01);
 }
 
+.icon-Map {
+    background: url('_assets/icon/icon_map.svg') no-repeat;
+    height: 21px;
+    width: 21px;
+    display: block;
+    color: var(--white01);
+}
+
 
 
 
@@ -152,9 +160,89 @@
 
 /* WEATHER */
 .icon-weather-default {
-    background: url('images/icon/weather/icon-weather-default.svg') no-repeat;
+    background: url('images/icon/attributes/icon-weather-default.svg') no-repeat;
     height: 15px;
     width: 15px;
+    display: block;
+    color: var(--white01);
+}
+
+
+
+
+
+
+
+
+
+/* ATTRIBTUES */
+.icon-attributes-Cleansiness {
+    background: url('_assets/icon/attributes/icon-attributes-Cleansiness.svg') no-repeat;
+    height: 18px;
+    width: 18px;
+    display: block;
+    color: var(--white01);
+}
+
+
+.icon-attributes-Location {
+    background: url('_assets/icon/attributes/icon-attributes-Location.svg') no-repeat;
+    height: 18px;
+    width: 18px;
+    display: block;
+    color: var(--white01);
+}
+
+
+.icon-attributes-Noise {
+    background: url('_assets/icon/attributes/icon-attributes-Noise.svg') no-repeat;
+    height: 18px;
+    width: 18px;
+    display: block;
+    color: var(--white01);
+}
+
+
+.icon-attributes-Outlets {
+    background: url('_assets/icon/attributes/icon-attributes-Outlets.svg') no-repeat;
+    height: 18px;
+    width: 18px;
+    display: block;
+    color: var(--white01);
+}
+
+
+.icon-attributes-Parking {
+    background: url('_assets/icon/attributes/icon-attributes-Parking.svg') no-repeat;
+    height: 18px;
+    width: 18px;
+    display: block;
+    color: var(--white01);
+}
+
+
+.icon-attributes-Pricing {
+    background: url('_assets/icon/attributes/icon-attributes-Price.svg') no-repeat;
+    height: 18px;
+    width: 18px;
+    display: block;
+    color: var(--white01);
+}
+
+
+.icon-attributes-Space {
+    background: url('_assets/icon/attributes/icon-attributes-Space.svg') no-repeat;
+    height: 18px;
+    width: 18px;
+    display: block;
+    color: var(--white01);
+}
+
+
+.icon-attributes-Wifi {
+    background: url('_assets/icon/attributes/icon-attributes-Wifi.svg') no-repeat;
+    height: 18px;
+    width: 18px;
     display: block;
     color: var(--white01);
 }
@@ -254,3 +342,47 @@
   /* CUSTOM MAP MARKER */
   
   
+
+
+
+
+
+
+
+  /* SOCIAL */
+  .icon-social-rating {
+    background: url('_assets/icon/social/icon-social-rating.svg') no-repeat;
+    height: 18px;
+    width: 18px;
+    display: block;
+    color: var(--white01);
+  }
+
+  .icon-social-share {
+    background: url('_assets/icon/social/icon-social-share.svg') no-repeat;
+    height: 18px;
+    width: 18px;
+    display: block;
+    color: var(--white01);
+  }
+
+  .icon-social-thumbsUp {
+    background: url('_assets/icon/social/icon-social-thumbsUp.svg') no-repeat;
+    height: 18px;
+    width: 18px;
+    display: block;
+    color: var(--white01);
+  }
+
+
+
+
+
+  /* GLYPH */
+  .icon-glyph-dotvider {
+    background: url('_assets/icon/glyph/icon_glyph_dotvider.svg') no-repeat;
+    height:18px;
+    width:18px;
+    display: block;
+    color: var(--white01);
+  }

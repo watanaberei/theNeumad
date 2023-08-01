@@ -17,236 +17,319 @@
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
 
-import { createClient } from "contentful"; 
+import { createClient } from "contentful";
 
 const client = createClient({
   space: "i1hcb4885ci0",
   accessToken: "Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw",
 });
 
-// export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
-//   try {
-//     const query = `
-//     query {
-//       articleNeumadsTrailCollection(limit: ${limit}, skip: ${skip}) {
-//         items {
-//           sys {
-//             id
-//             publishedAt
-//           }
-//           title
-//           featured
-//           slug
-//           series
-//           author {
-//             ... on Author {
-//               social
-//               authorPseudonym
-//               authorPicture {
-//                 url
-//               }
-//             }
-//           }
-//           snippet {
-//             ... on SnippetDefault {
-//               title
-//               subtext
-//               thumbnail {
-//                 url
-//               }
-//             }
-//           }
-//           summary {
-//             text
-//           }
-//           media {
-//             ... on Media {
-//               thumbnail {
-//                 url
-//               }
-//               hero {
-//                 url
-//               }
-//               galleryCollection {
-//                 items {
-//                   url
-//                 }
-//               }
-//             }
-//           }
-//           content {
-//             ... on ContentDefault {
-//               summary {
-//                 json
-//               }
-//               introduction {
-//                 json
-//               }
-//               body {
-//                 json
-//               }
-//               conclusion {
-//                 json
-//               }
-//               postscript {
-//                 json
-//               }
-//             }
-//           }
-//           reference {
-//             ... on ReferenceDefault {
-//               relatedReferencesCollection(limit: 6) {
-//                 items {
-//                   ... on AppFastFoodHomePage031523 {
-//                     title
-//                     slug
-//                   }
-//                 }
-//               }
-//               suggestedReferencesCollection(limit: 6) {
-//                 items {
-//                   ... on AppFastFoodHomePage031523 {
-//                     title
-//                     slug
-//                   }
-//                 }
-//               }
-//               similarReferencesCollection(limit: 6) {
-//                 items {
-//                   ... on AppFastFoodHomePage031523 {
-//                     title
-//                     slug
-//                   }
-//                 }
-//               }
-//             }
-//           }
-//           tagsCollection {
-//             items {
-//               tags
-//               metatag
-//             }
-//           }
-//         }
-//       }
-//     }
 
-//       `;
+// title,
+// headline: { text: headline },
+// slug,
+// location: { address, geolocation: { lat, lng }, type },
+// category,
+// series,
+// media: {
+//   thumbnail
+// },
+// snippet: { text: snippet },
+// tag,
+export async function getStore(limit = 1, skip = 0) {
+  try {
+    const query = `
+    query {
+      storesCollection(limit: ${limit}, skip: ${skip}) {
+        items {
+          sys {
+            id
+          }
+          title
+          headline {
+            text
+          }
+          slug
+          location {
+            ... on ContentTypeLocation {
+              type
+              geolocation {
+                lat
+                lon
+              }
+              address
+              region
+            }
+          }
+          featured
+          category {
+            category
+          }
+          media {
+            ... on Media {
+              logo {
+                url
+              }
+              hero {
+                url
+              }
+              thumbnail {
+                url
+              }
+              galleryCollection {
+                items {
+                  url
+                }
+              }
+              recommendationsCollection {
+                items {
+                  url
+                  description
+                }
+              }
+              areaCollection {
+                items {
+                  url
+                  description
+                }
+              }
+            }
+          }
+          snippet {
+            ... on Snippet {
+              title
+              text {
+                json
+              }
+            }
+          }
+          storeNickname
+          hours
+          storeWebsite
+          storeChain
+          storeChainStoresCollection {
+            ... on StoresStoreChainStoresCollection {
+              items {
+                handles
+              }
+            }
+          }
+          neumadScore
+          googleRatings
+          yelpRatings
+          storeRatings
+          recommendation
+          overviewTitle
+          content {
+            ... on Content {
+              title
+              overview {
+                json
+              }
+            }
+          }
+          summary {
+            text
+          }
+          popularTimes
+          storeServices
+          handles
+          contact
+          storeAttributes
+          tagsCollection {
+            items {
+              tags
+              metatag
+              serviceTags
+              attributeTags
+              accessibilityTags
+              offeringTags
+              storeTags
+              environmentTags
+              reviewTags
+              locationTags
+            }
+          }
+        }
+      }
+    }
+    
+      `;
+      
 
-//       const response = await fetch(
-//         "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
-//         {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//           body: JSON.stringify({ query }),
-//         }
-//       );
+    const response = await fetch(
+      "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query }),
+      }
+    );
 
-//       const json = await response.json();
-//       console.log('articleNeumadsTrail JSON:', json); // Debugging information
+    const json = await response.json();
 
-//       if (json.errors) {
-//         console.error("articleNeumadsTrail GraphQL errors:", json.errors);
-//       }
+    if (json.errors) {
+      console.error("stores GraphQL errors:", json.errors);
+    }
 
-//       if (!json.data) {
-//         return []; // Return an empty array if no data is found
-//       }
+    if (!json.data) {
+      return []; // Return an empty array if no data is found
+    }
 
-//       const articles = json.data.articleNeumadsTrailCollection.items;
-//       // console.log("articles", articles)
-//       const data = articles.map((article) => {
-//       return {
-//         ...article,
-//         title: article?.title,
-//         headline: {
-//           text: article?.headline?.text,
-//         },
-//         location: {
-//           type: article?.location?.type,
-//           geolocation: {
-//             lat: article?.location?.geolocation?.lat,
-//             lon: article?.location?.geolocation?.lon,
-//           },
-//           address: article?.location?.address,
-//           region: article?.location?.region,
-//         },
-//         featured: article?.featured,
-//         slug: article?.slug,
-//         category: article?.category,
-//         series: article?.series,
-//         media: {
-//           hero: article?.media?.hero?.url,
-//           thumbnail: article?.media?.thumbnail?.url,
-//           gallery: article?.media?.galleryCollection?.items.map(item => ({
-//             url: item?.url,
-//           })),
-//         },
-//         author: {
-//           name: article?.author?.authorPseudonym,
-//           socials: article?.author?.social,
-//           picture: article?.author?.authorPicture?.url,
-//           slug: article?.author?.slug,
-//         },
-//         summary: {
-//           text: article?.summary?.text,
-//         },
-//         snippet: {
-//           title: article?.snippet?.title,
-//           text: article?.snippet?.text?.json,  // corrected field
-//         },
-//         postscript: {
-//           title: article?.postscript?.title,
-//           text: article?.postscript?.text?.json,  // corrected field
-//         },
-//         content: {
-//           introduction: documentToHtmlString(article?.content?.introduction?.json),
-//           body: documentToHtmlString(article?.content?.body?.json),
-//           conclusion: documentToHtmlString(article?.content?.conclusion?.json),
-//         },
-//         references: {
-//           relatedReferences: article?.reference?.relatedReferencesCollection?.items.map(item => ({
-//             title: item.title,headline: item.headline,
-//             section: item.section,
-//             overview: item.overview,
-//             slug: item.slug,
-//             tag: item.tag,
-//             category: item.category,
-//           })),
-//           suggestedReferences: article?.reference?.suggestedReferencesCollection?.items.map(item => ({
-//             title: item.title,
-//             section: item.section,
-//             overview: item.overview,
-//             slug: item.slug,
-//             tag: item.tag,
-//           })),
-//           similarReferences: article?.reference?.similarReferencesCollection?.items.map(item => ({
-//             title: item.title,
-//             section: item.section,
-//             overview: item.overview,
-//             slug: item.slug,
-//             tag: item.tag,
-//           })),
-//         },
-//         tag: article?.tagsCollection?.items.map(item => ({
-//           tags: item?.tags,
-//           metatag: item?.metatag,
-//         })),
+    const stores = json.data.storesCollection.items;
+    // console.log("stores", stores);
 
-//       };
-//     });
-//     documentToPlainTextString(getArticleNeumadsTrail);
-//     // console.log('Data for getArticleNeumadsTrail:', data);
-//     return data;
+    const data = stores.map((stores) => {
+      return {
+        ...stores,
+        // title: stores?.title,
+        headline: stores?.headline,
+        storeNickname: stores?.storeNickName,
+        slug: stores?.slug,
+        featured: stores?.featured,
+        categories: {
+          category: stores?.category?.category,
+        },
+        series: {
+          series: stores?.series?.series,
+        },
+        // sys: {
+        //   id: stores?.sys?.id,
+        // },
+        location: {
+          type: stores?.location?.type,
+          geolocation: {
+            lat: stores?.location?.geolocation?.lat,
+            lon: stores?.location?.geolocation?.lon,
+          },
+          address: stores?.location?.address,
+          region: stores?.location?.region,
+        },
+        hours: stores?.hours,
+        storeWebsite: stores?.storeWebsite,
+        neumadScore: stores?.neumadScore,
+        googleRatings: stores?.googleRatings,
+        yelpRatings: stores?.yelpRatings,
+        ratings: stores?.storeRatings,
+        recommendation: stores?.recommendation,
+        overviewTitle: stores?.overviewTitle,
+        content: {
+          overview: documentToHtmlString(stores?.content?.overview?.json),
+        },
+        summary: {
+          text: stores?.summary,
+        },
+        popularTimes: stores?.popularTimes,
+        storeServices: stores?.storeServices,
+        handles: stores?.handles,
+        contact: stores?.contact,
+        // storeReviewSource: stores?.storeReviewSource,
+        // area: stores?.area,
+        storeAttribute: stores?.storeAttributes,
+        snippet: {
+          title: stores?.snippet?.title,
+          text: documentToHtmlString(stores?.snippet?.text?.json),
+        },
+        media: {
+          logo: stores?.media?.logo?.url,
+          hero: stores?.media?.hero?.url,
+          thumbnail: stores?.media?.thumbnail?.url,
+          gallery: stores?.media?.galleryCollection?.items.map((item) => ({
+            url: item?.url,
+          })),
+          recommendations: stores?.media?.recommendationsCollection?.items.map(
+            (item) => ({
+              url: item?.url,
+              description: item?.description,
+            })
+          ),
+          area: stores?.media?.areaCollection?.items.map((item) => ({
+            url: item?.url,
+            description: item?.description,
+          })),
+        },
+        summary: {
+          text: stores?.summary?.text,
+        },
+        overviewTitle: stores?.overviewTitle,
+        overview: {
+          type: stores?.content?.type,
+          text: documentToHtmlString(stores?.content?.overview?.json),
+        },
+        // overviewContent: {
+        //   title: stores?.snippet?.title,
+        //   text: documentToHtmlString(stores?.snippet?.text?.json),
+        // },
+        // reference: {
+        //   relatedReferences:
+        //     stores?.reference?.relatedReferencesCollection?.items.map(
+        //       (item) => ({
+        //         title: item.title,
+        //         headline: item.headline,
+        //         section: item.section,
+        //         // media: {
+        //         //   thumbnail: item.media.thumbnail.url,
+        //         // },
+        //         overview: item.overview,
+        //         slug: item.slug,
+        //         tag: item.tag,
+        //         relatedCategory: item.category,
+        //       })
+        //     ),
+        //   suggestedReferences:
+        //     stores?.reference?.suggestedReferencesCollection?.items.map(
+        //       (item) => ({
+        //         title: item.title,
+        //         section: item.section,
+        //         // media: {
+        //         //   thumbnail: item.media.thumbnail.url,
+        //         // },
+        //         overview: item.overview,
+        //         slug: item.slug,
+        //         tag: item.tag,
+        //       })
+        //     ),
+        //   similarReferences:
+        //     stores?.reference?.similarReferencesCollection?.items.map(
+        //       (item) => ({
+        //         title: item.title,
+        //         section: item.section,
+        //         // media: {
+        //         //   thumbnail: item.media.thumbnail.url,
+        //         // },
+        //         overview: item.overview,
+        //         slug: item.slug,
+        //         tag: item.tag,
+        //       })
+        //     ),
+        // },
+        tag: stores?.tagsCollection?.items.map((item) => ({
+          tags: item?.tags,
+          tagMetatag: item?.metatag,
+          serviceTags: item?.serviceTags,
+          attributeTags: item?.attributeTags,
+          accessibilityTags: item?.accessibilityTags,
+          offeringTags: item?.offeringTags,
+          storeTags: item?.storeTags,
+          environmentTags: item?.environmentTags,
+          reviewTags: item?.reviewTags,
+          locationTags: item?.locationTags,
+        })),
+      };
+    });
+    documentToPlainTextString(getStore);
+    // console.log("Data for getStore data:", data);
+    // console.log("Data for getStore:", getStore);
+    return data;
+  } catch (err) {
+    console.error(err);
+    // You can decide what to return in case of error, perhaps null or an empty array
+    return null;
+  }
+}
 
-//   } catch (err) {
-//     console.error(err);
-//     // You can decide what to return in case of error, perhaps null or an empty array
-//     return null;
-//   }
-// };
 export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
   try {
     const query = `
@@ -282,20 +365,50 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
             }
           }
           author {
-            ... on Author {
+            ... on Author {  # Use the correct type for author entries
               social
               authorPseudonym
-              authorPicture {
-                url
+              slug
+              media {
+                ... on Media {
+                	thumbnail {
+                  	url
+                	}
+                  hero {
+                  	url
+                  }
+                }
+              }
+              authorBio {
+                ... on  ContentDefault{
+              	 	title
+                  introduction {
+                    json
+                  }
+                  body {
+                    json
+                  }
+                  conclusion {
+                    json
+                  }
+                  postscript {
+                    json
+                  }
+                }
+            	}
+              authorSnippet {
+                ... on SnippetDefault {
+                  title
+									subtext 
+                }
               }
             }
           }
           snippet {
-            ... on SnippetDefault {
+            ... on Snippet {
               title
-              subtext
-              thumbnail {
-                url
+              text {
+                json
               }
             }
           }
@@ -318,20 +431,492 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
             }
           }
           content {
-            ... on ContentDefault {
-              summary {
+            ... on Content {
+              introduction {
                 json
               }
-              introduction {
+              type
+              stores {
                 json
               }
               body {
                 json
               }
+              bodyCurrated 
+              bodyTable
               conclusion {
                 json
               }
-              postscript {
+            }
+          }
+          tagsCollection {
+            items {
+              tags
+              metatag
+              serviceTags
+              attributeTags
+              accessibilityTags
+              offeringTags
+              storeTags
+              environmentTags
+              reviewTags
+              locationTags
+            }
+          }
+
+          reference {
+            ... on ReferenceDefault {
+              relatedReferencesCollection(limit: 3) {
+                items {
+                  ... on AppFastFoodHomePage031523 {
+                    title
+                    category {
+                      category
+                    }
+                    media {
+                      ... on Media {
+                        thumbnail {
+                          url
+                        }
+                      }
+                    }
+                    slug
+                    snippet {
+                      ... on Snippet {
+                        title
+                        text {
+                          json
+                        }
+                      }
+                    }
+                    tagsCollection {
+                      items {
+                        tags
+                        metatag
+                      }
+                    }
+                  }
+                }
+              }
+              suggestedReferencesCollection(limit: 3) {
+                items {
+                  ... on AppFastFoodHomePage031523 {
+                    title
+                    category {
+                      category
+                    }
+                    media {
+                      ... on Media {
+                        thumbnail {
+                          url
+                        }
+                      }
+                    }
+                    slug
+                    snippet {
+                      ... on Snippet {
+                        title
+                        text {
+                          json
+                        }
+                      }
+                    }
+                    tagsCollection {
+                      items {
+                        tags
+                        metatag
+                      }
+                    }
+                  }
+                }
+              }
+              similarReferencesCollection(limit: 3) {
+                items {
+                  ... on AppFastFoodHomePage031523 {
+                    title
+                    category {
+                      category
+                    }
+                    media {
+                      ... on Media {
+                        thumbnail {
+                          url
+                        }
+                      }
+                    }
+                    slug
+                    snippet {
+                      ... on Snippet {
+                        title
+                        text {
+                          json
+                        }
+                      }
+                    }
+                    tagsCollection {
+                      items {
+                        tags
+                        metatag
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        } 
+      }
+    }
+    
+      `;
+
+    const response = await fetch(
+      "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query }),
+      }
+    );
+
+    const json = await response.json();
+
+    if (json.errors) {
+      console.error("articleNeumadsTrail GraphQL errors:", json.errors);
+    }
+
+    if (!json.data) {
+      return []; // Return an empty array if no data is found
+    }
+
+    const articles = json.data.articleNeumadsTrailCollection.items;
+    // console.log("articles", articles);
+
+    const data = articles.map((articles) => {
+      return {
+        ...articles,
+        title: articles?.title,
+
+        // id: articles?.sys?.id,
+
+        headline: articles?.headline,
+        location: {
+          type: articles?.location?.type,
+          geolocation: {
+            lat: articles?.location?.geolocation?.lat,
+            lon: articles?.location?.geolocation?.lon,
+          },
+          address: articles?.location?.address,
+          region: articles?.location?.region,
+        },
+
+        slug: articles?.slug,
+        featured: articles?.featured,
+        headline: {
+          text: articles?.headline?.text,
+          slug: articles?.headline?.slug,
+        },
+        snippet: {
+          title: articles?.snippet?.title,
+          text: articles?.snippet?.text,
+        },
+        categories: {
+          category: articles?.category?.category,
+        },
+        series: {
+          series: articles?.series?.series,
+        },
+        author: {
+          name: articles?.author?.authorPseudonym,
+          media: {
+            thumbnail: articles?.author?.media?.thumbnail?.url,
+            hero: articles?.author?.media?.hero?.url,
+          },
+          slug: articles?.author?.slug,
+          social: articles?.author?.social,
+          bio: {
+            title: articles?.author?.authorBio?.title,
+            introduction: articles?.author?.authorBio?.introduction,
+            body: articles?.author?.authorBio?.body,
+            conclusion: articles?.author?.authorBio?.conclusion,
+            postscript: articles?.author?.authorBio?.postscript,
+          },
+          snippet: {
+            title: articles?.author?.authorSnippet?.title,
+            text: articles?.author?.authorSnippet?.subtext,
+          },
+        },
+        media: {
+          hero: articles?.media?.hero?.url,
+          thumbnail: articles?.media?.thumbnail?.url,
+          gallery: articles?.media?.galleryCollection?.items.map((item) => ({
+            url: item?.url,
+          })),
+        },
+        // snippet: {
+        //   title: articles?.snippet?.title,
+        //   text: documentToHtmlString(articles?.snippet?.text?.json),
+        // },
+        summary: {
+          text: articles?.summary?.text,
+        },
+        content: {
+          introduction: documentToHtmlString(
+            articles?.content?.introduction?.json
+          ),
+          type: articles?.content?.type,
+          stores: documentToHtmlString(articles?.content?.stores?.json),
+          body: documentToHtmlString(articles?.content?.body?.json),
+          bodyCurrated: articles?.content?.bodyCurrated,
+          bodyTable: articles?.content?.bodyTable,
+          conclusion: documentToHtmlString(articles?.content?.conclusion?.json),
+        },
+        postscript: {
+          text: documentToHtmlString(articles?.postscript?.text?.json),
+        },
+        // references: {
+        //   relatedReferences:
+        //     articles?.reference?.relatedReferencesCollection?.items.map(
+        //       (item) => ({
+        //         title: item.title,
+        //         headline: item.headline,
+        //         section: item.section,
+        //         // media: {
+        //         //   thumbnail: item.media.thumbnail.url,
+        //         // },
+        //         overview: item.overview,
+        //         slug: item.slug,
+        //         tag: item.tag,
+        //         relatedCategory: item.category,
+        //       })
+        //     ),
+        //   suggestedReferences:
+        //     articles?.reference?.suggestedReferencesCollection?.items.map(
+        //       (item) => ({
+        //         title: item.title,
+        //         section: item.section,
+        //         // media: {
+        //         //   thumbnail: item.media.thumbnail.url,
+        //         // },
+        //         overview: item.overview,
+        //         slug: item.slug,
+        //         tag: item.tag,
+        //       })
+        //     ),
+        //   similarReferences:
+        //     articles?.reference?.similarReferencesCollection?.items.map(
+        //       (item) => ({
+        //         title: item.title,
+        //         section: item.section,
+        //         // media: {
+        //         //   thumbnail: item.media.thumbnail.url,
+        //         // },
+        //         overview: item.overview,
+        //         slug: item.slug,
+        //         tag: item.tag,
+        //       })
+        //     ),
+        // },
+        reference: {
+          relatedReferences:
+            articles?.reference?.relatedReferencesCollection?.items.map(
+              (item) => ({
+                title: item.title,
+                headline: item.headline,
+                section: item.section,
+                // media: {
+                //   thumbnail: item.media.thumbnail.url,
+                // },
+                overview: item.overview,
+                slug: item.slug,
+                tag: item.tag,
+                relatedCategory: item.category,
+              })
+            ),
+          suggestedReferences:
+            articles?.reference?.suggestedReferencesCollection?.items.map(
+              (item) => ({
+                title: item.title,
+                section: item.section,
+                // media: {
+                //   thumbnail: item.media.thumbnail.url,
+                // },
+                overview: item.overview,
+                slug: item.slug,
+                tag: item.tag,
+              })
+            ),
+          similarReferences:
+            articles?.reference?.similarReferencesCollection?.items.map(
+              (item) => ({
+                title: item.title,
+                section: item.section,
+                // media: {
+                //   thumbnail: item.media.thumbnail.url,
+                // },
+                overview: item.overview,
+                slug: item.slug,
+                tag: item.tag,
+              })
+            ),
+        },
+        tag: articles?.tagsCollection?.items.map((item) => ({
+          tags: item?.tags,
+          tagMetatag: item?.metatag,
+          serviceTags: item?.serviceTags,
+          attributeTags: item?.attributeTags,
+          accessibilityTags: item?.accessibilityTags,
+          offeringTags: item?.offeringTags,
+          storeTags: item?.storeTags,
+          environmentTags: item?.environmentTags,
+          reviewTags: item?.reviewTags,
+          locationTags: item?.locationTags,
+        })),
+      };
+    });
+    documentToPlainTextString(getArticleNeumadsTrail);
+    // console.log('Data for getStoresNeumadsReview data:', data);
+    // console.log('Data for getStoresNeumadsReview:', getStoresNeumadsReview);
+    return data;
+  } catch (err) {
+    console.error(err);
+    // You can decide what to return in case of error, perhaps null or an empty array
+    return null;
+  }
+}
+
+export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
+  try {
+    const query = `
+    query {
+      storesNeumadsReviewCollection(limit: ${limit}, skip: ${skip}) {
+        items {
+          sys {
+            id
+          }
+          title
+          location {
+            ... on ContentTypeLocation {
+              type
+              geolocation {
+                lat
+                lon
+              }
+              address
+              region
+            }
+          }
+          featured
+
+          headline {
+            text
+            eyebrow
+          }
+          slug
+          featured
+          category {
+            category
+          }
+          series {
+            series
+          }
+          author {
+            ... on Author {  # Use the correct type for author entries
+              social
+              authorPseudonym
+              slug
+              media {
+                ... on Media {
+                	thumbnail {
+                  	url
+                	}
+                  hero {
+                  	url
+                  }
+                }
+              }
+              authorBio {
+                ... on  ContentDefault{
+              	 	title
+                  introduction {
+                    json
+                  }
+                  body {
+                    json
+                  }
+                  conclusion {
+                    json
+                  }
+                  postscript {
+                    json
+                  }
+                }
+            	}
+              authorSnippet {
+                ... on SnippetDefault {
+                  title
+									subtext 
+                }
+              }
+            }
+          }
+          media {
+            ... on Media {
+              title
+              hero {
+                url
+              }
+              thumbnail {
+                url
+              }
+              galleryCollection {
+                items {
+                  url
+                }
+              }
+            }
+          }
+          snippet {
+            ... on Snippet {
+              title
+              text {
+                json
+              }
+            }
+          }
+          summary {
+            ... on Summary {
+              text
+            }
+          }
+          content {
+            ... on Content {
+              introduction {
+                json
+              }
+              type
+              stores{
+                json
+              }
+              body {
+                json
+              }
+              bodyCurrated 
+              bodyTable
+              conclusion {
+                json
+              }
+            }
+          }
+          attributes {
+            amenities
+            offers
+          }
+          postscript {
+            ... on Postscript {
+              text {
                 json
               }
             }
@@ -436,18 +1021,12 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
               }
             }
           }
-          tagsCollection {
-            items {
-              tags
-              metatag
-            }
-          }
         } 
       }
     }
     
+    
       `;
-
     const response = await fetch(
       "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
       {
@@ -469,438 +1048,98 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
       return []; // Return an empty array if no data is found
     }
 
-    const articles = json.data.articleNeumadsTrailCollection.items;
-    // console.log("articles", articles);
+    const reviews = json.data.storesNeumadsReviewCollection.items;
+    // console.log("store", reviews);
 
-    const data = articles.map((articles) => {
+    const data = reviews.map((reviews) => {
       return {
-        ...articles,
-        title: articles?.title,
-        headline: articles?.headline,
+        ...reviews,
+        title: reviews?.title,
+
+        // id: reviews?.sys?.id,
+
         location: {
-          type: articles?.location?.type,
+          type: reviews?.location?.type,
           geolocation: {
-            lat: articles?.location?.geolocation?.lat,
-            lon: articles?.location?.geolocation?.lon,
+            lat: reviews?.location?.geolocation?.lat,
+            lon: reviews?.location?.geolocation?.lon,
           },
-          address: articles?.location?.address,
-          region: articles?.location?.region,
+          address: reviews?.location?.address,
+          region: reviews?.location?.region,
         },
-        slug: articles?.slug,
-        featured: articles?.featured,
+        slug: reviews?.slug,
+        featured: reviews?.featured,
+        
         headline: {
-          text: articles?.headline?.text,
-          slug: articles?.headline?.slug,
+          text: reviews?.headline?.text,
+          slug: reviews?.headline?.slug,
         },
         categories: {
-          category: articles?.category?.category,
+          category: reviews?.category?.category,
         },
         series: {
-          series: articles?.series?.series,
+          series: reviews?.series?.series,
         },
         author: {
-          name: articles?.author?.authorPseudonym,
-          picture: articles?.author?.authorPicture?.url,
-          slug: articles?.author?.slug,
+          name: reviews?.author?.authorPseudonym,
+          media: {
+            thumbnail: reviews?.author?.media?.thumbnail?.url,
+            hero: reviews?.author?.media?.hero?.url,
+          },
+          slug: reviews?.author?.slug,
+          social: reviews?.author?.social,
+          authorBio: {
+            title: reviews?.author?.authorBio?.title,
+            introduction: reviews?.author?.authorBio?.introduction,
+            body: reviews?.stores?.authorBio?.body,
+            conclusion: reviews?.author?.authorBio?.conclusion,
+            postscript: reviews?.author?.authorBio?.postscript,
+          },
+          authorSnippet: {
+            title: reviews?.author?.authorSnippet?.title,
+            text: reviews?.author?.authorSnippet?.subtext,
+          },
         },
         media: {
-          hero: articles?.media?.hero?.url,
-          thumbnail: articles?.media?.thumbnail?.url,
-          gallery: articles?.media?.galleryCollection?.items.map((item) => ({
+          hero: reviews?.media?.hero?.url,
+          thumbnail: reviews?.media?.thumbnail?.url,
+          gallery: reviews?.media?.galleryCollection?.items.map((item) => ({
             url: item?.url,
           })),
         },
+        // snippet: {
+        //   title: reviews?.snippet?.title,
+        //   text: documentToHtmlString(reviews?.snippet?.text?.json),
+        // },
         snippet: {
-          title: articles?.snippet?.title,
-          text: documentToHtmlString(articles?.snippet?.text?.json),
+          title: reviews?.snippet?.title,
+          text: reviews?.snippet?.text,
         },
         summary: {
-          text: articles?.summary?.text,
+          text: reviews?.summary?.text,
         },
         content: {
           introduction: documentToHtmlString(
-            articles?.content?.introduction?.json
+            reviews?.content?.introduction?.json
           ),
-          body: documentToHtmlString(articles?.content?.body?.json),
-          conclusion: documentToHtmlString(articles?.content?.conclusion?.json),
-        },
-        postscript: {
-          text: documentToHtmlString(articles?.postscript?.text?.json),
-        },
-        references: {
-          relatedReferences:
-            articles?.reference?.relatedReferencesCollection?.items.map(
-              (item) => ({
-                title: item.title,
-                headline: item.headline,
-                section: item.section,
-                // media: {
-                //   thumbnail: item.media.thumbnail.url,
-                // },
-                overview: item.overview,
-                slug: item.slug,
-                tag: item.tag,
-                relatedCategory: item.category,
-              })
-            ),
-          suggestedReferences:
-            articles?.reference?.suggestedReferencesCollection?.items.map(
-              (item) => ({
-                title: item.title,
-                section: item.section,
-                // media: {
-                //   thumbnail: item.media.thumbnail.url,
-                // },
-                overview: item.overview,
-                slug: item.slug,
-                tag: item.tag,
-              })
-            ),
-          similarReferences:
-            articles?.reference?.similarReferencesCollection?.items.map(
-              (item) => ({
-                title: item.title,
-                section: item.section,
-                // media: {
-                //   thumbnail: item.media.thumbnail.url,
-                // },
-                overview: item.overview,
-                slug: item.slug,
-                tag: item.tag,
-              })
-            ),
-        },
-        tag: articles?.tagsCollection?.items.map((item) => ({
-          tags: item?.tags,
-          metatag: item?.metatag,
-        })),
-      };
-    });
-    documentToPlainTextString(getArticleNeumadsTrail);
-    // console.log('Data for getStoresNeumadsReview data:', data);
-    // console.log('Data for getStoresNeumadsReview:', getStoresNeumadsReview);
-    return data;
-  } catch (err) {
-    console.error(err);
-    // You can decide what to return in case of error, perhaps null or an empty array
-    return null;
-  }
-};
-
-
-export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
-  try {
-    const query = `
-    query {
-      storesNeumadsReviewCollection(limit: ${limit}, skip: ${skip}) {
-        items {
-          sys {
-            id
-          }
-          title
-          location {
-            ... on ContentTypeLocation {
-              type
-              geolocation {
-                lat
-                lon
-              }
-              address
-              region
-            }
-          }
-          featured
-          store{
-            ... on Stores {
-              storeName
-              storeNickname
-              hours
-              storeWebsite
-              storeChain
-              storeChainStoresCollection{
-                items{
-                  storeName
-                  storeNickname
-                  hours
-                  storeWebsite
-                }
-              }
-              neumadScore
-              storeRating
-              storeRatingsCount
-              storeReviewOverview
-              handles
-              contact
-              storeReviewSource
-              storeBio {
-                title
-                introduction {
-                  json
-                }
-                body {
-                  json
-                }
-                conclusion {
-                  json
-                }
-                postscript {
-                  json
-                }
-              }
-              storeTagsCollection {
-                items {
-                  tags
-                  metatag
-                }
-              }
-            }
-          }
-          headline {
-            text
-            eyebrow
-          }
-          slug
-          featured
-          category {
-            category
-          }
-          series {
-            series
-          }
-          author {
-            authorName
-            authorPseudonym
-            authorPicture {
-              url
-            }
-            slug
-          }
-          media {
-            ... on Media {
-              title
-              hero {
-                url
-              }
-              thumbnail {
-                url
-              }
-              galleryCollection {
-                items {
-                  url
-                }
-              }
-            }
-          }
-          snippet {
-            ... on Snippet {
-              title
-              text {
-                json
-              }
-            }
-          }
-          summary {
-            ... on Summary {
-              text
-            }
-          }
-          content {
-            ... on Content {
-              introduction {
-                json
-              }
-              body {
-                json
-              }
-              conclusion {
-                json
-              }
-            }
-          }
-          attributes {
-            amenities
-            offers
-          }
-          postscript {
-            ... on Postscript {
-              text {
-                json
-              }
-            }
-          }
-          reference {
-            ... on ReferenceDefault {
-              relatedReferencesCollection(limit: 6) {
-                items {
-                  ... on AppFastFoodHomePage031523 {
-                    title
-                    slug
-                  }
-                }
-              }
-              suggestedReferencesCollection(limit: 6) {
-                items {
-                  ... on AppFastFoodHomePage031523 {
-                    title
-                    slug
-                  }
-                }
-              }
-              similarReferencesCollection(limit: 6) {
-                items {
-                  ... on AppFastFoodHomePage031523 {
-                    title
-                    slug
-                  }
-                }
-              }
-            }
-          }
-          tagsCollection {
-            items {
-              tags
-              metatag
-            }
-          }
-        }
-      }
-    }
-    
-    
-      `;
-    const response = await fetch(
-      "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query }),
-      }
-    );
-
-    const json = await response.json();
-    
-
-    if (json.errors) {
-      console.error("articleNeumadsTrail GraphQL errors:", json.errors);
-    }
-
-    if (!json.data) {
-      return []; // Return an empty array if no data is found
-    }
-
-    const stores = json.data.storesNeumadsReviewCollection.items;
-// console.log("store", stores);
-
-    const data = stores.map((stores) => {
-      return {
-        ...stores,
-        title: stores?.title,
-        location: {
-          type: stores?.location?.type,
-          geolocation: {
-            lat: stores?.location?.geolocation?.lat,
-            lon: stores?.location?.geolocation?.lon,
-          },
-          address: stores?.location?.address,
-          region: stores?.location?.region,
-        },
-        slug: stores?.slug,
-        featured: stores?.featured,
-        store: {
-          storeName: stores?.store?.storeName,
-          storeNickname: stores?.store?.storeNickname,
-          hours: stores?.store?.hours,
-          storeWebsite: stores?.store?.storeWebsite,
-          storeChain: stores?.store?.storeChain,
-          storeChainStoresCollection:
-            stores?.store?.storeChainStoresCollection?.items.map((item) => ({
-              storeName: item?.storeName,
-              storeNickname: item?.storeNickname,
-              hours: item?.hours,
-              storeWebsite: item?.storeWebsite,
-              storeGeolocation: {
-                lat: item?.storeGeolocation?.lat,
-                lon: item?.storeGeolocation?.lon,
-              },
-              storeAddress: item?.storeAddress,
-              storeChain: item?.storeChain,
-              storeChainStoresCollection:
-                item?.storeChainStoresCollection?.items.map((item) => ({
-                  storeName: item?.storeName,
-                  storeNickname: item?.storeNickname,
-                  hours: item?.hours,
-                  storeWebsite: item?.storeWebsite,
-                })),
-              neumadScore: item?.neumadScore,
-              storeRating: item?.storeRating,
-              storeRatingsCount: item?.storeRatingsCount,
-              storeReviewOverview: item?.storeReviewOverview,
-              handles: item?.handles,
-              contact: item?.contact,
-              storeReviewSource: item?.storeReviewSource,
-              storeBio: {
-                title: item?.storeBio?.title,
-                introduction: item?.storeBio?.introduction?.json,
-                body: item?.storeBio?.body?.json,
-                conclusion: item?.storeBio?.conclusion?.json,
-                postscript: item?.storeBio?.postscript?.json,
-              },
-              storeTagsCollection: item?.storeTagsCollection?.items.map(
-                (item) => ({
-                  tags: item?.tags,
-                  metatag: item?.metatag,
-                })
-              ),
-            })),
-        },
-        headline: {
-          text: stores?.headline?.text,
-          slug: stores?.headline?.slug,
-        },
-        categories: {
-          category: stores?.category?.category,
-        },
-        series: {
-          series: stores?.series?.series,
-        },
-        author: {
-          name: stores?.author?.authorPseudonym,
-          picture: stores?.author?.authorPicture?.url,
-          slug: stores?.author?.slug,
-        },
-        media: {
-          hero: stores?.media?.hero?.url,
-          thumbnail: stores?.media?.thumbnail?.url,
-          gallery: stores?.media?.galleryCollection?.items.map((item) => ({
-            url: item?.url,
-          })),
-        },
-        snippet: {
-          title: stores?.snippet?.title,
-          text: documentToHtmlString(stores?.snippet?.text?.json),
-        },
-        summary: {
-          text: stores?.summary?.text,
-        },
-        content: {
-          introduction: documentToHtmlString(
-            stores?.content?.introduction?.json
+          stores: documentToHtmlString(reviews?.content?.stores?.json),
+          body: documentToHtmlString(reviews?.content?.body?.json),
+          bodyCurrated: documentToHtmlString(
+            reviews?.content?.bodyCurrated?.json
           ),
-          body: documentToHtmlString(stores?.content?.body?.json),
-          conclusion: documentToHtmlString(stores?.content?.conclusion?.json),
+          bodyTable: documentToHtmlString(reviews?.content?.bodyTable?.json),
+          conclusion: documentToHtmlString(reviews?.content?.conclusion?.json),
         },
         attributes: {
-          amentities: stores?.attributes?.amentities,
-          offers: stores?.attributes?.offers,
+          amentities: reviews?.attributes?.amentities,
+          offers: reviews?.attributes?.offers,
         },
         postscript: {
-          text: documentToHtmlString(stores?.postscript?.text?.json),
+          text: documentToHtmlString(reviews?.postscript?.text?.json),
         },
-        references: {
+        reference: {
           relatedReferences:
-            stores?.reference?.relatedReferencesCollection?.items.map(
+            reviews?.reference?.relatedReferencesCollection?.items.map(
               (item) => ({
                 title: item.title,
                 headline: item.headline,
@@ -915,7 +1154,7 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
               })
             ),
           suggestedReferences:
-            stores?.reference?.suggestedReferencesCollection?.items.map(
+            reviews?.reference?.suggestedReferencesCollection?.items.map(
               (item) => ({
                 title: item.title,
                 section: item.section,
@@ -928,7 +1167,7 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
               })
             ),
           similarReferences:
-            stores?.reference?.similarReferencesCollection?.items.map(
+            reviews?.reference?.similarReferencesCollection?.items.map(
               (item) => ({
                 title: item.title,
                 section: item.section,
@@ -941,9 +1180,17 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
               })
             ),
         },
-        tag: stores?.tagsCollection?.items.map((item) => ({
+        tag: reviews?.tagsCollection?.items.map((item) => ({
           tags: item?.tags,
-          metatag: item?.metatag,
+          tagMetatag: item?.metatag,
+          serviceTags: item?.serviceTags,
+          attributeTags: item?.attributeTags,
+          accessibilityTags: item?.accessibilityTags,
+          offeringTags: item?.offeringTags,
+          storeTags: item?.storeTags,
+          environmentTags: item?.environmentTags,
+          reviewTags: item?.reviewTags,
+          locationTags: item?.locationTags,
         })),
       };
     });
@@ -958,6 +1205,427 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
   }
 };
 
+// export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
+//   try {
+//     const query = `
+//     query {
+//       storesNeumadsReviewCollection(limit: ${limit}, skip: ${skip}) {
+//         items {
+//           sys {
+//             id
+//           }
+//           title
+//           location {
+//             ... on ContentTypeLocation {
+//               type
+//               geolocation {
+//                 lat
+//                 lng
+//               }
+//               address
+//               region
+//             }
+//           }
+//           featured
+//           store{
+//             ... on Stores {
+//               storeName
+//               storeNickname
+//               hours
+//               storeWebsite
+//               storeChain
+//               storeChainStoresCollection{
+//                 items{
+//                   storeName
+//                   storeNickname
+//                   hours
+//                   storeWebsite
+//                 }
+//               }
+//               neumadScore
+//               storeRating
+//               storeRatingsCount
+//               storeReviewOverview
+//               handles
+//               contact
+//               storeReviewSource
+//               storeBio {
+//                 title
+//                 introduction {
+//                   json
+//                 }
+//                 body {
+//                   json
+//                 }
+//                 conclusion {
+//                   json
+//                 }
+//                 postscript {
+//                   json
+//                 }
+//               }
+//               storeTagsCollection {
+//                 items {
+//                   tags
+//                   metatag
+//                 }
+//               }
+//             }
+//           }
+//           headline {
+//             text
+//             eyebrow
+//           }
+//           slug
+//           featured
+//           category {
+//             category
+//           }
+//           series {
+//             series
+//           }
+//           author {
+//             ... on Author {  # Use the correct type for author entries
+//               social
+//               authorPseudonym
+//               slug
+//               media {
+//                 ... on Media {
+//                 	thumbnail {
+//                   	url
+//                 	}
+//                   hero {
+//                   	url
+//                   }
+//                 }
+//               }
+//               authorBio {
+//                 ... on  ContentDefault{
+//               	 	title
+//                   introduction {
+//                     json
+//                   }
+//                   body {
+//                     json
+//                   }
+//                   conclusion {
+//                     json
+//                   }
+//                   postscript {
+//                     json
+//                   }
+//                 }
+//             	}
+//               authorSnippet {
+//                 ... on SnippetDefault {
+//                   title
+// 									subtext
+//                 }
+//               }
+//             }
+//           }
+//           media {
+//             ... on Media {
+//               title
+//               hero {
+//                 url
+//               }
+//               thumbnail {
+//                 url
+//               }
+//               galleryCollection {
+//                 items {
+//                   url
+//                 }
+//               }
+//             }
+//           }
+//           snippet {
+//             ... on Snippet {
+//               title
+//               text {
+//                 json
+//               }
+//             }
+//           }
+//           summary {
+//             ... on Summary {
+//               text
+//             }
+//           }
+//           content {
+//             ... on Content {
+//               introduction {
+//                 json
+//               }
+//               type
+//               stores{
+//                 json
+//               }
+//               body {
+//                 json
+//               }
+//               bodyCurrated
+//               bodyTable
+//               conclusion {
+//                 json
+//               }
+//             }
+//           }
+//           attributes {
+//             amenities
+//             offers
+//           }
+//           postscript {
+//             ... on Postscript {
+//               text {
+//                 json
+//               }
+//             }
+//           }
+//           reference {
+//             ... on ReferenceDefault {
+//               relatedReferencesCollection(limit: 6) {
+//                 items {
+//                   ... on AppFastFoodHomePage031523 {
+//                     title
+//                     slug
+//                   }
+//                 }
+//               }
+//               suggestedReferencesCollection(limit: 6) {
+//                 items {
+//                   ... on AppFastFoodHomePage031523 {
+//                     title
+//                     slug
+//                   }
+//                 }
+//               }
+//               similarReferencesCollection(limit: 6) {
+//                 items {
+//                   ... on AppFastFoodHomePage031523 {
+//                     title
+//                     slug
+//                   }
+//                 }
+//               }
+//             }
+//           }
+//           tagsCollection {
+//             items {
+//               tags
+//               metatag
+//             }
+//           }
+//         }
+//       }
+//     }
+
+//       `;
+//     const response = await fetch(
+//       "https://graphql.contentful.com/content/v1/spaces/i1hcb4885ci0?access_token=Bcy-B6Lvepv3RLYinX-rY9x4KDpxJcv8_IH0PgF6odw&locale=*",
+//       {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({ query }),
+//       }
+//     );
+
+//     const json = await response.json();
+
+//     if (json.errors) {
+//       console.error("articleNeumadsTrail GraphQL errors:", json.errors);
+//     }
+
+//     if (!json.data) {
+//       return []; // Return an empty array if no data is found
+//     }
+
+//     const stores = json.data.storesNeumadsReviewCollection.items;
+// // console.log("store", stores);
+
+//     const data = stores.map((stores) => {
+//       return {
+//         ...stores,
+//         title: stores?.title,
+//         location: {
+//           type: stores?.location?.type,
+//           geolocation: {
+//             lat: stores?.location?.geolocation?.lat,
+//             lng: stores?.location?.geolocation?.long,
+//           },
+//           address: stores?.location?.address,
+//           region: stores?.location?.region,
+//         },
+//         slug: stores?.slug,
+//         featured: stores?.featured,
+//         store: {
+//           storeName: stores?.store?.storeName,
+//           storeNickname: stores?.store?.storeNickname,
+//           hours: stores?.store?.hours,
+//           storeWebsite: stores?.store?.storeWebsite,
+//           storeChain: stores?.store?.storeChain,
+//           storeChainStoresCollection:
+//             stores?.store?.storeChainStoresCollection?.items.map((item) => ({
+//               storeName: item?.storeName,
+//               storeNickname: item?.storeNickname,
+//               hours: item?.hours,
+//               storeWebsite: item?.storeWebsite,
+//               storeGeolocation: {
+//                 lat: item?.storeGeolocation?.lat,
+//                 lng: item?.storeGeolocation?.lng,
+//               },
+//               storeAddress: item?.storeAddress,
+//               storeChain: item?.storeChain,
+//               storeChainStoresCollection:
+//                 item?.storeChainStoresCollection?.items.map((item) => ({
+//                   storeName: item?.storeName,
+//                   storeNickname: item?.storeNickname,
+//                   hours: item?.hours,
+//                   storeWebsite: item?.storeWebsite,
+//                 })),
+//               neumadScore: item?.neumadScore,
+//               storeRating: item?.storeRating,
+//               storeRatingsCount: item?.storeRatingsCount,
+//               storeReviewOverview: item?.storeReviewOverview,
+//               handles: item?.handles,
+//               contact: item?.contact,
+//               storeReviewSource: item?.storeReviewSource,
+//               storeBio: {
+//                 title: item?.storeBio?.title,
+//                 introduction: item?.storeBio?.introduction?.json,
+//                 body: item?.storeBio?.body?.json,
+//                 conclusion: item?.storeBio?.conclusion?.json,
+//                 postscript: item?.storeBio?.postscript?.json,
+//               },
+//               storeTagsCollection: item?.storeTagsCollection?.items.map(
+//                 (item) => ({
+//                   tags: item?.tags,
+//                   metatag: item?.metatag,
+//                 })
+//               ),
+//             })),
+//         },
+//         headline: {
+//           text: stores?.headline?.text,
+//           slug: stores?.headline?.slug,
+//         },
+//         categories: {
+//           category: stores?.category?.category,
+//         },
+//         series: {
+//           series: stores?.series?.series,
+//         },
+//         author: {
+//           name: stores?.author?.authorPseudonym,
+//           media: {
+//             thumbnail : stores?.author?.media?.thumbnail?.url,
+//             hero : stores?.author?.media?.hero?.url,
+//           },
+//           slug: stores?.author?.slug,
+//           social: stores?.author?.social,
+//           authorBio: {
+//             title: stores?.author?.authorBio?.title,
+//             introduction: stores?.author?.authorBio?.introduction,
+//             body: stores?.stores?.authorBio?.body,
+//             conclusion: stores?.author?.authorBio?.conclusion,
+//             postscript: stores?.author?.authorBio?.postscript,
+//           },
+//           authorSnippet: {
+//             title: stores?.author?.authorSnippet?.title,
+//             text: stores?.author?.authorSnippet?.subtext,
+//           },
+//         },
+//         media: {
+//           hero: stores?.media?.hero?.url,
+//           thumbnail: stores?.media?.thumbnail?.url,
+//           gallery: stores?.media?.galleryCollection?.items.map((item) => ({
+//             url: item?.url,
+//           })),
+//         },
+//         snippet: {
+//           title: stores?.snippet?.title,
+//           text: documentToHtmlString(stores?.snippet?.text?.json),
+//         },
+//         summary: {
+//           text: stores?.summary?.text,
+//         },
+//         content: {
+//           introduction: documentToHtmlString(stores?.content?.introduction?.json),
+//           stores: documentToHtmlString(stores?.content?.stores?.json),
+//           body: documentToHtmlString(stores?.content?.body?.json),
+//           bodyCurrated: documentToHtmlString(stores?.content?.bodyCurrated?.json),
+//           bodyTable: documentToHtmlString(stores?.content?.bodyTable?.json),
+//           conclusion: documentToHtmlString(stores?.content?.conclusion?.json),
+//         },
+//         attributes: {
+//           amentities: stores?.attributes?.amentities,
+//           offers: stores?.attributes?.offers,
+//         },
+//         postscript: {
+//           text: documentToHtmlString(stores?.postscript?.text?.json),
+//         },
+//         reference: {
+//           relatedReferences:
+//             stores?.reference?.relatedReferencesCollection?.items.map(
+//               (item) => ({
+//                 title: item.title,
+//                 headline: item.headline,
+//                 section: item.section,
+//                 // media: {
+//                 //   thumbnail: item.media.thumbnail.url,
+//                 // },
+//                 overview: item.overview,
+//                 slug: item.slug,
+//                 tag: item.tag,
+//                 relatedCategory: item.category,
+//               })
+//             ),
+//           suggestedReferences:
+//             stores?.reference?.suggestedReferencesCollection?.items.map(
+//               (item) => ({
+//                 title: item.title,
+//                 section: item.section,
+//                 // media: {
+//                 //   thumbnail: item.media.thumbnail.url,
+//                 // },
+//                 overview: item.overview,
+//                 slug: item.slug,
+//                 tag: item.tag,
+//               })
+//             ),
+//           similarReferences:
+//             stores?.reference?.similarReferencesCollection?.items.map(
+//               (item) => ({
+//                 title: item.title,
+//                 section: item.section,
+//                 // media: {
+//                 //   thumbnail: item.media.thumbnail.url,
+//                 // },
+//                 overview: item.overview,
+//                 slug: item.slug,
+//                 tag: item.tag,
+//               })
+//             ),
+//         },
+//         tag: stores?.tagsCollection?.items.map((item) => ({
+//           tags: item?.tags,
+//           metatag: item?.metatag,
+//         })),
+//       };
+//     });
+//     documentToPlainTextString(getStoresNeumadsReview);
+//     // console.log('Data for getStoresNeumadsReview data:', data);
+//     // console.log('Data for getStoresNeumadsReview:', getStoresNeumadsReview);
+//     return data;
+//   } catch (err) {
+//     console.error(err);
+//     // You can decide what to return in case of error, perhaps null or an empty array
+//     return null;
+//   }
+// };
 
 export const getArticlePost = async (limit = 9, skip = 0) => {
   try {
@@ -1016,11 +1684,41 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
               social
               authorPseudonym
               slug
-              authorPicture {
-                url
+              media {
+                ... on Media {
+                	thumbnail {
+                  	url
+                	}
+                  hero {
+                  	url
+                  }
+                }
+              }
+              authorBio {
+                ... on  ContentDefault{
+              	 	title
+                  introduction {
+                    json
+                  }
+                  body {
+                    json
+                  }
+                  conclusion {
+                    json
+                  }
+                  postscript {
+                    json
+                  }
+                }
+            	}
+              authorSnippet {
+                ... on SnippetDefault {
+                  title
+									subtext 
+                }
               }
             }
-          } 
+          }
           summary {
             ... on Summary {
               text
@@ -1040,9 +1738,15 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
               introduction {
                 json
               }
+              type
+              stores{
+                json
+              }
               body {
                 json
               }
+              bodyCurrated 
+              bodyTable
               conclusion {
                 json
               }
@@ -1063,9 +1767,6 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
                     title
                     category {
                       category
-                    }
-                    series {
-                      series
                     }
                     media {
                       ... on Media {
@@ -1099,9 +1800,6 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
                     category {
                       category
                     }
-                    series {
-                      series
-                    }
                     media {
                       ... on Media {
                         thumbnail {
@@ -1134,9 +1832,6 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
                     category {
                       category
                     }
-                    series {
-                      series
-                    }
                     media {
                       ... on Media {
                         thumbnail {
@@ -1168,6 +1863,14 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
             items {
               tags
               metatag
+              serviceTags
+              attributeTags
+              accessibilityTags
+              offeringTags
+              storeTags
+              environmentTags
+              reviewTags
+              locationTags
             }
           }
         } 
@@ -1188,7 +1891,6 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
     );
 
     const json = await response.json();
-    
 
     if (json.errors) {
       console.error("articleNeumadsTrail GraphQL errors:", json.errors);
@@ -1205,6 +1907,10 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
       return {
         ...blogs,
         title: blogs?.title,
+
+        // id: blogs?.sys?.id,
+
+
         location: {
           type: blogs?.location?.type,
           geolocation: {
@@ -1228,8 +1934,23 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
         },
         author: {
           name: blogs?.author?.authorPseudonym,
-          picture: blogs?.author?.authorPicture?.url,
+          media: {
+            thumbnail: blogs?.author?.media?.thumbnail?.url,
+            hero: blogs?.author?.media?.hero?.url,
+          },
           slug: blogs?.author?.slug,
+          social: blogs?.author?.social,
+          authorBio: {
+            title: blogs?.author?.authorBio?.title,
+            introduction: blogs?.author?.authorBio?.introduction,
+            body: blogs?.author?.authorBio?.body,
+            conclusion: blogs?.author?.authorBio?.conclusion,
+            postscript: blogs?.author?.authorBio?.postscript,
+          },
+          authorSnippet: {
+            title: blogs?.author?.authorSnippet?.title,
+            text: blogs?.author?.authorSnippet?.subtext,
+          },
         },
         media: {
           hero: blogs?.media?.hero?.url,
@@ -1238,9 +1959,13 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
             url: item?.url,
           })),
         },
+        // snippet: {
+        //   title: blogs?.snippet?.title,
+        //   text: documentToHtmlString(blogs?.snippet?.text?.json),
+        // },
         snippet: {
           title: blogs?.snippet?.title,
-          text: documentToHtmlString(blogs?.snippet?.text?.json),
+          text: blogs?.snippet?.text,
         },
         summary: {
           text: blogs?.summary?.text,
@@ -1249,13 +1974,18 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
           introduction: documentToHtmlString(
             blogs?.content?.introduction?.json
           ),
+          stores: documentToHtmlString(blogs?.content?.stores?.json),
           body: documentToHtmlString(blogs?.content?.body?.json),
+          bodyCurrated: documentToHtmlString(
+            blogs?.content?.bodyCurrated?.json
+          ),
+          bodyTable: documentToHtmlString(blogs?.content?.bodyTable?.json),
           conclusion: documentToHtmlString(blogs?.content?.conclusion?.json),
         },
         postscript: {
           text: documentToHtmlString(blogs?.postscript?.text?.json),
         },
-        references: {
+        reference: {
           relatedReferences:
             blogs?.reference?.relatedReferencesCollection?.items.map(
               (item) => ({
@@ -1300,7 +2030,15 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
         },
         tag: blogs?.tagsCollection?.items.map((item) => ({
           tags: item?.tags,
-          metatag: item?.metatag,
+          tagMetatag: item?.metatag,
+          serviceTags: item?.serviceTags,
+          attributeTags: item?.attributeTags,
+          accessibilityTags: item?.accessibilityTags,
+          offeringTags: item?.offeringTags,
+          storeTags: item?.storeTags,
+          environmentTags: item?.environmentTags,
+          reviewTags: item?.reviewTags,
+          locationTags: item?.locationTags,
         })),
       };
     });
@@ -1315,13 +2053,6 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
   }
 };
 
-
-
-
-
-
-
-
 // getAllBlogs
 // export const getAllBlogs = async (limit = 9, skip = 0) => {
 //   try {
@@ -1329,19 +2060,14 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
 //     const articleData = await getArticleNeumadsTrail(limit, skip);
 //     const storeData = await getStoresNeumadsReview(limit, skip);
 //     const blogs = [...articleData, ...storeData];
- 
-
-   
 
 //     // const stores = json.data.storesNeumadsReviewCollection.items;
 //     // // console.log("store", stores);
 //     console.log("blogs  !!", blogs);
 //     const item = blogs.data.items;
-    
+
 //     console.log("item", item);
 
-
-  
 //     // const data = [...articleData, ...storeData].map((item) => ({
 //     const data = blogs.map((item) => {
 //         return {
@@ -1351,7 +2077,7 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
 //       headline: item.headline.text,
 //       type: item.location.type,
 //       lat: item.location.geolocation.lat,
-//       lon: item.location.geolocation.lon,
+//       lng: item.location.geolocation.lng,
 //       address: item.location.address,
 //       region: item.location.region,
 //       snippet: documentToPlainTextString(item.snippet.text),
@@ -1387,7 +2113,6 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
 //     return null;
 //   }
 // };
-
 
 // src/api.js
 const API = {
@@ -1441,7 +2166,7 @@ export default API;
 //       const { title, featured, slug } = item.fields;
 //       const type = item.fields.location.fields.type;
 //       const lat = item.fields.location.fields.geolocation.lat;
-//       const lon = item.fields.location.fields.geolocation.lon;
+//       const lng = item.fields.location.fields.geolocation.lng;
 //       const address = item.fields.location.fields.address;
 //       const thumbnail = item.fields.media.fields.thumbnail.fields.file.url;
 //       const snippet = item.fields.snippet.fields.text.json;
@@ -1459,7 +2184,7 @@ export default API;
 //         snippet,
 //         thumbnail,
 //         lat,
-//         lon,
+//         lng,
 //         address,
 //         snippet,
 
@@ -1486,7 +2211,7 @@ export default API;
 //               type
 //               geolocation {
 //                 lat
-//                 lon
+//                 lng
 //               }
 //               address
 //               region
@@ -1713,7 +2438,7 @@ export default API;
 //         type: blogs?.location?.type,
 //         geolocation: {
 //           lat: blogs?.location?.geolocation?.lat,
-//           lon: blogs?.location?.geolocation?.lon,
+//           lng: blogs?.location?.geolocation?.lng,
 //         },
 //         address: blogs?.location?.address,
 //         region: blogs?.location?.region,
@@ -1823,7 +2548,7 @@ export default API;
 //               type
 //               geolocation {
 //                 lat
-//                 lon
+//                 lng
 //               }
 //               address
 //               region
@@ -2049,7 +2774,7 @@ export default API;
 //       featured: blogs.map((item) => item.featured).concat(articles.map((item) => item.featured)),
 //       type: blogs.map((item) => item.location.type).concat(articles.map((item) => item.location.type)),
 //       lat: blogs.map((item) => item.location.geolocation.lat).concat(articles.map((item) => item.location.geolocation.lat)),
-//       lon: blogs.map((item) => item.location.geolocation.lon).concat(articles.map((item) => item.location.geolocation.lon)),
+//       lng: blogs.map((item) => item.location.geolocation.lng).concat(articles.map((item) => item.location.geolocation.lng)),
 //       address: blogs.map((item) => item.location.address).concat(articles.map((item) => item.location.address)),
 //       region: blogs.map((item) => item.location.region).concat(articles.map((item) => item.location.region)),
 //       snippet: blogs.map((item) => item.location.region).concat(articles.map((item) => item.location.region)),
@@ -2111,7 +2836,7 @@ export default API;
 //       type: blogs?.location?.type,
 //       geolocation: {
 //         lat: blogs?.location?.geolocation?.lat,
-//         lon: blogs?.location?.geolocation?.lon,
+//         lng: blogs?.location?.geolocation?.lng,
 //       },
 //       address: blogs?.location?.address,
 //       region: blogs?.location?.region,
@@ -2125,11 +2850,11 @@ export default API;
 //       storeWebsite: blogs?.store?.storeWebsite,
 //       storeGeolocation: {
 //         lat: blogs?.store?.storeGeolocation?.lat,
-//         lon: blogs?.store?.storeGeolocation?.lon,
+//         lng: blogs?.store?.storeGeolocation?.lng,
 //       },
 //       storeAddress: {
 //         lat: blogs?.store?.storeAddress?.lat,
-//         lon: blogs?.store?.storeAddress?.lon,
+//         lng: blogs?.store?.storeAddress?.lng,
 //       },
 //       storeChain: blogs?.store?.storeChain,
 //       storeChainStoresCollection: blogs?.store?.storeChainStoresCollection?.items.map(item => ({
@@ -2139,7 +2864,7 @@ export default API;
 //         storeWebsite: item?.storeWebsite,
 //         storeGeolocation: {
 //           lat: item?.storeGeolocation?.lat,
-//           lon: item?.storeGeolocation?.lon,
+//           lng: item?.storeGeolocation?.lng,
 //         },
 //         storeAddress: item?.storeAddress,
 //         storeChain: item?.storeChain,
@@ -2315,7 +3040,7 @@ export const getFeaturedBlog = async (limit = 6, skip = 1) => {
                   type
                   geolocation {
                     lat
-                    lon
+                    lng
                   }
                   address
                   region

@@ -10,26 +10,23 @@ import AllBlog from "../components/AllBlog.js"; // Import AllBlog component
 const MapScreen = {
   render: () => {
     return `
-      <div class= "map-container">
-        <div class="sidebar">
-          <div class="heading">
-            <span class="header01">Nearby Stores</span>
-          </div>
-          <div id="listings" class="listings"></div>
+      <div class="grid platinum blogContainer">
+        <div id="blogListing" class="m blogListing"></div>
+        <div class="s map">
+          <div id="map-container" class="fullBleed"></div>
         </div>
-        <div id="map-container" class="map"></div>
       </div>
     `;
-  },
+},
   after_render: async () => {
     const map = initMap();
     window.map = map;
     const { features } = await geojsonStore();
 
-    console.log("features", features);
+    // console.log("features", features);
     const geocoder = createGeocoderInput(features);
     document
-      .getElementById("geocoder-container")
+      .getElementById("geocoder")
       .appendChild(geocoder.onAdd(map));
     
     geocoder.on("result", function (result) {
@@ -38,6 +35,7 @@ const MapScreen = {
       const cityBoundaryFeatures = map.querySourceFeatures("city-boundaries", {
         filter: ["==", "NAME", searchedCityName],
       });
+      geocoder.on("result", storeSelectedLocation);
     
 
       if (cityBoundaryFeatures.length > 0) {
@@ -80,37 +78,37 @@ const MapScreen = {
           filter: ["==", "NAME", searchedCityName],
         });
 
-        // map.addLayer(
-        //   {
-        //     id: "counties",
-        //     type: "fill",
-        //     source: "counties",
-        //     "source-layer": "original",
-        //     paint: {
-        //       "fill-outline-color": "rgba(0,0,0,0.1)",
-        //       "fill-color": "rgba(0,0,0,0.1)",
-        //     },
-        //   },
-        //   // Place polygons under labels, roads and buildings.
-        //   "building"
-        // );
+        map.addLayer(
+          {
+            id: "counties",
+            type: "fill",
+            source: "counties",
+            "source-layer": "original",
+            paint: {
+              "fill-outline-color": "rgba(0,0,0,0.1)",
+              "fill-color": "rgba(0,0,0,0.1)",
+            },
+          },
+          // Place polygons under labels, roads and buildings.
+          "building"
+        );
 
-        // map.addLayer(
-        //   {
-        //     id: "counties-highlighted",
-        //     type: "fill",
-        //     source: "counties",
-        //     "source-layer": "original",
-        //     paint: {
-        //       "fill-outline-color": "#484896",
-        //       "fill-color": "#6e599f",
-        //       "fill-opacity": 0.75,
-        //     },
-        //     filter: ["in", "FIPS", ""],
-        //   },
-        //   // Place polygons under labels, roads and buildings.
-        //   "building"
-        // );
+        map.addLayer(
+          {
+            id: "counties-highlighted",
+            type: "fill",
+            source: "counties",
+            "source-layer": "original",
+            paint: {
+              "fill-outline-color": "#484896",
+              "fill-color": "#6e599f",
+              "fill-opacity": 0.75,
+            },
+            filter: ["in", "FIPS", ""],
+          },
+          // Place polygons under labels, roads and buildings.
+          "building"
+        );
       } else {
         geocoder.on("result", function (event) {
           const store = {
@@ -180,24 +178,6 @@ function setCurrentLocation(map, features) {
   }
 }
 
-// function setCurrentLocation(map, features) {
-//   if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition((position) => {
-//       const userCoordinates = [position.coords.longitude, position.coords.latitude];
-//       const userLocationMarker = createUserLocationMarker(userCoordinates, map);
-
-//       const mapBounds = map.getBounds();
-//       const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
-//       const sortedFeatures = sortFeaturesByDistance(filteredFeatures, userCoordinates);
-//       renderFeatures(sortedFeatures, map);
-
-//       zoomToShowAtLeastThreePins(map, features, userCoordinates);
-//     });
-//   } else {
-//     renderFeatures(features, map);
-//   }
-// }
-
 function filterFeaturesInBounds(features, bounds) {
   return features.filter((feature) => {
     const coordinates = feature.geometry.coordinates;
@@ -214,7 +194,7 @@ function sortFeaturesByDistance(features, center) {
 }
 
 function renderFeatures(features, map) {
-  document.getElementById("listings").innerHTML = "";
+  document.getElementById("blogListing").innerHTML = "";
   features.forEach((store) => {
     const onClick = (store) => {
       flyToStore(store, map);
@@ -224,7 +204,7 @@ function renderFeatures(features, map) {
     const marker = createMapMarker(store, map, onClick);
     const listing = createGeojsonListing(store, onClick);
 
-    document.getElementById("listings").appendChild(listing);
+    document.getElementById("blogListing").appendChild(listing);
   });
 }
 
@@ -335,3 +315,16 @@ function getDistance(coord1, coord2) {
 }
 
 export default MapScreen;
+
+
+
+
+
+
+
+
+
+
+
+
+

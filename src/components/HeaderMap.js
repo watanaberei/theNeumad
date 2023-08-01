@@ -1,6 +1,6 @@
-// src/components/HeaderMap.js
-import { createGeocoderInput } from '../components/GeocoderInput';
-import { geojsonStore } from '../components/GeojsonStores';
+// src/components/HeaderMap_072623.js
+import { createGeocoderInput } from "../components/GeocoderInput";
+import { geojsonStore } from "../components/GeojsonStores";
 
 const HeaderMap = {
   render: () => {
@@ -34,12 +34,12 @@ const HeaderMap = {
             <div class="nav-map-utility-mid">
               <div class="navSecondary-utility-mid-logo">
                 <a class="navSecondary-utility-mid-logo-container" href="/"> 
-                  <img src="./images/brand/twn_brand_logo-H-med_v08.svg" alt="">
+                  <img src="./_assets/_brand/logo/neumad_brand_logo-H-med_v01.svg alt="">
                 </a>
               </div>
             </div>
             <div class="nav-map-utility-right">
-              <div class="search-wrapper" id="geocoder-container">
+              <div class="search-wrapper" id="geocoder">
               </div>
             </div>
           </div>
@@ -154,12 +154,12 @@ const HeaderMap = {
             </div>   
           </section>  
              
-        </nav>`;  
-    return newLocal;  
+        </nav>`;
+    return newLocal;
   },
   after_render: async () => {
     const features = await geojsonStore();
-    const geocoder = createGeocoderInput(features);
+    // const geocoder = createGeocoderInput(features);
     const navList = document.querySelector(".nav-map-list");
     const hamburger = document.querySelector(".hamburger");
     const header = document.querySelector(".header");
@@ -172,57 +172,19 @@ const HeaderMap = {
     });
 
     const navHeight = header.getBoundingClientRect().height;
-    window.addEventListener("scroll", () => {
-      const scrollHeight = window.pageYOffset;
-      if (scrollHeight > navHeight) {
-        header.classList.add("fix"); 
-        headerMid.classList.add("hide");
-        utilityLogo.classList.add("show");
+    // window.addEventListener("scroll", () => {
+    //   const scrollHeight = window.pageYOffset;
+    //   if (scrollHeight > navHeight) {
+    //     header.classList.add("fix");
+    //     headerMid.classList.add("hide");
+    //     utilityLogo.classList.add("show");
 
-      } else {
-        header.classList.remove("fix");
-        headerMid.classList.remove("hide");
-        utilityLogo.classList.remove("show");
-      }
-    });
-
-    // Search
-//REPLACE THIS CODE BELOW WITH GEOCODER FUNCTIONS AND CONST
-    // const searchToggle = document.querySelector("#search-toggle");
-    // searchToggle.addEventListener("click", function () {
-    //   const searchInput = document.querySelector("#search");
-    //   const searchIcon = this.querySelector("span");
-
-    //   searchInput.value = "";
-    //   if (searchIcon.classList.contains("fa-search")) {
-    //     searchInput.focus();
+    //   } else {
+    //     header.classList.remove("fix");
+    //     headerMid.classList.remove("hide");
+    //     utilityLogo.classList.remove("show");
     //   }
-
-    //   document.querySelector(".main-search").classList.toggle("active");
-    //   searchIcon.classList.toggle("icon-search");
-    //   searchIcon.classList.toggle("icon-close");
-    // });    
-    // const geocoderContainer =document.getElementById('geocoder-container')
-    // document.getElementById('geocoder-container').appendChild(geocoder.onAdd(window.map));
-    // geocoder.on('result', function (result) {
-    //   window.handleGeocoderResult(result);
-    //   console.log(result);
     // });
-
-    // // Get the geocoder results container.
-    // const results = document.getElementById('result');
-    
-    // // Add geocoder result to container.
-    // geocoder.on('result', (e) => {
-    // results.innerText = JSON.stringify(e.result, null, 2);
-    // });
-    
-    // // Clear results container when search is cleared.
-    // geocoder.on('clear', () => {
-    // results.innerText = '';
-    // });
-
-
 
     const links = [...document.querySelectorAll(".nav-map-list a")];
     links.map((link) => {
@@ -238,5 +200,3 @@ const HeaderMap = {
 };
 
 export default HeaderMap;
-
-

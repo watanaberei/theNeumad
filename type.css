@@ -90,8 +90,61 @@
   }
 
 
+ 
 
 
+
+@font-face {
+    font-family: 'bold';
+    src: url(images/NeueHaasUnicaW1G/otf/NeueHaasUnicaW1G-Bold.otf);
+}
+
+
+@font-face {
+  font-family: 'medium';
+  src: url(images/NeueHaasUnicaW1G/otf/NeueHaasUnicaW1G-BoldItalic.otf);
+}
+@font-face {
+  font-family: 'medium';
+  src: url(images/NeueHaasUnicaW1G/otf/NeueHaasUnicaW1G-Medium.otf);
+}
+@font-face {
+  font-family: '';
+  src: url(images/NeueHaasUnicaW1G/otf/NeueHaasUnicaW1G-Italic.otf);
+}
+@font-face {
+  font-family: 'lightItalic';
+  src: url(images/NeueHaasUnicaW1G/otf/NeueHaasUnicaW1G-LightIt.otf);
+}
+@font-face {
+  font-family: 'regular';
+  src: url(images/NeueHaasUnicaW1G/otf/NeueHaasUnicaW1G-Regular.otf);
+}
+@font-face {
+  font-family: 'light';
+  src: url(images/NeueHaasUnicaW1G/otf/NeueHaasUnicaW1G-Light.otf);
+}
+@font-face {
+  font-family: 'thin';
+  src: url(images/NeueHaasUnicaW1G/otf/NeueHaasUnicaW1G-Thin.otf);
+}
+@font-face {
+  font-family: 'light';
+  src: url(images/NeueHaasUnicaW1G/otf/NeueHaasUnicaW1G-Light.otf);
+}
+
+
+@font-face {
+    font-family: 'expandedBlack';
+    src: url(images/GT_America/GT_America_Expanded_Black.otf);
+}
+
+@font-face {
+    font-family: 'compressedBlack';
+    src: url(images/GT_America/GT_America_Compressed_Black.otf);
+
+
+/* 
 @font-face {
     font-family: 'bold';
     src: url(images/GT_America/GT_America_Bold.otf);
@@ -111,51 +164,54 @@
     src: url(images/GT_America/GT_America_Expanded_Black.otf);
 }
 
-
-
 @font-face {
     font-family: 'compressedBlack';
-    src: url(images/GT_America/GT_America_Compressed_Black.otf);
+    src: url(images/GT_America/GT_America_Compressed_Black.otf); */
 }
 
-
+.oneLine {
+  display: flex;
+  white-space:nowrap; 
+  flex-direction: row;
+  gap: var(--s02);
+}
 
 .display06 {
-    font-family: 'expandedBlack', sans-serif;
+    font-family: 'bold', sans-serif;
     /* font-size: calc(var(--text06_D) + 0.1rem); */
     font-size: var(--display06_D);
     letter-spacing: var(--display06-tracking_D);
     line-height: var(--display06-letting_D);
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 .display05 {
-    font-family: 'expandedBlack', sans-serif;
+    font-family: 'bold', sans-serif;
     font-size: var(--display05_D);
     letter-spacing: var(--display05-tracking_D);
     line-height: var(--display05-letting_D);
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 .display04 {
-    font-family: 'expandedBlack', sans-serif;
+    font-family: 'bold', sans-serif;
     font-size: var(--display04_D);
     letter-spacing: var(--display04-tracking_D);
     line-height: var(--display04-letting_D);
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 .display03 {
-    font-family: 'expandedBlack', sans-serif;
+    font-family: 'bold', sans-serif;
     /* font-size: calc(var(--text03_D) + 0.1rem) */
     font-size: var(--display03_D);
     letter-spacing: var(--display03-tracking_D);
     line-height: var(--display03-letting_D);
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 .display02 {
-    font-family: 'expandedBlack', sans-serif;
+    font-family: 'bold', sans-serif;
     /* font-size: calc(var(--text02_D) + 0.1rem) */
     font-size: var(--display02_D);
     letter-spacing: var(--display02-tracking_D);
@@ -164,62 +220,69 @@
 }
 
 .display01 {
-    font-family: 'expandedBlack', sans-serif;
+    font-family: 'bold', sans-serif;
     /* font-size: var(--text01_D); */
     font-size: var(--display01_D);
     letter-spacing: var(--display01-tracking_D);
     line-height: var(--display01-letting_D);
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 
 
 .header06 {
-    font-family: 'compressedBlack', sans-serif;
+    font-family: 'medium', sans-serif;
     font-size: var(--header06_D);
     letter-spacing: var(--header06-tracking_D);
     line-height: var(--header06-letting_D);
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
-
+/* 
 .header05 {
-    font-family: 'compressedBlack', sans-serif;
+    font-family: 'medium', sans-serif;
     font-size: var(--header05_D);
     letter-spacing: var(--header05-tracking_D);
     line-height: var(--header05-letting_D);
     text-transform: uppercase;
+} */
+
+.header05 {
+  font-family: 'medium', sans-serif;
+  font-size: 27px;
+  letter-spacing: -0.3;
+  line-height: 0.9;
 }
 
 .header04 {
-    font-family: 'compressedBlack', sans-serif;
+    font-family: 'medium', sans-serif;
     font-size: var(--header04_D);
     letter-spacing: var(--header04-tracking_D);
     line-height: var(--header04-letting_D);
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 .header03 {
-    font-family: 'compressedBlack', sans-serif;
+    font-family: 'medium', sans-serif;
     font-size: var(--header03_D);
     letter-spacing: var(--header03-tracking_D);
     line-height: var(--header03-letting_D);
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 .header02 {
-    font-family: 'compressedBlack', sans-serif;
+    font-family: 'medium', sans-serif;
     font-size: var(--header02_D);
     letter-spacing: var(--header02-tracking_D);
     line-height: var(--header02-letting_D);
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 .header01 {
-    font-family: 'compressedBlack', sans-serif;
+    font-family: 'medium', sans-serif;
     font-size: var(--header01_D);
     letter-spacing: var(--header01-tracking_D);
     line-height: var(--header01-letting_D);
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 
@@ -303,7 +366,8 @@
 
   .bold03 {
     font-family: 'bold', sans-serif;
-    font-size: var(--text03);
+    /* font-size: var(--text03); */
+    font-size: 15px;
   }
 
   .bold02  {

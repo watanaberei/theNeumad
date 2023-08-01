@@ -5,7 +5,7 @@ import allTags from './DataTags';
 const PrimaryFeaturedBlog = {
   render: (primaryFeaturedBlog) => {
     // Destructure the properties from the primaryFeaturedBlog object
-    const {tag, references, slug,  media, category, headline, location } = primaryFeaturedBlog;
+    const {tag, reference, slug,  media, category, headline, location } = primaryFeaturedBlog;
     const tags = tag && tag.length ? tag[0].tags : [];
     // const tags = tag || [];
     console.log("tags", tag)
@@ -17,7 +17,7 @@ const PrimaryFeaturedBlog = {
     const locations = location || [];
     const coordinate = locations.geolocation;
     const thumbnail = medias.thumbnail;
-    const reference = references.relatedReferences || [];
+    const references = reference.relatedReferences || [];
     
     // Generate tags HTML
     const limitedTags03 = tags.slice(0, 3);
@@ -35,21 +35,21 @@ const PrimaryFeaturedBlog = {
 
   
      // Limit to the first two references
-     const limitedReferences = reference.slice(0, 2);
+     const limitedReferences = references.slice(0, 2);
      let referencesHTML = '';
-     limitedReferences.forEach((reference, index) => {
-         console.log("reference object: ", reference);
+     limitedReferences.forEach((references, index) => {
+         console.log("reference object: ", references);
          referencesHTML += `
          <div class="featured-blog-text">
              <div class="featured-blog-header">
-             <a href="/#/${reference.category}/${reference.slug}">
+             <a href="/#/${references.category}/${references.slug}">
                  <div class="featured-blog-header-container">
                  <span class="featured-blog-title-text header03">
-                     ${reference.title}
+                     ${references.title}
                  </span> 
                  
                  <span class="featured-blog-overview-text text02">
-                     ${reference.overview}
+                     ${references.overview}
                  </span>
              
                  </div>
@@ -79,13 +79,13 @@ const PrimaryFeaturedBlog = {
   <div class="primary-featured-blog-container"> 
     <div class="primary-featured-blog"> 
       <div class="primary-featured-blog-img">
-        <a href="/#/article/${category.category}/${slug}"> <!-- Update the href here -->
+        <a href="/#/blogs/${slug}">
           <img src="${thumbnail}" alt="" />
         </a>
       </div>
       <div class="primary-featured-blog-text">
         <div class="primary-featured-blog-header">
-          <a href="/#/article/${category.category}/${slug}"> <!-- Update the href here -->
+        <a href="/#/blogs/${slug}">
             <div class="primary-featured-blog-header-container">
               <span class="primary-featured-blog-title-text header05">
                 ${title}

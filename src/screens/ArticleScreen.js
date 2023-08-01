@@ -1,6 +1,8 @@
+// src/screens/ArticleScreen.js
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { parseRequestUrl } from "../utils.js";
-import { getArticleNeumadsTrail } from "../api.js";
+import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../api.js";
+import DataBlog from "../components/DataBlog";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import { format, parseISO } from "date-fns";
 
@@ -18,111 +20,217 @@ const renderOptions = {
   },
 };
 
+let dataBlog = new DataBlog();
+
 const ArticleScreen = {
   render: async () => {
     const request = parseRequestUrl();
-    const articledetails = await getArticleNeumadsTrail(request.slug);
-    return articledetails.map((article) => {
-      return `
+    const articleDetails = await dataBlog.getData();
+    // Filter the articles based on the slug from the URL
+    const article = articleDetails.find((article) => article.slug === request.slug);
+    // console.log("article",article);
+    const tags = article.tag && article.tag.length ? article.tag[0].tags : [];
+    // console.log("Header tags",tags);
+
+
+   
+    // console.log("tag",tags);
+    const limitedTags03 = tags.slice(0, 3);
+    // console.log("limitedTags03",limitedTags03);
+    let tagsHTML = '';
+    limitedTags03.forEach(tags => {
+      tagsHTML += `<div class="metadata-tag">
+                     <span class="metadata-tag-text text01">${tags}</span>
+                   </div>`;
+    });
+    // const tagsHTML = allTags(limitedTags03);
+    // console.log("tagsHTML",tagsHTML);
+    // if (!article) {
+    //   return `<div>Article not found</div>`;
+    // }
+    if (!article) {
+      console.log(`No article found with slug: ${request.slug}`);
+    } else {
+      console.log(`Article found:`, article);
+      console.log(`Slug:`, article.slug);
+    }
+
+    return `
       <!--ARTICLESCREEN-->
       <div class="main">
+      ARTICLEEEEEEEs
 
           
         <!-- /// ARTICLE CONTENT /// -->
           <div class="article-detail">
             <div class="article-container">
-              <div class="top fullBleedContent">
-                <div class="fullBleedContentHeader">
-                  <div class="fullBleedContentHeaderContainer">
-                    <div class="featured-image">
-                    <iframe width='100%' height='400px' src="https://api.mapbox.com/styles/v1/neumad/clhnxih6h00lc01r84anx0lpx.html?title=false&access_token=pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsaG53eXJjbjFwbWEzbnFzNms1bzhpYXUifQ.y-7_YrQsMtwBcyreTeqOww&zoomwheel=false#11/40.7571/-73.9622" title="Untitled" style="border:none;"></iframe>
-                      <img src="${article.hero.heroImage}" alt="" />
-                  
-                    </div>                    
-                  </div>
-                </div>
-              </div>
+
+
+            
+              <section class="article-hero">
               
-              <section class="article-headline">
-                <div class="article-header">
-                  <div class="article-title">
-                    <span class="display05">
-                      ${article.title}
-                    </span>
-                  </div>
-                  <div class="article-overview">
-                    <span class="text02">
-                       ${article.subtext}
-                    </span>
-                  </div>
-                  <div class="lineH"></div>
-                  <div class="blog-data">
-                    <div class="tag-collection">
-                        
-                      <div class="featured-blog-data-container">
-                          <a href="/#/${article.section}">
-                              <div class="section-tag" id="${article.section}">
-                                  <i class="section-tag-icon icon-${article.section}"></i>
-                                  <span class="section-tag-divider">
-                                  <div class="lineV"></div>
-                                  </span>
-                                  <span class="section-tag-text medium00">
-                                      ${article.section}
-                                  </span>
-                              </div>
-                          </a>
-                      </div>
-                          
-                  
-                      <div class="nav-list-divider">
-                          <div class="lineV">
-                          </div>
-                      </div>
-
+                <div class="top fullBleedContent">
+                  <div class="fullBleedContentHeader">
+                    <div class="fullBleedContentHeaderContainer">
+                      <div class="featured-image">
                       
-                      <div class="featured-blog-data-container">
-                          <div class="metadata-tag">
-                              <span class="metadata-tag-text text01">${article.tag}</span>
-                          </div>   
-                      </div>    
-                    </div>
-                    <div class="data-time">
-                        <span class="data-time-text text01">2m Read</span>
+                        <img src="${article.media.hero}" alt="" />
+                    
+                      </div>                    
                     </div>
                   </div>
-                  
-                  <!-- //INTRODUCTION// -->
-                  <div class="lineH"></div>
-                  <div class="content">
-                    <div class="article-content">
-                      <span class="text03">
-                        ${article.content.introduction}
-                      </span>
-                    </div>
-                  </div>
-                  <!-- //INTRODUCTION// -->
-
-                  <!-- //SUMMARY// -->
-                  <div class="article-content">
-                      
-                      <span class="text03">
-                        Summary:
-                      </span>
-                      <ul class="summary-container">  
-                        
-                        ${Array.isArray(article.summary.bullets) ? article.summary.bullets.map(bullet => `
-                          <li class="summary-item">
-                            <span class="text03">   
-                              — ${bullet}
-                             </span>
-                          </li>
-                        `).join('') : ''}
-                      </ul>
-                  </div>
-                  <!-- //SUMMARY// -->
-                  
                 </div>
-                <!-- /// HEADER MAIN /// -->
+                
+                <div class="article-headline">
+                  <div class="article-header">
+                    <div class="article-header">
+
+                      <div class="article-title">
+                        <span class="text02">
+                          ${article.series.series}
+                        </span>
+                        <span class="header06">
+                          ${article.headline.text}
+                        </span>
+                      </div>
+
+                      <div class="article-subtext">
+                        <span class="text03">
+                          ${article.snippet.text}
+                        </span>
+                      </div>
+
+                      <div class="blog-data">
+                        <div class="tag-collection">
+                          <div class="featured-blog-data-container">
+                              <a href="/#/dine">
+                                  <div class="section-tag" id="${article.category.category}">
+                                    <i class="section-tag-icon icon-${article.category.category}"></i>
+                                    <span class="section-tag-divider">
+                                    <div class="lineV"></div>
+                                    </span>
+                                    <a href="/#/${article.category.category}">
+                                      <span class="section-tag-text medium00">
+                                          ${article.category.category}
+                                      </span>
+                                    </a>
+                                  </div>
+                                </a>
+                            </div>
+                            <div class="nav-list-divider">
+                                <div class="lineV">
+                                </div>
+                            </div>
+              
+                            <div class="blog-data">
+                                
+                                ${tagsHTML}
+                                    
+                            </div>   
+                        </div>
+                        <div class="data-time">
+                            <span class="data-time-text text01">2m Read</span>
+                        </div>
+                    </div>
+
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+         
+
+
+                <section class="article-introduction">
+                  <div class="article-introduction-content">
+                    <div class="article-overview">
+                      <span class="text05">
+                        ${article.snippet.subtext}
+                      </span>
+                    </div>
+                    <div class="lineH"></div>
+                    <div class="blog-data">
+                      <div class="tag-collection">
+                          
+                        <div class="featured-blog-data-container">
+                            <a href="/#/${article.category}">
+                                <div class="section-tag" id="${article.category}">
+                                    <i class="section-tag-icon icon-${article.category}"></i>
+                                    <span class="section-tag-divider">
+                                    <div class="lineV"></div>
+                                    </span>
+                                    <span class="section-tag-text medium00">
+                                        ${article.category}
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                            
+                    
+                        <div class="nav-list-divider">
+                            <div class="lineV">
+                            </div>
+                        </div>
+
+                        
+                        <div class="featured-blog-data-container">
+                            <div class="metadata-tag">
+                                <span class="metadata-tag-text text01">${article.tag}</span>
+                            </div>   
+                        </div>    
+                      </div>
+                      <div class="data-time">
+                          <span class="data-time-text text01">2m Read</span>
+                      </div>
+                    </div>
+                    
+                    <!-- //INTRODUCTION// -->
+                    <div class="lineH"></div>
+                    
+                    <div class="content">
+                      <div class="article-content">
+                        <span class="text04">
+                          ${article.content.introduction}
+                        </span>
+                      </div>
+                    </div>
+                    <!-- //INTRODUCTION// -->
+
+
+                    <!-- //STORES// -->
+                    <div class="lineH"></div>
+                    
+                    <div class="content">
+                      <div class="article-content">
+                        <span class="text04">
+                          ${article.content.stores}
+                        </span>
+                      </div>
+                    </div>
+                    <!-- //STORES// -->
+
+
+                    <!-- //SUMMARY// -->
+                    <div class="article-content">
+                        
+                        <span class="text03">
+                          Summary:
+                        </span>
+                        <ul class="summary-container">  
+                          
+                          ${Array.isArray(article.summary.text) ? article.summary.text.map(text => `
+                            <li class="summary-item">
+                              <span class="text04">   
+                                — ${text}
+                              </span>
+                            </li>
+                          `).join('') : ''}
+                        </ul>
+                    </div>
+                    <!-- //SUMMARY// -->
+                    
+                  </div>
+                  <!-- /// HEADER MAIN /// -->
 
 
                 
@@ -139,7 +247,7 @@ const ArticleScreen = {
 
 
                   <!-- /// HEADER SIDEPANEL /// -->
-                  <div class="content">
+                  <div class="content article-sidepanel">
                     <div class="article-content">
                       <span class="header03">
                         Related Articles
@@ -147,43 +255,24 @@ const ArticleScreen = {
 
                       <!--TAGS-->
                       <div class="article-info d-flex">
-                        <a href="/#/${article.author.category}">
+                        <a href="/#/${article.author.slug}">
                           <div class="article-author">
-                            <img class="article_authorImg" src="${article.author.picture}" alt="" />
                             <span class="d-flex text01">
                                 ${article.author.name}
                               </span>
                             <span class="d-flex text01">
                                 "${article.author.social}"
                               </span>
-                        
                           </div>
                         </a>
-                        
-                        
+                      </div>
+                      <!--END OF TAGS-->
+                      
+                    </div>
+                  </div>
+                    <!-- /// HEADER CONTENT /// -->
+                </section>
 
-                        <!--
-                        <div class="article-data">
-                          <div class="tag-collection">
-                            <div class="featured-article-data-container">
-                              <a href="/#/${article.category}">
-                                <div class="section-tag" id="${article.category}">
-                                  <i class="section-tag-icon icon-${article.category}"></i>
-                                  <span class="section-tag-divider">
-                                  <div class="lineV"></div>
-                                  </span>
-                                  <span class="section-tag-text medium00">
-                                    ${article.category}
-                                  </span>
-                                </div>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                        -->
-                        <!--END OF TAGS-->
-                      </section>
-                      <!-- /// HEADER CONTENT /// -->
 
 
 
@@ -243,64 +332,9 @@ const ArticleScreen = {
                       </span>
 
                       <!-- /// RELATED REFERENCES /// -->
-                      ${article.relatedReferences.map(reference => `
-                      <div class="blog"> 
-                        <div class="blog-img">
-                          <a href="/#/blog/${reference.slug}">
-                          <img src="${reference.thumbnail}" alt="" /></a>
-                        </div>
-                        <div class="blog-text">
-                          <div class="blog-header">
-                            <a href="/#/blog/${reference.slug}">
-                              <div class="blog-header-container">
-                                <span class="blog-title-text bold03">
-                                ${reference.title}
-                                
-                                </span> 
-                                <span class="blog-overview-text text02">
-                                  ${reference.overview}
-                                </span>
-                              </div>
-                            </a>
-                          </div>
-                    
-
-                            <div class="blog-data">
-                                <div class="tag-collection">
-                                    <div class="featured-blog-data-container">
-                                        <a href="/#/dine">
-                                            <div class="section-tag" id="${article.reference.section}">
-                                                <i class="section-tag-icon icon-${article.reference.section}"></i>
-                                                <span class="section-tag-divider">
-                                                <div class="lineV"></div>
-                                                </span>
-                                                <span class="section-tag-text medium00">
-                                                    ${article.reference.section}
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="nav-list-divider">
-                                        <div class="lineV">
-                                        </div>
-                                    </div>
-
-                                    <div class="blog-data-container">
-                                        <div class="metadata-tag">
-                                            <span class="metadata-tag-text text01">${article.reference.tag} </span>
-                                        </div>   
-                                    </div>   
-                                </div>
-                                <div class="data-time">
-                                    <span class="data-time-text text01">2m Read</span>
-                                </div>
-                            </div>
-                          
-
-                        </div>
-                        <div class="lineH"></div>
+                      <div class="primary-featured-blog-references">
+                        $   {referencesHTML}
                       </div>
-                      `).join('')}
                       
                       
                     </div>
@@ -333,19 +367,14 @@ const ArticleScreen = {
 
             </div>
           </div>
-          
-    `;
-      }
-
-    );
-  },
-  after_render: () => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
-  },
-};
-
+          `;
+        },
+        after_render: () => {
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+          });
+        },
+      };
 export default ArticleScreen;

@@ -1,7 +1,8 @@
 // src/components/MapApi.js
-import mapboxgl from "mapbox-gl";
-mapboxgl.accessToken =
-  "pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsaHZxdzJrMDBhbjkzZm4weXI1bGlybTMifQ.oQDmvQmIA04AVPDNOV-l8Q";
+// import mapboxgl from "mapbox-gl";
+// mapboxgl.accessToken =
+//   "pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsaHZxdzJrMDBhbjkzZm4weXI1bGlybTMifQ.oQDmvQmIA04AVPDNOV-l8Q";
+
 
 export function initMap() {
   const defaultCoordinates = [-118.1937, 33.7701]; // Long Beach coordinates
@@ -9,12 +10,14 @@ export function initMap() {
   const map = new mapboxgl.Map({
     container: "map-container",
     // style: "mapbox://styles/neumad/clj0u2c9b00o601pw61e31wdc",
-    style: "mapbox://styles/neumad/clj35mzky00sa01q1btc85vwz",
+    style: "mapbox://styles/neumad/cljy08548000q01pxdgrqhcib",
     // style: "mapbox://styles/neumad/cljbyenya003401ps5vqkdya3",
     center: defaultCoordinates,
     pitch: 0,
     bearing: 0,
     zoom: 12,
+    maxZoom: 16,
+    minZoom: 3,
   });
 
   // Boundaries

@@ -37,7 +37,7 @@
     
     opacity: 0;
     overflow: hidden;
-    max-width: 0;
+    /* max-width: 0; */
     -webkit-transition: all 300ms ease;
     -moz-transition: all 300ms ease;
     -o-transition: all 300ms ease;
@@ -84,7 +84,58 @@
     padding: 15px;
   }
 
-input {
-    text-transform: uppercase;
-    font-size: var(--text01_D);    
+  input {
+    /* text-transform: uppercase; */
+    font-size: var(--text03_D);    
   }
+
+  .mapboxgl-ctrl-geocoder--icon-search {
+    display: none !important;
+  }
+
+  .mapboxgl-ctrl-geocoder {
+    border-radius: 33px;
+    outline-width: 3px;
+    outline-color: var(--grey03);
+    outline-style: solid;
+    background: var(--texture);
+    background-color: var(--white01);
+  }
+
+  .mapboxgl-ctrl-geocoder--input {
+    padding: 0px 21px;
+    height: 51px;
+    font-size: var(--text03_D);
+  }
+
+  
+
+
+
+
+
+
+
+
+/* ————————————————————— GEOCODER ————————————————————— */
+
+  .mapboxgl-ctrl-geocoder {
+    width: 300px!important;
+    border-radius: 30px!important;
+      
+}
+.geocoder {
+  position: absolute;
+  z-index: 1;
+  /* width: 25vw; */
+  /* left: 50%; */
+  /* margin-left: -25%; */
+  top: 10px;
+  }
+  .mapboxgl-ctrl-geocoder {
+  /* max-width: 25vw; */
+  }
+
+
+
+/* ————————————————————— GEOCODER ————————————————————— */

@@ -3,18 +3,26 @@ import allTags from './DataTags';
 
 const AllBlog = {
   render: (allBlog) => {
-    // Destructure the properties from the primaryAllBlog object
-    const {tag, references, slug,  media, category, headline, location } = allBlog;
+    const {tag, reference, slug, media, categories, headline, location, variant } = allBlog;
+    // console.log("variant",variant);
+    // Destructure th2222222e properties from the primaryAllBlog object
+
     const tags = tag && tag.length ? tag[0].tags : [];
     // const metatags = metatag && metatag.length ? metatag[0].metatags : [];
     // const tags = tag || [];
     const headlines = headline || [];
     const title = headlines.text;
     const medias = media || [];
+    // const locations = location || [];
+    // const lat = locations.geolocation.lat;
+    // const lon = locations.geolocation.lon;
     const locations = location || [];
     const coordinate = locations.geolocation;
+
+    // const coordinate = locations.geolocation;
     const thumbnail = medias.thumbnail;
-    const reference = references.relatedReferences || [];
+    const category = categories.category;
+    // const references = reference.relatedReferences || [];
     // Generate tags HTML
     const limitedTags03 = tags.slice(0, 3);
     const tagsHTML = allTags(limitedTags03);
@@ -40,14 +48,12 @@ const AllBlog = {
   return `
   <!--BLOG--> 
   <div class="blog"> 
-    <div class="blog-img">
-        <a href="/#/article/${category.category}/${slug}"> <!-- Update the href here -->
-          <img src="${thumbnail}" alt="" />
-        </a>
+    <a rel="noopener noreferrer nofollow" target="${category}-${allBlog.sys.id}" href="/#/${variant}/${slug}">
+      <div class="blog-img">
+        <img src="${thumbnail}" alt="" />
       </div>
-    <div class="blog-text">
-      <div class="blog-header">
-        <a href="/#/${category.category}/${slug}">
+      <div class="blog-text">
+        <div class="blog-header">
           <div class="blog-header-container">
             <span class="blog-title-text header04">
               ${title}
@@ -58,22 +64,22 @@ const AllBlog = {
             </span>
             -->
           </div>
-        </a>
-      </div>
+        </div>
+      </a>
 
 
       <div class="blog-data">
           <div class="tag-collection">
               <div class="blog-data-container">
                   <a href="/#/dine">
-                      <div class="section-tag" id="${category.category}">
-                          <i class="section-tag-icon icon-${category.category}"></i>
+                      <div class="section-tag" id="${category}">
+                          <i class="section-tag-icon icon-${category}"></i>
                           <span class="section-tag-divider">
                           <div class="lineV"></div>
                           </span>
-                          <a href="/#/${category.category}">
+                          <a href="/#/${category}">
                             <span class="section-tag-text medium00">
-                                ${category.category}
+                                ${category}
                             </span>
                           </a>
                       </div>

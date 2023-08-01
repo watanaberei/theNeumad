@@ -1,0 +1,105 @@
+.blogContainer {
+    height:100vh;
+}
+
+.blogContainer {
+    position: relative;
+    /* min-height: 70%; */
+    /* overflow-x: hidden; */
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow-y:scroll;
+    top: 0;
+    left: 0;
+    bottom: 150px;
+}
+
+.blogListing {
+    left: 0;
+    position: absolute;
+    /* z-index: 3333; */
+    margin-top: 141px;
+    display: grid;
+    top: 171px;
+    grid-gap: var(--rowHeight);
+}
+
+.card-blogListing-item {
+    margin: 0 auto;
+    height: 100%;
+    /* align-items: center; */
+}
+
+.card-blogListing-item-content {
+    /* display: grid;
+    grid-column: 1 / -1; */
+}
+
+.card-blogListing-item-img {
+    display: grid;
+    /* grid-column: 1 / -1; */
+  }
+
+img.card-blogListing-item-img {
+    height: -webkit-fill-available;
+    /* width: 100%; */
+    /* aspect-ratio: 1 / 1; */
+    width: -webkit-fill-available;
+    /* object-fit: fill; */
+    overflow: visible;
+    overflow-clip-margin: inherit;
+    /* object-fit: cover; */
+}
+
+
+
+/* .card-blogListing-item {
+    display: grid;
+    grid-column: 1 / -1;
+} */
+
+.card-blogListing-item-img {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    /* height:100%;
+    width:100%;
+    aspect-ratio: 1.414 / 1; */
+    /* aspect-rat   io: 1 / 1; */
+  }
+
+.card-blogListing-item-img .item-img {
+    position: absolute; right: 0; bottom: 0; 
+  /* object-fit: cover;
+  height: 100%;
+  width: 100%; */
+}
+
+img.card-blogListing-item-img {
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
+    overflow: visible;
+    /* overflow-clip-margin: inherit; */
+    /* object-fit: cover; */
+}
+
+
+/* CONTENT */
+
+.card-blogListing-item-content {
+    /* min-height: 216px;
+    max-height: 300px; */
+    /* display: grid;
+    grid-column: 1 / -1; */
+}
+
+
+.card-blogListing-item-content .content-title {
+    width: 100%;
+    display: inline-grid;
+    grid-area: inherit;
+}
+
+.blog-title-text {
+    /* grid-column: 1 / -1; */
+}

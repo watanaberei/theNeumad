@@ -38,7 +38,7 @@ const HeaderSecondary = {
                 <div class="navSecondary-utility-mid-logo">
                     <!-- logo -->
                     <a class="navSecondary-utility-mid-logo-container" href="/"> 
-                      <img src="./images/brand/twn_brand_logo-H-med_v08.svg" alt="">
+                    <img src="./_assets/_brand/logo/neumad_brand_logo-H-med_v01.svg alt="">
                     </a>
                 </div>
               </div>
@@ -94,7 +94,7 @@ const HeaderSecondary = {
             </div> 
             <div class="nav-brand-logo">
               <a class="logo" href="#"> 
-                <img src="./images/brand/twn_brand_logo-H-med_v08.svg" alt="" />
+                <img src="./_assets/_brand/logo/neumad_brand_logo-H-med_v01.svg alt="">
               </a>
             </div>
             <div class="nav-mid-right">

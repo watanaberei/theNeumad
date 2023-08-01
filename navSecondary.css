@@ -7,7 +7,7 @@
     gap: var(--s03);
     margin: auto;
     /* padding: 0 3%; */
-    position: relative;
+    position: absolute;
     border-bottom: none;
     /* max-width: 1200px; */
   }
@@ -170,7 +170,7 @@
     gap: var(--s03);
 }
 
-  .hamburger {
+  /* .hamburger {
     display: block;
     color: var(--black01);
     font-size: var(--text04);
@@ -178,7 +178,7 @@
     padding: 6px 0;
     height: 21px;
     width: 21px;
-  }
+  } */
 
   .hamburger .icon-hamburger {
     padding: 6px 0;
