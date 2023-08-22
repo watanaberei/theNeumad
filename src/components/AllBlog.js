@@ -1,11 +1,11 @@
-// ./src/components/AllBlog.js
+// ./src/components/AllPost.js
 import allTags from './DataTags';
 
-const AllBlog = {
-  render: (allBlog) => {
-    const {tag, reference, slug, media, categories, headline, location, variant } = allBlog;
+const AllPost = {
+  render: (allPost) => {
+    const {tag, reference, slug, media, categories, headline, location, variant } = allPost;
     // console.log("variant",variant);
-    // Destructure th2222222e properties from the primaryAllBlog object
+    // Destructure th2222222e properties from the primaryAllPost object
 
     const tags = tag && tag.length ? tag[0].tags : [];
     // const metatags = metatag && metatag.length ? metatag[0].metatags : [];
@@ -44,22 +44,22 @@ const AllBlog = {
     //   }, {});
     // }
 
-  // Generate the HTML content for the PrimaryAllBlog component
+  // Generate the HTML content for the PrimaryAllPost component
   return `
   <!--BLOG--> 
-  <div class="blog"> 
-    <a rel="noopener noreferrer nofollow" target="${category}-${allBlog.sys.id}" href="/#/${variant}/${slug}">
-      <div class="blog-img">
+  <div class="post"> 
+    <a rel="noopener noreferrer nofollow" target="${category}-${allPost.sys.id}" href="/#/${variant}/${slug}">
+      <div class="post-img">
         <img src="${thumbnail}" alt="" />
       </div>
-      <div class="blog-text">
-        <div class="blog-header">
-          <div class="blog-header-container">
-            <span class="blog-title-text header04">
+      <div class="post-text">
+        <div class="post-header">
+          <div class="post-header-container">
+            <span class="post-title-text header04">
               ${title}
             </span> 
             <!--
-            <span class="blog-overview-text text02">
+            <span class="post-overview-text text02">
               
             </span>
             -->
@@ -68,9 +68,9 @@ const AllBlog = {
       </a>
 
 
-      <div class="blog-data">
+      <div class="post-data">
           <div class="tag-collection">
-              <div class="blog-data-container">
+              <div class="post-data-container">
                   <a href="/#/dine">
                       <div class="section-tag" id="${category}">
                           <i class="section-tag-icon icon-${category}"></i>
@@ -89,7 +89,7 @@ const AllBlog = {
                   <div class="lineV">
                   </div>
               </div>
-              <div class="blog-data">
+              <div class="post-data">
                 ${tagsHTML}
             </div>    
           </div>
@@ -108,4 +108,4 @@ const AllBlog = {
   },
 };  
 
-export default AllBlog;
+export default AllPost;

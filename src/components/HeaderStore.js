@@ -11,7 +11,7 @@ import fetchDateTime from "../components/timeApi.js";
 import { createGeocoderInput } from "../components/GeocoderInput";
 import { geojsonStore } from "../components/GeojsonStores";
 import { sortByDistance } from "../utils";
-import DataBlog from "../components/DataBlog";
+import DataBlog from "./DataPost";
 import DataFilter from "../components/DataFilter";
 
 

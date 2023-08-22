@@ -6,6 +6,7 @@ import HeaderArticle from "./components/HeaderArticle";
 import HeaderStore from "./components/HeaderStore";
 import HeaderReview from "./components/HeaderReview";
 import HeaderWork from "./components/HeaderWork";
+import HeaderHome from "./components/HeaderHome";
 import HeaderUnwind from "./components/HeaderUnwind";
 import HeaderShorts from "./components/HeaderShorts";
 import HeaderSeries from "./components/HeaderSeries";
@@ -78,8 +79,8 @@ const router = async () => {
     header.innerHTML = await HeaderUnwind.render();
     await HeaderUnwind.after_render();
   } else if (parseUrl === "/dine") {
-    header.innerHTML = await HeaderDine.render();
-    await HeaderDine.after_render();
+    header.innerHTML = await HeaderHome.render();
+    await HeaderHome.after_render();
   } else if (parseUrl === "/shorts") {
     header.innerHTML = await HeaderShorts.render();
     await HeaderShorts.after_render();

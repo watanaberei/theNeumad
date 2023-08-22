@@ -64,7 +64,7 @@
 }
 
 
-.blog-data {
+.post-data {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -81,8 +81,8 @@
   
 .section-tag {
   border-radius: 33px;
-  outline-width: 3px;
-  outline-color: var(--grey03);
+  outline-width: 1px;
+  outline-color: var(--grey01);
   outline-style: solid;
   width: fit-content;
   display: flex;
@@ -96,6 +96,7 @@
   padding: 3px 3px;
   background: var(--texture);
   background-color: var(--white01);
+  /* box-shadow: var(--shadowOutline02); */
   }
 
  
@@ -220,7 +221,7 @@
   
   /* TAG */
   
-  .featured-blog-data-container {
+  .featured-post-data-container {
     display: flex;
     flex-direction: row;
     gap: var(--s02);
@@ -228,29 +229,32 @@
   
   .metadata-tag {
     /* margin-right: var(--s03); */
-    border-radius: 33px;
+    display: flex;
+    border-radius: 6px;
     outline-width: 2px;
-    outline-color: var(--black02);
+    outline-color: var(--grey02);
     outline-style: solid;
     background: var(--texture);
-    background-color: var(--white01);
-    font-size: 9px;
-    letter-spacing: var(--tracking01_D);
-    font-weight: bold;
-    /* text-transform: uppercase; */
-    padding: 7px 18px;
-    font-size: 9px;
-    letter-spacing: var(--tracking03_D);
+    background-color: var(--grey01);
+    /* box-shadow: var(--shadowOutline01); */
+    gap: 3px;
+    /* font-size: 9px; */
+    /* letter-spacing: var(--tracking01_D); */
     /* font-weight: bold; */
     /* text-transform: uppercase; */
-    padding: 7px 15px
+    padding: 9px 18px;
+    /* font-size: 9px; */
+    /* letter-spacing: var(--tracking03_D); */
+    /* font-weight: bold; */
+    /* text-transform: uppercase; */
+    /* padding: 7px 15px */
   }
   
   
     .metadata-tag-text {
       text-wrap: nowrap;
-      font-weight: bold;
-      letter-spacing: 0.06rem;
+      /* font-weight: bold;
+      letter-spacing: 0.06rem; */
     }
   
   .metadata-tag-icon {
@@ -260,21 +264,23 @@
     outline-color: var(--black02);
     outline-style: solid;
     background: var(--texture);
-    background-color: var(--white01);
-    font-size: 9px;
-    letter-spacing: var(--tracking01_D);
-    font-weight: bold;
+    background-color: var(--grey01);
+    /* box-shadow: var(--shadowOutline01); */
+    gap: 3px;
+    /* font-size: 9px;
+    letter-spacing: var(--tracking01_D); */
+    /* font-weight: bold; */
     /* text-transform: uppercase; */
-    padding: 7px 18px;
-    font-size: 9px;
-    letter-spacing: var(--tracking03_D);
+    /* padding: 7px 18px; */
+    /* font-size: 9px; */
+    /* letter-spacing: var(--tracking03_D); */
     /* font-weight: bold; */
       /* text-transform: uppercase; */
-      padding: 7px 15px
+      /* padding: 7px 15px */
   }
 
   .metadata-tag-container {
-    padding: 9px 21px;
+    /* padding: 9px 21px; */
     /* font-size: var(--text01_D);
     letter-spacing: var(--tracking01_D);
     font-weight: bold;
@@ -285,24 +291,8 @@
     gap: var(--s03);
   }
 
-  .metadata-tag-icon {
-    border-radius: 33px;
-    outline-width: 2px;
-    outline-color: var(--black02);
-    outline-style: solid;
-    background: var(--texture);
-    background-color: var(--white01);
-    height: 30px;
-    width: fit-content;
-    display: flex;
-    flex-basis: fit-content;
-    align-items: center;
-    gap: var(--g);
-    letter-spacing: var(--tracking03_D);
-  }
-
   span.metadata-tag-divider {
-    height: 9px;
+    /* height: 9px; */
     /* background-color: var(--grey03); */
   }
 
@@ -314,15 +304,15 @@
 
   .metadata-tag-text {
     text-wrap: nowrap;
-    font-weight: bold;
-    letter-spacing: 0.06rem;
+    /* font-weight: bold;
+    letter-spacing: 0.06rem; */
   }
 
   .data-time {
     display: inline-block;
     /* line-height: 1rem; */
     /* padding: 0.5rem 1rem; */
-    padding: 7px 15px
+    /* padding: 7px 15px */
   }
     /* 
   .data-time-text {
@@ -336,12 +326,12 @@
 
   .data-time-text {
     color: var(--black02);
-    font-weight: bold;
+    /* font-weight: bold;
     letter-spacing: 0.06rem;
-    text-transform: uppercase;
+    text-transform: uppercase; */
   }
   
-  .featured-blog .date {
-    font-size: var(--text01_D);
+  .featured-post .date {
+    /* font-size: var(--text01_D); */
     color: var(--grey01);
   }

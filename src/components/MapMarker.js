@@ -16,12 +16,11 @@ export function createMapMarker(store, map, onClick) {
     marker.className = 'icon-mapMarker-default';
   }
   
-  
+  // console.log("store.geometry.coordinates", store.geometry.coordinates);
   
   new mapboxgl.Marker(marker)
     .setLngLat(store.geometry.coordinates)
     .addTo(map);
-    
   return marker;
 }
 

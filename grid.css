@@ -28,6 +28,8 @@
 	--secondary: 'padding3 cluster7 cluster8 padding4';
 	--cluster: 'column1 column2 column3';
 	
+	--column: var(--colWidth) var(--g) var(--colWidth) var(--g) var(--colWidth);
+	--divider: var(--d);
 
 	/*   COLOR */
 	--testC: rgba(255,0,255,0.0);
@@ -164,7 +166,7 @@
 .grid > .left {
 	align-self: center;
 	/* width: fit-content; */
-	grid-column: p1-start / c2-end;
+	/* grid-column: p1-start / c2-end; */
 	background-color: var(--testF);	
 	justify-content: start;
 
@@ -176,7 +178,7 @@
 	/* width: fit-content; */
     grid-column: c3-start / c6-end;
 	background-color: var(--testF);
-	justify-content: center;
+	/* justify-content: center; */
 
 }
 
@@ -291,6 +293,7 @@
 .grid > .m .p1-c6col2 {grid-column: p1-start / span 35; background-color: var(--testC);}
 
 .grid > .m .c1 {grid-column: c1-start / c1-end; background-color: var(--testC);}
+.grid > .m .c1col2-c7col1,.grid > .m > * > .c1col2-c7col1, .grid > * > .m > * > .c1col2-c7col1 {grid-column: 12 / 33; background-color: var(--testC);}
 .grid > .m .c1-c2 {grid-column: c1-start / c2-end; background-color: var(--testC);}
 .grid > .m .c1-c3 {grid-column: c1-start / c3-end; background-color: var(--testC);}
 .grid > .m .c1-c4 {grid-column: c1-start / c4-end; background-color: var(--testC);}
@@ -316,6 +319,8 @@
 .grid > .m .c4-c5 {grid-column: c4-start / c5-end; background-color: var(--testC);}
 .grid > .m .c4-c6 {grid-column: c4-start / c6-end; background-color: var(--testC);}
 .grid > .m .c4-p2 {grid-column: c4-start / p2-end; background-color: var(--testC);}
+.grid > .m .c3col2-c5col2 {grid-column: 22 / 38; background-color: var(--testC);}
+.grid > .m .c4-c5col2 {grid-column: c4-start / span 18; background-color: var(--testC);}
 
 .grid > .m .c5 {grid-column: c5-start / c5-end; background-color: var(--testC);}
 .grid > .m .c5-c6 {grid-column: c5-start / c6-end; background-color: var(--testC);}

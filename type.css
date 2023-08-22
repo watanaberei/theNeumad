@@ -1,20 +1,20 @@
 :root {  
     --text00_D: 0.45rem;
-    --text01_D: 0.51rem;
+    --text01_D: 9px;
     --text02_D: 0.75rem;
     --text03_D: 1.15rem;
     --text04_D: 1.50rem;
     --text05_D: 2.10rem;
     --text06_D: 3.00rem;
     --text00-tracking_D: -0.030rem;
-    --text01-tracking_D: -0.009rem;
+    --text01-tracking_D: 0px;
     --text02-tracking_D: -0.015rem;
     --text03-tracking_D: -0.015rem;
     --text04-tracking_D: -0.015rem;
     --text05-tracking_D: 0.012rem;
     --text06-tracking_D: 0.012rem;
     --text00-letting_D: 1.00rem;
-    --text01-letting_D: 1.00rem;
+    --text01-letting_D: 11px;
     --text02-letting_D: 1.00rem;
     --text03-letting_D: 1.50rem;
     --text04-letting_D: 2.10rem;
@@ -42,7 +42,36 @@
     --display05-letting_D: 1.50rem;
     --display06-letting_D: 1.00rem;
 
-    --header01_D: 0.51rem;
+    --header00_D: 0.51rem;
+    --header01_D: 0.75rem;
+    --header02_D: 1.30rem;
+    --header03_D: 2.10rem;
+    --header04_D: 27px;
+    --header05_D: 51px;
+    --header06_D: 6.00rem;
+    --header00-tracking_D: -0.030rem;
+    --header01-tracking_D:  0.015rem;
+    --header02-tracking_D: 0.024rem;
+    --header03-tracking_D: -0.009rem;
+    --header04-tracking_D: -0.30px;
+    --header05-tracking_D: -1.50px;
+    --header06-tracking_D: -0.015rem;
+    --header00-letting_D: 1.00rem;
+    --header01-letting_D: 1.00rem;
+    --header02-letting_D: 1.00rem;
+    --header03-letting_D: 1.26rem;
+    --header04-letting_D: -1.5%;
+    --header05-letting_D: -4.5%;
+    --header06-letting_D: 4.10rem;
+    --header00-spacing_D: -3.00px;
+    --header01-spacing_D: -3.00px;
+    --header02-spacing_D: -3.00px;
+    --header03-spacing_D: -3.00px;
+    --header04-spacing_D: -3.00px;
+    --header05-spacing_D: -3.00px;
+    --header06-spacing_D: -3.00px;
+
+    /* --header01_D: 0.51rem;
     --header02_D: 0.75rem;
     --header03_D: 1.30rem;
     --header04_D: 2.10rem;
@@ -61,7 +90,7 @@
     --header03-letting_D: 1.26rem;
     --header04-letting_D: 1.71rem;
     --header05-letting_D: 2.45rem;
-    --header06-letting_D: 4.10rem;
+    --header06-letting_D: 4.10rem; */
 
     /* --tracking01_D: -0.030rem;
     --tracking02_D: -0.009rem;
@@ -101,7 +130,7 @@
 
 
 @font-face {
-  font-family: 'medium';
+  font-family: 'boldItalic';
   src: url(images/NeueHaasUnicaW1G/otf/NeueHaasUnicaW1G-BoldItalic.otf);
 }
 @font-face {
@@ -109,7 +138,7 @@
   src: url(images/NeueHaasUnicaW1G/otf/NeueHaasUnicaW1G-Medium.otf);
 }
 @font-face {
-  font-family: '';
+  font-family: 'italic';
   src: url(images/NeueHaasUnicaW1G/otf/NeueHaasUnicaW1G-Italic.otf);
 }
 @font-face {
@@ -142,8 +171,7 @@
 @font-face {
     font-family: 'compressedBlack';
     src: url(images/GT_America/GT_America_Compressed_Black.otf);
-
-
+}
 /* 
 @font-face {
     font-family: 'bold';
@@ -166,8 +194,23 @@
 
 @font-face {
     font-family: 'compressedBlack';
-    src: url(images/GT_America/GT_America_Compressed_Black.otf); */
+    src: url(images/GT_America/GT_America_Compressed_Black.otf);
 }
+ */
+
+ .bold {
+  font-family: 'bold', sans-serif !important;
+ }
+ .medium {
+  font-family: 'medium', sans-serif !important;
+ }
+ .regular {
+  font-family: 'regular', sans-serif !important;
+ }
+ .italic {
+  font-family: 'italic', sans-serif !important;
+ }
+
 
 .oneLine {
   display: flex;
@@ -248,9 +291,10 @@
 
 .header05 {
   font-family: 'medium', sans-serif;
-  font-size: 27px;
-  letter-spacing: -0.3;
-  line-height: 0.9;
+  font-size: var(--header05_D);
+  letter-spacing: var(--header05-tracking_D);
+  line-height: var(--header05-letting_D);
+  word-spacing: var(--header05-spacing_D);
 }
 
 .header04 {

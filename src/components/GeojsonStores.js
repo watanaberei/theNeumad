@@ -1,6 +1,6 @@
 // //src/components/GeojsonStores.js
 import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../api.js";
-import DataBlog from "../components/DataBlog";
+import DataBlog from "./DataPost";
 
 let dataBlog = new DataBlog();
 
@@ -18,7 +18,7 @@ export async function geojsonStore() {
         headline: { text: headline },
         slug, 
         location: { region, address, geolocation: { lat, lon }, type }, // Change here
-        category,
+        category: { category: category },
         series,
         // ratings,
         variant,

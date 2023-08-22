@@ -1,6 +1,6 @@
 // src/components/GeocoderInput.js
-// import mapboxgl from 'mapbox-gl';
-// import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import mapboxgl from 'mapbox-gl';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsaHZxdzJrMDBhbjkzZm4weXI1bGlybTMifQ.oQDmvQmIA04AVPDNOV-l8Q';
 
@@ -35,11 +35,12 @@ export function createGeocoderInput(features) {
     // Prioritize store matches over location matches
     return [...storeMatches, ...locationMatches];
   };
-
+  // console.log("About to initialize geocoder...");
+  debugger;
   const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl,
-    placeholder: 'Search Stores and Locations',
+    placeholder: 'Current Location',
     localGeocoder: forwardGeocoder,
     localGeocoderOnly: true,
     flyTo: false,
@@ -53,6 +54,7 @@ export function createGeocoderInput(features) {
       return `${icon} ${item.place_name}`;
     }
   });
+  console.log("Initialized geocoder...");
 
   return geocoder;
 }

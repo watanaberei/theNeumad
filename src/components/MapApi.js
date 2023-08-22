@@ -1,7 +1,7 @@
 // src/components/MapApi.js
 // import mapboxgl from "mapbox-gl";
-// mapboxgl.accessToken =
-//   "pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsaHZxdzJrMDBhbjkzZm4weXI1bGlybTMifQ.oQDmvQmIA04AVPDNOV-l8Q";
+mapboxgl.accessToken =
+  "pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsaHZxdzJrMDBhbjkzZm4weXI1bGlybTMifQ.oQDmvQmIA04AVPDNOV-l8Q";
 
 
 export function initMap() {
@@ -10,7 +10,7 @@ export function initMap() {
   const map = new mapboxgl.Map({
     container: "map-container",
     // style: "mapbox://styles/neumad/clj0u2c9b00o601pw61e31wdc",
-    style: "mapbox://styles/neumad/cljy08548000q01pxdgrqhcib",
+    style: "mapbox://styles/neumad/clk1hynd6003d01px8uxw4sz8",
     // style: "mapbox://styles/neumad/cljbyenya003401ps5vqkdya3",
     center: defaultCoordinates,
     pitch: 0,

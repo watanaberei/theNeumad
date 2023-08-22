@@ -10,14 +10,14 @@ export default class DataFilter {
   get element() {
     const tagElements = this.tags.map(tag => `
       <div class="tag metadata-tag" data-tag="${tag}">
-          <span class="metadata-tag-text text01" id="metatag">
+          <span class="metadata-tag-text text01 bold" id="metatag">
               ${tag}
           </span>
       </div>
     `).join('');
 
     const element = document.createElement('div');
-    element.className = 'blog-data';
+    element.className = 'post-data';
     element.innerHTML = tagElements;
 
     element.querySelectorAll('.tag').forEach(tagElement => {

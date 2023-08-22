@@ -127,12 +127,23 @@
 
 
 /* TOOLTIP MARKER */
+/* #markerActive {
+  width: 30px;
+  height: 30px;
+}
+
+#markerInactive {
+  width: 9px;
+  height: 9px;
+  color: var(--black01);
+  border-radius: 9;
+}
+
 .mapboxgl-popup-close-button {
   display: none;
 }
 
 .mapboxgl-popup-content {
-  /* font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', sans-serif; */
   padding: 0;
   width: 300px;
 }
@@ -143,7 +154,6 @@
   margin: 0;
   padding: 10px;
   border-radius: 3px 3px 0 0;
-  /* font-weight: 700; */
   margin-top: -15px;
 }
 
@@ -167,7 +177,7 @@
 
 .mapboxgl-popup {
   padding-bottom: 50px;
-}
+} */
 /* TOOLTIP MARKER */
 
 
@@ -196,8 +206,7 @@
 
 
 /* GEOCODER CONTROLS */
-.geocoder {
-  position: absolute;
+/* .geocoder {
   z-index: 1;
   width: 50%;
   left: 50%;
@@ -206,16 +215,16 @@
   }
   #geocoder {
     z-index: 1;
-    margin: 20px;
+    position: relative;
     }
     .mapboxgl-ctrl-geocoder {
-    min-width: 100%;
-    }
-    
+      min-width: 100%;
+  }
+
 .mapboxgl-ctrl-geocoder {
   border: 0;
   border-radius: 0;
-  position: relative;
+  position: absolute;
   top: 0;
   width: 800px;
   margin-top: 0;
@@ -228,12 +237,15 @@
 
 #geocoder {
   z-index: 1;
-  margin: 20px;
   }
   
   .mapboxgl-ctrl-geocoder {
   min-width: 100%;
   }
+
+  .mapboxgl-ctrl-geocoder, .mapboxgl-ctrl-geocoder .suggestions {
+    box-shadow:-3px 0px 8px rgba(0,0,0,0.22);
+} */
 /* GEOCODER CONTROLS */
 
 

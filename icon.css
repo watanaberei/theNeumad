@@ -103,6 +103,14 @@
     color: var(--white01);
 }
 
+.icon-DropDown-21px {
+    background: url('_assets/icon/search/icon-dropDown-21px.svg') no-repeat;
+    height: 21px;
+    width: 21px;
+    display: block;
+    color: var(--white01);
+  }
+
 
 
 
@@ -347,6 +355,19 @@
 
 
 
+  /* CUSTOM SEARCH */
+  .icon-Search-21px {
+    background: url('_assets/icon/search/icon-search-21px.svg') no-repeat;
+    height: 21px;
+    width: 21px;
+    display: block;
+    color: var(--white01);
+  }
+    /* CUSTOM SEARCH */
+
+
+
+
 
 
   /* SOCIAL */
@@ -386,3 +407,24 @@
     display: block;
     color: var(--white01);
   }
+
+
+
+
+
+
+
+
+
+    /* CATEGORY */
+
+    .icon-category-Work20px {
+        background: url('_assets/icon/category/icon-category-Work20px.svg') no-repeat;
+        height: 20px;
+        width: 20px;
+        display: block;
+    }
+
+
+    
+    /* CATEGORY */

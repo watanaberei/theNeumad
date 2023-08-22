@@ -3,7 +3,7 @@ const allTags = (tags) => {
   let tagsHTML = '';
   tags.forEach((tag) => {
     tagsHTML += `<div class="metadata-tag">
-                   <span class="metadata-tag-text text01" id="metatag">${tag}</span>
+                   <span class="metadata-tag-text text01 bold" id="metatag">${tag}</span>
                  </div>`;
   });
   return tagsHTML;

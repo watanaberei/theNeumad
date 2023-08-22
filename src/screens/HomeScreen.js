@@ -5,7 +5,7 @@ import AllBlog from "../components/AllBlog.js";
 import AllStore from "../components/AllStore.js";
 import { sortByDistance } from "../utils";
 import { createGeojsonListing } from "../components/GeojsonListing";
-import DataBlog from "../components/DataBlog";
+import DataBlog from "../components/DataPost";
 import DataFilter from "../components/DataFilter";
 import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../api.js";
 
