@@ -86,7 +86,7 @@ const router = async () => {
     await HeaderShorts.after_render();
   } else if (parseUrl === "/map") {
     header.innerHTML = await Header.render();
-    await HeaderMap.after_render();
+    await Header.after_render();
   } else {
     header.innerHTML = await Header.render();
     await Header.after_render();

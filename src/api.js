@@ -47,9 +47,17 @@ export async function getStore(limit = 1, skip = 0) {
           }
           title
           headline {
-            text
+            ... on Headline {
+              text
+              subtext
+              eyebrow
+            }
           }
           slug
+          category {
+            categoryType
+            genre
+          }
           location {
             ... on ContentTypeLocation {
               type
@@ -62,9 +70,6 @@ export async function getStore(limit = 1, skip = 0) {
             }
           }
           featured
-          category {
-            category
-          }
           media {
             ... on Media {
               logo {
@@ -114,7 +119,7 @@ export async function getStore(limit = 1, skip = 0) {
               }
             }
           }
-          neumadScore
+          neustar
           googleRatings
           yelpRatings
           storeRatings
@@ -129,7 +134,13 @@ export async function getStore(limit = 1, skip = 0) {
             }
           }
           summary {
-            text
+            ... on Summary {
+              text
+              bestFor
+              noiseLevel
+              environment
+              parking
+            }
           }
           popularTimes
           storeServices
@@ -185,12 +196,18 @@ export async function getStore(limit = 1, skip = 0) {
       return {
         ...stores,
         // title: stores?.title,
-        headline: stores?.headline,
+        // headline: stores?.headline,
+        headline: {
+          text: stores?.headline?.text,
+          subtext: stores?.headline?.subtext,
+          eyebrow: stores?.headline?.eyebrow,
+        },
         storeNickname: stores?.storeNickName,
         slug: stores?.slug,
         featured: stores?.featured,
-        categories: {
-          category: stores?.category?.category,
+        category: {
+          categoryType: stores?.category?.categoryType,
+          genre: stores?.category?.genre,
         },
         series: {
           series: stores?.series?.series,
@@ -209,7 +226,7 @@ export async function getStore(limit = 1, skip = 0) {
         },
         hours: stores?.hours,
         storeWebsite: stores?.storeWebsite,
-        neumadScore: stores?.neumadScore,
+        neustar: stores?.neustar,
         googleRatings: stores?.googleRatings,
         yelpRatings: stores?.yelpRatings,
         ratings: stores?.storeRatings,
@@ -218,9 +235,9 @@ export async function getStore(limit = 1, skip = 0) {
         content: {
           overview: documentToHtmlString(stores?.content?.overview?.json),
         },
-        summary: {
-          text: stores?.summary,
-        },
+        // summary: {
+        //   text: stores?.summary,
+        // },
         popularTimes: stores?.popularTimes,
         storeServices: stores?.storeServices,
         handles: stores?.handles,
@@ -252,6 +269,10 @@ export async function getStore(limit = 1, skip = 0) {
         },
         summary: {
           text: stores?.summary?.text,
+          best: stores?.summary?.bestFor,
+          noise: stores?.summary?.noiseLevel,
+          parking: stores?.summary?.parking,
+          environment: stores?.summary?.environment,
         },
         overviewTitle: stores?.overviewTitle,
         overview: {
@@ -345,13 +366,18 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
           slug
           featured
           category {
-            category
+            categoryType
+            genre
           }
           series {
             series
           }
           headline {
+            ... on Headline {
               text
+              subtext
+              eyebrow
+            }
           }
           location {
             ... on ContentTypeLocation {
@@ -413,7 +439,13 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
             }
           }
           summary {
-            text
+            ... on Summary {
+              text
+              bestFor
+              noiseLevel
+              environment
+              parking
+            }
           }
           media {
             ... on Media {
@@ -471,7 +503,8 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
                   ... on AppFastFoodHomePage031523 {
                     title
                     category {
-                      category
+                      categoryType
+                      genre
                     }
                     media {
                       ... on Media {
@@ -503,7 +536,8 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
                   ... on AppFastFoodHomePage031523 {
                     title
                     category {
-                      category
+                      categoryType
+                      genre
                     }
                     media {
                       ... on Media {
@@ -535,7 +569,8 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
                   ... on AppFastFoodHomePage031523 {
                     title
                     category {
-                      category
+                      categoryType
+                      genre
                     }
                     media {
                       ... on Media {
@@ -601,7 +636,7 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
 
         // id: articles?.sys?.id,
 
-        headline: articles?.headline,
+        // headline: articles?.headline,
         location: {
           type: articles?.location?.type,
           geolocation: {
@@ -617,13 +652,16 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
         headline: {
           text: articles?.headline?.text,
           slug: articles?.headline?.slug,
+          subtext: articles?.headline?.subtext,
+          eyebrow: articles?.headline?.eyebrow,
         },
         snippet: {
           title: articles?.snippet?.title,
           text: articles?.snippet?.text,
         },
         categories: {
-          category: articles?.category?.category,
+          categoryType: articles?.category?.categoryType,
+          genre: articles?.category?.genre,
         },
         series: {
           series: articles?.series?.series,
@@ -724,7 +762,7 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
             articles?.reference?.relatedReferencesCollection?.items.map(
               (item) => ({
                 title: item.title,
-                headline: item.headline,
+                // headline: item.headline,
                 section: item.section,
                 // media: {
                 //   thumbnail: item.media.thumbnail.url,
@@ -732,7 +770,7 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
                 overview: item.overview,
                 slug: item.slug,
                 tag: item.tag,
-                relatedCategory: item.category,
+                relatedCategory: item.categoryType,
               })
             ),
           suggestedReferences:
@@ -811,13 +849,17 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
           featured
 
           headline {
-            text
-            eyebrow
+            ... on Headline {
+              text
+              subtext
+              eyebrow
+            }
           }
           slug
           featured
           category {
-            category
+            categoryType
+            genre
           }
           series {
             series
@@ -889,6 +931,10 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
           summary {
             ... on Summary {
               text
+              bestFor
+              noiseLevel
+              environment
+              parking
             }
           }
           content {
@@ -928,7 +974,8 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
                   ... on AppFastFoodHomePage031523 {
                     title
                     category {
-                      category
+                      categoryType
+                      genre
                     }
                     media {
                       ... on Media {
@@ -960,7 +1007,8 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
                   ... on AppFastFoodHomePage031523 {
                     title
                     category {
-                      category
+                      categoryType
+                      genre
                     }
                     media {
                       ... on Media {
@@ -992,7 +1040,8 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
                   ... on AppFastFoodHomePage031523 {
                     title
                     category {
-                      category
+                      categoryType
+                      genre
                     }
                     media {
                       ... on Media {
@@ -1073,9 +1122,12 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
         headline: {
           text: reviews?.headline?.text,
           slug: reviews?.headline?.slug,
+          subtext: reviews?.headline?.subtext,
+          eyebrow: reviews?.headline?.eyebrow,
         },
         categories: {
-          category: reviews?.category?.category,
+          categoryType: reviews?.category?.categoryType,
+          genre: reviews?.category?.genre,
         },
         series: {
           series: reviews?.series?.series,
@@ -1150,7 +1202,7 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
                 overview: item.overview,
                 slug: item.slug,
                 tag: item.tag,
-                relatedCategory: item.category,
+                relatedCategory: item.categoryType,
               })
             ),
           suggestedReferences:
@@ -1242,7 +1294,7 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
 //                   storeWebsite
 //                 }
 //               }
-//               neumadScore
+//               neustar
 //               storeRating
 //               storeRatingsCount
 //               storeReviewOverview
@@ -1486,7 +1538,7 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
 //                   hours: item?.hours,
 //                   storeWebsite: item?.storeWebsite,
 //                 })),
-//               neumadScore: item?.neumadScore,
+//               neustar: item?.neustar,
 //               storeRating: item?.storeRating,
 //               storeRatingsCount: item?.storeRatingsCount,
 //               storeReviewOverview: item?.storeReviewOverview,
@@ -1652,13 +1704,16 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
           headline {
             ... on Headline {
               text
+              subtext
+              eyebrow
             }
           }
           featured
           slug
           category {
             title
-            category
+            categoryType
+            genre
           }
           series {
             title
@@ -1722,6 +1777,10 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
           summary {
             ... on Summary {
               text
+              bestFor
+              noiseLevel
+              environment
+              parking
             }
           }
           snippet {
@@ -1766,7 +1825,8 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
                   ... on AppFastFoodHomePage031523 {
                     title
                     category {
-                      category
+                      categoryType
+                      genre
                     }
                     media {
                       ... on Media {
@@ -1798,7 +1858,8 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
                   ... on AppFastFoodHomePage031523 {
                     title
                     category {
-                      category
+                      categoryType
+                      genre
                     }
                     media {
                       ... on Media {
@@ -1830,7 +1891,8 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
                   ... on AppFastFoodHomePage031523 {
                     title
                     category {
-                      category
+                      categoryType
+                      genre
                     }
                     media {
                       ... on Media {
@@ -1924,10 +1986,12 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
         featured: blogs?.featured,
         headline: {
           text: blogs?.headline?.text,
-          slug: blogs?.headline?.slug,
+          eyebrow: blogs?.headline?.eyebrow,
+          subtext: blogs?.headline?.subtext,
         },
         categories: {
-          category: blogs?.category?.category,
+          categoryType: blogs?.category?.categoryType,
+          genre: blogs?.category?.genre,
         },
         series: {
           series: blogs?.series?.series,
@@ -1998,7 +2062,7 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
                 overview: item.overview,
                 slug: item.slug,
                 tag: item.tag,
-                relatedCategory: item.category,
+                relatedCategory: item.categoryType,
               })
             ),
           suggestedReferences:
@@ -2874,7 +2938,7 @@ export default API;
 //           hours: item?.hours,
 //           storeWebsite: item?.storeWebsite,
 //         })),
-//         neumadScore: item?.neumadScore,
+//         neustar: item?.neustar,
 //         storeRating: item?.storeRating,
 //         storeRatingsCount: item?.storeRatingsCount,
 //         storeReviewOverview: item?.storeReviewOverview,
@@ -3047,13 +3111,17 @@ export const getFeaturedBlog = async (limit = 6, skip = 1) => {
                 }
               }
           
-            headline {
-              text
-              eyebrow
-            }
+              headline {
+                ... on Headline {
+                  text
+                  subtext
+                  eyebrow
+                }
+              }
             featured
             category {
-              category
+              categoryType
+              genre
             }
             series {
               series
@@ -3208,7 +3276,10 @@ export const getPrimaryFeaturedBlog = async (limit = 1, skip = 0) => {
           introduction
           slug
           authorName
-          category
+          category {
+            categoryType
+            genre
+          }
           tag
           metatag
           featuredImage {
@@ -3283,7 +3354,10 @@ export const getWorkFeaturedBlog = async (limit = 3, skip = 0) => {
             introduction
             slug
             authorName
-            category
+            category {
+              categoryType
+              genre
+            }
             tag
             metatag
             featuredImage {
@@ -3358,7 +3432,10 @@ export const getWorkBlog = async (limit = 9, skip = 0) => {
           introduction
           slug
           authorName
-          category
+          category {
+            categoryType
+            genre
+          }
           tag
           metatag
           featuredImage {
@@ -3431,7 +3508,10 @@ export const getUnwindFeaturedBlog = async (limit = 3, skip = 0) => {
             overview
             slug
             authorName
-            category
+            category {
+              categoryType
+              genre
+            }
             tag
             metatag
             featuredImage {
@@ -3505,7 +3585,10 @@ export const getUnwindBlog = async (limit = 9, skip = 0) => {
           overview
           slug
           authorName
-          category
+          category {
+            categoryType
+            genre
+          }
           tag
           metatag
           featuredImage {
@@ -3579,7 +3662,10 @@ export const getDineFeaturedBlog = async (limit = 3, skip = 0) => {
             introduction
             slug
             authorName
-            category
+            category {
+              categoryType
+              genre
+            }
             tag
             metatag
             featuredImage {
@@ -3654,7 +3740,10 @@ export const getDineBlog = async (limit = 9, skip = 0) => {
           introduction
           slug
           authorName
-          category
+          category {
+            categoryType
+            genre
+          }
           tag
           metatag
           featuredImage {
@@ -3728,7 +3817,10 @@ export const getShortsFeaturedBlog = async (limit = 3, skip = 0) => {
             introduction
             slug
             authorName
-            category
+            category {
+              categoryType
+              genre
+            }
             tag
             metatag
             featuredImage {
@@ -3803,7 +3895,10 @@ export const getShortsBlog = async (limit = 9, skip = 0) => {
           introduction
           slug
           authorName
-          category
+          category {
+            categoryType
+            genre
+          }
           tag
           metatag
           featuredImage {
@@ -3902,7 +3997,8 @@ export const getBlog = async (slug) => {
         overview,
         introduction,
         authorName,
-        category,
+        categoryType,
+        genre,
         tag,
         metatag,
       } = item.fields;
@@ -3919,7 +4015,8 @@ export const getBlog = async (slug) => {
         details,
         authorName,
         createdAt,
-        category,
+        categoryType,
+        genre,
         tag,
         metatag,
       };

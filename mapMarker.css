@@ -1,8 +1,5 @@
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-#search-bar { 
-    flex-direction: row;
-    display:flex; gap: 30px;position: absolute; top: 300px; left: 50px; z-index: 3; }
-.geocoder {   min-width: 300px;width: 300px;z-index: 3; }
+
 /* .marker {
     z-index: 3;
   background-image: url('https://docs.mapbox.com/mapbox-gl-js/assets/washington-monument.jpg');
@@ -13,14 +10,6 @@
   cursor: pointer;
 } */
 /* #geocoder { background-color:white;} */
-.geocoder {
-    position: relative !important;
-    z-index: 1;
-    /* width: 25vw; */
-    /* left: 50%; */
-    /* margin-left: -25%; */
-    /* top: 10px; */
-}
 
 
 

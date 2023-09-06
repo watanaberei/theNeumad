@@ -6,6 +6,7 @@ import mapboxgl from "mapbox-gl";
 const Search = {
   render: async () => {
     return `
+    SEARCH
           <div class="search-container">
             <div class="search-input">
               <div class="search">

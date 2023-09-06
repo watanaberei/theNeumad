@@ -527,9 +527,81 @@ const renderOptions = {
                             </div>    
   
 
-                            <div class="store-summary">
-                                ${summaryHTML}
+                            <!-- SUMARRY -->
+                            <div class="store-summary-item">
+                                <div class="store-summary-icons">
+                                    <div class="store-summary-icons-container">
+                                        <span class="bold03">
+                                            <i class="section-tag-icon icon-social-share"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="store-summary-contemt">
+                                    <span class="bold03">
+                                        Noise Level:
+                                    </span>
+                                    <span class="text03">
+                                        ${store.summary.noise}
+                                    </span>
+                                </div>
                             </div>
+                            <div class="lineH"></div>
+                            <div class="store-summary-item">
+                                <div class="store-summary-icons">
+                                    <div class="store-summary-icons-container">
+                                        <span class="bold03">
+                                            <i class="section-tag-icon icon-social-share"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="store-summary-contemt">
+                                    <span class="bold03">
+                                        Parking:
+                                    </span>
+                                    <span class="text03">
+                                        ${store.summary.parking}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="lineH"></div>
+                            <div class="store-summary-item">
+                                <div class="store-summary-icons">
+                                    <div class="store-summary-icons-container">
+                                        <span class="bold03">
+                                            <i class="section-tag-icon icon-social-share"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="store-summary-contemt">
+                                    <span class="bold03">
+                                        Environment:
+                                    </span>
+                                    <span class="text03">
+                                        ${store.summary.environment}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="lineH"></div>
+                            <div class="store-summary-item">
+                                <div class="store-summary-icons">
+                                    <div class="store-summary-icons-container">
+                                        <span class="bold03">
+                                            <i class="section-tag-icon icon-social-share"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="store-summary-contemt">
+                                    <span class="bold03">
+                                        Best For:
+                                    </span>
+                                    <span class="text03">
+                                        ${store.summary.best}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="lineH"></div>
+
+
 
 
                             <!-- Attributes -->

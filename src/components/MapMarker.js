@@ -3,16 +3,16 @@
 
 export function createMapMarker(store, map, onClick) {
   const marker = document.createElement('div');
-    const { tag, slug, media, category, headline } = store.properties;
+    const { tag, slug, media, categoryType, headline } = store.properties;
   const { geometry } = store.geometry;
   const tags = tag && tag.length ? tag[0].tags : [];
   const title = headline || [];
 
-  // Check if the category property exists and is not "userLocation"
-  if (category.category && category.category !== 'userLocation') {
-    marker.className = 'icon-mapMarker-' + category.category;
+  // Check if the categoryType property exists and is not "userLocation"
+  if (categoryType.categoryType && categoryType.categoryType !== 'userLocation') {
+    marker.className = 'icon-mapMarker-' + categoryType.categoryType;
   } else {
-    // Assign the default class name if the category is not available or is "userLocation"
+    // Assign the default class name if the categoryType is not available or is "userLocation"
     marker.className = 'icon-mapMarker-default';
   }
   

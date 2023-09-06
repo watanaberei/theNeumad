@@ -410,8 +410,9 @@
 
   .bold03 {
     font-family: 'bold', sans-serif;
-    /* font-size: var(--text03); */
-    font-size: 15px;
+    font-size: var(--text03);
+    letter-spacing: var(--text03-tracking_D);
+    line-height: var(--text03-letting_D);
   }
 
   .bold02  {
@@ -450,6 +451,8 @@
   .medium03 {
     font-family: 'medium', sans-serif;
     font-size: var(--text03);
+    letter-spacing: var(--text03-tracking_D);
+    line-height: var(--text03-letting_D);
   }
 
   .medium02  {

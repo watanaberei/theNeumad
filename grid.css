@@ -240,7 +240,7 @@
 	display: grid;
 	margin: 0; 
 	padding: 0;
-	/* grid-gap: 0; */
+	grid-gap: 0;
 	grid-column: main-start / main-end;
 	grid-template-columns: 
 	  [main-start p1-start] var(--colWidth) [p1-end] 
@@ -249,7 +249,7 @@
 	  var(--d) 
 	  [c2-start] var(--colWidth) var(--g) var(--colWidth) var(--g) var(--colWidth) [c2-end] 
 	  var(--d) 
-	  [c3-start] var(--colWidth) var(--g) var(--colWidth) var(--g) var(--colWidth) [c3-end] 
+	  [c3-start] var(--colWidth) var(--g) [c3col2] var(--colWidth) var(--g) [c3col3] var(--colWidth) [c3-end] 
 	  var(--d) 
 	  [c4-start] var(--colWidth) var(--g) var(--colWidth) var(--g) var(--colWidth) [c4-end] 
 	  var(--d) 
@@ -343,7 +343,7 @@
 	margin-right:var(--g);
 	/* grid-gap: 0; */
 	grid-column: secondary-start / secondary-end;
-	grid-template-columns: 
+	/* grid-template-columns: 
 	  [p3-start] var(--colWidth) [p3-end] 
 	  var(--d) 
 	  [c7-start] var(--colWidth) var(--g) var(--colWidth) var(--g) var(--colWidth) [c7-end] 
@@ -351,7 +351,7 @@
 	  [c8-start] var(--colWidth) var(--g) var(--colWidth) var(--g) var(--colWidth) [c8-end] 
 	  var(--d) 
 	  [p4-start] var(--colWidth) [p4-end];
-  }
+  } */
   /* .grid > .s > .full {grid-column: secondary-start / secondary-end; background-color: var(--testF);} */
   
   .grid > .s .p1 {grid-column: p3-start / p3-end; background-color: var(--testP);}

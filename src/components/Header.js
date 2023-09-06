@@ -1,3 +1,4 @@
+// src/screens/Header.js
 import allTags from "../components/DataTags";
 import {
   getArticleNeumadsTrail,
@@ -5,7 +6,9 @@ import {
   getArticlePost,
 } from "../api.js";
 import { weatherData, fetchCityWeatherData } from "./weatherReport.js";
+// import LocationInput from "../components/locationInput.js";
 import fetchDateTime from "../components/timeApi.js";
+// import { createGeocoderInput } from "../components/GeocoderInput";
 import { geojsonStore } from "../components/GeojsonStores";
 import { sortByDistance } from "../utils";
 import DataPost from "../components/DataPost";
@@ -14,19 +17,25 @@ import Search from "../components/Search";
 
 
 let dataPost = new DataPost();
+
 function getTopTags(PostData, limit = 10) {
   const tagCounts = {};
+//   console.log("Header tagCounts",tagCounts);
   PostData.forEach((post) => {
     const tags = post.tag && post.tag.length ? post.tag[0].tags : [];
+    // console.log("Header tags",tags);
     tags.forEach((tag) => {
       tagCounts[tag] = (tagCounts[tag] || 0) + 1;
     });
   });
+
   const sortedTags = Object.entries(tagCounts)
     .sort((a, b) => b[1] - a[1])
     .map((entry) => entry[0]);
+    // console.log("Header sortedTags",sortedTags);
   return sortedTags.slice(0, limit);
 }
+
 export function storeSelectedLocation(result) {
   if (result && result.result && result.result.geometry) {
     localStorage.setItem(
@@ -42,17 +51,56 @@ const HeaderMap = {
       const postTags = post.tag && post.tag.length ? post.tag[0].tags : [];
       return [...tags, ...postTags];
     }, []);
-    const topTags = allTags.slice(0, 10); 
+    const topTags = allTags.slice(0, 10);
+    
     const dataFilter = new DataFilter(topTags, dataPost.activeTags, dataPost.setActiveTags.bind(dataPost));
+
+    const primaryFeaturedPosts = PostData.slice(0, 1);
+    const featuredPosts = PostData.slice(2, 5);
+    const allPosts = PostData.slice(3);
+
     const selectedLocation = JSON.parse(localStorage.getItem('selectedLocation') || 'null');
     const sortedPostData = sortByDistance(selectedLocation, PostData);
+
     const createListing = (store) => {
       const onClick = () => {}; // Define the onClick behavior if needed
       return createGeojsonListing(store, onClick).outerHTML;
     };
+
+
+    // const articleData = await getArticleNeumadsTrail(9, 0);
+    // const storeData = await getStoresNeumadsReview(9, 0);
+    // const postData = await getArticlePost(9, 0);
+    // const PostData = [...articleData, ...storeData, ...postData];
+    // console.log("Header PostData",PostData);
+    // const topTags = getTopTags(PostData, 10);
+    // const tagsHTML = allTags(topTags);
+
     const newLocal = `
         <nav class="navigation container nav-top">
+
+            <!--<section class="nav-reportBar">
+                <div class="nav-reportBar-content">
+                    <div class="nav-reportBar-content-container">
+                        <div class="nav-reportBar-content-wrapper">
+                            <span class="text01">Report Bar Content 01</span>
+                            <span class="text01">Data 01</span>
+                            <span class="text01">Data 02</span>
+                        </div>
+                        <div class="nav-reportBar-content-wrapper">
+                            <span class="text01">Report Bar Content 01</span>
+                            <span class="text01">Data 01</span>
+                            <span class="text01">Data 02</span>
+                        </div>
+                    </div>
+                </div>
+            </section>-->
+
+
+
+
             <section class="grid base nav-main">
+                
                     <div class="nav-main-left left">
                         <div class="nav-main-logo">
                             <!-- hamburger -->  
@@ -60,7 +108,6 @@ const HeaderMap = {
                         </div>
                     </div>
                     <div class="nav-main-center">
-                        ${Search}
                         <div class="searchBar">
                             <div class="searchBar-categoryType">
                                 <div class="searchBar-categoryType-container">
@@ -103,6 +150,8 @@ const HeaderMap = {
                                     </div>
                                 </div>
                             </div>
+                             ${Search.render()}
+                            <!--
                             <div class="searchBar-location">
                                 <div class="text03" id="geocoder"></div>
                                 <pre id="result"></pre>
@@ -112,6 +161,7 @@ const HeaderMap = {
                                     <i class="cta icon-Search-21px"></i>
                                 </div>
                             </div>
+                            -->
                         </div>
                     </div>
                     <div class="nav-main-right right">
@@ -134,23 +184,89 @@ const HeaderMap = {
                             </div>
                         </div>
                     </div>
+            
             </section>
+
+
+
+
+    
             <section class="grid base nav-secondary">
                 <div class="full nav-tags">
                     <div class="nav-tags-container">
                     <div class="nav-tags-menu"> 
-                        <!-- menu -->                      
+                    
+                        <!-- menu -->  
+                        <!-- <ul class="nav-tags-list nav-tags-flex"> 
+                        
+                            <li>
+                                <a href="/#/work">
+                                    <div class="metadata-tag-icon" id="Work">
+                                        <i class="section-tag-icon icon-Work"></i>
+                                        <span class="metadata-tag-divider">
+                                            <div class="lineV"></div>
+                                        </span>
+                                        <span class="metadata-tag-text medium00">
+                                            Work
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/#/dine">
+                                    <div class="metadata-tag-icon" id="Dine">
+                                        <i class="section-tag-icon icon-Dine"></i>
+                                        <span class="metadata-tag-divider">
+                                            <div class="lineV"></div>
+                                        </span>
+                                        <span class="metadata-tag-text medium00">
+                                            Work
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/#/unwind">
+                                    <div class="metadata-tag-icon" id="Unwind">
+                                        <i class="section-tag-icon icon-Unwind"></i>
+                                        <span class="metadata-tag-divider">
+                                            <div class="lineV"></div>
+                                        </span>
+                                        <span class="metadata-tag-text medium00">
+                                            Work
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        
+                        <div class="nav-list-divider">
+                            <div class="lineV"></div>
+                        </div> 
+
+                        </ul>-->
+                    
                         <div class="data">
                             <div id="post-filter post-data" class="text01 bold">${dataFilter.element.outerHTML}</div>
                         </div>
                     </div>  
                 </div>   
             </section>
+            
+            <!-- DATA
+            <section class="data">
+            <div id="post-filter post-data">${dataFilter.element.outerHTML}</div>
+            </section> -->
+
+
             <!--SIDEBAR-->
             <!-- menu -->  
             <section class="nav-menu">
                 <div class="nav-menu-container">
+                
+            
                     <ul class="nav-menu-list nav-menu-flex"> 
+
                     <li>
                         <div class="nav-main-right">
                             <!-- search -->
@@ -171,6 +287,7 @@ const HeaderMap = {
                             </div>
                         </div>
                     </li>
+
                     <li>
                     <div class="navWork-list-divider">
                         <div class="lineV"></div>
@@ -228,36 +345,87 @@ const HeaderMap = {
                     </div>
                     </ul>
                 </div> 
+            
+
+                
                 </div>   
             </section>            
         </nav>`;
     return newLocal;
   },
   after_render: async () => {
+    // const features = await geojsonStore();
     // const geocoder = createGeocoderInput(features);
-    // console.log("About to initialize geocoder...");
-    // debugger;
-    // geocoder.on('result', function (result) {
-    //   window.handleGeocoderResult(result);
-    // });
+    // document.getElementById('geocoder').appendChild(geocoder.onAdd(window.map));
+    const geocoder = createGeocoderInput(features);
+    console.log("About to initialize geocoder...");
+    debugger;
+    geocoder.on('result', function (result) {
+      window.handleGeocoderResult(result);
+    });
     console.log("Initialized geocoder..."); 
+    // const geocoder = createGeocoderInput(features);
+
+    // geocoder.on("result", storeSelectedLocation);
+
     const navList = document.querySelector(".nav-list");
     const header = document.querySelector(".header");
     const headerMid = document.querySelector(".nav-mid");
     const utilityLogo = document.querySelector(".nav-utility-mid-logo");
     const search = document.querySelector("#search-toggle");
+
+
+    // const navHeight = header.getBoundingClientRect().height;
+    // window.addEventListener("scroll", () => {
+    //   const scrollHeight = window.pageYOffset;
+    //   if (scrollHeight > navHeight) {
+    //     header.classList.add("fix");
+    //     headerMid.classList.add("hide");
+    //     utilityLogo.classList.add("show");
+    //   } else {
+    //     header.classList.remove("fix");
+    //     headerMid.classList.remove("hide");
+    //     utilityLogo.classList.remove("show");
+    //   }
+    // });
+
+    // const geocoderContainer = document.getElementById("geocoder");
+    // document
+    //   .getElementById("geocoder")
+    //   .appendChild(geocoder.onAdd(window.map));
+
+    // Removed geocoder.on('result', ...) event listener
+
+
+    // const links = [...document.querySelectorAll(".nav-list a")];
+    // links.map((link) => {
+    //   link.addEventListener("click", () => {
+    //     window.scrollTo({
+    //       top: 0,
+    //       left: 0,
+    //       behavior: "smooth",
+    //     });
+    //   });
+    // });
     document.querySelectorAll('.tag').forEach(tagElement => {
         tagElement.addEventListener('click', async () => {
           const tag = tagElement.dataset.tag;
           const newActiveTags = dataPost.activeTags.includes(tag)
                 ? dataPost.activeTags.filter(activeTag => activeTag !== tag)
                 : [...dataPost.activeTags, tag];
+  
           dataPost.setActiveTags(newActiveTags);
+  
+          // Then render your content as needed...
+          // For example:
           document.querySelector('#post-layout').innerHTML = await this.render();
           this.after_render();
         });
       });
+
+
     const hamburger = document.querySelector(".hamburger");
+
     hamburger.addEventListener("click", () => {
       navList.classList.toggle("show");
     });
@@ -268,6 +436,7 @@ const HeaderMap = {
             header.classList.add("fix"); 
             headerMid.classList.add("hide");
             utilityLogo.classList.add("show");
+
         } else {
             header.classList.remove("fix");
             headerMid.classList.remove("hide");

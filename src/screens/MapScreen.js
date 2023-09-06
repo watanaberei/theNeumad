@@ -6,18 +6,12 @@ import { createMapMarker } from "../components/MapMarker";
 import { createGeojsonListing } from "../components/GeojsonListing";
 import { createGeocoderInput } from "../components/GeocoderInput";
 import AllBlog from "../components/AllBlog.js"; // Import AllBlog component
-import storeSelectedLocation from "../components/Header";
-import {mapRoute} from "../components/mapRoute";
-import polyline from '@mapbox/polyline';
-import HeaderHome from '../components/HeaderHome'
-
-
 
 const MapScreen = {
   render: () => {
     return `
-      <div class="grid platinum postContainer">
-        <div id="postListing" class="m postListing"></div>
+      <div class="grid platinum blogContainer">
+        <div id="blogListing" class="m blogListing"></div>
         <div class="s map">
           <div id="map-container" class="fullBleed"></div>
         </div>
@@ -27,30 +21,37 @@ const MapScreen = {
   after_render: async () => {
     const map = initMap();
     window.map = map;
-    
     const { features } = await geojsonStore();
-    // const geocoder = createGeocoderInput(features);
-    
+
+    console.log("features", features);
+    const geocoder = createGeocoderInput(features);
     document
       .getElementById("geocoder")
       .appendChild(geocoder.onAdd(map));
-       geocoder.on("result", function (result) {
+    
+    geocoder.on("result", function (result) {
       const searchedCityName = result.result.text;
+    
       const cityBoundaryFeatures = map.querySourceFeatures("city-boundaries", {
         filter: ["==", "NAME", searchedCityName],
       });
-      
       geocoder.on("result", storeSelectedLocation);
+    
+
       if (cityBoundaryFeatures.length > 0) {
         const cityBoundary = cityBoundaryFeatures[0];
         const cityBoundaryCoordinates = cityBoundary.geometry.coordinates;
+
         const bounds = cityBoundaryCoordinates.reduce((bounds, coord) => {
           return bounds.extend(coord);
         }, new mapboxgl.LngLatBounds(cityBoundaryCoordinates[0][0], cityBoundaryCoordinates[0][0]));
+
         map.fitBounds(bounds, { padding: 50, duration: 1000 });
+
         if (map.getLayer("searched-city-boundary")) {
           map.removeLayer("searched-city-boundary");
         }
+
         if (map.getLayer("searched-city-fill")) {
           map.removeLayer("searched-city-fill");
         }
@@ -108,6 +109,7 @@ const MapScreen = {
         });
       }
     });
+
     map.on("moveend", function () {
       const mapBounds = map.getBounds();
       const center = map.getCenter();
@@ -115,24 +117,32 @@ const MapScreen = {
       const sortedFeatures = sortFeaturesByDistance(filteredFeatures, center);
       renderFeatures(sortedFeatures, map);
     });
+
     map.on("click", (e) => {
+      // Set `bbox` as 5px reactangle area around clicked point.
       const bbox = [
         [e.point.x - 5, e.point.y - 5],
         [e.point.x + 5, e.point.y + 5],
       ];
+      // Find features intersecting the bounding box.
       const selectedFeatures = map.queryRenderedFeatures(bbox, {
         layers: ["counties"],
       });
       const fips = selectedFeatures.map((feature) => feature.properties.FIPS);
+      // Set a filter matching selected features by FIPS codes
+      // to activate the 'counties-highlighted' layer.
       map.setFilter("counties-highlighted", ["in", "FIPS", ...fips]);
       new mapboxgl.Popup()
         .setLngLat(e.lngLat)
         .setHTML(e.features[0].properties.name)
         .addTo(map);
     });
+
     setCurrentLocation(map, features);
   },
 };
+
+
 function setCurrentLocation(map, features) {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -141,6 +151,7 @@ function setCurrentLocation(map, features) {
         position.coords.latitude,
       ];
       const userLocationMarker = createUserLocationMarker(userCoordinates, map);
+
       const mapBounds = map.getBounds();
       const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
       const sortedFeatures = sortFeaturesByDistance(
@@ -150,8 +161,6 @@ function setCurrentLocation(map, features) {
       renderFeatures(sortedFeatures, map);
 
       zoomToShowAtLeastThreePins(map, features, userCoordinates);
-      let correctedUserCoordinates = [userCoordinates[1], userCoordinates[0]];
-      mapRoutes(correctedUserCoordinates, features);  // call mapRoute here
     });
   } else {
     renderFeatures(features, map);

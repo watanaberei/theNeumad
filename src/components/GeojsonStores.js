@@ -7,7 +7,7 @@ let dataBlog = new DataBlog();
 export async function geojsonStore() {
   try {
     const BlogData = await dataBlog.getData();
-
+    console.log("BlogData", BlogData);
     // Log the raw data you're receiving from the API
     // console.log("Raw BlogData: ", JSON.stringify(BlogData, null, 2));
 
@@ -15,15 +15,21 @@ export async function geojsonStore() {
       // Extract properties from the store object
       const {
         title,
-        headline: { text: headline },
+        headline: { subtext, text, eyebrow},
         slug, 
         location: { region, address, geolocation: { lat, lon }, type }, // Change here
-        category: { category: category },
+        category: { categoryType, genre },
+        summary: { best, noise, parking, environment},
         series,
+        neustar,
         // ratings,
         variant,
         media: { 
-          thumbnail  
+          thumbnail,
+          logo,
+          gallery,
+          area,
+          recommendations  
         },
         snippet: { text: snippet },
         tag,
@@ -41,16 +47,28 @@ export async function geojsonStore() {
         "properties": {
           title,
           variant,
-          headline,
+          text,
+          subtext,
+          eyebrow,
           slug,
           address,
           region,
           lat, 
           lon, // And here
           type,
-          category,
+          best, 
+          noise,
+          parking,
+          neustar,
+          environment,
+          categoryType,
+          genre,
           series,
           thumbnail,
+          logo,
+          gallery,
+          area,
+          recommendations,
           snippet,
           tag,
         },

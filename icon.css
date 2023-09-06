@@ -117,7 +117,15 @@
 
 
 /* NEUSTAR */
-.icon-Neustar-0of4 {
+.icon-rating-neustar {
+  background: url('_assets/icon/rating/icon-rating-neustar.svg') no-repeat;
+  height: 30px;
+  width: 18px;
+  display: block;
+  color: var(--ink03); 
+}
+
+/* .icon-Neustar-0of4 {
     background: url('_assets/icon/neustar/icon_Neustar-0of4.svg') no-repeat;
     height: 12px;
     width: 12px;
@@ -155,7 +163,7 @@
     width: 12px;
     display: block;
     color: var(--white01);
-}
+} */
 /* NEUSTAR */
 
 
