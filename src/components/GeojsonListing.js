@@ -1,4 +1,13 @@
 // src/components/GeojsonListing.js
+import createReviewCard from "./card-review.js";
+
+
+// import { createArticleCard } from "./card-article.js";
+// import { createBlogCard } from "./card-blog.js";
+// import { createStoreCard } from "./card-store.js";
+// import { createDefaultCard } from "./card-default.js";
+
+
 export function createGeojsonListing(store, map, userCoordinates) {
   if (!store.properties) {
     return '';
@@ -6,19 +15,18 @@ export function createGeojsonListing(store, map, userCoordinates) {
   
  
   const { 
-    lat, best, neustar, lon, series, region, address, tag, slug, variant, 
+    lat, best, neustar, lon, seriesName, region, address, tag, slug, variant, 
     thumbnail, gallery: originalGallery, logo, area, recommendations, 
-    categoryType, genre, text, subtext, eyebrow, location, summary, 
+    categoryType, genre, text, subtext, eyebrow, location, hours, summary, 
   } = store.properties;
 
-  console.log(store.properties)
+  console.log("seriesName",seriesName)
 
   const tags = tag && tag.length ? tag[0].tags : [];
-  // const bests = best && best.length ? best[0].bests : [];
-  // const bests = best && best.length ? best[0].bests : [];
   const bests = best || [];
   const title = text || [];
   const subtitle = subtext || [];
+  const series = seriesName && seriesName.length ? seriesName[0].series : [];
   const eyebrows = eyebrow || [];
   const locations = location || [];
   const limitedBest03 = tags.slice(0, 3);
@@ -26,27 +34,22 @@ export function createGeojsonListing(store, map, userCoordinates) {
 
 
   
+  console.log("logo", logo);
   console.log("subtitle", subtitle);
   console.log("title", title);
   console.log("eyebrow", eyebrow);
 
 
   const galleryData = originalGallery && Array.isArray(originalGallery) && originalGallery.length ? originalGallery : [];
-  // console.log("Gallery Data:", galleryData);
-
   const galleryHTML = generateGalleryHTML(galleryData);
-  // console.log("Generated Gallery HTML:", galleryHTML);
-
-
-  // console.log("best",best);
-  // console.log("bests",bests);
-  
-  // console.log('Title: ' + title + ', ' + 'Category: ' + category + ', ' + 'Latitude: ' + lat + ', ' + 'Longitude: ' + lon  + ', ' + 'Address: '+ address)
   let tagsHTML = '';
 
   let bestHTML = '';
   limitedBest03.forEach(best => {
-    bestHTML +=  `<span class="metadata-tag-text text01 bold">${best}</span>`;
+    bestHTML +=  `
+    <div class="metadata-tag">
+      <span class="metadata-tag-text text01 bold">${best}</span>
+    </div>`;
   });
 
   limitedTags03.forEach(tag => {
@@ -54,13 +57,14 @@ export function createGeojsonListing(store, map, userCoordinates) {
                    <span class="metadata-tag-text text01 bold">${tag}</span>
                  </div>`;
   });
-
-
-
   
 
-
-  
+  function generateCarouselItem(content) {
+    const carouselItem = document.createElement('div');
+    carouselItem.className = 'card-postCarousel-item';
+    carouselItem.innerHTML = content;
+    return carouselItem;
+  }
  
   const listing = document.createElement('a');
   listing.className = ' ' + 'card-postListing-item';
@@ -70,9 +74,64 @@ export function createGeojsonListing(store, map, userCoordinates) {
   listing.onclick = function() {
     mapRoute(userCoordinates, store.geometry.coordinates);
   }
-  if (variant === 'articles') { ////////////////////ARTICLES////////////////////
+ 
+
+
+
+
+  
+  if (variant === 'reviews') { 
+    const cardContainer = document.createElement('div');
+    cardContainer.className = 'cards-container';  // You can give it a class for styling.
+    listing.className += ' ' + 'listingReview' + ' ' + 'card-mid-item';
+    
+    const reviewContentData = {
+        thumbnail: thumbnail,
+        logo: logo,
+        title: title,
+        region: region,
+        bestHTML: bestHTML
+        // You can continue adding other necessary properties here
+    };
+
+    const reviewContent = createReviewCard.render(reviewContentData);
+
+    function generateCarouselItem(reviewContent) {
+        const reviewCarouselItem = document.createElement('div');
+        reviewCarouselItem.className = 'card-postCarousel-item';
+        reviewCarouselItem.innerHTML = 'Reviewed Cards' + reviewContent;
+        return reviewCarouselItem;
+    }
+
+    const carouselItem = generateCarouselItem(reviewContent);
+    cardContainer.appendChild(carouselItem);
+}
+
+
+
+
+
+
+
+  
+  if (variant === 'reviews') { 
+    listing.className += ' ' + 'listingReviews' + ' ' + 'card-mid-item';
+    
+    const reviewContentData = {
+        thumbnail: thumbnail,
+        logo: logo,
+        title: title,
+        region: region,
+        bestHTML: bestHTML
+        // You can continue adding other necessary properties here
+    };
+
+    const reviewContent = createReviewCard.render(reviewContentData);
+    const carouselItem = generateCarouselItem(reviewContent);
+    listing.appendChild(carouselItem);
+} else if (variant === 'articles') { ////////////////////ARTICLES////////////////////
     listing.className += ' ' + 'listingArticles' + ' ' + 'card-full-item';
-    listing.innerHTML = `
+    listing.innerHTML = `${logo}
     <div class="c1-c3 card-postListing-item-content">
       <div class="content-title">
         <span class="header05">
@@ -109,7 +168,7 @@ export function createGeojsonListing(store, map, userCoordinates) {
   // Create different innerHTML based on variant
 } else if (variant === 'stores') {////////////////////STORES////////////////////
     listing.className += ' ' + 'listingStore' + ' ' + 'card-mid-item';
-    listing.innerHTML = `
+    listing.innerHTML = `${logo}
     <div class="neustar-tag rating-tag">
       <span class="metadata-tag-text neustar-tag-text bold03">${neustar}</span>
       <i class="icon-rating-neustar"></i>
@@ -119,124 +178,96 @@ export function createGeojsonListing(store, map, userCoordinates) {
         ${galleryHTML}
       </div>
     </div>
-  <div class="c1col2-p2 card-postListing-item-content">
-    <div class="content-title">
-      <span class="bold03">
-        ${title}
-      </span>
-      <span class="text03">
-      ${genre} in ${region}
-      </span>
-
-    </div>
-
-    <div class="post-data">
-      <div class="tag-collection">
-        <div class="nav-list-divider">
-          <div class="lineV"></div>
+    
+    <div class="c1col2-p2 storeListing-content card-postListing-item-content">
+    
+      <div class="card-content-header">
+        <div class="content-title">
+          <span class="bold03">
+            ${title}
+          </span>
+          <span class="text03">
+          ${genre} to ${categoryType} in ${region}
+          </span>
         </div>
-        <div class="post-data">
-          ${tagsHTML}
+        <div class="data-time">
+          <span class="data-time-text text01">2m Read</span>
         </div>
-      </div>
-      <div class="data-time">
-        <span class="data-time-text text01">2m Read</span>
-      </div>
-
-      <div class="lineH"></div>
-    </div>
-  </div>
-  `; 
-} else if (variant === 'reviews') { ////////////////////REVIEWS////////////////////
-    listing.className += ' ' + 'listingReviews' + ' ' + 'card-mid-item';
-    listing.innerHTML = `
-  <div class="p1-c2col1 ratioPlatinum card-postListing-item-img">
-    <img class="item-img" src="${thumbnail}" alt="" />
-  </div>
-
-  <div class="c1col2-p2 card-postListing-item-content">
-    <div class="content-title">
-      <span class="header04">
-        ${title}
-      </span>
-      ${best}
-      ${bests}
-      ${bestHTML}
-      <span class="paragraph">
-       ${region}
-      </span>
       </div>
 
       <div class="post-data">
         <div class="tag-collection">
-          <div class="nav-list-divider">
-            <div class="lineV"></div>
-          </div>
           <div class="post-data">
-            ${tagsHTML}
+            ${bestHTML}
           </div>
         </div>
+      </div>
+      
+    </div>
+  `; 
+}  else if (variant === 'blogs') { ////////////////////BLOGS////////////////////
+    listing.className += ' ' + 'listingPosts' + ' ' + 'card-mid-item';
+    listing.innerHTML = `${logo}
+    <div class="listingPosts-content">
+      <div class="c1col2-p2 card-postListing-item-content">
+
         <div class="data-time">
-          <span class="data-time-text text01">2m Read</span>
+          <span class="text-single-line">
+            <span class="data-time-text text01">${eyebrows}</span>
+            <span class="data-time-text text01">${series}</span>
+          </span>
         </div>
 
-      <div class="lineH"></div>
-    </div>
-  </div>`; 
-  
-  } else if (variant === 'blogs') { ////////////////////BLOGS////////////////////
-    listing.className += ' ' + 'listingPosts' + ' ' + 'card-mid-item';
-    listing.innerHTML = `
+        <div class="lineH"></div>
 
-
-  <div class="c1col2-p2 card-postListing-item-content">
-    <div class="content-title">
-      <span class="header04">
-        ${title}
-      </span>
-      <span class="paragraph03">
-      ${subtitle}
-      </span>
-
-      <span class="paragraph">
-       ${region}
-      </span>
+        <div class="content-title">
+     
+          <span class="header04">
+            ${title}
+          </span>
+          <span class="text03">
+          ${subtitle}
+          </span>
+          <span class="text03">
+          ${series}
+          </span>
+        </div>
       </div>
 
-      <div class="blogs-data">
+      <div class="post-data">
         <div class="tag-collection">
-          <div class="nav-list-divider">
-            <div class="lineV"></div>
-          </div>
           <div class="post-data">
-            ${tagsHTML}
+          ${bestHTML}
           </div>
         </div>
-        <div class="data-time">
-          <span class="data-time-text text01">2m Read</span>
-        </div>
-
-      <div class="lineH"></div>
-    </div>
-  </div>`; // You should replace '...' with the HTML for posts variant
+      </div>
+    
+  </div>
+`; // You should replace '...' with the HTML for posts variant
   } else {
     // Fallback case if the variant is not recognized
     listing.className += ' ' + 'listingPosts' + ' ' + 'card-mid-item';
-    listing.innerHTML = `
+    listing.innerHTML = `${logo}
     
 
     <div class="c1col2-p2 card-postListing-item-content">
-      <div class="content-title">
-        <span class="header04">
-          ${title}
-        </span>
-        <span class="text03">
-        ${subtitle}
-        </span>
-        <span class="paragraph">
-        ${region}
-        </span>
+      <div class="card-content-header">
+        <div class="content-title">
+          <span class="header04">
+            ${title}
+          </span>
+          <span class="text03">
+          ${subtitle}
+          </span>
+          <span class="paragraph">
+          ${region}
+          </span>
+        </div>
+        <div class="data-current">
+          <span class="data-time-text text01">2m Read</span>
+        </div>
       </div>
+
 
       <div class="post-data">
         <div class="tag-collection">
@@ -247,10 +278,6 @@ export function createGeojsonListing(store, map, userCoordinates) {
             ${tagsHTML}
           </div>
         </div>
-        <div class="data-time">
-          <span class="data-time-text text01">2m Read</span>
-        </div>
-
       <div class="lineH"></div>
     </div>
   </div>`; // You should replace '...' with the fallback HTML
@@ -270,6 +297,7 @@ export function createGeojsonListing(store, map, userCoordinates) {
   });
   return galleryHTML;
 }
+
 
 
 

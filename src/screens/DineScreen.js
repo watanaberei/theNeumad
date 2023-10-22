@@ -5,6 +5,10 @@ import { initMap } from "../components/MapApi";
 import { geojsonStore } from "../components/GeojsonStores";
 import { createMapMarker } from "../components/MapMarker";
 import { createGeojsonListing } from "../components/GeojsonListing";
+import { createGeojsonStoreListing } from "../components/GeojsonStoreListing";
+import { createGeojsonReviewListing } from "../components/GeojsonReviewListing";
+import { createGeojsonArticleListing } from "../components/GeojsonArticleListing";
+import { createGeojsonBlogListing } from "../components/GeojsonBlogListing";
 import { createGeocoderInput } from "../components/GeocoderInput";
 import AllBlog from "../components/AllBlog.js"; // Import AllBlog component
 import storeSelectedLocation from "../components/Header";
@@ -17,10 +21,48 @@ const DineScreen = {
     return `
     <div class="map-container grid platinum postContainer">
       <div class="m sidebar">
-        <div class="heading">
-          <span class="header01">Nearby Stores</span>
-        </div>
-        <div id="postListing" class="postListing">
+        <div class="sidebar-container">
+
+          <div class="listing-item" id="listing-store">
+            <div class="heading">
+              <span class="header01">21 Stores</span>
+            </div>
+            <div id="postStore" class="postStore">
+            </div>
+          </div>
+
+          <div class="listing-item" id="listing-blog">
+            <div class="heading">
+              <span class="header01">Blog</span>
+            </div>
+            <div id="postBlog" class="postBlog">
+            </div>
+          </div>
+
+           <div class="listing-item" id="listing-article">
+            <div class="heading">
+              <span class="header01">Article</span>
+            </div>
+            <div id="postArticle" class="postArticle">
+            </div>
+          </div>
+
+          <div class="listing-item" id="listing-review">
+            <div class="heading">
+              <span class="header01">Reviewed</span>
+            </div>
+            <div id="postReview" class="postReview">
+            </div>
+          </div>
+
+          <div class="listing-item" id="listing-store">
+            <div class="heading">
+              <span class="header01">Nearby Stores</span>
+            </div>
+            <div id="postListing" class="postListing">
+            </div>
+          </div>
+
         </div>
       </div>
       <div class="s map" id="map">
@@ -288,20 +330,42 @@ function sortFeaturesByDistance(features, center) {
     return distanceA - distanceB;
   });
 }
+
+
+
+
 function renderFeatures(features, map) {
-  document.getElementById("postListing").innerHTML = "";
+  const elements = {
+    postListing: document.getElementById("postListing"),
+    postStore: document.getElementById("postStore"),
+    postReview: document.getElementById("postReview"),
+    postArticle: document.getElementById("postArticle"),
+    postBlog: document.getElementById("postBlog")
+  };
+
+  // Clear out old listings
+  for (let key in elements) {
+    elements[key].innerHTML = "";
+  }
+
   features.forEach((store) => {
-    const onClick = (store) => {
-      flyToStore(store, map);
-      createPopUp(store, map);
+    const listings = {
+      postListing: createGeojsonListing(store),
+      postStore: createGeojsonStoreListing(store),
+      postReview: createGeojsonReviewListing(store),
+      postArticle: createGeojsonArticleListing(store),
+      postBlog: createGeojsonBlogListing(store)
     };
 
-    const marker = createMapMarker(store, map, onClick);
-    const listing = createGeojsonListing(store, onClick);
-
-    document.getElementById("postListing").appendChild(listing);
+    for (let key in listings) {
+      if (listings[key] && listings[key].innerHTML.trim() !== "") {
+        elements[key].appendChild(listings[key]);
+      }
+    }
   });
 }
+
+
 
 
 

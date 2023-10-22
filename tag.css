@@ -68,7 +68,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: var(--g);
+    gap: 6px;
   }
 
 .tag-collection {
@@ -230,19 +230,21 @@
   .metadata-tag {
     /* margin-right: var(--s03); */
     display: flex;
-    border-radius: 6px;
-    outline-width: 2px;
-    outline-color: var(--grey02);
+    border-radius: 30px;
+    outline-width: 1px
+px
+;
+    outline-color: var(--ink03);
     outline-style: solid;
     background: var(--texture);
-    background-color: var(--grey01);
+    /* background-color: var(--grey01); */
     /* box-shadow: var(--shadowOutline01); */
     gap: 3px;
     /* font-size: 9px; */
     /* letter-spacing: var(--tracking01_D); */
     /* font-weight: bold; */
     /* text-transform: uppercase; */
-    padding: 9px 18px;
+    padding: 9px 12px;
     /* font-size: 9px; */
     /* letter-spacing: var(--tracking03_D); */
     /* font-weight: bold; */

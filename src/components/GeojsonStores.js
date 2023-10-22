@@ -2,6 +2,7 @@
 import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../api.js";
 import DataBlog from "./DataPost";
 
+
 let dataBlog = new DataBlog();
 
 export async function geojsonStore() {
@@ -16,11 +17,14 @@ export async function geojsonStore() {
       const {
         title,
         headline: { subtext, text, eyebrow},
+        publishedAt,
         slug, 
+        popularTimes,
         location: { region, address, geolocation: { lat, lon }, type }, // Change here
         category: { categoryType, genre },
         summary: { best, noise, parking, environment},
-        series,
+        series: {seriesName},
+        hours, 
         neustar,
         // ratings,
         variant,
@@ -45,6 +49,7 @@ export async function geojsonStore() {
           "coordinates": [lon, lat], // And here
         },
         "properties": {
+          publishedAt,
           title,
           variant,
           text,
@@ -52,10 +57,13 @@ export async function geojsonStore() {
           eyebrow,
           slug,
           address,
+          seriesName,
           region,
           lat, 
           lon, // And here
           type,
+          hours,
+          popularTimes,
           best, 
           noise,
           parking,
@@ -63,7 +71,6 @@ export async function geojsonStore() {
           environment,
           categoryType,
           genre,
-          series,
           thumbnail,
           logo,
           gallery,
@@ -76,7 +83,7 @@ export async function geojsonStore() {
     });
 
     // Log the formatted features as raw JSON
-    // console.log("Formatted features: ", JSON.stringify(features, null, 2));
+    console.log("Formatted features: ", JSON.stringify(features, null, 2));
     return { features };
     
   } catch (error) {

@@ -23,7 +23,7 @@ const HeaderHome = {
               <div class="nav-main-left left">
                   <div class="nav-main-logo">
                       <!-- hamburger -->  
-                      <img class="img-logo" src="./_assets/_brand/logo/logo-neustar-Dark.svg" alt="">
+                      <img class="img-logo" src="./_assets/_brand/logomark/logomark-neumad.svg" alt="">
                   </div>
               </div>
               <div class="nav-main-center search-container">

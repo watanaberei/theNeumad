@@ -117,12 +117,25 @@
 
 
 /* NEUSTAR */
-.icon-rating-neustar {
-  background: url('_assets/icon/rating/icon-rating-neustar.svg') no-repeat;
-  height: 30px;
-  width: 18px;
+.icon-neustar-active12 {
+  background: url('_assets/icon/rating/icon-neustar-active.svg') no-repeat;
+  height: 12px;
+  width: 12px;
   display: block;
-  color: var(--ink03); 
+}
+
+.icon-neustar-inactive12 {
+  background: url('_assets/icon/rating/icon-neustar-inactive.svg') no-repeat;
+  height: 12px;
+  width: 12px;
+  display: block;
+}
+
+
+.icon-neustar-container {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
 }
 
 /* .icon-Neustar-0of4 {

@@ -119,16 +119,6 @@
 
 
 
-  .article-content {
-    /* padding-top: 7.5%; */
-    padding-bottom: 7.5%;
-    /* max-width: 30%; */
-    margin: 0 auto;
-    display: grid;
-    /* font-size: var(--text03_D); */
-    /* grid-template-columns: 1fr 800px 1fr; */
-    gap: 1rem;
-  }
 
   /* .article-container .content p {
     line-height: 1.2;

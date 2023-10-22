@@ -79,7 +79,9 @@
 
 .search-input {
   display: grid;
-  grid-template-columns: 1fr 90px;
+  outline-style: solid;
+  outline-width: 1px;
+  border-radius: 30px;
 }
 .search {
   position: relative;

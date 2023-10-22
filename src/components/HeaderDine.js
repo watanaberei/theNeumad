@@ -38,7 +38,7 @@ const HeaderDine = {
                         <div class="navSecondary-utility-mid-logo">
                             <!-- logo -->
                             <a class="navSecondary-utility-mid-logo-container" href="/"> 
-                                <img src="./images/brand/twn_brand_logo-H-med_v08.svg" alt="">
+                                <img class="img-logo" src="./_assets/_brand/logomark/logomark-neumad.svg" alt="">
                             </a>
                         </div>
                     </div>

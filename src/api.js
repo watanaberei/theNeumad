@@ -30,7 +30,7 @@ const client = createClient({
 // slug,
 // location: { address, geolocation: { lat, lng }, type },
 // category,
-// series,
+// seriesName,
 // media: {
 //   thumbnail
 // },
@@ -197,6 +197,7 @@ export async function getStore(limit = 1, skip = 0) {
         ...stores,
         // title: stores?.title,
         // headline: stores?.headline,
+        publishedAt: stores?.sys?.publishedAt,
         headline: {
           text: stores?.headline?.text,
           subtext: stores?.headline?.subtext,
@@ -210,7 +211,7 @@ export async function getStore(limit = 1, skip = 0) {
           genre: stores?.category?.genre,
         },
         series: {
-          series: stores?.series?.series,
+          seriesName: stores?.series?.seriesName,
         },
         // sys: {
         //   id: stores?.sys?.id,
@@ -370,7 +371,7 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
             genre
           }
           series {
-            series
+            seriesName
           }
           headline {
             ... on Headline {
@@ -634,6 +635,9 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
         ...articles,
         title: articles?.title,
 
+        publishedAt: articles?.sys?.publishedAt,
+
+
         // id: articles?.sys?.id,
 
         // headline: articles?.headline,
@@ -664,7 +668,7 @@ export async function getArticleNeumadsTrail(limit = 6, skip = 0) {
           genre: articles?.category?.genre,
         },
         series: {
-          series: articles?.series?.series,
+          seriesName: articles?.series?.seriesName,
         },
         author: {
           name: articles?.author?.authorPseudonym,
@@ -862,7 +866,7 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
             genre
           }
           series {
-            series
+            seriesName
           }
           author {
             ... on Author {  # Use the correct type for author entries
@@ -907,6 +911,9 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
           media {
             ... on Media {
               title
+              logo {
+                url
+              }
               hero {
                 url
               }
@@ -1104,6 +1111,7 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
       return {
         ...reviews,
         title: reviews?.title,
+        publishedAt: reviews?.sys?.publishedAt,
 
         // id: reviews?.sys?.id,
 
@@ -1130,7 +1138,7 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
           genre: reviews?.category?.genre,
         },
         series: {
-          series: reviews?.series?.series,
+          seriesName: reviews?.series?.seriesName,
         },
         author: {
           name: reviews?.author?.authorPseudonym,
@@ -1153,6 +1161,7 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
           },
         },
         media: {
+          logo: reviews?.media?.logo?.url,
           hero: reviews?.media?.hero?.url,
           thumbnail: reviews?.media?.thumbnail?.url,
           gallery: reviews?.media?.galleryCollection?.items.map((item) => ({
@@ -1334,7 +1343,7 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
 //             category
 //           }
 //           series {
-//             series
+//             seriesName
 //           }
 //           author {
 //             ... on Author {  # Use the correct type for author entries
@@ -1568,7 +1577,7 @@ export const getStoresNeumadsReview = async (limit = 9, skip = 0) => {
 //           category: stores?.category?.category,
 //         },
 //         series: {
-//           series: stores?.series?.series,
+//           seriesName: stores?.series?.seriesName,
 //         },
 //         author: {
 //           name: stores?.author?.authorPseudonym,
@@ -1716,7 +1725,7 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
             genre
           }
           series {
-            title
+            seriesName
           }
           media {
             ... on Media {
@@ -1971,7 +1980,7 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
         title: blogs?.title,
 
         // id: blogs?.sys?.id,
-
+        publishedAt: blogs?.sys?.publishedAt,
 
         location: {
           type: blogs?.location?.type,
@@ -1994,7 +2003,7 @@ export const getArticlePost = async (limit = 9, skip = 0) => {
           genre: blogs?.category?.genre,
         },
         series: {
-          series: blogs?.series?.series,
+          seriesName: blogs?.series?.seriesName,
         },
         author: {
           name: blogs?.author?.authorPseudonym,
@@ -2244,7 +2253,7 @@ export default API;
 //         type,
 //         headline,
 //         category,
-//         series,
+//         seriesName,
 //         snippet,
 //         thumbnail,
 //         lat,
@@ -2292,7 +2301,7 @@ export default API;
 //             category
 //           }
 //           series {
-//             series
+//             seriesName
 //           }
 //           author {
 //             authorName
@@ -2361,7 +2370,7 @@ export default API;
 //                       category
 //                     }
 //                     series {
-//                       series
+//                       seriesName
 //                     }
 //                     media {
 //                       ... on Media {
@@ -2396,7 +2405,7 @@ export default API;
 //                       category
 //                     }
 //                     series {
-//                       series
+//                       seriesName
 //                     }
 //                     media {
 //                       ... on Media {
@@ -2431,7 +2440,7 @@ export default API;
 //                       category
 //                     }
 //                     series {
-//                       series
+//                       seriesName
 //                     }
 //                     media {
 //                       ... on Media {
@@ -2517,7 +2526,7 @@ export default API;
 //         category: blogs?.category?.category,
 //       },
 //       series: {
-//         series: blogs?.series?.series,
+//         seriesName: blogs?.series?.seriesName,
 //       },
 //       author: {
 //         name: blogs?.author?.authorPseudonym,
@@ -2629,7 +2638,7 @@ export default API;
 //             category
 //           }
 //           series {
-//             series
+//             seriesName
 //           }
 //           author {
 //             authorName
@@ -2698,7 +2707,7 @@ export default API;
 //                       category
 //                     }
 //                     series {
-//                       series
+//                       seriesName
 //                     }
 //                     media {
 //                       ... on Media {
@@ -2733,7 +2742,7 @@ export default API;
 //                       category
 //                     }
 //                     series {
-//                       series
+//                       seriesName
 //                     }
 //                     media {
 //                       ... on Media {
@@ -2768,7 +2777,7 @@ export default API;
 //                       category
 //                     }
 //                     series {
-//                       series
+//                       seriesName
 //                     }
 //                     media {
 //                       ... on Media {
@@ -2966,7 +2975,7 @@ export default API;
 //       category: blogs?.category?.category,
 //     },
 //     series: {
-//       series: blogs?.series?.series,
+//       seriesName: blogs?.series?.seriesName,
 //     },
 //     author: {
 //       name: blogs?.author?.authorPseudonym,
@@ -3124,7 +3133,7 @@ export const getFeaturedBlog = async (limit = 6, skip = 1) => {
               genre
             }
             series {
-              series
+              seriesName
             }
             media {
               ... on Media {

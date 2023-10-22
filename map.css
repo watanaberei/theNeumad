@@ -126,7 +126,7 @@ div#map-container {
   width: 3px;
   height: 3px;
   border-left: 0;
-  background: rgba(0, 0, 0, 0.1);
+  /* background: rgba(0, 0, 0, 0.1); */
 }
 
 ::-webkit-scrollbar-track {
@@ -134,7 +134,8 @@ div#map-container {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #00853e;
+  background: none;
+  /* background: #00853e; */
   border-radius: 0;
 }
 /* STORELIST */
