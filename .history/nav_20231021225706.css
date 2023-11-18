@@ -143,7 +143,7 @@
   /* grid-template-columns: initial; */
   /* grid-template-columns: var(--column) var(--d) var(--column) var(--d) var(--column) var(--d) var(--column) var(--d) var(--column); */
   grid-template-columns: 1fr var(--colWidth) -1fr;
-  /* width: -webkit-fill-available !important; */
+  width: -webkit-fill-available !important;
 }
 
 .nav-main-right {
@@ -384,4 +384,3 @@
       cursor: pointer;
     }
   }
-

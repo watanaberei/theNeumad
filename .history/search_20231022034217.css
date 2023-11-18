@@ -37,24 +37,19 @@
     display: grid;
     grid-column: 1 / 42;
     grid-template-columns: 1fr var(--colWidth) 1fr;
-    
 }
-#search-container {
-  outline-style: solid;
-  outline-width: 1px;
-  /* grid-column: 1 / 9; */
-  border-radius: 30px;
-  /* width: 100%; */
+.search-container {
+  width: 100%;
   /* display: grid; */
   /* grid-column: 24 / 35 !important; */
   /* grid-column: 24 / 35 !important; */
   /* grid-column: 24 / 35;
   z-index: 33; */
 }
-#search-container {
+.search-container {
   place-self: center;
   display: grid;
-  grid-column: 24 / 35;
+  grid-column: 24 / 35 ;
   grid-template-columns: 1fr var(--colWidth) -1fr;
   z-index: 33;
 }
@@ -69,39 +64,9 @@
 /*   margin: 0 auto; */
 /*   background-color: blue; */
 }
-/* .search-container {
-  place-self: center;
-  display: grid;
-  grid-column: 24 / 35;
-  grid-template-columns: 1fr var(--colWidth) -1fr;
-  z-index: 33;
-  
 
-  transition: grid-column 0.3s ease-in-out;
-} */
-.search {
-  width: 60%;  /* Initial contracted width. Adjust based on your design */
-  transition: width 0.3s ease-in-out;
-  outline-style: solid;
-  outline-width: 1px;
-  /* grid-column: 1 / 9; */
-  border-radius: 30px;
+#nav .search-container:hover {
 }
-
-.search-container.expanded .search {
-  width: 100%;  /* Expanded width */
-}
-
-
-.search-container {
-  place-self: center;
-  display: grid;
-  grid-column: 16 / 43; 
-  grid-template-columns: 1fr var(--colWidth) -1fr;
-  z-index: 33;
-  overflow: hidden; /* hide the overflowing content when it contracts */
-}
-
 #nav .search-input {
 /*   max-height: 63px; */
   background-color: #FBFBFB;

@@ -228,11 +228,13 @@
   }
   
   .metadata-tag {
+    /* margin-right: var(--s03); */
     display: flex;
-    border-radius: 3px;
-    background-color: #F3F4F7 !important;
-    outline-width: 1px;
-    outline-color: #EBEBEB;
+    border-radius: 30px;
+    outline-width: 1px
+px
+;
+    outline-color: var(--ink03);
     outline-style: solid;
     background: var(--texture);
     /* background-color: var(--grey01); */
@@ -242,7 +244,7 @@
     /* letter-spacing: var(--tracking01_D); */
     /* font-weight: bold; */
     /* text-transform: uppercase; */
-    padding: 1.5px 4.5px;
+    padding: 9px 12px;
     /* font-size: 9px; */
     /* letter-spacing: var(--tracking03_D); */
     /* font-weight: bold; */

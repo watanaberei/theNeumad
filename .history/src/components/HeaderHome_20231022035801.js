@@ -117,10 +117,11 @@ const HeaderHome = {
     const searchInput = document.querySelector('input[type="text"]');
     
 
+    // Add event listener for mouseenter
     navMain.addEventListener('mouseenter', function() {
-      searchContainer.classList.add('expanded');
       let searchBarCtaContainer = document.querySelector('.searchBar-cta .searchBar-cta-container');
       if (!searchBarCtaContainer) { 
+        // Create the searchBar-cta-container and append to searchBar-cta
         const containerElem = document.createElement('div');
         containerElem.className = 'searchBar-cta-container';
         containerElem.innerHTML = `
@@ -128,26 +129,27 @@ const HeaderHome = {
             <i class="cta menu-icon icon-Search-21px"></i>
           </button>`;
         document.querySelector('.searchBar-cta').appendChild(containerElem);
-      } else {
-        searchBarCtaContainer.classList.add('visible');
-      }
-    
-      // Update grid-column for search-container
-      searchContainer.style.gridColumn = '18 / 43';
-    });
-    
 
+        // Update grid-column for search-container
+        searchContainer.style.gridColumn = '18 / 43';
+        searchInput.style.width = '110px';
+        
+        document.getElementById('.search-container').style.gridColumn = '18 / 43';
+      }
+    });
+
+    // Add event listener for mouseleave
     navMain.addEventListener('mouseleave', function() {
-      searchContainer.classList.remove('expanded');
       let searchBarCtaContainer = document.querySelector('.searchBar-cta .searchBar-cta-container');
       if (searchBarCtaContainer) {
-        searchBarCtaContainer.classList.remove('visible');
+        searchBarCtaContainer.remove();
+
+        // Reset grid-column for search-container
+        searchContainer.style.gridColumn = '24 / 35';
+        document.getElementById('.search-container').style.gridColumn = '24 / 35';
+        searchInput.style.width = '330px';
       }
-    
-      // Reset grid-column for search-container
-      searchContainer.style.gridColumn = '24 / 35';
     });
-    
   },
   getLastSelectedResult: () => lastSelectedResult
 };

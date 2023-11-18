@@ -7,12 +7,12 @@ const Search = {
   render: async () => {
     return `
     SEARCH
-          <div class="search-container">
-            <div class="search-input">
-              <div class="search">
-                <div class="search-field-container">       
-                  <div class="search-category" id="search-category">      
-                    <a class="search-field search-fieldPlace" id="category" href="#" >
+        <div class="search-container">
+          <div class="search-input">
+            <div class="search">
+              <div class="search-field-container">       
+                <div class="search-category" id="search-category">      
+                  <a class="search-field search-fieldPlace" id="category" href="#" >
                     <div class="cta">            
                       <div class="cta-icon">
                         <i class="icon-category-Work20px">
@@ -25,6 +25,7 @@ const Search = {
               
                     </div>
                   </a>
+
                   <div class="search-category-results" id="search-category-results">
                     <div class="search-category-results-split" >
                       <div class="search-category-results-list">

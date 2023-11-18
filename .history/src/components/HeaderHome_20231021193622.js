@@ -26,7 +26,7 @@ const HeaderHome = {
                       <img class="img-logo" src="./_assets/_brand/logomark/logomark-neumad.svg" alt="">
                   </div>
               </div>
-              <div class="nav-main-center search-container" id="search-container">
+              <div class="nav-main-center search-container">
               
                 <div class="search-input">
                   <div class="search">
@@ -36,7 +36,7 @@ const HeaderHome = {
                       <div class="searchBar-categoryType-container category">
                           <div class="categoryType-text">
                               <span class="text03">
-                                  <input type="text" id="search category" placeholder="Category" />
+                                  <input type="text" id="category" placeholder="Category" />
                               </span>
                           </div>
 
@@ -103,51 +103,12 @@ const HeaderHome = {
     if (geocoder._map) {
       geocoder.remove();
     }
-    
 
     // Attach the geocoder to the new map instance
     document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
     document.getElementById('search-btn').addEventListener('click', function() {
       // Your search button click handler code here...
     });
-
-    // Grab the nav-main and search-container elements
-    const navMain = document.querySelector('.nav-main');
-    const searchContainer = document.getElementById('search-container');
-    const searchInput = document.querySelector('input[type="text"]');
-    
-
-    navMain.addEventListener('mouseenter', function() {
-      searchContainer.classList.add('expanded');
-      let searchBarCtaContainer = document.querySelector('.searchBar-cta .searchBar-cta-container');
-      if (!searchBarCtaContainer) { 
-        const containerElem = document.createElement('div');
-        containerElem.className = 'searchBar-cta-container';
-        containerElem.innerHTML = `
-          <button id="search-btn">
-            <i class="cta menu-icon icon-Search-21px"></i>
-          </button>`;
-        document.querySelector('.searchBar-cta').appendChild(containerElem);
-      } else {
-        searchBarCtaContainer.classList.add('visible');
-      }
-    
-      // Update grid-column for search-container
-      searchContainer.style.gridColumn = '18 / 43';
-    });
-    
-
-    navMain.addEventListener('mouseleave', function() {
-      searchContainer.classList.remove('expanded');
-      let searchBarCtaContainer = document.querySelector('.searchBar-cta .searchBar-cta-container');
-      if (searchBarCtaContainer) {
-        searchBarCtaContainer.classList.remove('visible');
-      }
-    
-      // Reset grid-column for search-container
-      searchContainer.style.gridColumn = '24 / 35';
-    });
-    
   },
   getLastSelectedResult: () => lastSelectedResult
 };

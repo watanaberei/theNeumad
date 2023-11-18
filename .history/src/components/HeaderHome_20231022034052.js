@@ -26,7 +26,7 @@ const HeaderHome = {
                       <img class="img-logo" src="./_assets/_brand/logomark/logomark-neumad.svg" alt="">
                   </div>
               </div>
-              <div class="nav-main-center search-container" id="search-container">
+              <div class="nav-main-center search-container">
               
                 <div class="search-input">
                   <div class="search">
@@ -113,14 +113,14 @@ const HeaderHome = {
 
     // Grab the nav-main and search-container elements
     const navMain = document.querySelector('.nav-main');
-    const searchContainer = document.getElementById('search-container');
-    const searchInput = document.querySelector('input[type="text"]');
-    
+    const searchContainer = document.getElementById('.search-container');
+    const searchInput = document.getElementById('input');
 
+    // Add event listener for mouseenter
     navMain.addEventListener('mouseenter', function() {
-      searchContainer.classList.add('expanded');
       let searchBarCtaContainer = document.querySelector('.searchBar-cta .searchBar-cta-container');
       if (!searchBarCtaContainer) { 
+        // Create the searchBar-cta-container and append to searchBar-cta
         const containerElem = document.createElement('div');
         containerElem.className = 'searchBar-cta-container';
         containerElem.innerHTML = `
@@ -128,26 +128,24 @@ const HeaderHome = {
             <i class="cta menu-icon icon-Search-21px"></i>
           </button>`;
         document.querySelector('.searchBar-cta').appendChild(containerElem);
-      } else {
-        searchBarCtaContainer.classList.add('visible');
-      }
-    
-      // Update grid-column for search-container
-      searchContainer.style.gridColumn = '18 / 43';
-    });
-    
 
+        // Update grid-column for search-container
+        searchContainer.style.gridColumn = '16 / 43 !important';
+        searchInput.style.width = '110px !important';
+      }
+    });
+
+    // Add event listener for mouseleave
     navMain.addEventListener('mouseleave', function() {
-      searchContainer.classList.remove('expanded');
       let searchBarCtaContainer = document.querySelector('.searchBar-cta .searchBar-cta-container');
       if (searchBarCtaContainer) {
-        searchBarCtaContainer.classList.remove('visible');
+        searchBarCtaContainer.remove();
+
+        // Reset grid-column for search-container
+        searchContainer.style.gridColumn = '24 / 35 !important';
+        searchInput.style.width = '330px !important';
       }
-    
-      // Reset grid-column for search-container
-      searchContainer.style.gridColumn = '24 / 35';
     });
-    
   },
   getLastSelectedResult: () => lastSelectedResult
 };

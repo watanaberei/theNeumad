@@ -37,14 +37,9 @@
     display: grid;
     grid-column: 1 / 42;
     grid-template-columns: 1fr var(--colWidth) 1fr;
-    
 }
 #search-container {
-  outline-style: solid;
-  outline-width: 1px;
-  /* grid-column: 1 / 9; */
-  border-radius: 30px;
-  /* width: 100%; */
+  width: 100%;
   /* display: grid; */
   /* grid-column: 24 / 35 !important; */
   /* grid-column: 24 / 35 !important; */
@@ -61,47 +56,54 @@
 .searchBar-cta {
   grid-column: 43 / 44;
 }
-#nav .search-container {
-/*   height: fit-content; */
-/*   max-width: 680px;
-  top: 0px; */
-  /* top: 0px; */
-/*   margin: 0 auto; */
-/*   background-color: blue; */
-}
-/* .search-container {
+.search-container {
   place-self: center;
   display: grid;
-  grid-column: 24 / 35;
   grid-template-columns: 1fr var(--colWidth) -1fr;
+  position: relative; /* so that pseudo-element is positioned relative to this container */
   z-index: 33;
-  
-
-  transition: grid-column 0.3s ease-in-out;
-} */
-.search {
-  width: 60%;  /* Initial contracted width. Adjust based on your design */
-  transition: width 0.3s ease-in-out;
-  outline-style: solid;
-  outline-width: 1px;
-  /* grid-column: 1 / 9; */
-  border-radius: 30px;
+  overflow: hidden; /* to make sure pseudo-element doesn't overflow container */
 }
 
-.search-container.expanded .search {
-  width: 100%;  /* Expanded width */
+/* This acts as an additional background that appears to expand our search-container */
+.search-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: calc(var(--colWidth) * 9);  /* this is the difference in columns you initially wanted */
+  background-color: inherit;  /* assuming the search container has some background, otherwise set this to actual background */
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-in-out;
 }
 
+/* When search-container is "expanded", scale the pseudo-element */
+.search-container.expanded::before {
+  transform: scaleX(1);
+}
 
 .search-container {
   place-self: center;
   display: grid;
-  grid-column: 16 / 43; 
+  max-width: calc(var(--colWidth) * 11); /* Adjust this based on the width of each column */
+  transform: translateX(calc(var(--colWidth) * 23)); /* Adjust this too */
   grid-template-columns: 1fr var(--colWidth) -1fr;
   z-index: 33;
-  overflow: hidden; /* hide the overflowing content when it contracts */
+
+  /* transition */
+  transition: max-width 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
+/* hovered state */
+.search-container.hovered {
+  max-width: calc(var(--colWidth) * 27); /* Adjust this based on the width of each column */
+  transform: translateX(calc(var(--colWidth) * 15)); /* Adjust this too */
+}
+
+#nav .search-container:hover {
+}
 #nav .search-input {
 /*   max-height: 63px; */
   background-color: #FBFBFB;

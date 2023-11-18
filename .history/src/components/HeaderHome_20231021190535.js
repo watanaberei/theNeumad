@@ -1,7 +1,7 @@
 // ../components/HeaderHome.js
 import mapboxgl from "mapbox-gl";
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import DineScreen from '../screens/DineScreen';
+import DineScreen from '../screens/DineScreen'
 let lastSelectedResult = null;
 // Initialize the geocoder only once
 var geocoder = new MapboxGeocoder({
@@ -17,7 +17,7 @@ geocoder.on('result', function(e) {
 const HeaderHome = {
   render: async () => {
     return `
-          <nav class="nav navigation container nav-top" id="top-nav">
+          <nav class="nav navigation container nav-top">
             <section class="grid base nav-main">
           
               <div class="nav-main-left left">
@@ -26,17 +26,17 @@ const HeaderHome = {
                       <img class="img-logo" src="./_assets/_brand/logomark/logomark-neumad.svg" alt="">
                   </div>
               </div>
-              <div class="nav-main-center search-container" id="search-container">
+              <div class="nav-main-center search-container">
               
                 <div class="search-input">
                   <div class="search">
 
                   <!--CATEGORY-->
-                    <div class="searchBar-categoryType searchBar-item">
+                    <div class="searchBar-categoryType">
                       <div class="searchBar-categoryType-container category">
                           <div class="categoryType-text">
                               <span class="text03">
-                                  <input type="text" id="search category" placeholder="Category" />
+                                  <input type="text" id="category" placeholder="Category" />
                               </span>
                           </div>
 
@@ -44,11 +44,11 @@ const HeaderHome = {
                     </div>
 
                     <!--FILLER-->
-                    <div class="search-filler searchBar-item">
+                    <div class="search-filler">
                       <div class="filler">
                         <div class="cta-input">
                           <span class="field-text">
-                            in
+                            innnn
                           </span>
                         </div>
                       </div>
@@ -56,7 +56,7 @@ const HeaderHome = {
                     <!--FILLER-->
 
                     <!--LOCATION-->
-                    <div class="searchBar-location searchBar-item">
+                    <div class="searchBar-location">
                       <div id='geocoder' class='geocoder text03'></div>
                         <!--<div class="text03" id="geocoder"></div>-->
                         <pre id="result"></pre>
@@ -65,7 +65,7 @@ const HeaderHome = {
                     <!--LOCATION-->
 
                     <!--CTA-->
-                    <div class="searchBar-cta searchBar-item">
+                    <div class="searchBar-cta">
                       <div class="searchBar-cta-container">
                         <button id="search-btn"><i class="cta menu-icon icon-Search-21px"></i></button>
                       </div>
@@ -103,51 +103,12 @@ const HeaderHome = {
     if (geocoder._map) {
       geocoder.remove();
     }
-    
 
     // Attach the geocoder to the new map instance
     document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
     document.getElementById('search-btn').addEventListener('click', function() {
       // Your search button click handler code here...
     });
-
-    // Grab the nav-main and search-container elements
-    const navMain = document.querySelector('.nav-main');
-    const searchContainer = document.getElementById('search-container');
-    const searchInput = document.querySelector('input[type="text"]');
-    
-
-    navMain.addEventListener('mouseenter', function() {
-      searchContainer.classList.add('expanded');
-      let searchBarCtaContainer = document.querySelector('.searchBar-cta .searchBar-cta-container');
-      if (!searchBarCtaContainer) { 
-        const containerElem = document.createElement('div');
-        containerElem.className = 'searchBar-cta-container';
-        containerElem.innerHTML = `
-          <button id="search-btn">
-            <i class="cta menu-icon icon-Search-21px"></i>
-          </button>`;
-        document.querySelector('.searchBar-cta').appendChild(containerElem);
-      } else {
-        searchBarCtaContainer.classList.add('visible');
-      }
-    
-      // Update grid-column for search-container
-      searchContainer.style.gridColumn = '18 / 43';
-    });
-    
-
-    navMain.addEventListener('mouseleave', function() {
-      searchContainer.classList.remove('expanded');
-      let searchBarCtaContainer = document.querySelector('.searchBar-cta .searchBar-cta-container');
-      if (searchBarCtaContainer) {
-        searchBarCtaContainer.classList.remove('visible');
-      }
-    
-      // Reset grid-column for search-container
-      searchContainer.style.gridColumn = '24 / 35';
-    });
-    
   },
   getLastSelectedResult: () => lastSelectedResult
 };

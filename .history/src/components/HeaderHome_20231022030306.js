@@ -26,7 +26,7 @@ const HeaderHome = {
                       <img class="img-logo" src="./_assets/_brand/logomark/logomark-neumad.svg" alt="">
                   </div>
               </div>
-              <div class="nav-main-center search-container" id="search-container">
+              <div class="nav-main-center search-container">
               
                 <div class="search-input">
                   <div class="search">
@@ -111,43 +111,37 @@ const HeaderHome = {
       // Your search button click handler code here...
     });
 
-    // Grab the nav-main and search-container elements
-    const navMain = document.querySelector('.nav-main');
-    const searchContainer = document.getElementById('search-container');
-    const searchInput = document.querySelector('input[type="text"]');
-    
-
-    navMain.addEventListener('mouseenter', function() {
-      searchContainer.classList.add('expanded');
-      let searchBarCtaContainer = document.querySelector('.searchBar-cta .searchBar-cta-container');
-      if (!searchBarCtaContainer) { 
-        const containerElem = document.createElement('div');
-        containerElem.className = 'searchBar-cta-container';
-        containerElem.innerHTML = `
-          <button id="search-btn">
-            <i class="cta menu-icon icon-Search-21px"></i>
-          </button>`;
-        document.querySelector('.searchBar-cta').appendChild(containerElem);
-      } else {
-        searchBarCtaContainer.classList.add('visible');
-      }
-    
-      // Update grid-column for search-container
-      searchContainer.style.gridColumn = '18 / 43';
-    });
-    
-
-    navMain.addEventListener('mouseleave', function() {
-      searchContainer.classList.remove('expanded');
-      let searchBarCtaContainer = document.querySelector('.searchBar-cta .searchBar-cta-container');
-      if (searchBarCtaContainer) {
-        searchBarCtaContainer.classList.remove('visible');
-      }
-    
-      // Reset grid-column for search-container
-      searchContainer.style.gridColumn = '24 / 35';
-    });
-    
+     // Grab the nav-main and search-container elements
+     const navMain = document.querySelector('.nav-main');
+     const searchContainer = document.querySelector('.nav-main-center.search-container');
+ 
+     // Add event listener for mouseenter
+     navMain.addEventListener('mouseenter', function() {
+       let searchIcon = document.querySelector('.searchBar-cta .menu-icon.icon-Search-21px');
+       if (!searchIcon) { 
+         // Create the search icon and append to searchBar-cta-container
+         const iconElem = document.createElement('i');
+         iconElem.className = 'cta menu-icon icon-Search-21px';
+         document.querySelector('.searchBar-cta-container').appendChild(iconElem);
+ 
+         // Update grid-column for search-container
+         searchContainer.style.gridColumn = '16 / 43 !important';
+ 
+         // Update grid-column for the search icon (if needed)
+         iconElem.style.gridColumn = '...';  // Adjust if needed
+       }
+     });
+ 
+     // Add event listener for mouseleave
+     navMain.addEventListener('mouseleave', function() {
+       let searchIcon = document.querySelector('.searchBar-cta .menu-icon.icon-Search-21px');
+       if (searchIcon) {
+         searchIcon.remove();
+ 
+         // Reset grid-column for search-container
+         searchContainer.style.gridColumn = '24 / 35 !important';
+       }
+     });
   },
   getLastSelectedResult: () => lastSelectedResult
 };

@@ -37,7 +37,6 @@
     display: grid;
     grid-column: 1 / 42;
     grid-template-columns: 1fr var(--colWidth) 1fr;
-    
 }
 #search-container {
   outline-style: solid;
@@ -82,10 +81,6 @@
 .search {
   width: 60%;  /* Initial contracted width. Adjust based on your design */
   transition: width 0.3s ease-in-out;
-  outline-style: solid;
-  outline-width: 1px;
-  /* grid-column: 1 / 9; */
-  border-radius: 30px;
 }
 
 .search-container.expanded .search {

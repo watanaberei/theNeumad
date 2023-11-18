@@ -118,7 +118,6 @@ const HeaderHome = {
     
 
     navMain.addEventListener('mouseenter', function() {
-      searchContainer.classList.add('expanded');
       let searchBarCtaContainer = document.querySelector('.searchBar-cta .searchBar-cta-container');
       if (!searchBarCtaContainer) { 
         const containerElem = document.createElement('div');
@@ -133,12 +132,10 @@ const HeaderHome = {
       }
     
       // Update grid-column for search-container
-      searchContainer.style.gridColumn = '18 / 43';
+      searchContainer.style.gridColumn = '16 / 43';
     });
     
-
     navMain.addEventListener('mouseleave', function() {
-      searchContainer.classList.remove('expanded');
       let searchBarCtaContainer = document.querySelector('.searchBar-cta .searchBar-cta-container');
       if (searchBarCtaContainer) {
         searchBarCtaContainer.classList.remove('visible');
