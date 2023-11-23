@@ -1,0 +1,259 @@
+//ArticleScreen_052623.js
+const ArticleScreen = {
+    render: async () => {
+      const request = parseRequestUrl();
+      const articledetails = await getArticleNeumadsTrail(request.slug);
+      return articledetails.map(
+        (article) => {
+          return `
+          <div class="main">
+            <div class="article-detail">
+  
+  
+              <div class="article-container">
+              
+  
+  
+                <!-- /// ARTICLE IMAGE FEATURED /// -->
+                <div class="top fullBleedContent">
+                  <div class="fullBleedContentHeader">
+                    <div class="fullBleedContentHeaderContainer">
+                      <div class="featured-image">
+                        <img src="https:${article.hero.url}" alt="" />
+                      </div>                    
+                    </div>
+                  </div>
+                </div>
+                
+  
+                
+                <!-- /// ARTICLE HEADER /// -->
+                <section class="article-headline">
+                  <div class="article-header">
+                    <div class="article-title">
+                      <span class="display04">
+                        ${article.title}
+                      </span>
+                    </div>
+                    <div class="article-overview">
+                      <span class="text03">
+                          ${article.overview}
+                      </span>
+                    </div>
+  
+                    <div class="lineH"></div>
+                    <div class="article-data">
+                    <div class="tag-collection">
+                        <div class="featured-article-data-container">
+                            <a href="/#/${article.section}">
+                                <div class="section-tag" id="${article.section}">
+                                    <i class="section-tag-icon icon-${article.section}"></i>
+                                    <span class="section-tag-divider">
+                                    <div class="lineV"></div>
+                                    </span>
+                                    <span class="section-tag-text medium00">
+                                        ${article.section}
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+  
+                      
+                        <div class="nav-list-divider">
+                            <div class="lineV">
+                            </div>
+                        </div>
+                        <div class="featured-article-data-container">
+                            <div class="metadata-tag">
+                                <span class="metadata-tag-text text01">${article.tag} </span>
+                            </div>   
+                        </div>   
+                    </div>
+  
+                    
+                    <div class="data-time">
+                        <span class="data-time-text text01">2m Read</span>
+                    </div>
+                </div>
+  
+                    <!-- /// ARTICLE CONTENT /// -->
+                    <div class="content">
+                      <div class="article-content">
+                        <span class="text03">
+                          ${article.introduction}
+                        </span>
+                      </div>
+                    </div>
+                    <!-- /// ARTICLE CONTENT /// -->
+  
+  
+                   
+                  </div>
+                  <div class="article-info d-flex">
+                    <span class="d-flex text01"
+                      ><i class="bx bx-user"></i> ${article.authorName}</span
+                    >
+                    <span class="d-flex text01"
+                      ><i class="bx bx-time-five"></i> ${format(
+                                                          parseISO(article.createdAt),
+                                                          "PPP"
+                                                        )}
+                    </span>
+                  </div>
+                  <div class="lineH"></div>
+                  
+                </section>
+  
+                <!-- /// Advertisement /// -->
+                <div class="content  content-advertisement content-advertistment-details">
+                  <div class="ad-container container">
+                    <div class="ad d-flex" id="ad-home">
+                      <a href="/#/">
+                        <img src="./images/ad_test.png" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <!-- /// ADVERTISEMENT /// --> 
+  
+                <!-- /// ARTICLE BODY /// -->
+                <section class="article-body">    
+  
+                  <!-- /// ARTICLE CONTENT /// -->
+                  <div class="content">
+                    <div class="article-content">
+                      <span class="text03">
+                      ${documentToHtmlString(article.details, renderOptions)}
+                      </span>
+                    </div>
+                  </div>
+                  <!-- /// ARTICLE CONTENT /// -->
+  
+
+
+
+
+
+
+
+
+
+
+                  <!-- /// ARTICLE SIDEPANEL /// -->
+                  <div class="content">
+                    <div class="article-content">
+                      <span class="header03">
+                        Related Articles
+                      </span>
+                      <!--FEATURED BLOG--> 
+
+                      <div class="primary-featured-blog"> 
+                          <!--
+                          <div class="primary-featured-blog-img">
+                              <a href="/#/article/${article.relatedReferences.slug}">
+                                  <img src="${article.relatedReferences.thumbnail}" alt="" />
+                              </a>
+                          </div>
+                          >--
+                          
+          
+                          <div class="primary-featured-blog-text">  
+                              <div class="featured-blog-header">
+                                  <a href="/#/${article.relatedReferences.slug}">
+                                      <div class="featured-blog-header-container">
+                                          <span class="featured-blog-title-text header04">
+                                              ${article.relatedReferences.title}
+                                          </span> 
+                                          <!--
+                                          <span class="featured-blog-overview-text text02">
+                                              ${article.relatedReferences.subtext}
+                                          </span>
+                                          -->
+                                      </div>
+                                  </a>
+                              </div>
+                      
+                              <div class="blog-data">
+                                  <div class="tag-collection">
+                                      <div class="featured-blog-data-container">
+                                          <a href="/#/dine">
+                                              <div class="section-tag" id="${articleNeumadsTrail.section}">
+                                                  <i class="section-tag-icon icon-${articleNeumadsTrail.section}"></i>
+                                                  <span class="section-tag-divider">
+                                                  <div class="lineV"></div>
+                                                  </span>
+                                                  <span class="section-tag-text medium00">
+                                                      ${articleNeumadsTrail.section}
+                                                  </span>
+                                              </div>
+                                          </a>
+                                      </div>
+                                      <div class="nav-list-divider">
+                                          <div class="lineV">
+                                          </div>
+                                      </div>
+          
+                                      <div class="blog-data-container">
+                                          <div class="metadata-tag">
+                                              <span class="metadata-tag-text text01">${articleNeumadsTrail.tag} </span>
+                                          </div>   
+                                      </div>   
+                                  </div>
+                                  <div class="data-time">
+                                      <span class="data-time-text text01">2m Read</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="lineH"></div>
+                      </div>
+          
+                  </a>
+
+                    </div>
+                  </div>
+                  <!-- /// ARTICLE CONTENT /// -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </section>
+                <!-- /// ARTICLE BODY /// -->
+  
+              </div>
+  
+              <!--
+              <div class="side-ad">
+                <div class="lineH"></div>
+                <a href="#" class="vertical-ad">
+                <img src="/images/side-ad.svg"/>
+                </a>
+              </div>
+              -->
+  
+            </div>
+          </div>
+      `;
+        }
+      );
+    },
+    after_render: () => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    },
+  };
+  
+  export default ArticleScreen;
+  

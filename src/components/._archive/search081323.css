@@ -1,0 +1,304 @@
+
+
+.searchBar {
+    background: #e7e7e7;
+    display: grid;
+    grid-template-columns: 1fr 1fr 42px;
+    grid-gap: 6px;
+    /* max-height: 48px; */
+    width: inherit;
+    /* color: orange; */
+    border-radius: 33px;
+    outline-width: 1px;
+    outline-color: var(--grey01);
+    outline-style: solid;
+    background: var(--texture);
+    /* background-color: var(--white01); */
+    align-self: center;
+    /* box-shadow: var(--shadowOutline03) !important; */
+  }
+
+  button {
+    background: none;
+    border: none;
+    outline: none;
+  }
+  .btn {
+    /* background: #fff; */
+    /* line-height: 72px; */
+    text-align: center;
+    /* width: 72px; */
+    cursor: pointer;
+    padding: 6px 0;
+    height: 12px;
+  }
+  .stretch-to-fit {
+    overflow: hidden;
+  }
+  .searchBar-categoryType {
+    display: flex;
+    /* display: grid; */
+    /* grid-template-columns: 1fr 21px; */
+    flex-direction: column;
+    /* gap: var(--s03); */
+    max-height: 42px;
+    justify-content: center;
+  }    
+  .searchBar-categoryType-container {
+    display: grid;
+    /* grid-column: 1; */
+    grid-template-columns: 1fr 21px;
+    /* flex-direction: row; */
+    /* min-height: 42px; */
+    padding: 9px 18px !important;
+    align-items: center;
+    justify-content: center;
+    width: inherit;
+  }
+  .searchBar-categoryType-container .categoryType-text {
+    width: max-content;
+    /* background-color: pink; */
+  }
+  .searchBar-categoryType-container .categoryType-icon {
+    width: inherit;
+    /* background-color: pink; */
+  }
+  .searchBar-categoryType .searchBar-categoryType-dropDown {
+    display: flex;
+    flex-direction: row-reverse;
+    
+    opacity: 0;
+    overflow: hidden;
+    /* max-width: 0; */
+    -webkit-transition: all 300ms ease;
+    -moz-transition: all 300ms ease;
+    -o-transition: all 300ms ease;
+    transition: all 300ms ease;
+  }
+  .categoryType .searchBar-categoryType-dropDown .search-control {
+    padding: 0;
+    /* border-bottom: 1px solid var(--black01); */
+    width: 100%;
+  }
+  .categoryType .searchBar-categoryType-dropDown .search-control input {
+    background: none;
+    border: none;
+    /* height: 30px; */
+    /* margin: 21px 0; */
+    width: 100%;
+  }
+  .categoryType.active {
+    /* background: #ffffff; */
+    border-bottom: 1px solid var(--black01);
+  }
+  .categoryType.active .searchbar-categorytype-dropdown {
+    opacity: 1;
+    /* min-width: 300px; */
+  }
+  input {
+    outline: 0;
+  }
+  .search-container {
+    overflow: hidden;
+    padding: 10px 0;
+  }
+  .search-container .search-results {
+    /* height: 100%; */
+    overflow-y: auto;
+  }
+  .search-container .search-results ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .search-container .search-results ul li {
+    /* height: 84px; */
+    padding: 15px;
+  }
+
+  input {
+    /* text-transform: uppercase; */
+    font-size: var(--text03_D);    
+  }
+
+
+
+
+
+
+
+  .searchBar-location {
+    display: flex;
+    /* display: grid; */
+    /* grid-template-columns: 1fr 21px; */
+    flex-direction: column;
+    /* gap: var(--s03); */
+    max-height: 42px;
+    justify-content: center;
+  }
+
+  
+
+
+
+
+
+
+
+
+/* ————————————————————— GEOCODER ————————————————————— */
+.geocoder {
+  position: absolute !important;
+  z-index: 1;
+  /* width: 25vw; */
+  /* left: 50%; */
+  /* margin-left: -25%; */
+  top: 10px;
+  }
+
+  .geocoder {
+    z-index: 1;
+    width: 50%;
+    left: 50%;
+    margin-left: -25%;
+    top: 10px;
+    }
+    #geocoder {
+      z-index: 1;
+      position: relative;
+      /* margin: 20px; */
+      display: grid;
+      /* grid-column: 1; */
+      grid-template-columns: 1fr 21px;
+      /* flex-direction: row; */
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      width: inherit;
+      }
+  .mapboxgl-ctrl-geocoder {
+  /* max-width: 25vw; */
+  font-size: inherit !important;
+  line-height: inherit !important;
+  font-family: inherit !important;
+  position: inherit !important;
+  background-color: inherit !important;
+  width:inherit !important;
+  min-width: inherit !important;
+  z-index: inherit !important;
+  border-radius: inherit !important;
+  transition:inherit !important;
+  box-shadow: none !important;
+  }
+
+  .mapboxgl-ctrl-geocoder--icon-search {
+    display: none !important;
+  }
+
+  .mapboxgl-ctrl-geocoder {
+    border: 0;
+    border-radius: 0;
+    position: absolute !important;
+    /* top: 0; */
+    /* min-height: 42px !important; */
+    /* width: 800px; */
+    margin: 0 auto;
+  }
+
+  .mapboxgl-ctrl-geocoder--input {
+    background-color: none;
+    /* padding: 0px 21px; */
+    min-height: 42px;
+    /* font-size: var(--text03_D); */
+    padding:  9px 18px !important;
+    margin: 0 auto !important;
+  }
+  .mapboxgl-ctrl-geocoder {
+    /* width: 300px!important; */
+    border-radius: 30px!important;
+      
+}
+      .mapboxgl-ctrl-geocoder {
+        min-width: 100%;
+    }
+  
+  .mapboxgl-ctrl-geocoder {
+    border: 0;
+    border-radius: 0;
+    position: absolute !important;
+    top: 0;
+    /* width: 800px; */
+    margin-top: 0;
+  }
+  
+  .mapboxgl-ctrl-geocoder > div {
+    min-width: 100%;
+    margin-left: 0;
+  }
+  
+  #geocoder {
+    z-index: 1;
+    /* margin: 20px; */
+    }
+    
+    .mapboxgl-ctrl-geocoder {
+    min-width: 100%;
+    }
+  
+    .mapboxgl-ctrl-geocoder, .mapboxgl-ctrl-geocoder .suggestions {
+      box-shadow:-3px 0px 8px rgba(0,0,0,0.22);
+  }
+  /* GEOCODER CONTROLS */
+
+
+
+/* ————————————————————— GEOCODER ————————————————————— */
+
+
+
+
+
+
+
+
+
+
+
+/* CTA */
+.searchBar-cta {
+  max-height: 42px;
+  max-width: 42px;
+  padding: 0px;
+  height: 0px;
+}
+
+.searchBar-cta-container {
+  display: flex;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+}
+
+.searchBar-cta-container .cta {
+  margin: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

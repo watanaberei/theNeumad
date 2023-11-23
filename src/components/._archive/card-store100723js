@@ -1,0 +1,245 @@
+// card-store.js
+import { format, parseISO } from "date-fns";
+
+
+const createStoreCard = {
+
+  render: (storeData) => {
+    return `
+    <!--<div class="neustar-tag rating-tag">
+    <span class="metadata-tag-text neustar-tag-text bold03">${storeData.neustar}</span>
+    <i class="icon-rating-neustar"></i>
+  </div>-->
+  
+  <div class="p1-c2col1 ratioPlatinum card-postListing-item-img">
+    <div class="galleryContainer">
+      ${storeData.galleryHTML}
+    </div>
+  </div>
+
+
+  <div class="c1col2-p2 storeListing-content card-postListing-item-content">
+  
+    <div class="card-content-header">
+      <div class="content-title">
+        <span class="text03 bold">
+          ${storeData.title}
+        </span>
+        <span class="text03 bold icon-neustar-container">
+        ${storeData.neustarHTML}
+       </span>
+        <span class="text02">
+        ${storeData.genre} to ${storeData.categoryType} in ${storeData.region}
+        </span>
+      </div>
+      <div class="data-time">
+        <span class="data-time-text text01">2m Read</span>
+      </div>
+
+    </div>
+
+
+
+<div class="content-details">
+
+<div class="content-details-item" id="storeCurrentStatus">
+    <span class="label">
+        {storeCurrentStatus}
+    </span>
+</div>
+
+<div class="content-details-item" id="storeDetails">
+    <span class="text02">
+        ${storeData.genre}
+    </span>
+    <span class="text02 filler">
+        in 
+    </span>
+    <span class="text02">
+        ${storeData.region}
+    </span>
+</div>
+
+<div class="content-details-item" id="storeCurrentHours">
+    <span class="label">
+        {storeCurrentHours}
+    </span>
+</div>
+
+<div class="content-summary">
+  <div class="content-summary-item" id="environment">
+      <span class="label">
+        ${storeData.envionment}
+      </span>
+  </div>
+  <div class="content-summary-filler">
+      <span class="label">
+          in
+      </span>
+  </div>
+  <div class="content-summary-item" id="noiseLevel">
+      <span class="label">
+          ${storeData.noiseLevel}
+      </span>
+  </div>
+  <div class="content-summary-filler">
+      <span class="label">
+          in
+      </span>
+  </div>
+  <div class="content-summary-item" id="parking">
+      <span class="label">
+          ${storeData.parking}
+      </span>
+  </div>
+</div>
+
+</div>
+
+
+
+
+
+    <div class="post-data">
+      <div class="tag-collection">
+        <div class="post-data">
+          ${storeData.bestHTML}
+        </div>
+      </div>
+    </div>
+    
+  </div>`;
+    },
+};
+
+export default createStoreCard;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // card-review.js
+// import { format, parseISO } from "date-fns";
+
+
+// const createReviewCard = {
+
+//   render: (reviewData) => {
+//     return `
+//     <div class="p1-c2col1 ratioPlatinum card-review-item-img">
+//         <img class="item-img review-item-img" src="${reviewData.thumbnail}" alt="" />
+//     </div>
+//     <div class="review-content content card-review-item-content">
+//         <div class="store-logo-img">
+//         <img class="item-img" src="${reviewData.logo}" alt="" />
+//         </div>
+//         <div class="content review-content-container p1-c2col1">
+//             <div class="content-container">
+//                 <div class="content-main">
+//                     <div class="content-title">
+//                         <span class="text03 bold">${reviewData.title}</span>
+//                         <span class="icon-neustar-container">
+//                             <i class="icon-neustar-active12"></i>
+//                             <i class="icon-neustar-active12"></i>
+//                             <i class="icon-neustar-inactive12"></i>
+//                         </span>
+//                         <span class="text03">${reviewData.neuscore}</span>
+//                     </div>
+//                     <div class="content-details">
+//                         <div class="content-details-item" id="storeCurrentStatus">
+//                             <span class="label">
+//                                 {storeCurrentStatus}
+//                             </span>
+//                         </div>
+//                         <div class="content-details-item" id="storeDetails">
+//                             <span class="text02">
+//                                 ${reviewData.genre}
+//                             </span>
+//                             <span class="text02 filler">
+//                                 in 
+//                             </span>
+//                             <span class="text02">
+//                                 ${reviewData.region}
+//                             </span>
+//                         </div>
+//                         <div class="content-details-item" id="storeCurrentHours">
+//                             <span class="label">
+//                                 {storeCurrentHours}
+//                             </span>
+//                         </div>
+
+//                         <div class="content-summary">
+//                             <div class="content-summary-item" id="environment">
+//                                 <span class="label">
+//                            Z         ${reviewData.envionment}
+//                                 </span>
+//                             </div>
+//                             <div class="content-summary-filler">
+//                                 <span class="label">
+//                                     in
+//                                 </span>
+//                             </div>
+//                             <div class="content-summary-item" id="noiseLevel">
+//                                 <span class="label">
+//                                     ${reviewData.noiseLevel}
+//                                 </span>
+//                             </div>
+//                             <div class="content-summary-filler">
+//                                 <span class="label">
+//                                     in
+//                                 </span>
+//                             </div>
+//                             <div class="content-summary-item" id="parking">
+//                                 <span class="label">
+//                                     ${reviewData.parking}
+//                                 </span>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//                 <div class="content-secondary">
+//                     <div class="post-data">
+//                         <div class="tag-collection">
+//                             <div class="post-data">
+//                                 ${reviewData.bestHTML}
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//     </div>`;
+//     },
+// };
+
+// export default createReviewCard;
+
+
+

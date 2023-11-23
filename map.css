@@ -1,22 +1,18 @@
 #map {
   display: grid !important;
-  grid-column-start: secondary-start !important;
-  grid-column: secondary-start / secondary-end !important;
-  /* grid-template-columns: 1fr; */
-  /* display: grid !important;
   position: absolute !important;
   grid-column-start: secondary-start !important;
   grid-column: secondary-start / secondary-end !important;
-  grid-template-columns: 1fr; */
+  grid-template-columns: 1fr;
   /* grid-column: span 2 !important; */
 }
 div#map-container {
   /* display: grid !important; */
   position: fixed;
   height: 100vh;
-  /* width: 100%; */
+  width: 100%;
   overflow: hidden;
-  /* float: left; */
+  float: left;
   /* position: absolute !important; */
   grid-column-start: secondary-start !important;
   grid-column: 1 / -1 !important;

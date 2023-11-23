@@ -1,0 +1,130 @@
+// src/components/GeojsonReviewListing.js
+
+import createReviewCard from "./card-review.js";
+
+export function createGeojsonReviewListing(store, map, userCoordinates) {
+  if (!store.properties) {
+    return '';
+  }
+
+  const { 
+    best, tag, slug, variant, neuscore, publishedAt,
+    storeType, environment, noiseLevel, parking,
+    thumbnail, logo, text, region, categoryType,
+  } = store.properties;
+
+  const bests = best || [];
+  const title = text || [];
+  const tags = tag && tag.length ? tag[0].tags : [];
+  const limitedBest03 = tags.slice(0, 3);
+
+  let bestHTML = '';
+  limitedBest03.forEach(best => {
+    bestHTML += `
+      <div class="metadata-tag">
+        <span class="metadata-tag-text text01 bold">${best}</span>
+      </div>`;
+  });
+
+  const cardContainer = document.createElement('div');
+  cardContainer.className = 'cards-container';
+
+  const carousel = document.createElement('a');
+  carousel.className = 'card-postCarousel-item';
+  carousel.href = '/#/'+variant+'/'+slug;
+  carousel.rel = 'noopener noreferrer nofollow';
+  carousel.target = categoryType + '-${store.sys.id}';
+  carousel.onclick = function() {
+    mapRoute(userCoordinates, store.geometry.coordinates);
+  };
+
+  if (variant === 'reviews') { 
+    carousel.className += ' ' + 'listingReview' + ' ' + 'card-mid-item';
+    
+    const reviewContentData = {
+        thumbnail: thumbnail,
+        publishedAt: publishedAt,
+        category: categoryType,
+        region: region,
+        storeType: storeType,
+        environment: environment,
+        noiseLevel: noiseLevel,
+        parking: parking, 
+        logo: logo,
+        title: title,
+        neuscore: neuscore,
+        categoryType: categoryType,
+        region: region,
+        bestHTML: bestHTML,
+        best: best
+    };
+
+    const reviewContent = createReviewCard.render(reviewContentData);
+    // const reviewCarouselItem = generateCarouselItem('Reviewed Cards' + reviewContent);
+    const reviewCarouselItem = generateCarouselItem(reviewContent);
+    cardContainer.appendChild(reviewCarouselItem);
+    carousel.appendChild(cardContainer);
+  }
+
+  return carousel;
+}
+
+function generateCarouselItem(content) {
+    const carouselItem = document.createElement('div');
+    carouselItem.className = 'card-postCarousel-item listingAReview';
+    carouselItem.innerHTML = content;
+    return carouselItem;
+}
+
+
+
+
+
+
+
+
+
+
+
+// else if (variant === 'reviews') { ////////////////////REVIEWS////////////////////
+//   listing.className += ' ' + 'listingReviews' + ' ' + 'card-mid-item';
+//   listing.innerHTML = `${logo}
+// <div class="p1-c2col1 ratioPlatinum card-postListing-item-img">
+//   <img class="item-img" src="${thumbnail}" alt="" />
+// </div>
+
+
+//   <div class="review-content content card-postListing-item-content">
+//     <div class="store-logo-img">
+//       <img class="item-img" src="${logo}" alt="" />
+//     </div>
+//     <div class="content review-content-container p1-c2col1 ratioPlatinum">
+//       <div class="content-title">
+//         <span class="header04">
+//           ${title}
+//         </span>
+//         <span class="paragraph">
+//         ${region}
+//         </span>
+//         </div>
+
+//         <div class="post-data">
+//           <div class="tag-collection">
+//             <div class="nav-list-divider">
+//               <div class="lineV"></div>
+//             </div>
+//             <div class="post-data">
+//               ${bestHTML}
+//             </div>
+//           </div>
+//           <div class="data-time">
+//             <span class="data-time-text text01">2m Read</span>
+//           </div>
+
+//         <div class="lineH"></div>
+//       </div>
+//     </div>
+  
+// </div>`; 
+
+// } 

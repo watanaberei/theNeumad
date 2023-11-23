@@ -1,0 +1,243 @@
+import { createReviewCard } from './card-review.js';
+import { createArticleCard } from './card-article.js';
+import { createBlogCard } from './card-blog.js';
+import { createStoreCard } from './card-store.js';
+import { createDefaultCard } from './card-default.js';
+
+export function createGeojsonListing(store, map, userCoordinates) {
+    if (!store || !store.properties) {
+        return '';
+    }
+
+ 
+    const { 
+      lat, best, neustar, lon, seriesName, region, address, tag, slug, variant, 
+      thumbnail, gallery: originalGallery, logo, area, recommendations, 
+      categoryType, genre, text, subtext, eyebrow, location, hours, summary, 
+    } = store.properties;
+  
+    console.log("seriesName",seriesName)
+  
+    const tags = tag && tag.length ? tag[0].tags : [];
+    const bests = best || [];
+    const title = text || [];
+    const subtitle = subtext || [];
+    const series = seriesName && seriesName.length ? seriesName[0].series : [];
+    const eyebrows = eyebrow || [];
+    const locations = location || [];
+    const limitedBest03 = tags.slice(0, 3);
+    const limitedTags03 = bests.slice(0, 3);
+  
+  
+    
+    console.log("logo", logo);
+    console.log("subtitle", subtitle);
+    console.log("title", title);
+    console.log("eyebrow", eyebrow);
+  
+  
+    const galleryData = originalGallery && Array.isArray(originalGallery) && originalGallery.length ? originalGallery : [];
+  
+    const galleryHTML = generateGalleryHTML(galleryData);
+  
+  
+    // console.log("best",best);
+    // console.log("bests",bests);
+    
+    // console.log('Title: ' + title + ', ' + 'Category: ' + category + ', ' + 'Latitude: ' + lat + ', ' + 'Longitude: ' + lon  + ', ' + 'Address: '+ address)
+    let tagsHTML = '';
+  
+    let bestHTML = '';
+    limitedBest03.forEach(best => {
+      bestHTML +=  `
+      <div class="metadata-tag">
+      <span class="metadata-tag-text text01 bold">${best}</span>
+      </div>`;
+    });
+  
+    limitedTags03.forEach(tag => {
+      tagsHTML += `<div class="metadata-tag">
+                     <span class="metadata-tag-text text01 bold">${tag}</span>
+                   </div>`;
+    });
+  
+  
+
+    const listing = document.createElement('a');
+    listing.className = ' ' + 'card-postListing-item';
+    listing.href = '/#/'+variant+'/'+slug;
+    listing.rel = 'noopener noreferrer nofollow';
+    listing.target = categoryType + '-${store.sys.id}';
+    listing.onclick = function() {
+      mapRoute(userCoordinates, store.geometry.coordinates);
+    }
+
+    let contentHTML = '';
+    switch (variant) {
+        case 'articles':
+            contentHTML = `
+            <div class="articles">
+                articles
+                <div class="articles-container">
+                    ${createArticleCard(title, variant, categoryType, region, bestHTML, thumbnail)}
+                </div>
+            </div>`;
+            break;
+        case 'stores':
+            contentHTML = `
+            <div class="stores">
+                stores
+                <div class="stores-container">
+                    ${createStoreCard(variant, slug, neustar, galleryHTML, title, genre, categoryType, region, bestHTML)}
+                </div>
+            </div>`;
+            break;
+        case 'reviews':
+            contentHTML = `
+            <div class="reviews">
+                reviews
+                <div class="reviews-container">
+                    ${createReviewCard(variant, slug, logo, thumbnail, title, region, bestHTML)}
+                </div>
+            </div>`;
+            break;
+        case 'blogs':
+            contentHTML = `
+            <div class="blogs">
+                blogs
+                <div class="blogs-container">
+                    ${createBlogCard(variant, region, slug, categoryType, title, subtitle, tagsHTML)}
+                </div>
+            </div>`;
+            break;
+        default:
+            contentHTML = createDefaultCard(variant, slug, title, region, tagsHTML);
+    }
+
+    listing.innerHTML = contentHTML;
+
+    const variantDiv = document.createElement('div');
+    variantDiv.className = variant;
+    variantDiv.appendChild(listing);
+    return variantDiv;
+}
+
+function generateGalleryHTML(gallery) {
+    let galleryHTML = '';
+    gallery.slice(0, 3).forEach(galleryItem => {
+        galleryHTML += `<img src="${galleryItem.url}" class="galleryItem ratio1x1" alt="" />`;
+    });
+    return galleryHTML;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { createReviewCard } from './card-review.js';
+// import { createArticleCard } from './card-article.js';
+// import { createBlogCard } from './card-blog.js';
+// import { createStoreCard } from './card-store.js';
+// import { createDefaultCard } from './card-default.js';
+
+// export function createGeojsonListing(store, map, userCoordinates) {
+//     if (!store.properties) {
+//         return '';
+//     }
+//     const postListing = document.createElement('div');
+//     postListing.className = 'postListing';
+
+
+
+
+
+
+//     const { 
+//         lat, best, neustar, lon, seriesName, region, address, tag, slug, variant, 
+//         thumbnail, gallery: originalGallery, logo, area, recommendations, 
+//         categoryType, genre, text, subtext, eyebrow, location, hours, summary, 
+//     } = store.properties;
+
+//     const tags = tag && tag.length ? tag[0].tags : [];
+//     const bests = best || [];
+//     const title = text || [];
+//     const subtitle = subtext || [];
+//     const series = seriesName && seriesName.length ? seriesName[0].series : [];
+//     const eyebrows = eyebrow || [];
+//     const locations = location || [];
+//     const limitedBest03 = tags.slice(0, 3);
+//     const limitedTags03 = bests.slice(0, 3);
+
+//     const galleryData = originalGallery && Array.isArray(originalGallery) && originalGallery.length ? originalGallery : [];
+//     const galleryHTML = generateGalleryHTML(galleryData);
+//     let tagsHTML = '';
+
+//     let bestHTML = '';
+//     limitedBest03.forEach(best => {
+//         bestHTML +=  `
+//         <div class="metadata-tag">
+//         <span class="metadata-tag-text text01 bold">${best}</span>
+//         </div>`;
+//     });
+
+//     limitedTags03.forEach(tag => {
+//         tagsHTML += `<div class="metadata-tag">
+//                        <span class="metadata-tag-text text01 bold">${tag}</span>
+//                      </div>`;
+//     });
+
+//     const variantDiv = document.createElement('div');
+//     variantDiv.className = variant;
+
+//     const card = document.createElement('a');
+//     card.href = '/#/' + variant + '/' + slug;
+//     card.rel = 'noopener noreferrer nofollow';
+//     card.target = categoryType + '-${store.sys.id}';
+//     card.onclick = function() {
+//         mapRoute(userCoordinates, store.geometry.coordinates);
+//     }
+
+//     switch (variant) {
+//         case 'articles':
+//             card.appendChild(createArticleCard(logo, title, categoryType, region, bestHTML, thumbnail));
+//             break;
+//         case 'stores':
+//             card.appendChild(createStoreCard(logo, neustar, galleryHTML, title, genre, categoryType, region, bestHTML));
+//             break;
+//         case 'reviews':
+//             card.appendChild(createReviewCard(logo, thumbnail, title, region, bestHTML));
+//             break;
+//         case 'blogs':
+//             card.innerHTML = createBlogCard(variant, slug, categoryType, logo, title, subtitle, region, tagsHTML, store.sys.id, mapRoute, userCoordinates, store.geometry.coordinates);
+//             break;
+//         default:
+//             card.appendChild(createDefaultCard(logo, title, subtitle, region, tagsHTML));
+//     }
+
+
+
+//   variantDiv.appendChild(card);
+//   return variantDiv;
+// }
+
+// function generateGalleryHTML(gallery) {
+//     let galleryHTML = '';
+//     gallery.slice(0, 3).forEach(galleryItem => {
+//         galleryHTML += `<img src="${galleryItem.url}" class="galleryItem ratio1x1" alt="" />`;
+//     });
+//     return galleryHTML;
+// }

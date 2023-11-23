@@ -1,0 +1,458 @@
+export function createGeojsonListing(store, map, userCoordinates) {
+  if (!store.properties) {
+    return '';
+  }
+
+  
+  const { 
+    lat, best, neustar, lon, seriesName, region, address, tag, slug, variant, 
+    thumbnail, gallery: originalGallery, logo, area, recommendations, 
+    categoryType, genre, text, subtext, eyebrow, location, hours, summary, 
+  } = store.properties;
+
+  console.log("seriesName",seriesName)
+
+  const tags = tag && tag.length ? tag[0].tags : [];
+  // const bests = best && best.length ? best[0].bests : [];
+  // const bests = best && best.length ? best[0].bests : [];
+  const bests = best || [];
+  const title = text || [];
+  const subtitle = subtext || [];
+  const series = seriesName && seriesName.length ? seriesName[0].series : [];
+  const eyebrows = eyebrow || [];
+  const locations = location || [];
+  const limitedBest03 = tags.slice(0, 3);
+  const limitedTags03 = bests.slice(0, 3);
+
+
+  
+  console.log("logo", logo);
+  console.log("subtitle", subtitle);
+  console.log("title", title);
+  console.log("eyebrow", eyebrow);
+
+
+  const galleryData = originalGallery && Array.isArray(originalGallery) && originalGallery.length ? originalGallery : [];
+  // console.log("Gallery Data:", galleryData);
+
+  const galleryHTML = generateGalleryHTML(galleryData);
+  // console.log("Generated Gallery HTML:", galleryHTML);
+
+
+  // console.log("best",best);
+  // console.log("bests",bests);
+  
+  // console.log('Title: ' + title + ', ' + 'Category: ' + category + ', ' + 'Latitude: ' + lat + ', ' + 'Longitude: ' + lon  + ', ' + 'Address: '+ address)
+  let tagsHTML = '';
+
+  let bestHTML = '';
+  limitedBest03.forEach(best => {
+    bestHTML +=  `
+    <div class="metadata-tag">
+    <span class="metadata-tag-text text01 bold">${best}</span>
+    </div>`;
+  });
+
+  limitedTags03.forEach(tag => {
+    tagsHTML += `<div class="metadata-tag">
+                   <span class="metadata-tag-text text01 bold">${tag}</span>
+                 </div>`;
+  });
+
+
+
+  
+
+
+
+  
+
+
+
+  const listing = document.createElement('a');
+  listing.href = '/#/' + variant + '/' + slug;
+  listing.rel = 'noopener noreferrer nofollow';
+  listing.target = categoryType + '-${store.sys.id}';
+  listing.onclick = function() {
+    mapRoute(userCoordinates, store.geometry.coordinates);
+  }
+
+  if (variant === 'articles') {
+    createArticlesListing(listing, logo, title, categoryType, region, bestHTML, thumbnail);
+  } else if (variant === 'stores') {
+    createStoreListing(listing, logo, neustar, galleryHTML, title, genre, categoryType, region, bestHTML);
+  } else if (variant === 'reviews') {
+    createReviewsListing(listing, logo, thumbnail, title, region, bestHTML);
+  } else {
+    listing.className += ' ' + 'listingPosts' + ' ' + 'card-mid-item';
+    listing.innerHTML = `${logo}
+    
+
+    <div class="c1col2-p2 card-postListing-item-content">
+      <div class="card-content-header">
+        <div class="content-title">
+          <span class="header04">
+            ${title}
+          </span>
+          <span class="text03">
+          ${subtitle}
+          </span>
+          <span class="paragraph">
+          ${region}
+          </span>
+        </div>
+        <div class="data-current">
+          <span class="data-time-text text01">2m Read</span>
+        </div>
+      </div>
+
+
+      <div class="post-data">
+        <div class="tag-collection">
+          <div class="nav-list-divider">
+            <div class="lineV"></div>
+          </div>
+          <div class="post-data">
+            ${tagsHTML}
+          </div>
+        </div>
+      <div class="lineH"></div>
+    </div>
+  </div>`; // You should replace '...' with the fallback HTML
+
+  }
+
+  return listing;
+}
+
+function createArticlesListing(listing, logo, title, categoryType, region, bestHTML, thumbnail) {
+  listing.className = 'card-postListing-item listingArticles card-full-item';
+  listing.innerHTML = `
+    ${logo}
+    <div class="c1-c3 card-postListing-item-content">
+      <div class="content-title">
+        <span class="header05">${title}</span>
+        <span class="paragraph">${categoryType}</span>
+        <span class="paragraph">${region}</span>
+      </div>
+      <div class="post-data">
+        <div class="tag-collection">
+          <div class="nav-list-divider">
+            <div class="lineV"></div>
+          </div>
+          <div class="post-data">${bestHTML}</div>
+        </div>
+        <div class="data-time">
+          <span class="data-time-text text01">2m Read</span>
+        </div>
+      </div>
+    </div>
+    <div class="c3col2-c5col2 ratio1x1 card-articleListing-item-img">
+      <img class="item-img" src="${thumbnail}" alt="" />
+      <img class="item-img" src="${thumbnail}" alt="" />
+    </div>
+  `;
+}
+
+function createStoreListing(listing, logo, neustar, galleryHTML, title, genre, categoryType, region, bestHTML) {
+  listing.className = 'card-postListing-item listingStore card-mid-item';
+  listing.innerHTML = `
+    ${logo}
+    <div class="neustar-tag rating-tag">
+      <span class="metadata-tag-text neustar-tag-text bold03">${neustar}</span>
+      <i class="icon-rating-neustar"></i>
+    </div>
+    <div class="p1-c2col1 ratioPlatinum card-postListing-item-img">
+      <div class="galleryContainer">${galleryHTML}</div>
+    </div>
+    <div class="c1col2-p2 storeListing-content card-postListing-item-content">
+      <div class="card-content-header">
+        <div class="content-title">
+          <span class="bold03">${title}</span>
+          <span class="text03">${genre} to ${categoryType} in ${region}</span>
+        </div>
+        <div class="data-time">
+          <span class="data-time-text text01">2m Read</span>
+        </div>
+      </div>
+      <div class="post-data">
+        <div class="tag-collection">
+          <div class="post-data">${bestHTML}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function createReviewsListing(listing, logo, thumbnail, title, region, bestHTML) {
+  listing.className = 'card-postCarousel-item listingReviews';  // Updated className here
+  listing.innerHTML = `
+    ${logo}
+    <div class="p1-c2col1 ratioPlatinum card-postCarousel-item-img">  // Updated className here
+      <img class="item-img" src="${thumbnail}" alt="" />
+    </div>
+    <div class="review-content content card-postCarousel-item-content">  // Updated className here
+      <div class="store-logo-img">
+        <img class="item-img" src="${logo}" alt="" />
+      </div>
+      <div class="content review-content-container p1-c2col1 ratioPlatinum">
+        <div class="content-title">
+          <span class="header04">${title}</span>
+          <span class="paragraph">${region}</span>
+        </div>
+        <div class="post-data">
+          <div class="tag-collection">
+            <div class="nav-list-divider">
+              <div class="lineV"></div>
+            </div>
+            <div class="post-data">${bestHTML}</div>
+          </div>
+          <div class="data-time">
+            <span class="data-time-text text01">2m Read</span>
+          </div>
+          <div class="lineH"></div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+ 
+ function generateGalleryHTML(gallery) {
+  let galleryHTML = '';
+  gallery.slice(0, 3).forEach(galleryItem => {
+    // console.log("Processing gallery item:", galleryItem);
+    galleryHTML += `
+
+              <img src="${galleryItem.url}" class="galleryItem ratio1x1" alt="" />
+    `;
+  });
+  return galleryHTML;
+}
+
+  
+
+
+
+
+
+ 
+//   const listing = document.createElement('a');
+//   listing.className = ' ' + 'card-postListing-item';
+//   listing.href = '/#/'+variant+'/'+slug;
+//   listing.rel = 'noopener noreferrer nofollow';
+//   listing.target = categoryType + '-${store.sys.id}';
+//   listing.onclick = function() {
+//     mapRoute(userCoordinates, store.geometry.coordinates);
+//   }
+//   if (variant === 'articles') { ////////////////////ARTICLES////////////////////
+//     listing.className += ' ' + 'listingArticles' + ' ' + 'card-full-item';
+//     listing.innerHTML = `${logo}
+//     <div class="c1-c3 card-postListing-item-content">
+//       <div class="content-title">
+//         <span class="header05">
+//           ${title}
+//         </span>
+//         <span class="paragraph">
+//         ${categoryType}
+//         </span>
+//         <span class="paragraph">
+//         ${region}
+//         </span>
+//       </div>
+  
+//       <div class="post-data">
+//         <div class="tag-collection">
+
+//           <div class="nav-list-divider">
+//             <div class="lineV"></div>
+//           </div>
+//           <div class="post-data">
+//             ${bestHTML}
+//           </div>
+//         </div>
+//         <div class="data-time">
+//           <span class="data-time-text text01">2m Read</span>
+//         </div>
+//       </div>
+//     </div>
+//     <div class="c3col2-c5col2 ratio1x1 card-articleListing-item-img">
+//     <img class="item-img" src="${thumbnail}" alt="" />
+//     <img class="item-img" src="${thumbnail}" alt="" />
+//     </div>
+//   `; 
+//   // Create different innerHTML based on variant
+// } else if (variant === 'stores') {////////////////////STORES////////////////////
+//     listing.className += ' ' + 'listingStore' + ' ' + 'card-mid-item';
+//     listing.innerHTML = `${logo}
+//     <div class="neustar-tag rating-tag">
+//       <span class="metadata-tag-text neustar-tag-text bold03">${neustar}</span>
+//       <i class="icon-rating-neustar"></i>
+//     </div>
+//     <div class="p1-c2col1 ratioPlatinum card-postListing-item-img">
+//       <div class="galleryContainer">
+//         ${galleryHTML}
+//       </div>
+//     </div>
+    
+//     <div class="c1col2-p2 storeListing-content card-postListing-item-content">
+    
+//       <div class="card-content-header">
+//         <div class="content-title">
+//           <span class="bold03">
+//             ${title}
+//           </span>
+//           <span class="text03">
+//           ${genre} to ${categoryType} in ${region}
+//           </span>
+//         </div>
+//         <div class="data-time">
+//           <span class="data-time-text text01">2m Read</span>
+//         </div>
+//       </div>
+
+//       <div class="post-data">
+//         <div class="tag-collection">
+//           <div class="post-data">
+//             ${bestHTML}
+//           </div>
+//         </div>
+//       </div>
+      
+//     </div>
+//   `; 
+// } else if (variant === 'reviews') { ////////////////////REVIEWS////////////////////
+//     listing.className += ' ' + 'listingReviews' + ' ' + 'card-mid-item';
+//     listing.innerHTML = `${logo}
+//   <div class="p1-c2col1 ratioPlatinum card-postListing-item-img">
+//     <img class="item-img" src="${thumbnail}" alt="" />
+//   </div>
+
+
+//     <div class="review-content content card-postListing-item-content">
+//       <div class="store-logo-img">
+//         <img class="item-img" src="${logo}" alt="" />
+//       </div>
+//       <div class="content review-content-container p1-c2col1 ratioPlatinum">
+//         <div class="content-title">
+//           <span class="header04">
+//             ${title}
+//           </span>
+//           <span class="paragraph">
+//           ${region}
+//           </span>
+//           </div>
+
+//           <div class="post-data">
+//             <div class="tag-collection">
+//               <div class="nav-list-divider">
+//                 <div class="lineV"></div>
+//               </div>
+//               <div class="post-data">
+//                 ${bestHTML}
+//               </div>
+//             </div>
+//             <div class="data-time">
+//               <span class="data-time-text text01">2m Read</span>
+//             </div>
+
+//           <div class="lineH"></div>
+//         </div>
+//       </div>
+    
+//   </div>`; 
+  
+//   } else if (variant === 'blogs') { ////////////////////BLOGS////////////////////
+//     listing.className += ' ' + 'listingPosts' + ' ' + 'card-mid-item';
+//     listing.innerHTML = `${logo}
+//     <div class="listingPosts-content">
+//       <div class="c1col2-p2 card-postListing-item-content">
+
+//         <div class="data-time">
+//           <span class="text-single-line">
+//             <span class="data-time-text text01">${eyebrows}</span>
+//             <span class="data-time-text text01">${series}</span>
+//           </span>
+//         </div>
+
+//         <div class="lineH"></div>
+
+//         <div class="content-title">
+     
+//           <span class="header04">
+//             ${title}
+//           </span>
+//           <span class="text03">
+//           ${subtitle}
+//           </span>
+//           <span class="text03">
+//           ${series}
+//           </span>
+//         </div>
+//       </div>
+
+//       <div class="post-data">
+//         <div class="tag-collection">
+//           <div class="post-data">
+//           ${bestHTML}
+//           </div>
+//         </div>
+//       </div>
+    
+//   </div>
+// `; // You should replace '...' with the HTML for posts variant
+//   } else {
+//     // Fallback case if the variant is not recognized
+//     listing.className += ' ' + 'listingPosts' + ' ' + 'card-mid-item';
+//     listing.innerHTML = `${logo}
+    
+
+//     <div class="c1col2-p2 card-postListing-item-content">
+//       <div class="card-content-header">
+//         <div class="content-title">
+//           <span class="header04">
+//             ${title}
+//           </span>
+//           <span class="text03">
+//           ${subtitle}
+//           </span>
+//           <span class="paragraph">
+//           ${region}
+//           </span>
+//         </div>
+//         <div class="data-current">
+//           <span class="data-time-text text01">2m Read</span>
+//         </div>
+//       </div>
+
+
+//       <div class="post-data">
+//         <div class="tag-collection">
+//           <div class="nav-list-divider">
+//             <div class="lineV"></div>
+//           </div>
+//           <div class="post-data">
+//             ${tagsHTML}
+//           </div>
+//         </div>
+//       <div class="lineH"></div>
+//     </div>
+//   </div>`; // You should replace '...' with the fallback HTML
+//   }
+ 
+//   return listing;
+//  }
+ 
+//  function generateGalleryHTML(gallery) {
+//   let galleryHTML = '';
+//   gallery.slice(0, 3).forEach(galleryItem => {
+//     // console.log("Processing gallery item:", galleryItem);
+//     galleryHTML += `
+
+//               <img src="${galleryItem.url}" class="galleryItem ratio1x1" alt="" />
+//     `;
+//   });
+//   return galleryHTML;
+// }
+
+
