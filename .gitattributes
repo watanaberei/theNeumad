@@ -1,0 +1,2 @@
+*.zip filter=lfs diff=lfs merge=lfs -text
+_archive[[:space:]]14-18-07-760.zip filter=lfs diff=lfs merge=lfs -text
