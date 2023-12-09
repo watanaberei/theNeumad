@@ -8,7 +8,7 @@ import { format, parseISO } from "date-fns";
 // import mapNearby from "..components/mapNearby.js";
 import mapboxgl from "mapbox-gl";
 import { initMap } from "../components/MapApi";
-import {storePopuplarTimes} from "../components/StorePopularTimes";
+import storePopuplarTimes from "../components/StorePopularTimes";
 
 
 const renderOptions = {
@@ -982,8 +982,8 @@ const renderOptions = {
                             <div class="map nearbyMap" id="map">
                                 <div id="map-container" class="nearbyMap-container"></div>
                             </div>
-                            <div class="chart-container" id="chartsContainer">
-                                <!-- Dynamic content will be appended here -->
+                            <div class="store-body-media-carousel">
+                                ${popularTimeHTML}
                             </div>
                             <!------ GRAPH ------>
 

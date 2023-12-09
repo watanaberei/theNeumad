@@ -982,8 +982,8 @@ const renderOptions = {
                             <div class="map nearbyMap" id="map">
                                 <div id="map-container" class="nearbyMap-container"></div>
                             </div>
-                            <div class="chart-container" id="chartsContainer">
-                                <!-- Dynamic content will be appended here -->
+                            <div class="store-body-media-carousel">
+                                ${popularTimeHTML}
                             </div>
                             <!------ GRAPH ------>
 

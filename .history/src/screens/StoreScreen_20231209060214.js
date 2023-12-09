@@ -8,7 +8,6 @@ import { format, parseISO } from "date-fns";
 // import mapNearby from "..components/mapNearby.js";
 import mapboxgl from "mapbox-gl";
 import { initMap } from "../components/MapApi";
-import {storePopuplarTimes} from "../components/StorePopularTimes";
 
 
 const renderOptions = {
@@ -84,8 +83,6 @@ const renderOptions = {
         // TIME
         const popularTime = store?.popularTimes || [];
         console.log(popularTime);
-        const popularTimeHTML = storePopuplarTimes(popularTime);
-
 
         // Summary
         const limitedBest03 = store?.summary?.best?.length ? store.summary.best.slice(0, 3) : [];
@@ -129,8 +126,7 @@ const renderOptions = {
         // Current
         const currentHour = new Date().getHours();
         const currentDay = new Date().getDay();
-        console.log("time",currentHour, currentDay);
-
+        
         // TAGS
         const tags = store.tag && store.tag.length ? store.tag[0].tags : [];
         const attributeTags = store.tag && store.tag.length ? store.tag[0].attributeTags : [0];
@@ -631,7 +627,7 @@ const renderOptions = {
 
 
 
-
+                    
                     <!---- DETAILS ----> 
                     <div class="store-headline-details">
 
@@ -906,7 +902,7 @@ const renderOptions = {
 
                 
                     <!------ LOCATION ------>
-                    <section class="store-location"> 
+                    <section class="store-service"> 
                     
                         <!------ HEADLINE ------>
                         <div class="store-title">
@@ -961,68 +957,6 @@ const renderOptions = {
 
                     </section>
                     <!------ LOCATION ------>
-
-
-
-
-
-                    <!------ TIME ------>
-                    <section class="store-time"> 
-                    
-                        <!------ HEADLINE ------>
-                        <div class="store-title">
-                            <div class="store-body-title-container"> 
-                                <span class="header04">
-                                    LOCATION
-                                </span>   
-                            </div>   
-                            
-
-                            <!------ GRAPH ------>
-                            <div class="map nearbyMap" id="map">
-                                <div id="map-container" class="nearbyMap-container"></div>
-                            </div>
-                            <div class="chart-container" id="chartsContainer">
-                                <!-- Dynamic content will be appended here -->
-                            </div>
-                            <!------ GRAPH ------>
-
-                            <div class="store-body-title-subtext">
-                            
-                                <span class="header04">
-                                    ${summaryDetailsHTML}
-                                </span>   
-                        
-                            </div>
-                        </div>
-                        <!------ HEADLINE ------>
-
-                        <!------ OVERVIEW ------>
-                        <div class="store-snippet">
-                            <span class="text03">
-                                Facility Overview
-                            </span>
-                            <span class="text03">
-                                ${store.snippet.service}
-                            </span>
-                        </div>
-                        <!------ OVERVIEW ------>
-
-                        <div class="lineH"></div>
-
-                        <!------ LIST ------>
-                        <div class="blog-data">
-                            <div class="store-summary">
-                                <div class="store-storeAttributes-">
-                                    ${summaryServiceHTML}
-                                </div>
-                            </div>
-                        </div>
-                        <!------ LIST ------>
-
-                    </section>
-                    <!------ TIME ------>
-                    
 
 
 
