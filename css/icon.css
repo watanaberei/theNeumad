@@ -498,6 +498,18 @@ color: var(--white01);
   background-image: url(../assets/icon/map/markers/icon-mapMarker-rest.svg);
 }
 
+  
+.icon-mapMarker-Rest {
+  border: none;
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../assets/icon/map/markers/icon-mapMarker-point.svg);
+}
+
+
 
 /* CUSTOM MAP MARKER */
 

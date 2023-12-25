@@ -164,11 +164,11 @@ body {
 .grid.base > .full {grid-column: c1-start / c8-end; background-color: var(--testF);}
 
 .grid > .left {
-	align-self: center;
-	/* width: fit-content; */
-	/* grid-column: p1-start / c2-end; */
-	background-color: var(--testF);	
-	justify-content: start;
+    align-self: center;
+    /* width: fit-content; */
+    /* grid-column: p1-start / c2-end; */
+    background-color: var(--testF);
+    justify-content: start;
 
 }
 
@@ -183,10 +183,11 @@ body {
 }
 
 .grid >.right {
-	align-self: center;
+    align-self: center;
     display: grid;
-    /* width: fit-content; */
-    grid-column: c8-start / p4-end;
+    width: fit-content;
+    /* grid-column: c8-start / p4-end; */
+    grid-column: c8-start / -2;
     background-color: var(--testF);
     justify-content: end;
 
@@ -195,6 +196,7 @@ body {
 
 /* PLATINUM */
 .grid.platinum {
+	/* height: 100% !important; */
 	grid-template-columns:   
 		/* [o1-start] var(--outerWidth) [o1-end] */
 		/* var(--g) */
@@ -239,6 +241,7 @@ body {
   /* .grid > .m, .grid > div .m, .grid .m > div, .grid > a .m, .grid .m > a   { */
 .grid > .m, .grid > div .m, .grid .m > div, .grid > a .m, .grid .m > a   {
 	display: grid;
+	height: fit-content !important;
 	margin: 0; 
 	padding: 0;
 	grid-gap: 0;

@@ -4,10 +4,10 @@
   "description": "![\"blog\"](/images/screenshot.png)",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "build": "webpack --mode production",
-    "server":  "webpack serve --mode development",
-    "dev": "nodemon server.js"
+    "server": "nodemon server.js",
+    "webpack": "webpack serve --mode development",
+    "dev": "npm-run-all --parallel server webpack",
+    "build": "webpack --mode production"
   },
   "keywords": [],
   "author": "",

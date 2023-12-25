@@ -45,16 +45,16 @@ export function initMap() {
     // -----------------FOG----------------- //
     // -----------------BOUNDARIES----------------- //
     ////// SOURCE //////
-    map.addSource("counties", {
-      type: "vector",
-      url: "mapbox://mapbox.82pkq93d",
-      promoteId: "mapbox-countries_id",
-    });
-    map.addSource("admin-1", {
-      type: "vector",
-      url: "mapbox://mapbox.boundaries-adm1-v4",
-      promoteId: "mapbox-boundaries_id",
-    });
+    // map.addSource("counties", {
+    //   type: "vector",
+    //   url: "mapbox://mapbox.82pkq93d",
+    //   promoteId: "mapbox-countries_id",
+    // });
+    // map.addSource("admin-1", {
+    //   type: "vector",
+    //   url: "mapbox://mapbox.boundaries-adm1-v4",
+    //   promoteId: "mapbox-boundaries_id",
+    // });
     // CITY
     map.addSource("city-boundaries", {
       type: "geojson",
@@ -74,55 +74,55 @@ export function initMap() {
 
 
    ////// LAYER //////
-    map.addLayer(
-      {
-        id: "admin-1-fill",
-        type: "fill",
-        source: "admin-1",
-        "source-layer": "boundaries_admin_1",
-        filter: worldviewFilter,
-        paint: {
-          "fill-color": "#CCCCCC",
-          "fill-opacity": 0.5,
-        },
-      },
-      // This final argument indicates that we want to add the Boundaries layer
-      // before the `waterway-label` layer that is in the map from the Mapbox
-      // Light style. This ensures the admin polygons are rendered below any labels
-      "waterway-label"
-    );
+    // map.addLayer(
+    //   {
+    //     id: "admin-1-fill",
+    //     type: "fill",
+    //     source: "admin-1",
+    //     "source-layer": "boundaries_admin_1",
+    //     filter: worldviewFilter,
+    //     paint: {
+    //       "fill-color": "#CCCCCC",
+    //       "fill-opacity": 0.5,
+    //     },
+    //   },
+    //   // This final argument indicates that we want to add the Boundaries layer
+    //   // before the `waterway-label` layer that is in the map from the Mapbox
+    //   // Light style. This ensures the admin polygons are rendered below any labels
+    //   "waterway-label"
+    // );
 
-   map.addLayer(
-      {
-        id: "counties",
-        type: "fill",
-        source: "counties",
-        "source-layer": "original",
-        paint: {
-          "fill-outline-color": "rgba(0,0,0,0.1)",
-          "fill-color": "rgba(0,0,0,0.1)",
-        },
-      },
-      // Place polygons under labels, roads and ildings.
-      "building"
-    );
+  //  map.addLayer(
+  //     {
+  //       id: "counties",
+  //       type: "fill",
+  //       source: "counties",
+  //       "source-layer": "original",
+  //       paint: {
+  //         "fill-outline-color": "rgba(0,0,0,0.1)",
+  //         "fill-color": "rgba(0,0,0,0.1)",
+  //       },
+  //     },
+  //     // Place polygons under labels, roads and ildings.
+  //     "building"
+  //   );
 
-    map.addLayer(
-      {
-        id: "counties-highlighted",
-        type: "fill",
-        source: "counties",
-        "source-layer": "original",
-        paint: {
-          "fill-outline-color": "#484896",
-          "fill-color": "#6e599f",
-          "fill-opacity": 0.75,
-        },
-        filter: ["in", "FIPS", ""],
-      },
-      // Place polygons under labels, roads and buildings.
-      "building"
-    );
+    // map.addLayer(
+    //   {
+    //     id: "counties-highlighted",
+    //     type: "fill",
+    //     source: "counties",
+    //     "source-layer": "original",
+    //     paint: {
+    //       "fill-outline-color": "#484896",
+    //       "fill-color": "#6e599f",
+    //       "fill-opacity": 0.75,
+    //     },
+    //     filter: ["in", "FIPS", ""],
+    //   },
+    //   // Place polygons under labels, roads and buildings.
+    //   "building"
+    // );
 
     // // Create a layer to display city boundaries
     map.addLayer({

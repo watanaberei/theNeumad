@@ -49,7 +49,7 @@ const currentDay = new Date().getDay();
   });
   
   const storeCurrentStatusHTML = getStoreCurrentStatusHTML(popularTime);
-
+  const storeCurrentStatusHTMLs = storeCurrentStatusHTML;
 
 
 storeCurrentStatusHTML.forEach((chartsContainer, idx) => {
@@ -138,13 +138,39 @@ storeCurrentStatusHTML.forEach((chartsContainer, idx) => {
   const neustarHTML = `${store.properties.neustar} ${generateNeustarIcons(store.properties.neustar)}`;
   
 
+
+  function generateStoreStatus() {
+    const currentHour = new Date().getHours();
+    const currentDay = new Date().getDay();
+    let statusHTML = '';
+
+    if (currentDay < popularTimes[0].length - 1) {
+        const currentValue = parseInt(popularTimes[currentHour + 1][currentDay + 1]);
+        if (currentValue >= 0 && currentValue <= 5) {
+            statusHTML = '<div class="status not-busy">NOT BUSY</div>';
+        } else if (currentValue > 5 && currentValue <= 10) {
+            statusHTML = '<div class="status moderately-busy">MODERATELY BUSY</div>';
+        } else if (currentValue > 10 && currentValue <= 12) {
+            statusHTML = '<div class="status busy">BUSY</div>';
+        } else {
+            statusHTML = '<div class="status packed">PACKED</div>';
+        }
+    }
+
+    return statusHTML;
+}
+
+
+
+
+
   if (variant === 'stores') { 
     carousel.className += ' ' + 'listingStore-item';
     
     const data = popularTime;
     
     const chartsContainer = document.getElementById('chartsContainer');
-
+    const storeStatus = generateStoreStatus();
 
 
     const storeContentData = {
@@ -167,7 +193,8 @@ storeCurrentStatusHTML.forEach((chartsContainer, idx) => {
         bestHTML: bestHTML,
         genre: genre,
         best: originalBest,
-        nearby: nearbyStore
+        nearby: nearbyStore,
+        storeCurrentStatus: storeStatus
     };
     console.log("storeStatus", storeStatus);
 

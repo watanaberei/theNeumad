@@ -82,7 +82,7 @@ const HeaderHome = {
               </div>
               <div class="nav-main-right right">
                 <div class="nav-main-right-container">
-                  <a href="/Map">
+                  <!-- <a href="/Map">
                     <div class="section-tag" id="Location">
                       <div class="section-tag-container">
                         <i class="section-tag-icon icon-Map"></i>
@@ -91,7 +91,7 @@ const HeaderHome = {
                         </span>
                       </div>
                     </div>
-                  </a>
+                  </a> -->
                   <div class="section-tag" id="Authentication">
                     <div class="section-tag-container">
                       <button id="btn-login" disabled="true" onclick="login()">

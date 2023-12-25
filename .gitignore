@@ -13,3 +13,5 @@ repository_backup
 .history
 .env
 archive 14-18-07-760.zip
+inspector: /localhost
+.vscode

@@ -11,6 +11,10 @@
   /* grid-column: span 2 !important; */
 }
 
+.map-sidepanel {
+  
+}
+
 #map-container {
   height: 125%;
 }
@@ -55,6 +59,7 @@ div#map-discover-container {
   /* overflow-x: hidden; */
   width: 100% !important;
   height: 100vh !important;
+  overflow-y: scroll !important;
   top: 0;
   left: 0;
 }
@@ -63,6 +68,8 @@ div#map-discover-container {
   /* position: absolute; */
   /* width: 50vw; */
   /* height: 100%; */
+  height: 100vh !important;
+  overflow-y: scroll !important;
   top: 0;
   left: 0;
   overflow: hidden;

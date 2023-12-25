@@ -19,7 +19,7 @@ const DineScreen = {
   render: async () => {
     return `
     <div class="main">
-      <div class="map-container map-discover-container  grid platinum postContainer">
+      <div class="map-container map-discover-container  grid platinumr">
         <div class="m sidebar">
           <div class="sidebar-container">
 
@@ -65,8 +65,10 @@ const DineScreen = {
 
           </div>
         </div>
-        <div class="s map map-discover" id="map map-discover">
-          <div id="map-container" class="fullBleed"></div>
+        <div class="s map map-discover" id="map-discover">
+          <div class="map-panel" id="map ">
+            <div id="map-container" class="fullBleed"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -109,35 +111,36 @@ const DineScreen = {
         });
         
         if (location) {
+
           map.flyTo({ center: location.geometry.coordinates, zoom: 14 });
-        } 
-      } else {
-        alert('Please enter a categoryType or select a location');
+          map.on("moveend", function () {
+            const mapBounds = map.getBounds();
+            const center = map.getCenter();
+            const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
+            const sortedFeatures = sortFeaturesByDistance(filteredFeatures, center);
+      
+            // Example call to renderFeatures with a specific container ID
+            renderFeatures(sortedFeatures, map, 'postListing');
+          });
+      
+      
+          map.on("click", (e) => {
+            const bbox = [[e.point.x - 5, e.point.y - 5], [e.point.x + 5, e.point.y + 5]];
+            const selectedFeatures = map.queryRenderedFeatures(bbox, { layers: ["counties"] });
+            const fips = selectedFeatures.map((feature) => feature.properties.FIPS);
+            map.setFilter("counties-highlighted", ["in", "FIPS", ...fips]);
+            new mapboxgl.Popup().setLngLat(e.lngLat).setHTML(e.features[0].properties.name).addTo(map);
+          });
+      
+          setCurrentLocation(map, features);
+        } else {
+          alert('Please enter a categoryType or select a location');
+        }
       }
     });
-
-    map.on("moveend", function () {
-      const mapBounds = map.getBounds();
-      const center = map.getCenter();
-      const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
-      const sortedFeatures = sortFeaturesByDistance(filteredFeatures, center);
-
-      // Example call to renderFeatures with a specific container ID
-      renderFeatures(sortedFeatures, map, 'postListing');
-    });
-
-
-    map.on("click", (e) => {
-      const bbox = [[e.point.x - 5, e.point.y - 5], [e.point.x + 5, e.point.y + 5]];
-      const selectedFeatures = map.queryRenderedFeatures(bbox, { layers: ["counties"] });
-      const fips = selectedFeatures.map((feature) => feature.properties.FIPS);
-      map.setFilter("counties-highlighted", ["in", "FIPS", ...fips]);
-      new mapboxgl.Popup().setLngLat(e.lngLat).setHTML(e.features[0].properties.name).addTo(map);
-    });
-
-    setCurrentLocation(map, features);
   },
-};
+}
+
 
 function handleGeocoderResult(result) {
   HeaderHome(result);
@@ -179,7 +182,7 @@ function setCurrentLocation(map, features) {
       const sortedFeatures = sortFeaturesByDistance(filteredFeatures, userCoordinates);
       renderFeatures(sortedFeatures, map);
 
-      zoomToShowAtLeastThreePins(map, features, userCoordinates);
+      boundCameraToCards(map, features, userCoordinates);
     });
   } else {
     renderFeatures(features, map);
@@ -229,6 +232,10 @@ function mapRoutes(userCoordinates, features) {
 
 function filterFeaturesInBounds(features, bounds) {
   return features.filter((feature) => {
+    if (!feature.geometry || !feature.geometry.coordinates) {
+      console.warn('Undefined coordinates for feature:', feature);
+      return false;
+    }
     const coordinates = feature.geometry.coordinates;
     return bounds.contains(coordinates);
   });
@@ -300,11 +307,26 @@ function createUserLocationMarker(userCoordinates, map) {
   return new mapboxgl.Marker(marker).setLngLat(userCoordinates).addTo(map);
 }
 
-function zoomToShowAtLeastThreePins(map, features, center) {
+
+
+function boundCameraToCards(map, features, center) {
+  const storeCount = 6; // Define the storeCount constant
+
   const zoomOut = () => {
     const mapBounds = map.getBounds();
-    const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
-    if (filteredFeatures.length < 3) {
+    // const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
+    const filteredFeatures = [...storeFeatures, ...otherFeatures];
+    const storeFeatures = features.filter(feature => feature.type === 'store').slice(0, storeCount);
+    const otherFeatures = features.filter(feature => {
+      if (!feature.geometry || !feature.geometry.coordinates) {
+        console.warn('Undefined coordinates for feature:', feature);
+        return false;
+      }
+      const [lng, lat] = feature.geometry.coordinates;
+      return feature.type !== 'store' && mapBounds.contains([lng, lat]);
+    });
+    console.log("storeCount",storeCount);
+    if (filteredFeatures.length < storeCount) {
       map.zoomOut(1, { around: center });
       setTimeout(zoomOut, 100);
     } else {
@@ -313,6 +335,7 @@ function zoomToShowAtLeastThreePins(map, features, center) {
   };
   zoomOut();
 }
+
 
 function getDistance(coord1, coord2) {
   const toRadians = (degrees) => degrees * (Math.PI / 180);
@@ -578,7 +601,7 @@ export default DineScreen;
 //   marker.className = "icon-mapMarker-userLocation";
 //   return new mapboxgl.Marker(marker).setLngLat(userCoordinates).addTo(map);
 // }
-// function zoomToShowAtLeastThreePins(map, features, center) {
+// function boundCameraToCards(map, features, center) {
 //   const zoomOut = () => {
 //     const mapBounds = map.getBounds();
 //     const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
