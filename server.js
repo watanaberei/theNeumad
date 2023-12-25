@@ -1,3 +1,4 @@
+
 // // server.js
 const dotenv = require('dotenv');
 dotenv.config();
@@ -8,6 +9,7 @@ const axios = require('axios');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const path = require('path');
+
 
 const app = express();
 
@@ -54,6 +56,286 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // // src/server.js
+// // const dotenv = require('dotenv');
+// // dotenv.config();
+// // const express = require('express');
+// // const { auth, requiresAuth } = require('express-openid-connect');
+// // const cors = require('cors');
+// // // const app = express();
+// // const axios = require('axios');
+// // const mongoose = require('mongoose');
+// // const authRoutes = require('./routes/authRoutes');
+// // const path = require('path');
+
+
+// // const app = express();
+
+
+
+
+
+// // // server.js
+// const dotenv = require('dotenv');
+// dotenv.config();
+// const express = require('express');
+// const { auth, requiresAuth } = require('express-openid-connect');
+// const cors = require('cors');
+// const axios = require('axios');
+// const mongoose = require('mongoose');
+// const authRoutes = require('./routes/authRoutes');
+// const path = require('path');
+
+
+// const app = express();
+
+// // Middleware
+// app.use(express.static('public'));
+// app.use(cors());
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+
+// // middleware
+// // app.use(express.static('public'));
+
+// // view engine
+// app.set('view engine', 'ejs');
+
+// // app.use(cors());
+// // app.use(express.json()); // to support JSON-encoded bodies
+// // app.use(express.urlencoded({ extended: true })); // to support URL-encoded bodies
+
+
+// // Auth0 Configuration
+// const config = {
+//   authRequired: false,
+//   auth0Logout: true,
+//   secret: process.env.AUTH0_CLIENT_SECRET,
+//   baseURL: process.env.AUTH0_BASE_URL,
+//   clientID: process.env.AUTH0_CLIENT_ID,
+//   issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL,
+// };
+
+// // const config = {
+// //   authRequired: false,
+// //   auth0Logout: true,
+// //   secret: process.env.AUTH0_CLIENT_SECRET,
+// //   baseURL: process.env.AUTH0_BASE_URL,
+// //   clientID: process.env.AUTH0_CLIENT_ID,
+// //   issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL,
+// // };
+
+
+
+
+
+
+// // MongoDB Connection
+// const dbURI = 'mongodb+srv://watanaberei:sshkey@cluster0.ciczjn3.mongodb.net/theNeumad-sandbox?retryWrites=true&w=majority';
+// mongoose.connect(dbURI)
+//   .then(() => console.log('MongoDB connected'))
+//   .catch(err => console.log('MongoDB connection error:', err));
+
+// // database connection
+// // const dbURI = 'mongodb+srv://watanaberei: sshkey@cluster0.ciczjn3.mongodb.net/node-auth';
+// // mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
+// //   .then((result) => app.listen(3000))
+// //   .catch((err) => console.log(err));
+// // const dbURI = 'mongodb+srv://watanaberei:sshkey@cluster0.ciczjn3.mongodb.net/theNeumad-sandbox?retryWrites=true&w=majority';
+// // mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+// //   .then((result) => app.listen(3000))
+// //   .catch((err) => console.log(err));
+
+
+
+
+
+
+
+
+// // // Auth0 Routes
+// // app.use(auth(config));
+// // app.get('/', (req, res) => {
+// //   res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+// // });
+// // app.get('/profile', requiresAuth(), (req, res) => {
+// //   res.send(JSON.stringify(req.oidc.user));
+// // });
+// // app.use(authRoutes);
+
+// // auth router attaches /login, /logout, and /callback routes to the baseURL
+// app.use(auth(config));
+
+// // req.isAuthenticated is provided from the auth router
+// app.get('/', (req, res) => {
+//   res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+// });
+
+// // Protected route
+// app.get('/profile', requiresAuth(), (req, res) => {
+//   res.send(JSON.stringify(req.oidc.user));
+// });
+
+// // Auth route
+// app.use(authRoutes);
+
+
+
+
+
+
+// // // SPA Fallback Route
+// // app.get('*', (req, res) => {
+// //   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// // });
+// // Add fallback route for SPA
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// });
+
+// // Start the server
+// const port = process.env.PORT || 3000;
+// app.listen(port, () => {
+//   console.log(`Server listening on port ${port}`);
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // // server.js
+// const dotenv = require('dotenv');
+// dotenv.config();
+// const express = require('express');
+// const { auth, requiresAuth } = require('express-openid-connect');
+// const cors = require('cors');
+// const axios = require('axios');
+// const mongoose = require('mongoose');
+// const authRoutes = require('./routes/authRoutes');
+// const path = require('path');
+
+
+// const app = express();
+
+// // Middleware
+// app.use(express.static('public'));
+// app.use(cors());
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+
+// // Auth0 Configuration
+// const config = {
+//   authRequired: false,
+//   auth0Logout: true,
+//   secret: process.env.AUTH0_CLIENT_SECRET,
+//   baseURL: process.env.AUTH0_BASE_URL,
+//   clientID: process.env.AUTH0_CLIENT_ID,
+//   issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL,
+// };
+
+// // MongoDB Connection
+// const dbURI = 'mongodb+srv://watanaberei:sshkey@cluster0.ciczjn3.mongodb.net/theNeumad-sandbox?retryWrites=true&w=majority';
+// mongoose.connect(dbURI)
+//   .then(() => console.log('MongoDB connected'))
+//   .catch(err => console.log('MongoDB connection error:', err));
+
+
+// // Auth0 Routes
+// app.use(auth(config));
+// app.get('/', (req, res) => {
+//   res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+// });
+// app.get('/profile', requiresAuth(), (req, res) => {
+//   res.send(JSON.stringify(req.oidc.user));
+// });
+// app.use(authRoutes);
+
+// // SPA Fallback Route
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// });
+
+// // Start the Server
+// const port = process.env.PORT || 3000;
+// app.listen(port, () => {
+//   console.log(`Server listening on port ${port}`);
+// });
 
 
 

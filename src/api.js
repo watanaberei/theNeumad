@@ -139,7 +139,7 @@ export async function getStore(limit = 1, collectionLimit = 6, skip = 0) {
                   }
                 }
                 hours
-                locationCollection(limit: ${collectionLimit}, skip: ${skip}) {
+                locationCollection(limit: 3, skip: 0) {
                   ... on SubstoresLocationCollection {
                     items {
                       type
@@ -154,7 +154,7 @@ export async function getStore(limit = 1, collectionLimit = 6, skip = 0) {
                 }
               }
             }
-          }
+          } 
           neustar
           googleRatings
           yelpRatings
@@ -317,24 +317,23 @@ export async function getStore(limit = 1, collectionLimit = 6, skip = 0) {
             description: item?.description,
           })),
         },
-        nearbyStore: {
-          nearbyStoreCollection: stores?.nearbyStoreCollection?.storesNearbyStoresCollection?.items.map(
-              (item) => ({
-                  headline: item?.headline,
-              hours: item?.hours,
-              logo: item?.logo?.logo?.url,
-              location: {
-                type: item?.location?.type,
-                address: item?.location?.address,
-                geolocation: {
-                  lat: item?.location?.geolocation?.lat,
-                  lon: item?.location?.geolocation?.lon,
+
+        nearbyStore: stores?.nearbyStoresCollection?.items.map((item) => ({
+              nearbyHeadline: item?.headline,
+              nearbyHours: item?.hours,
+              nearbyLogo: item?.logo?.logo?.url,
+              nearbyLocation: {
+                nearbyLocationType: item?.location?.type,
+                nearbyLocationAddress: item?.location?.address,
+                nearbyLocationGeolocation: {
+                  nearbyLocationGeolocationLat: item?.location?.geolocation?.lat,
+                  nearbyLocationGeolocationLon: item?.location?.geolocation?.lon,
                 },
-                region: item?.location?.region,
-              },
-            }),
-          ),
-        },
+              nearbyLocationRegion: item?.location?.region,
+            },
+          }),
+        ),
+
         
         summary: {
           text: stores?.summary?.text,

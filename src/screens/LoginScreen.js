@@ -13,7 +13,7 @@ import AllBlog from "../components/AllBlog.js";
 import storeSelectedLocation from "../components/Header.js";
 import mapRoute from "../components/mapRoute.js";
 import polyline from '@mapbox/polyline';
-import HeaderHome from '../components/HeaderHome.js';
+import HeaderHome from "../components/HeaderHome";
 
 const LoginScreen = {
   render: async () => {

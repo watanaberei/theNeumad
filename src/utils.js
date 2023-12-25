@@ -1,6 +1,6 @@
 // src/utils.js
 export const parseRequestUrl = () => {
-  const url = document.location.hash.toLowerCase();
+  const url = window.location.pathname.toLowerCase();
   const request = url.split("/");
   return {
     resource: request[1],
@@ -42,6 +42,15 @@ export const sortByDistance = (selectedLocation, data) => {
 //     action: request[3],
 //   };
 // };
+
+
+
+
+
+
+
+
+
 
 
 

@@ -114,13 +114,13 @@ const BlogScreen = {
     //                   <div class="blog-data">
     //                     <div class="tag-collection">
     //                       <div class="featured-blog-data-container">
-    //                           <a href="/#/dine">
+    //                           <a href="/dine">
     //                               <div class="section-tag" id="${blog.category.category}">
     //                                 <i class="section-tag-icon icon-${blog.category.category}"></i>
     //                                 <span class="section-tag-divider">
     //                                 <div class="lineV"></div>
     //                                 </span>
-    //                                 <a href="/#/${blog.category.category}">
+    //                                 <a href="/${blog.category.category}">
     //                                   <span class="section-tag-text medium00">
     //                                       ${blog.category.category}
     //                                   </span>
@@ -164,7 +164,7 @@ const BlogScreen = {
     //                   <div class="tag-collection">
                           
     //                     <div class="featured-blog-data-container">
-    //                         <a href="/#/${blog.category}">
+    //                         <a href="/${blog.category}">
     //                             <div class="section-tag" id="${blog.category}">
     //                                 <i class="section-tag-icon icon-${blog.category}"></i>
     //                                 <span class="section-tag-divider">
@@ -266,7 +266,7 @@ const BlogScreen = {
 
     //                   <!--TAGS-->
     //                   <div class="blog-info d-flex">
-    //                     <a href="/#/${blog.author.slug}">
+    //                     <a href="/${blog.author.slug}">
     //                       <div class="blog-author">
     //                         <span class="d-flex text01">
     //                             ${blog.author.name}
@@ -291,7 +291,7 @@ const BlogScreen = {
     //             <div class="content content-advertisement content-advertistment-details">
     //               <div class="ad-container container">
     //                 <div class="ad d-flex" id="ad-home">
-    //                   <a href="/#/">
+    //                   <a href="/">
     //                     <img src="./images/ad_test.png" />
     //                   </a>
     //                 </div>

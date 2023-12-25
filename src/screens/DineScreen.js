@@ -261,26 +261,26 @@ function renderFeatures(features, map) {
 
   features.forEach((feature) => {
     let element;
-    switch (feature.properties.type) {
-      case 'store':
+    switch (feature.properties.variant) {
+      case 'stores':
         element = createGeojsonStoreListing(feature);
         elements.postStore.appendChild(element);
         break;
-      case 'review':
+      case 'reviews':
         element = createGeojsonReviewListing(feature);
         elements.postReview.appendChild(element);
         break;
-      case 'article':
+      case 'articles':
         element = createGeojsonArticleListing(feature);
         elements.postArticle.appendChild(element);
         break;
-      case 'blog':
+      case 'blogs':
         element = createGeojsonBlogListing(feature);
         elements.postBlog.appendChild(element);
         break;
       // Include additional cases as necessary
       default:
-        console.warn('Unknown feature type:', feature.properties.type);
+        console.warn('Unknown feature type:', variant);
     }
   });
 }
@@ -331,3 +331,283 @@ function getDistance(coord1, coord2) {
 }
 
 export default DineScreen;
+
+
+
+
+
+
+// function mapRoutes(userCoordinates, features) {
+//   features.forEach((feature, index) => {
+//     const YOUR_MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNla3R6aG93YzAyeDUzZXBoY2h6ZDBjN2gifQ.ef675JLTqdzPlw1tu_wHOA";
+//     let userLonLat = [userCoordinates[1], userCoordinates[0]];
+//     let featureLonLat = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
+
+//     const directionsUrl = `https://api.mapbox.com/directions/v5/mapbox/driving/${userLonLat[0]}%2C${userLonLat[1]}%3B${featureLonLat[0]}%2C${featureLonLat[1]}?alternatives=false&geometries=polyline&language=en&overview=simplified&steps=true&access_token=${YOUR_MAPBOX_ACCESS_TOKEN}`;
+
+//     fetch(directionsUrl)
+//       .then(response => response.json())
+//       .then(data => {
+//         const route = data.routes[0].geometry;
+//         const routeId= `route-${index}`; // Unique id for each layer
+//       const decoded = polyline.toGeoJSON(route);
+//       // console.log(decoded);
+//       // If layer already exists, remove it
+//       if (map.getLayer(routeId)) {
+//         map.removeLayer(routeId);
+//         map.removeSource(routeId);
+//       }
+
+//         // Add new layer
+//         map.addLayer({
+//           id: routeId,
+//           type: 'line',
+//           source: {
+//             type: 'geojson',
+//             data: {
+//               type: 'Feature',
+//               geometry: decoded,  // Use decoded geometry here
+//             },
+//           },
+//           paint: {
+//             'line-width': 2,
+//             'line-color': '#007cbf',
+//           },
+//         });
+        
+//       })
+//       .catch(error => {
+//         console.error(`Failed to fetch route data: ${error}`);
+//       });
+//   });
+// }
+// function filterFeaturesInBounds(features, bounds) {
+//   return features.filter((feature) => {
+//     const coordinates = feature.geometry.coordinates;
+//     return bounds.contains(coordinates);
+//   });
+// }
+// function sortFeaturesByDistance(features, center) {
+//   return features.sort((a, b) => {
+//     const distanceA = getDistance(center, a.geometry.coordinates);
+//     const distanceB = getDistance(center, b.geometry.coordinates);
+//     return distanceA - distanceB;
+//   });
+// }
+
+// function renderSection(containerId, features) {
+//   const container = document.getElementById(containerId);
+//   if (!container) {
+//       console.error(`Container with ID ${containerId} not found`);
+//       return;
+//   }
+
+//   container.innerHTML = ''; // Clear the container
+
+//   features.forEach(feature => {
+//       let element;
+//       switch (feature.properties.type) {
+//           case 'series':
+//               element = createGeojsonArticleListing(feature);
+//               break;
+//           case 'store':
+//               element = createGeojsonStoreListing(feature);
+//               break;
+//           case 'reviewed':
+//               element = createGeojsonReviewListing(feature);
+//               break;
+//           case 'blog':
+//               element = createGeojsonBlogListing(feature);
+//               break;
+//           default:
+//               // If an unknown type is encountered, it's ignored
+//               console.warn(`Ignored unknown feature type: ${feature.properties.type}`);
+//               break;
+//       }
+
+//       if (element) {
+//           container.appendChild(element);
+//       }
+//   });
+// }
+
+
+
+// function renderFeatures(features, map, containerId) {
+//   const container = document.getElementById(containerId);
+//   if (!container) {
+//       console.error(`Container with ID ${containerId} not found`);
+//       return;
+//   }
+
+//   container.innerHTML = ''; // Clear the container
+
+//   features.forEach(feature => {
+//       let element;
+//       // Determine the type of feature and create the appropriate listing element
+//       switch (feature.properties.type) {
+//           case 'series':
+//               element = createGeojsonArticleListing(feature);
+//               break;
+//           case 'store':
+//               element = createGeojsonStoreListing(feature);
+//               break;
+//           case 'reviewed':
+//               element = createGeojsonReviewListing(feature);
+//               break;
+//           case 'blog':
+//               element = createGeojsonBlogListing(feature);
+//               break;
+//           default:
+//               console.error(`Unknown feature type: ${feature.properties.type}`);
+//               return;
+//       }
+
+//       if (element) {
+//           container.appendChild(element);
+//       }
+//   });
+// }
+
+
+
+// // function renderFeatures(features, map) {
+// //   const elements = {
+// //     postListing: document.getElementById("postListing"),
+// //     postStore: document.getElementById("postStore"),
+// //     postReview: document.getElementById("postReview"),
+// //     postArticle: document.getElementById("postArticle"),
+// //     postBlog: document.getElementById("postBlog")
+// //   };
+
+// //   // Clear out old listings
+// //   for (let key in elements) {
+// //     elements[key].innerHTML = "";
+// //   }
+
+// //   features.forEach((store) => {
+// //     const listings = {
+// //       postListing: createGeojsonListing(store),
+// //       postStore: createGeojsonStoreListing(store),
+// //       postReview: createGeojsonReviewListing(store),
+// //       postArticle: createGeojsonArticleListing(store),
+// //       postBlog: createGeojsonBlogListing(store)
+// //     };
+
+// //     for (let key in listings) {
+// //       if (listings[key] && listings[key].innerHTML.trim() !== "") {
+// //         elements[key].appendChild(listings[key]);
+// //       }
+// //     }
+// //   });
+// // }
+
+
+
+
+
+// function flyToStore(store, map) {
+//   map.flyTo({
+//     center: store.geometry.coordinates,
+//     zoom: 15,
+//     // pitch: 80,
+//     bearing: 41,
+//     essential: true,
+//   });
+
+//   map.once("moveend", () => {
+//     map.on("move", () => {
+//       const pitch = map.getPitch();
+//       const bearing = map.getBearing();
+
+//       if (pitch > 0) {
+//         map.setPitch(pitch - 1);
+//       }
+
+//       if (bearing !== 0) {
+//         map.setBearing(bearing - 1);
+//       }
+//     });
+//   });
+// }
+// function flyToSearch(store, map, bbox) {
+//   if (bbox) {
+//     map.fitBounds(bbox, {
+//       padding: { top: 10, bottom: 10, left: 10, right: 10 },
+//       maxZoom: 15,
+//       essential: true,
+//     });
+//   } else {
+//     map.flyTo({
+//       center: store.geometry.coordinates,
+//       zoom: 15,
+//       essential: true,
+//     });
+//   }
+// }
+// function createPopUp(store, map) {
+//   const popup = new mapboxgl.Popup({ closeOnClick: true, offset: 50 })
+//     .setLngLat(store.geometry.coordinates)
+//     .setHTML(
+//       `
+//       <div class="title">
+//         <span class="header03">${store.properties.headline}</span>
+//       </div>
+//       <div class="subtitle">
+//         <span class="text01">${store.properties.address}</span>
+//       </div>
+//       <div class="subtitle">
+//       <i class="icon-${store.properties.categoryType}"></i>
+//         <span class="text01">${store.properties.categoryType}</span>
+//       </div>
+//       `
+//     )
+
+//     .addTo(map);
+// }
+
+
+// // function createUserLocationMarker(userLocation, map) {
+// //   createMapMarker(userLocation, map, someClickHandlerFunction);
+// //   const marker = document.createElement("div");
+// //   marker.className = "icon-mapMarker-userLocation";
+// //   return new mapboxgl.Marker(marker).setLngLat(coordinates).addTo(map);
+// // }
+// function createUserLocationMarker(userCoordinates, map) {
+//   const marker = document.createElement("div");
+//   marker.className = "icon-mapMarker-userLocation";
+//   return new mapboxgl.Marker(marker).setLngLat(userCoordinates).addTo(map);
+// }
+// function zoomToShowAtLeastThreePins(map, features, center) {
+//   const zoomOut = () => {
+//     const mapBounds = map.getBounds();
+//     const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
+//     if (filteredFeatures.length < 3) {
+//       map.zoomOut(1, { around: center });
+//       setTimeout(zoomOut, 100);
+//     } else {
+//       renderFeatures(filteredFeatures, map);
+//     }
+//   };
+//   zoomOut();
+// }
+// function getDistance(coord1, coord2) {
+//   const toRadians = (degrees) => degrees * (Math.PI / 180);
+//   const R = 6371e3; // Earth's radius in meters
+//   const lat1 = toRadians(coord1[1]);
+//   const lat2 = toRadians(coord2[1]);
+//   const deltaLat = toRadians(coord2[1] - coord1[1]);
+//   const deltaLng = toRadians(coord2[0] - coord1[0]);
+//   const a =
+//     Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+//     Math.cos(lat1) *
+//       Math.cos(lat2) *
+//       Math.sin(deltaLng / 2) *
+//       Math.sin(deltaLng / 2);
+//   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+//   return R * c;
+// }
+
+
+// export default DineScreen;
+

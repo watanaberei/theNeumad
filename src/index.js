@@ -1,13 +1,13 @@
 // src/index.js
 import { getArticleNeumadsTrail } from "./api.js";
-import "./components/Style";  
+import "./components/Style.js";   
 import * as Components from './components/Components.js';
 import HeaderSecondary from "./components/HeaderSecondary";
 import HeaderArticle from "./components/HeaderArticle";
 import HeaderStore from "./components/HeaderStore";
 import HeaderReview from "./components/HeaderReview";
 import HeaderWork from "./components/HeaderWork";
-import HeaderHome from "./components/HeaderHome";
+import HeaderHome from "./components/HeaderHome.js";
 import HeaderUnwind from "./components/HeaderUnwind";
 import HeaderShorts from "./components/HeaderShorts";
 import HeaderSeries from "./components/HeaderSeries";
@@ -31,7 +31,7 @@ import MapScreen from "./screens/MapScreen.js";
 import ReviewScreen from "./screens/ReviewScreen.js";
 import Error404Page from "./screens/Error404Page.js";
 import { parseRequestUrl, showLoading, hideLoading } from "./utils.js";
-
+import { createAuth0Client } from '@auth0/auth0-spa-js';
 
 /// Enable CORS
 const routes = {
@@ -51,20 +51,19 @@ const routes = {
   "/map": MapScreen,
 };
 
+
+
+
+// Update the router function to use the window's pathname
 const router = async () => {
-  const request = parseRequestUrl();
-  const path = window.location.pathname;
-  const screen = routes[path] || Error404Page;
-  const header = document.getElementById('header');
-
-
-
-
+  const request = parseRequestUrl(window.location.pathname); // Use the pathname without hash
+  const path = request.resource || '/';
   const parseUrl =
     (request.resource ? `/${request.resource}` : "/") +
     (request.slug ? "/:slug" : "") +
     (request.verb ? `/${request.verb}` : "");
-
+  const screen = routes[parseUrl] ? routes[parseUrl] : Error404Page;
+  const header = document.getElementById("header");
   if (parseUrl === "/work") {
     header.innerHTML = await HeaderHome.render();
     await HeaderHome.after_render();
@@ -102,16 +101,30 @@ const router = async () => {
     header.innerHTML = await HeaderHome.render();
     await HeaderHome.after_render();
   }
-  // const main = document.getElementById("content");
-  // main.innerHTML = await screen.render();
-  // if (screen.after_render) await screen.after_render();
-  const main = document.getElementById('main'); // Ensure you have a 'main' element in your HTML
-  header.innerHTML = await screen.header();
+  // Catch errors since some browsers throw when using the new `type` option.
+// https://bugs.webkit.org/show_bug.cgi?id=209216
+      try {
+      const po = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          // Log the entry and all associated details.
+          console.log(entry.toJSON());
+        }
+      });
+    
+      po.observe({type: './src/index.js'});
+    } catch (e) {
+      // Do nothing if the browser doesn't support this API.
+    }
+  const main = document.getElementById("content");
   main.innerHTML = await screen.render();
-  if (screen.afterRender) await screen.afterRender();
-};
+  if (screen.after_render) await screen.after_render();
 
-window.addEventListener("hashchange", router);
+};
+// The load event listener has been removed
+document.addEventListener('DOMContentLoaded', () => {
+  router();
+  window.addEventListener('popstate', router);
+});
 
 window.addEventListener('popstate', router);
 document.addEventListener('DOMContentLoaded', () => {

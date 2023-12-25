@@ -103,13 +103,13 @@ const ArticleScreen = {
                       <div class="blog-data">
                         <div class="tag-collection">
                           <div class="featured-blog-data-container">
-                              <a href="/#/dine">
+                              <a href="/dine">
                                   <div class="section-tag" id="${article.category.category}">
                                     <i class="section-tag-icon icon-${article.category.category}"></i>
                                     <span class="section-tag-divider">
                                     <div class="lineV"></div>
                                     </span>
-                                    <a href="/#/${article.category.category}">
+                                    <a href="/${article.category.category}">
                                       <span class="section-tag-text medium00">
                                           ${article.category.category}
                                       </span>
@@ -153,7 +153,7 @@ const ArticleScreen = {
                       <div class="tag-collection">
                           
                         <div class="featured-blog-data-container">
-                            <a href="/#/${article.category}">
+                            <a href="/${article.category}">
                                 <div class="section-tag" id="${article.category}">
                                     <i class="section-tag-icon icon-${article.category}"></i>
                                     <span class="section-tag-divider">
@@ -255,7 +255,7 @@ const ArticleScreen = {
 
                       <!--TAGS-->
                       <div class="article-info d-flex">
-                        <a href="/#/${article.author.slug}">
+                        <a href="/${article.author.slug}">
                           <div class="article-author">
                             <span class="d-flex text01">
                                 ${article.author.name}
@@ -280,7 +280,7 @@ const ArticleScreen = {
                 <div class="content content-advertisement content-advertistment-details">
                   <div class="ad-container container">
                     <div class="ad d-flex" id="ad-home">
-                      <a href="/#/">
+                      <a href="/">
                         <img src="./images/ad_test.png" />
                       </a>
                     </div>

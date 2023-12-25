@@ -122,7 +122,7 @@ const DetailsScreen = {
                   <div class="blog-data">
                   <div class="tag-collection">
                       <div class="featured-blog-data-container">
-                          <a href="/#/${blog.section}">
+                          <a href="/${blog.section}">
                               <div class="section-tag" id="${blog.section}">
                                   <i class="section-tag-icon icon-${blog.section}"></i>
                                   <span class="section-tag-divider">
@@ -182,7 +182,7 @@ const DetailsScreen = {
               <div class="content  content-advertisement content-advertistment-details">
                 <div class="ad-container container">
                   <div class="ad d-flex" id="ad-home">
-                    <a href="/#/">
+                    <a href="/">
                       <img src="./images/ad_test.png" />
                     </a>
                   </div>

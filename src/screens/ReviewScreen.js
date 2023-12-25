@@ -93,13 +93,13 @@ const ReviewScreen = {
                       <div class="blog-data">
                         <div class="tag-collection">
                           <div class="featured-blog-data-container">
-                              <a href="/#/dine">
+                              <a href="/dine">
                                   <div class="section-tag" id="{review.category.category}">
                                     <i class="section-tag-icon icon-{review.category.category}"></i>
                                     <span class="section-tag-divider">
                                     <div class="lineV"></div>
                                     </span>
-                                    <a href="/#/{review.category.category}">
+                                    <a href="/{review.category.category}">
                                       <span class="section-tag-text medium00">
                                           {review.category.category}
                                       </span>
@@ -143,7 +143,7 @@ const ReviewScreen = {
                       <div class="tag-collection">
                           
                         <div class="featured-blog-data-container">
-                            <a href="/#/{review.category}">
+                            <a href="/{review.category}">
                                 <div class="section-tag" id="{review.category}">
                                     <i class="section-tag-icon icon-{review.category}"></i>
                                     <span class="section-tag-divider">
@@ -245,7 +245,7 @@ const ReviewScreen = {
 
                       <!--TAGS-->
                       <div class="review-info d-flex">
-                        <a href="/#/{review.author.slug}">
+                        <a href="/{review.author.slug}">
                           <div class="review-author">
                             <span class="d-flex text01">
                                 {review.author.name}
@@ -270,7 +270,7 @@ const ReviewScreen = {
                 <div class="content content-advertisement content-advertistment-details">
                   <div class="ad-container container">
                     <div class="ad d-flex" id="ad-home">
-                      <a href="/#/">
+                      <a href="/">
                         <img src="./images/ad_test.png" />
                       </a>
                     </div>

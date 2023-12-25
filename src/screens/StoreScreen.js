@@ -53,6 +53,7 @@ function generateStorePopularTimeHTML(popularTimes) {
     render: async () => {
         const request = parseRequestUrl();
         console.log("Request slug:", request.slug);
+        console.log("store:", store);
         // const storeDetails = await dataBlog.getData();
         const storeDetails = await dataBlog.getData();
         store = storeDetails.find(store => store.slug === request.slug);
@@ -73,19 +74,28 @@ function generateStorePopularTimeHTML(popularTimes) {
         
 
         // NEARBY STORE
-        let nearbyHeadline = '';
-        let nearbyHours = '';
-        let nearbyLogo = '';
-        let nearbyLocation = '';
-        const nearbyStores = store.nearbyStoresCollection.items || [];
-        nearbyStores.forEach(nearbyStore => {
-            // Accessing each store's details safely
-            const nearbyHeadline = nearbyStore.headline;
-            const nearbyHours = nearbyStore.hours;
-            const nearbyLocation = nearbyStore.locationCollection.items;
-            const nearbyLogo = nearbyStore.logo ? nearbyStore.logo : '';
-        });
-        console.log("nearbyStores", nearbyStores.nearbyHeadline, nearbyStores.nearbyHours, nearbyStores.nearbyLocation, nearbyStores.nearbyLogo);
+        const nearbyStore = store.nearbyStore || [];
+        const nearbyHeadline = nearbyStore.headline;
+        console.log("nearbyHeadline", nearbyStore.nearbyHeadline    );
+        const nearbyHours = nearbyStore.hours;
+        const nearbyLocation = nearbyStore.nearbyLocation;
+        // let nearbyHeadline = '';
+        // let nearbyHours = '';
+        // let nearbyLogo = '';
+        // let nearbyLocation = '';
+        const nearbyStores = store.nearbyStore || [];
+        console.log("nearbyHeadline", nearbyHeadline);
+        console.log("nearbyHours", nearbyHours);
+        console.log("nearbyLocation", nearbyLocation);
+        console.log("NEARBY", nearbyStore);
+        // nearbyStores.forEach(nearbyStore => {
+        //     // Accessing each store's details safely
+        //     const nearbyHeadline = nearbyStores.nearbyHeadline;
+        //     const nearbyHours = nearbyStore.hours;
+        //     const nearbyLocation = nearbyStore.locationCollection.items;
+        //     const nearbyLogo = nearbyStore.logo ? nearbyStore.logo : '';
+        // });
+        console.log("nearbyStores", nearbyStore.nearbyHeadline, nearbyStore.nearbyHours, nearbyStore.nearbyLocation, nearbyStore.nearbyLogo);
                         
         // TIME
         const popularTime = store?.popularTimes || [];
@@ -1474,11 +1484,16 @@ function generateStorePopularTimeHTML(popularTimes) {
                 // Handle error or missing data
                 const popularTime = store.popularTimes || [];
                 const popularTimes = store.popularTimes || [];
-                const storeLocation = store.location.geolocation;
+                // const storeLocation = [store.location.geolocation.lat,store.location.geolocation.lon];
+                // const storeLocation = store.location.geolocation || [];
+                const storeLocation = store.location && store.location.geolocation ? 
+                      { lat: store.location.geolocation.lat, lon: store.location.geolocation.lon } : 
+                      { lat: 0, lon: 0 }; // Default values if location is not defined
                 // Initialize the map object
                 console.log("storeLocation",storeLocation);
-                console.log("popularTime",popularTime);
-                console.log("popularTimes",popularTimes);
+                // console.log("store.location.geolocation",[store.location.geolocation.lat,store.location.geolocation.lon]);
+                // console.log("popularTime",popularTime);
+                // console.log("popularTimes",popularTimes);
                 
                 // Ensure storePopularTimes is called after the DOM is fully loaded
                 if (document.getElementById('chartsContainer')) {
@@ -1499,12 +1514,25 @@ function generateStorePopularTimeHTML(popularTimes) {
                 });
 
                 // Add a marker for the store location
+                // new mapboxgl.Marker()
+                //     .setLngLat([storeLocation.lon, storeLocation.lat])
+                //     .addTo(map);
+                // const bounds = new mapboxgl.LngLatBounds();
+                // bounds.extend(new mapboxgl.LngLat([storeLocation.lon, storeLocation.lat]));
+                // console.log()
+                
+
                 new mapboxgl.Marker()
-                    .setLngLat(storeLocation)
+                    .setLngLat([storeLocation.lon, storeLocation.lat])
                     .addTo(map);
                 const bounds = new mapboxgl.LngLatBounds();
-                bounds.extend(storeLocation);
-                map.fitBounds(bounds, { padding: 50 }); // Adjust padding as needed
+                bounds.extend(new mapboxgl.LngLat(storeLocation.lon, storeLocation.lat));
+                map.fitBounds(bounds, { padding: 50, duration: 1000 });
+
+                
+                // const bounds = new mapboxgl.LngLatBounds();
+                // bounds.extend([storeLocation.lon, storeLocation.lat]);
+                // map.fitBounds(bounds, { padding: 50, duration: 1000 });
 
             
             }

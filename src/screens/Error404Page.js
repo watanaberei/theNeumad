@@ -9,13 +9,13 @@ const Error404Page = {
       </div>
       <div class='content'>
         <p>The Page You are looking for is now beyound our Reach...</p>
-          <a href='/#/' aria-label='back to home'>Go Home</a>
+          <a href='/' aria-label='back to home'>Go Home</a>
       </div>
     </div>
   `,
   after_render: () => {
     setTimeout(() => {
-      location.assign("/#/");
+      location.assign("/");
     }, 5000);
   },
 };

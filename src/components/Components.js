@@ -30,7 +30,7 @@ import DineScreen from "../screens/DineScreen";
 
 ////////////////////////////////// RENDERING //////////////////////////////////
 // RENDER COMPONENTS
-import { parseRequestUrl, showLoading, hideLoading } from "./utils.js";
+import { parseRequestUrl } from "../utils.js";
 import { format, parseISO } from "date-fns";
 
 ////////////////////////////////// CARD //////////////////////////////////
@@ -109,8 +109,6 @@ export {
     AllBlog,
     DineScreen,
     parseRequestUrl,
-    showLoading, 
-    hideLoading,
     format,
     parseISO,
     createArticleCard,
