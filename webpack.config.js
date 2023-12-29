@@ -63,9 +63,9 @@ module.exports = {
     publicPath: '/',
   },
   devServer: {
-    // hot: true,
+    hot: true,
     static: {
-      directory: path.resolve(__dirname, "public"),
+      directory: path.resolve(__dirname, "dist"),
     },
     compress: true,
     port: 3000,

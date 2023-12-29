@@ -10,7 +10,7 @@ import { createGeojsonArticleListing } from "../components/GeojsonArticleListing
 import { createGeojsonBlogListing } from "../components/GeojsonBlogListing";
 import { createGeocoderInput } from "../components/GeocoderInput";
 import AllBlog from "../components/AllBlog.js";
-import HeaderHome from "../components/HeaderHome";
+import HeaderHome from "../components/HeaderHome"; 
 import mapRoute from "../components/mapRoute";
 import polyline from '@mapbox/polyline';
 

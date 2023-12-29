@@ -1,15 +1,14 @@
 archive
 node_modules
 src/screens/archive
-src/components/archive
-lc18-vanilla-js-source-code-master.zip
+src/components/.archive
 config.env
-ref
-archive
+.ref
+.archive
 _archive.zip
 history
 images
-repository_backup
+.repository_backup
 .history
 .env
 archive 14-18-07-760.zip

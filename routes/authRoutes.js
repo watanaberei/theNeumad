@@ -4,10 +4,10 @@ const { auth } = require('express-openid-connect');
  
 const router = Router();
 
-router.get('/signup', auth.signup_get);
-router.post('/signup', auth.signup_post);
-router.get('/login', auth.login_get);
-router.post('/login', auth.login_post);
+router.get('/signup', authController.signup_get);
+router.post('/signup', authController.signup_post);
+router.get('/login', authController.login_get);
+router.post('/login', authController.login_post);
 
 module.exports = router;
 
