@@ -19,7 +19,7 @@ const DineScreen = {
   render: async () => {
     return `
     <div class="main">
-      <div class="map-container map-discover-container  grid platinumr">
+      <div class="map-container map-discover-container  grid platinum postContainer">
         <div class="m sidebar">
           <div class="sidebar-container">
 
@@ -65,16 +65,13 @@ const DineScreen = {
 
           </div>
         </div>
-        <div class="s map map-discover" id="map-discover">
-          <div class="map-panel" id="map ">
-            <div id="map-container" class="fullBleed"></div>
-          </div>
+        <div class="s map map-discover" id="map map-discover">
+          <div id="map-container" class="fullBleed"></div>
         </div>
       </div>
     </div>
     `;
   },
-
   after_render: async () => {
     const map = initMap();
     window.map = map;
@@ -111,36 +108,35 @@ const DineScreen = {
         });
         
         if (location) {
-
           map.flyTo({ center: location.geometry.coordinates, zoom: 14 });
-          map.on("moveend", function () {
-            const mapBounds = map.getBounds();
-            const center = map.getCenter();
-            const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
-            const sortedFeatures = sortFeaturesByDistance(filteredFeatures, center);
-      
-            // Example call to renderFeatures with a specific container ID
-            renderFeatures(sortedFeatures, map, 'postListing');
-          });
-      
-      
-          map.on("click", (e) => {
-            const bbox = [[e.point.x - 5, e.point.y - 5], [e.point.x + 5, e.point.y + 5]];
-            const selectedFeatures = map.queryRenderedFeatures(bbox, { layers: ["counties"] });
-            const fips = selectedFeatures.map((feature) => feature.properties.FIPS);
-            map.setFilter("counties-highlighted", ["in", "FIPS", ...fips]);
-            new mapboxgl.Popup().setLngLat(e.lngLat).setHTML(e.features[0].properties.name).addTo(map);
-          });
-      
-          setCurrentLocation(map, features);
-        } else {
-          alert('Please enter a categoryType or select a location');
-        }
+        } 
+      } else {
+        alert('Please enter a categoryType or select a location');
       }
     });
-  },
-}
 
+    map.on("moveend", function () {
+      const mapBounds = map.getBounds();
+      const center = map.getCenter();
+      const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
+      const sortedFeatures = sortFeaturesByDistance(filteredFeatures, center);
+
+      // Example call to renderFeatures with a specific container ID
+      renderFeatures(sortedFeatures, map, 'postListing');
+    });
+
+
+    map.on("click", (e) => {
+      const bbox = [[e.point.x - 5, e.point.y - 5], [e.point.x + 5, e.point.y + 5]];
+      const selectedFeatures = map.queryRenderedFeatures(bbox, { layers: ["counties"] });
+      const fips = selectedFeatures.map((feature) => feature.properties.FIPS);
+      map.setFilter("counties-highlighted", ["in", "FIPS", ...fips]);
+      new mapboxgl.Popup().setLngLat(e.lngLat).setHTML(e.features[0].properties.name).addTo(map);
+    });
+
+    setCurrentLocation(map, features);
+  },
+};
 
 function handleGeocoderResult(result) {
   HeaderHome(result);
@@ -182,7 +178,7 @@ function setCurrentLocation(map, features) {
       const sortedFeatures = sortFeaturesByDistance(filteredFeatures, userCoordinates);
       renderFeatures(sortedFeatures, map);
 
-      boundCameraToCards(map, features, userCoordinates);
+      zoomToShowAtLeastThreePins(map, features, userCoordinates);
     });
   } else {
     renderFeatures(features, map);
@@ -232,10 +228,6 @@ function mapRoutes(userCoordinates, features) {
 
 function filterFeaturesInBounds(features, bounds) {
   return features.filter((feature) => {
-    if (!feature.geometry || !feature.geometry.coordinates) {
-      console.warn('Undefined coordinates for feature:', feature);
-      return false;
-    }
     const coordinates = feature.geometry.coordinates;
     return bounds.contains(coordinates);
   });
@@ -268,6 +260,7 @@ function renderFeatures(features, map) {
 
   features.forEach((feature) => {
     let element;
+    console.log("feature.properties.variant", feature.properties.type);
     switch (feature.properties.variant) {
       case 'stores':
         element = createGeojsonStoreListing(feature);
@@ -287,11 +280,10 @@ function renderFeatures(features, map) {
         break;
       // Include additional cases as necessary
       default:
-        console.warn('Unknown feature type:', variant);
+        console.warn('Unknown feature type:', feature.properties.type);
     }
   });
 }
-
 
 function flyToStore(store, map) {
   map.flyTo({
@@ -309,24 +301,12 @@ function createUserLocationMarker(userCoordinates, map) {
 
 
 
-function boundCameraToCards(map, features, center) {
-  const storeCount = 6; // Define the storeCount constant
 
+function zoomToShowAtLeastThreePins(map, features, center) {
   const zoomOut = () => {
     const mapBounds = map.getBounds();
-    // const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
-    const filteredFeatures = [...storeFeatures, ...otherFeatures];
-    const storeFeatures = features.filter(feature => feature.type === 'store').slice(0, storeCount);
-    const otherFeatures = features.filter(feature => {
-      if (!feature.geometry || !feature.geometry.coordinates) {
-        console.warn('Undefined coordinates for feature:', feature);
-        return false;
-      }
-      const [lng, lat] = feature.geometry.coordinates;
-      return feature.type !== 'store' && mapBounds.contains([lng, lat]);
-    });
-    console.log("storeCount",storeCount);
-    if (filteredFeatures.length < storeCount) {
+    const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
+    if (filteredFeatures.length < 15) {
       map.zoomOut(1, { around: center });
       setTimeout(zoomOut, 100);
     } else {
@@ -336,6 +316,36 @@ function boundCameraToCards(map, features, center) {
   zoomOut();
 }
 
+function filterFeaturesInBound(features, bounds, currentLocation) {
+  const MAX_FEATURES = 6;
+  let featureLists = {
+      stores: [],
+      blogs: [],
+      articles: [],
+      reviews: []
+  };
+
+  for (let feature of features) {
+      if (bounds.contains(feature.geometry.coordinates)) {
+          // Calculate the distance from the current location to the feature
+          let distance = calculateDistance(currentLocation, feature.geometry.coordinates);
+
+          // Add the feature to the appropriate list, along with its distance
+          featureLists[feature.type].push({ feature, distance });
+      }
+  }
+
+  // For each type of feature, sort the features by distance and take the closest MAX_FEATURES
+  for (let type in featureLists) {
+      featureLists[type].sort((a, b) => a.distance - b.distance);
+      featureLists[type] = featureLists[type].slice(0, MAX_FEATURES).map(item => item.feature);
+  }
+
+  // Combine all the feature lists into one array
+  let filteredFeatures = [].concat(...Object.values(featureLists));
+
+  return filteredFeatures;
+}
 
 function getDistance(coord1, coord2) {
   const toRadians = (degrees) => degrees * (Math.PI / 180);
@@ -357,6 +367,104 @@ export default DineScreen;
 
 
 
+
+// function mapRoutes(userCoordinates, features) {
+//     features.forEach((feature, index) => {
+//       const YOUR_MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsa3R6aG93YzAyeDUzZXBoY2h6ZDBjN2gifQ.ef675JLTqdzPlw1tu_wHOA";
+//       let userLonLat = [userCoordinates[1], userCoordinates[0]];
+//       let featureLonLat = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
+  
+//       const directionsUrl = `https://api.mapbox.com/directions/v5/mapbox/driving/${userLonLat[0]}%2C${userLonLat[1]}%3B${featureLonLat[0]}%2C${featureLonLat[1]}?alternatives=false&geometries=polyline&language=en&overview=simplified&steps=true&access_token=${YOUR_MAPBOX_ACCESS_TOKEN}`;
+  
+//       fetch(directionsUrl)
+//       .then(response => response.json())
+//       .then(data => {
+//         const route = data.routes[0].geometry;
+//         const routeId = `route-${index}`;
+//         const decoded = polyline.toGeoJSON(route);
+//         if (map.getLayer(routeId)) {
+//           map.removeLayer(routeId);
+//           map.removeSource(routeId);
+//         }
+//         map.addLayer({
+//           id: routeId,
+//           type: 'line',
+//           source: {
+//             type: 'geojson',
+//             data: {
+//               type: 'Feature',
+//               geometry: decoded,
+//             },
+//           },
+//           paint: {
+//             'line-width': 2,
+//             'line-color': '#007cbf',
+//           },
+//         });
+//       })
+//       .catch(error => {
+//         console.error(`Failed to fetch route data: ${error}`);
+//       });
+//     });
+//   }
+  
+  // function filterFeaturesInBounds(features, bounds) {
+  //   return features.filter((feature) => {
+  //     const coordinates = feature.geometry.coordinates;
+  //     return bounds.contains(coordinates);
+  //   });
+  // }
+  
+  // function sortFeaturesByDistance(features, center) {
+  //   return features.sort((a, b) => {
+  //     const distanceA = getDistance(center, a.geometry.coordinates);
+  //     const distanceB = getDistance(center, b.geometry.coordinates);
+  //     return distanceA - distanceB;
+  //   });
+  // }
+  
+  // function renderFeatures(features, map) {
+  //   // References to DOM elements
+  //   const elements = {
+  //     postListing: document.getElementById("postListing"),
+  //     postStore: document.getElementById("postStore"),
+  //     postReview: document.getElementById("postReview"),
+  //     postArticle: document.getElementById("postArticle"),
+  //     postBlog: document.getElementById("postBlog")
+  //   };
+  
+  //   // Clear out old listings
+  //   for (let key in elements) {
+  //     if (elements[key]) {
+  //       elements[key].innerHTML = "";
+  //     }
+  //   }
+  
+  //   features.forEach((feature) => {
+  //     let element;
+  //     switch (feature.properties.type) {
+  //       case 'store':
+  //         element = createGeojsonStoreListing(feature);
+  //         elements.postStore.appendChild(element);
+  //         break;
+  //       case 'review':
+  //         element = createGeojsonReviewListing(feature);
+  //         elements.postReview.appendChild(element);
+  //         break;
+  //       case 'article':
+  //         element = createGeojsonArticleListing(feature);
+  //         elements.postArticle.appendChild(element);
+  //         break;
+  //       case 'blog':
+  //         element = createGeojsonBlogListing(feature);
+  //         elements.postBlog.appendChild(element);
+  //         break;
+  //       // Include additional cases as necessary
+  //       default:
+  //         console.warn('Unknown feature type:', feature.properties.type);
+  //     }
+  //   });
+  // }
 
 
 
@@ -601,7 +709,7 @@ export default DineScreen;
 //   marker.className = "icon-mapMarker-userLocation";
 //   return new mapboxgl.Marker(marker).setLngLat(userCoordinates).addTo(map);
 // }
-// function boundCameraToCards(map, features, center) {
+// function zoomToShowAtLeastThreePins(map, features, center) {
 //   const zoomOut = () => {
 //     const mapBounds = map.getBounds();
 //     const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
@@ -633,4 +741,52 @@ export default DineScreen;
 
 
 // export default DineScreen;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

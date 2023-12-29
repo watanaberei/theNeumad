@@ -239,16 +239,18 @@ const HeaderSecondary = {
 
     const navHeight = header.getBoundingClientRect().height;
     window.addEventListener("scroll", () => {
-      const scrollHeight = window.pageYOffset;
+      const scrollHeight = window.scrollY;
       if (scrollHeight > navHeight) {
         header.classList.add("fix"); 
-        headerMid.classList.add("hide");
-        utilityLogo.classList.add("show");
+        header.classList.add("hide");
+        // headerMid.classList.add("hide");
+        // utilityLogo.classList.add("show");
 
       } else {
         header.classList.remove("fix");
-        headerMid.classList.remove("hide");
-        utilityLogo.classList.remove("show");
+        header.classList.remove("hide");
+        // headerMid.classList.remove("hide");
+        // utilityLogo.classList.remove("show");
       }
     });
 

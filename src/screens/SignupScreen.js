@@ -1,5 +1,5 @@
 // src/screens/DineScreen.js
-import mapboxgl from "mapbox-gl";
+// import mapboxgl from "mapbox-gl";
 import { initMap } from "../components/MapApi.js";
 import { geojsonStore } from "../components/GeojsonStores.js";
 import { createMapMarker } from "../components/MapMarker.js";

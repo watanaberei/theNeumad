@@ -111,7 +111,7 @@ const router = async () => {
         }
       });
     
-      po.observe({type: '../src/index.js'});
+      po.observe({type: '..src/index.js'});
     } catch (e) {
       // Do nothing if the browser doesn't support this API.
     }

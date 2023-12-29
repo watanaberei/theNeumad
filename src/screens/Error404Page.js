@@ -16,7 +16,7 @@ const Error404Page = {
   after_render: () => {
     setTimeout(() => {
       location.assign("/");
-    }, 5000);
+    }, 3000);
   },
 };
 
