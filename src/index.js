@@ -101,20 +101,34 @@ const router = async () => {
     header.innerHTML = await HeaderHome.render();
     await HeaderHome.after_render();
   }
-  // Catch errors since some browsers throw when using the new `type` option.
+// Catch errors since some browsers throw when using the new `type` option.
 // https://bugs.webkit.org/show_bug.cgi?id=209216
-      try {
-      const po = new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          // Log the entry and all associated details.
-          console.log(entry.toJSON());
-        }
-      });
-    
-      po.observe({type: '..src/index.js'});
-    } catch (e) {
-      // Do nothing if the browser doesn't support this API.
+try {
+  // Mark the start of some operation
+  performance.mark('startOperation');
+
+  const main = document.getElementById("content");
+  main.innerHTML = await screen.render();
+  if (screen.after_render) await screen.after_render();
+
+  // Mark the end of the operation
+  performance.mark('endOperation');
+
+  // Measure the duration of the operation
+  performance.measure('operation', 'startOperation', 'endOperation');
+
+  const po = new PerformanceObserver((list) => {
+    for (const entry of list.getEntries()) {
+      // Log the entry and all associated details.
+      console.log(entry.toJSON());
     }
+  });
+
+  // Observe the 'measure' entries
+  po.observe({type: 'measure'});
+} catch (e) {
+    // Do nothing if the browser doesn't support this API.
+  }
   const main = document.getElementById("content");
   main.innerHTML = await screen.render();
   if (screen.after_render) await screen.after_render();

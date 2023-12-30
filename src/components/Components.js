@@ -83,6 +83,8 @@ import SearchResultsCategory from "./SearchResultsCategory";
 import SearchResultsLocation from "./SearchResultsLocation";
 import allTags from "./DataTags";
 
+// import "../../bundle.js";
+
 export { 
     mapRoute,
     polyline,
