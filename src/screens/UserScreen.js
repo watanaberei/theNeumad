@@ -1,3 +1,5 @@
+// src/screens/UserScreen.js
+
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
@@ -6,4 +8,6 @@ const UserSchema = new mongoose.Schema({
   // add other fields as needed
 });
 
+
+console.log("user profile");
 module.exports = mongoose.model('User', UserSchema);

@@ -15,35 +15,34 @@ import mapRoute from "../components/mapRoute.js";
 import polyline from '@mapbox/polyline';
 import HeaderHome from "../components/HeaderHome";
 
+
+//////////////////////////////// ./src/screens/SignupScreen.js
 const SignupScreen = {
   render: async () => {
     return `
     <!------ SIGNUP SCREEN ------> 
     <div class="main">
-    
-        
       <!------ SIGNUP CONTENT ------> 
-      <div class="signup-detail">
+      <div class="auth-container signup-detail">
           <div class="signup-container">
-
-
             <!------ HERO ------> 
             <section class="signup-hero">
-            
                 <!---- HEADLINE ----> 
                 <div class="signup-headline">
-
                     <!------ STORE HEADER ------>
                     <div class="signup-header">
-
                         <!------ HEADLINE ------>
                         <div class="signup-headline">
                             <span class="header06">
                               Sign Up
                             </span>
                         </div>
+                        <form id="signup-form">
+                            <input type="email" id="email" required />
+                            <input type="password" id="password" required />
+                            <button type="submit">Signup</button>
+                        </form>
                         <!------ HEADLINE ------>
-
                     </div>
                     <!------ STORE HEADER ------>
 
@@ -52,7 +51,6 @@ const SignupScreen = {
 
             </section>
             <!------ HERO ------>
-
           </div>
       </div>
       <!------ SIGNUP CONTENT ------> 
@@ -61,11 +59,9 @@ const SignupScreen = {
     <!------ SIGNUP SCREEN ------> 
     `;
   },
-
   after_render: async () => {
 
     // setCurrentLocation(map, features);
   },
 };
-
 export default SignupScreen;

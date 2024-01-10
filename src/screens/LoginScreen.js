@@ -15,25 +15,22 @@ import mapRoute from "../components/mapRoute.js";
 import polyline from '@mapbox/polyline';
 import HeaderHome from "../components/HeaderHome";
 
+//////////////////////////////// ./src/screens/LoginScreen.js
 const LoginScreen = {
   render: async () => {
     return `
-    <!------ SIGNUP SCREEN ------> 
+    <!------ LOGIN SCREEN ------> 
     <div class="main">
-    
-        
-      <!------ SIGNUP CONTENT ------> 
-      <div class="signup-detail">
+      <!------ LOGIN CONTENT ------> 
+      <div class="auth-container signup-detail">
           <div class="signup-container">
-
-
             <!------ HERO ------> 
             <section class="signup-hero">
             
                 <!---- HEADLINE ----> 
                 <div class="signup-headline">
 
-                    <!------ STORE HEADER ------>
+                    <!------ LOGIN HEADER ------>
                     <div class="signup-header">
 
                         <!------ HEADLINE ------>
@@ -42,10 +39,16 @@ const LoginScreen = {
                               Log in
                             </span>
                         </div>
+                        
+                        <form id="login-form">
+                            <input type="email" id="email" required />
+                            <input type="password" id="password" required />
+                            <button type="submit">Login</button>
+                        </form>
                         <!------ HEADLINE ------>
 
                     </div>
-                    <!------ STORE HEADER ------>
+                    <!------ LOGIN HEADER ------>
 
                 </div>
                 <!---- HEADLINE ---->
@@ -55,10 +58,10 @@ const LoginScreen = {
 
           </div>
       </div>
-      <!------ SIGNUP CONTENT ------> 
+      <!------ LOGIN CONTENT ------> 
 
     </div>
-    <!------ SIGNUP SCREEN ------> 
+    <!------ LOGIN SCREEN ------> 
     `;
   },
 
@@ -67,5 +70,4 @@ const LoginScreen = {
     // setCurrentLocation(map, features);
   },
 };
-
 export default LoginScreen;

@@ -89,11 +89,11 @@ const router = async () => {
     header.innerHTML = await HeaderHome.render();
     await HeaderHome.after_render();
   } else if (parseUrl === "/signup") {
-    header.innerHTML = await HeaderSecondary.render();
-    await HeaderSecondary.after_render();
+    header.innerHTML = await HeaderHome.render();
+    await HeaderHome.after_render();
   } else if (parseUrl === "/login") {
-    header.innerHTML = await HeaderSecondary.render();
-    await HeaderSecondary.after_render();
+    header.innerHTML = await HeaderHome.render();
+    await HeaderHome.after_render();
   } else if (parseUrl === "/map") {
     header.innerHTML = await HeaderHome.render();
     await HeaderHome.after_render();

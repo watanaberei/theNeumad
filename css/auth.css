@@ -6,3 +6,14 @@
     margin-bottom: 10px;
     display: block;
   }
+
+.auth-container {
+  /* display: flex !important; */
+  display: grid;
+  overflow-x: clip;
+  flex-direction: column;
+  grid-row-gap: 45px !important;
+  top: 150px;
+  position: relative !important;
+  overflow-y: scroll !important;
+}
