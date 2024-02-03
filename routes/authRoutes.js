@@ -1,60 +1,107 @@
 // routes/authRoutes.js
-const authenticateToken = require('../middleware/authenticateToken');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const MongoClient = require('mongodb').MongoClient;
+const { Router } = require('express');
+const authController = require('../controllers/authController');
 
-app.post('/login', (req, res) => {
-  // Authenticate User
-  const accessToken = jwt.sign(user, authenticateToken);
-  const { email, password } = req.body;
-  const client = new MongoClient('mongodb+srv://user:' + process.env.MONGO_PASSWORD + '@cluster0.bgd0ike.mongodb.net/?retryWrites=true&w=majority');
+const router = Router();
 
-  client.connect(err => {
-    if (err) {
-      client.close();
-      return res.status(500).json({ error: 'Database connection error' });
-    }
+router.get('/signup', authController.signup_get);
+router.post('/signup', authController.signup_post);
+router.get('/login', authController.login_get);
+router.post('/login', authController.login_post);
 
-    const db = client.db('db-name');
-    const users = db.collection('users');
-
-    users.findOne({ email: email }, (err, user) => {
-      if (err || !user) {
-        client.close();
-        return res.status(401).json({ error: 'Wrong username or password' });
-      }
-
-      bcrypt.compare(password, user.password, (err, isValid) => {
-        client.close();
-
-        if (err || !isValid) {
-          return res.status(401).json({ error: 'Wrong username or password' });
-        }
-
-        const accessToken = jwt.sign({
-          user_id: user._id.toString(),
-          nickname: user.nickname,
-          email: user.email
-        }, process.env.ACCESS_TOKEN_SECRET);
-
-        res.json({ accessToken: accessToken });
-      });
-    });
-  });
-  jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, (err, token) => {
-    if (err) {
-      console.error("Error signing token:", err);
-      return res.status(500).send("Error generating token");
-    }
-    res.json({ accessToken: token });
-  });
-});
+module.exports = router;
 
 
-app.get('/profile', authenticateToken, (req, res) => {
-  res.sendFile(path.join(__dirname, '../src/screens/UserScreen.js'));
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const authenticateToken = require('../middleware/authenticateToken');
+// const jwt = require('jsonwebtoken');
+// const bcrypt = require('bcrypt');
+// const MongoClient = require('mongodb').MongoClient;
+
+// app.post('/login', (req, res) => {
+//   // Authenticate User
+//   const accessToken = jwt.sign(user, authenticateToken);
+//   const { email, password } = req.body;
+//   const client = new MongoClient('mongodb+srv://user:' + process.env.MONGO_PASSWORD + '@cluster0.bgd0ike.mongodb.net/?retryWrites=true&w=majority');
+
+//   client.connect(err => {
+//     if (err) {
+//       client.close();
+//       return res.status(500).json({ error: 'Database connection error' });
+//     }
+
+//     const db = client.db('db-name');
+//     const users = db.collection('users');
+
+//     users.findOne({ email: email }, (err, user) => {
+//       if (err || !user) {
+//         client.close();
+//         return res.status(401).json({ error: 'Wrong username or password' });
+//       }
+
+//       bcrypt.compare(password, user.password, (err, isValid) => {
+//         client.close();
+
+//         if (err || !isValid) {
+//           return res.status(401).json({ error: 'Wrong username or password' });
+//         }
+
+//         const accessToken = jwt.sign({
+//           user_id: user._id.toString(),
+//           nickname: user.nickname,
+//           email: user.email
+//         }, process.env.ACCESS_TOKEN_SECRET);
+
+//         res.json({ accessToken: accessToken });
+//       });
+//     });
+//   });
+//   jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, (err, token) => {
+//     if (err) {
+//       console.error("Error signing token:", err);
+//       return res.status(500).send("Error generating token");
+//     }
+//     res.json({ accessToken: token });
+//   });
+// });
+
+
+// app.get('/profile', authenticateToken, (req, res) => {
+//   res.sendFile(path.join(__dirname, '../src/screens/UserScreen.js'));
+// });
 
 
 

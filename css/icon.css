@@ -7,6 +7,24 @@
   /* Other styles here */
 }
 
+.neustar-gold60 {
+  background: url('./../assets/_brand/neustar/neustar-gold60.svg') no-repeat;
+  height: 60px;
+  width: 60px;
+  display: block;
+}
+.neustar-silver60 {
+  background: url('./../assets/_brand/neustar/neustar-silver60.svg') no-repeat;
+  height: 60px;
+  width: 60px;
+  display: block;
+}
+.neustar-bronze60 {
+  background: url('./../assets/_brand/neustar/neustar-bronze60.svg') no-repeat;
+  height: 60px;
+  width: 60px;
+  display: block;
+}
 
 
 

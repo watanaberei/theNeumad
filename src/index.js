@@ -18,8 +18,8 @@ import HomeScreen from "./screens/HomeScreen.js";
 import WorkScreen from "./screens/WorkScreen.js";
 import UnwindScreen from "./screens/UnwindScreen.js";
 import DineScreen from "./screens/DineScreen.js";
-import SignupScreen from "./screens/SignupScreen.js";
-import LoginScreen from "./screens/LoginScreen.js";
+// import SignupScreen from "./screens/SignupScreen.js";
+// import LoginScreen from "./screens/LoginScreen.js";
 import BlogScreen from "./screens/BlogScreen.js";
 import ArticleScreen from "./screens/ArticleScreen.js";
 import StoreScreen from "./screens/StoreScreen.js";
@@ -39,8 +39,8 @@ const routes = {
   "/work": WorkScreen,
   "/unwind": UnwindScreen,
   "/dine": DineScreen,
-  "/signup": SignupScreen,
-  "/login": LoginScreen,
+  // "/signup": SignupScreen,
+  // "/login": LoginScreen,
   "/shorts": ShortsScreen,
   "/blogs/:slug": BlogScreen,
   "/stores/:slug": StoreScreen,
@@ -88,12 +88,12 @@ const router = async () => {
   } else if (parseUrl === "/shorts") {
     header.innerHTML = await HeaderHome.render();
     await HeaderHome.after_render();
-  } else if (parseUrl === "/signup") {
-    header.innerHTML = await HeaderHome.render();
-    await HeaderHome.after_render();
-  } else if (parseUrl === "/login") {
-    header.innerHTML = await HeaderHome.render();
-    await HeaderHome.after_render();
+  // } else if (parseUrl === "/signup") {
+  //   header.innerHTML = await HeaderHome.render();
+  //   await HeaderHome.after_render();
+  // } else if (parseUrl === "/login") {
+  //   header.innerHTML = await HeaderHome.render();
+  //   await HeaderHome.after_render();
   } else if (parseUrl === "/map") {
     header.innerHTML = await HeaderHome.render();
     await HeaderHome.after_render();

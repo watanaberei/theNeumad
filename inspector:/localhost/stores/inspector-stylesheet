@@ -1,0 +1,10 @@
+img {
+}div#carouselContainer {
+    height: 100px;
+    background: red;
+}img.galleryItem {
+    height: 300px;
+    width: 300px;
+}
+
+.headline-hero .secondary .secondary-item img {/* background: #a76e6e; *//* border-radius: 9px; *//* align-self: stretch; *//* flex: 1; */position: absolute;/* position: relative; *//* overflow: hidden; */}

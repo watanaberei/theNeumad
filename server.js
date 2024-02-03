@@ -1,123 +1,209 @@
 // server.js
-
+const path = require('path');
 const express = require('express');
-const { requiresAuth } = require('express-openid-connect');
-const { auth } = require('express-oauth2-jwt-bearer');
-const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
+const authRoutes = require('./routes/authRoutes');
+
 require('dotenv').config();
 
-const dotenv = require('dotenv');
-const cors = require('cors');
-const axios = require('axios');
-const mongoose = require('mongoose');
-const auth0 = require('auth0');
-
-const path = require('path');
-const { requiredScopes } = require('express-oauth2-jwt-bearer');
-const checkScopes = requiredScopes('read:messages');
-
-console.log(process.env.AUTH0_CLIENT_SECRET);
-const checkJwt = auth({
-  audience: process.env.AUTH0_API_IDENTIFIER,
-  issuerBaseURL: `${process.env.AUTH0_ISSUER_BASE_URL}`,
-});
 
 const app = express();
 
+app.use(express.static('public'));
 
+app.set('view engine', 'ejs');
+// Set the views directory
+app.set('views', path.join(__dirname, 'src', 'screens'));
 const dbURI = 'mongodb+srv://user:sshkey@cluster0.bgd0ike.mongodb.net/?retryWrites=true&w=majority';
 mongoose.connect(dbURI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log('MongoDB connection error:', err));
 
+app.get('/', (req, res) => res.render('index'));
+app.use(authRoutes);
 
 
-app.post('/logout', async (req, res) => { 
-    const { username, password } = req.body;     
-try { 
-        let user = await User.findOne({ email: username }) 
-        req.session.userId = user.id; 
- 
-        console.log(req.session); 
- 
-        res.redirect('/dashboard') 
- 
-    } catch (err) { 
-        console.log(err); 
-        res.json({ msg: 'Server Error! Please reload page' }); 
-    } 
-}) 
+// const port = process.env.PORT || 3000; // Fallback to 3000 if process.env.PORT is undefined
 
-
-
-
-app.use(
-  auth({
-    issuer: process.env.AUTH0_ISSUER_BASE_URL,
-    jwksUri: process.env.AUTH0_JWKS_URI,
-    audience: process.env.AUTH0_API_IDENTIFIER, 
-    baseURL: process.env.AUTH0_BASE_URL,
-    clientID: process.env.AUTH0_CLIENT_ID,
-    routes: {
-      // Pass custom options to the login method by overriding the default login route
-      login: false,
-      // Pass a custom path to the postLogoutRedirect to redirect users to a different
-      // path after login, this should be registered on your authorization server.
-      postLogoutRedirect: '/custom-logout',
-      callback: false,
-    },
-  })
-);
-
-console.log("Access Token Secret:", process.env.AUTH0_CLIENT_SECRET);
-console.log("Refresh Token Secret:", process.env.REFRESH_TOKEN_SECRET);
-console.log("Auth0 Client Secret:", process.env.AUTH0_CLIENT_SECRET);
-console.log("Auth0 Client ID:", process.env.AUTH0_CLIENT_ID);
-console.log("Auth0 API Identifier:", process.env.AUTH0_API_IDENTIFIER);
-console.log("Auth0 Issuer Base URL:", process.env.AUTH0_ISSUER_BASE_URL);
-console.log("Auth0 JWKS URI:", process.env.AUTH0_JWKS_URI);
-
-app.get('/', (req, res) => res.send('Welcome!'));
-
-app.get('/profile', requiresAuth(), (req, res) =>
-  res.send(`hello ${req.oidc.user.sub}`)
-);
-
-app.get('/login', (req, res) =>
-  res.oidc.login({
-    returnTo: '/profile',
-    authorizationParams: {
-      redirect_uri: 'http://localhost:3000/callback',
-    },
-  })
-);
-
-
-
-app.get('/custom-logout', (req, res) => res.send('Bye!'));
-
-// app.get('/callback', (req, res) =>
-//   res.oidc.callback({
-//     redirectUri: 'http://localhost:3000/callback',
-//   })
-// );
-
-
-app.post('/callback', express.urlencoded({ extended: false }), (req, res) =>
-  res.oidc.callback({
-    redirectUri: 'http://localhost:3000/callback',
-  })
-);
-
-
-const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
 
 
 
-module.exports = app;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const express = require('express');
+// const { requiresAuth } = require('express-openid-connect');
+// const { auth } = require('express-oauth2-jwt-bearer');
+// const jwt = require('jsonwebtoken');
+// require('dotenv').config();
+
+// const dotenv = require('dotenv');
+// const cors = require('cors');
+// const axios = require('axios');
+// const mongoose = require('mongoose');
+// const auth0 = require('auth0');
+
+// const path = require('path');
+// const { requiredScopes } = require('express-oauth2-jwt-bearer');
+// const checkScopes = requiredScopes('read:messages');
+
+// console.log(process.env.AUTH0_CLIENT_SECRET);
+// const checkJwt = auth({
+//   audience: process.env.AUTH0_API_IDENTIFIER,
+//   issuerBaseURL: `${process.env.AUTH0_ISSUER_BASE_URL}`,
+// });
+
+// const app = express();
+// app.use(checkJwt);
+
+// const dbURI = 'mongodb+srv://user:sshkey@cluster0.bgd0ike.mongodb.net/?retryWrites=true&w=majority';
+// mongoose.connect(dbURI)
+//   .then(() => console.log('MongoDB connected'))
+//   .catch(err => console.log('MongoDB connection error:', err));
+
+
+
+// app.post('/logout', async (req, res) => { 
+//     const { username, password } = req.body;     
+// try { 
+//         let user = await User.findOne({ email: username }) 
+//         req.session.userId = user.id; 
+ 
+//         console.log(req.session); 
+ 
+//         res.redirect('/dashboard') 
+ 
+//     } catch (err) { 
+//         console.log(err); 
+//         res.json({ msg: 'Server Error! Please reload page' }); 
+//     } 
+// }) 
+
+
+
+
+// app.use(
+//   auth({
+//     issuer: process.env.AUTH0_ISSUER_BASE_URL,
+//     jwksUri: process.env.AUTH0_JWKS_URI,
+//     audience: process.env.AUTH0_API_IDENTIFIER, 
+//     baseURL: process.env.AUTH0_BASE_URL,
+//     clientID: process.env.AUTH0_CLIENT_ID,
+//     routes: {
+//       // Pass custom options to the login method by overriding the default login route
+//       login: false,
+//       // Pass a custom path to the postLogoutRedirect to redirect users to a different
+//       // path after login, this should be registered on your authorization server.
+//       postLogoutRedirect: '/custom-logout',
+//       callback: false,
+//     },
+//   })
+// );
+
+// console.log("Access Token Secret:", process.env.AUTH0_CLIENT_SECRET);
+// console.log("Refresh Token Secret:", process.env.REFRESH_TOKEN_SECRET);
+// console.log("Auth0 Client Secret:", process.env.AUTH0_CLIENT_SECRET);
+// console.log("Auth0 Client ID:", process.env.AUTH0_CLIENT_ID);
+// console.log("Auth0 API Identifier:", process.env.AUTH0_API_IDENTIFIER);
+// console.log("Auth0 Issuer Base URL:", process.env.AUTH0_ISSUER_BASE_URL);
+// console.log("Auth0 JWKS URI:", process.env.AUTH0_JWKS_URI);
+
+// app.get('/', (req, res) => res.send('Welcome!'));
+
+// app.get('/profile', requiresAuth(), (req, res) =>
+//   res.send(`hello ${req.oidc.user.sub}`)
+// );
+
+// app.get('/login', (req, res) =>
+//   res.oidc.login({
+//     returnTo: '/profile',
+//     authorizationParams: {
+//       redirect_uri: 'http://localhost:3000/callback',
+//     },
+//   })
+// );
+
+
+
+// app.get('/custom-logout', (req, res) => res.send('Bye!'));
+
+// // app.get('/callback', (req, res) =>
+// //   res.oidc.callback({
+// //     redirectUri: 'http://localhost:3000/callback',
+// //   })
+// // );
+
+
+// app.post('/callback', express.urlencoded({ extended: false }), (req, res) =>
+//   res.oidc.callback({
+//     redirectUri: 'http://localhost:3000/callback',
+//   })
+// );
+
+
+// const port = process.env.PORT;
+// app.listen(port, () => {
+//   console.log(`Server listening on port ${port}`);
+// });
+
+
+
+// module.exports = app;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

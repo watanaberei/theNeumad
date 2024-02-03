@@ -104,8 +104,8 @@ function generateStorePopularTimeHTML(popularTimes) {
 
 
         // Summary
-        const limitedBest03 = store?.summary?.best?.length ? store.summary.best.slice(0, 3) : [];
-        console.log("limitedBest03", limitedBest03);
+        const limitedBest02 = store?.summary?.best?.length ? store.summary.best.slice(0, 3) : [];
+        console.log("limitedBest02", limitedBest02);
 
         
         // Neustart        
@@ -120,16 +120,20 @@ function generateStorePopularTimeHTML(popularTimes) {
 
 
         // MEDIA
-        const originalGallery = store.media.gallery && Array.isArray(store.media.gallery) && store.media.gallery.length ? store.media.gallery : [];
+        const mediaArea = store.media.area && Array.isArray(store.media.area) && store.media.area.length ? store.media.area : [];
         const mediaGallery = store.media.gallery && Array.isArray(store.media.gallery) && store.media.gallery.length ? store.media.gallery : [];
-        const mediaGalleryData = originalGallery && Array.isArray(originalGallery) && originalGallery.length ? originalGallery : [];
-        const mediaGalleryHTML = generateMediaGalleryHTML(mediaGalleryData);
-        const carouselMediaGalleryHTML = generateCarouselHTML(mediaGalleryData);
-
-        const service = store.media.gallery && Array.isArray(store.media.gallery) && store.media.gallery.length ? store.media.gallery : [];
-        const galleryData = originalGallery && Array.isArray(originalGallery) && originalGallery.length ? originalGallery : [];
-        const galleryHTML = generateMediaGalleryHTML(mediaGalleryData);
-        const carouselGalleryHTML = generateCarouselHTML(mediaGalleryData);
+        const mediaService = store.media.service && Array.isArray(store.media.service) && store.media.service.length ? store.media.service : [];
+        // const mediaGalleryData = mediaGallery && Array.isArray(mediaGallery) && mediaGallery.length ? mediaGallery : [];
+        // const mediaGalleryHTML = generateMediaGalleryHTML(mediaGalleryData);
+        
+        // CAROUSEL
+        // const service = store.media.gallery && Array.isArray(store.media.gallery) && store.media.gallery.length ? store.media.gallery : [];
+        // const galleryData = mediaGallery && Array.isArray(mediaGallery) && mediaGallery.length ? mediaGallery : [];
+        // const galleryHTML = generateMediaGalleryHTML(mediaGalleryData);
+        const carouselArea = generateMediaCarouselHTML(mediaArea, 5);
+        const carouselServices = generateMediaCarouselHTML(mediaService, 6);
+        const carouselGallery = generateMediaCarouselHTML(mediaGallery, 3);
+        
 
     
         const nearbyLogoData = nearbyStores.nearbyLogo && Array.isArray(nearbyStores.nearbyLogo) && nearbyStores.nearbyLogo.length ? nearbyStores.nearbyLogo : [];
@@ -147,7 +151,7 @@ function generateStorePopularTimeHTML(popularTimes) {
         //   console.log("Header tags",tags);
         const limitedTags01 = tags.slice(0, 1);
         const originalTag = store.tag && store.tag.length ? store.tag : [];
-        const limitedTags03 = originalTag && originalTag.length ? originalTag[0].tags.slice(0, 3) : [];
+        const limitedTags02 = originalTag && originalTag.length ? originalTag[0].tags.slice(0, 3) : [];
         const limitedAttributeTags01 = attributeTags.slice(0, 1);
         let tagsHTML = '';
         limitedTags01.forEach(tags => {
@@ -194,14 +198,14 @@ function generateStorePopularTimeHTML(popularTimes) {
             <div class="store-attributes-item">
                 <div class="store-attributes-icon">
                 <div class="store-attributes-icons-container">
-                    <span class="bold03">
+                    <span class="bold02">
                     <i class="store-attributes-icon icon-attributes-${attr.key}"></i>
                     </span>
                 </div>
                 </div>
                 <div class="store-attributes-content">
-                <span class="bold03">${attr.key}</span>
-                <span class="text03">${attr.value}</span>
+                <span class="bold02">${attr.key}</span>
+                <span class="text02">${attr.value}</span>
                 </div>
             </div>
             <div class="lineH"></div>
@@ -217,14 +221,14 @@ function generateStorePopularTimeHTML(popularTimes) {
             <div class="store-attributes-item">
                 <div class="store-attributes-icon">
                 <div class="store-attributes-icons-container">
-                    <span class="bold03">
+                    <span class="bold02">
                     <i class="store-attributes-icon icon-attributes-${attr.key}"></i>
                     </span>
                 </div>
                 </div>
                 <div class="store-attributes-content">
-                <span class="bold03">${attr.key}</span>
-                <span class="text03">${attr.value}</span>
+                    <span class="bold02">${attr.key}</span>
+                    <span class="text02">${attr.value}</span>
                 </div>
             </div>
             <div class="lineH"></div>
@@ -239,14 +243,14 @@ function generateStorePopularTimeHTML(popularTimes) {
             <div class="store-attributes-item">
                 <div class="store-attributes-icon">
                 <div class="store-attributes-icons-container">
-                    <span class="bold03">
+                    <span class="bold02">
                     <i class="store-attributes-icon icon-attributes-${attr.key}"></i>
                     </span>
                 </div>
                 </div>
                 <div class="store-attributes-content">
-                <span class="bold03">${attr.key}</span>
-                <span class="text03">${attr.value}</span>
+                    <span class="bold02">${attr.key}</span>
+                    <span class="text02">${attr.value}</span>
                 </div>
             </div>
             <div class="lineH"></div>
@@ -264,20 +268,18 @@ function generateStorePopularTimeHTML(popularTimes) {
             <div class="store-storeAttributes-item">
                 <div class="store-storeAttributes-icon">
                     <div class="store-storeAttributes-icons-container">
-                        <span class="bold03">
+                        <span class="bold02">
                             <i class="store-attributes-icon icon-attributes-${iconString}"></i>
                         </span>
                     </div>
                 </div>
                 <div class="store-storeAttributes-contemt">
-
-                        <span class="bold03">
-                            ${storeAttributes.key}
-                        </span>
-                        <span class="text03">
-                            ${storeAttributes.value}
-                        </span>
-
+                    <span class="bold02">
+                        ${storeAttributes.key}
+                    </span>
+                    <span class="text02">
+                        ${storeAttributes.value}
+                    </span>
                 </div>
             </div>
             <div class="lineH"></div>
@@ -299,16 +301,16 @@ function generateStorePopularTimeHTML(popularTimes) {
             <div class="store-storeAttributes-item">
                 <div class="store-storeAttributes-icon">
                     <div class="store-storeAttributes-icons-container">
-                        <span class="bold03">
+                        <span class="bold02">
                             <i class="store-attributes-icon icon-attributes-${iconString}"></i>
                         </span>
                     </div>
                 </div>
                 <div class="store-storeAttributes-contemt">
-                    <span class="bold03">
+                    <span class="bold02">
                         ${summaryFacility.key}
                     </span>
-                    <span class="text03">
+                    <span class="text02">
                         ${summaryFacility.value}
                     </span>
 
@@ -334,16 +336,16 @@ function generateStorePopularTimeHTML(popularTimes) {
             <div class="store-storeAttributes-item">
                 <div class="store-storeAttributes-icon">
                     <div class="store-storeAttributes-icons-container">
-                        <span class="bold03">
+                        <span class="text02">
                             <i class="store-service-icon icon-service-${iconString}"></i>
                         </span>
                     </div>
                 </div>
                 <div class="store-storeAttributes-contemt">
-                        <span class="bold03">
+                        <span class="text02">
                             ${summaryService.key}
                         </span>
-                        <span class="text03">
+                        <span class="text02">
                             ${summaryService.value}
                         </span>
 
@@ -357,6 +359,14 @@ function generateStorePopularTimeHTML(popularTimes) {
 
 
 
+        // BEST
+        let bestHTML = '';
+        limitedBest02.forEach(best => {
+            bestHTML += `
+            <div class="metadata-tag">
+            <span class="metadata-tag-text text01 bold">${best}</span>
+            </div>`;
+        });
 
 
 
@@ -377,30 +387,160 @@ function generateStorePopularTimeHTML(popularTimes) {
         console.log("neustarHTML",neustarHTML);
 
 
+        // Neustar
+        const generateNeustarRank = (neustar) => {
+            let iconsHTML = '';
+            switch (neustar) {
+                case 0:
+                    iconsHTML += '';
+                    break;  
+                case 1:
+                    iconsHTML += '<i class="neustar-gold60"></i>';
+                    break;
+                case 2:
+                    iconsHTML += '<i class="neustar-silver60"></i>';
+                    break;
+                case 3:
+                    iconsHTML += '<i class="neustar-bronze60"></i>';
+                    break;
+                default:    
+                    iconsHTML += '';
+            }
+     
+            return iconsHTML;
+        };
+        const neustarRank = `${generateNeustarRank(store.neustar)}`;
 
 
 
-        // Eyebrow
-        function generateHeadlineEyebrow() {
-            const eyebrowContent = document.createElement('span');
-            eyebrowContent.className = 'card-postCarousel-item listingAStore';
-            eyebrowContent.innerHTML = 'Neaby' + ' ' + categoryType;
-            return `
-            <div class="headline-eyebrow">
-                <div class="headline-eyebrow-container">
-                    <i class="icon-point-24"></i>
-                    <span class="eyebrow text03">
-                        <span class="bold">
-                        Business
-                        </span>
-                        ${eyebrowContent.innerHTML}
-                    </span>
-                </div>
-            </div>
-            `;
-        }
-        const headerEyebrow = generateHeadlineEyebrow();
+
+
+
+
+        // CAROUSEL// CAROUSEL// CAROUSEL// CAROUSEL// CAROUSEL// CAROUSEL
+        // Assuming you have Node.js environment to serve this code and a basic HTML file to run it
+        if (document.getElementById('store-body-media-carousel')) {
+            document.addEventListener('DOMContentLoaded', function() {
+                const carousel = document.createElement('div');
+                carousel.className = 'carousel w-full max-w-xs';
         
+                const carouselContent = document.createElement('div');
+                carouselContent.className = 'carousel-content';
+        
+                for (let index = 0; index < 5; index++) {
+                    const carouselItem = document.createElement('div');
+                    carouselItem.className = 'carouselServices';
+        
+                    const cardContainer = document.createElement('div');
+                    cardContainer.className = 'p-1';
+        
+                    const card = document.createElement('div');
+                    card.className = 'card';
+        
+                    const cardContent = document.createElement('div');
+                    cardContent.className = 'card-content flex aspect-square items-center justify-center p-6';
+        
+                    const numberSpan = document.createElement('span');
+                    numberSpan.className = 'text-4xl font-semibold';
+                    numberSpan.textContent = index + 1;
+        
+                    cardContent.appendChild(numberSpan);
+                    card.appendChild(cardContent);
+                    cardContainer.appendChild(card);
+                    carouselItem.appendChild(cardContainer);
+                    carouselContent.appendChild(carouselItem);
+                }
+        
+                const carouselPrevious = document.createElement('button');
+                carouselPrevious.className = 'carousel-previous';
+                carouselPrevious.textContent = '<'; // Set the text or icon for previous button
+                carouselPrevious.addEventListener('click', function() {
+                    // Implement previous slide functionality
+                });
+        
+                const carouselNext = document.createElement('button');
+                carouselNext.className = 'carousel-next';
+                carouselNext.textContent = '>'; // Set the text or icon for next button
+                carouselNext.addEventListener('click', function() {
+                    // Implement next slide functionality
+                });
+        
+                carousel.appendChild(carouselContent);
+                carousel.appendChild(carouselPrevious);
+                carousel.appendChild(carouselNext);
+        
+                document.getElementById('store-body-media-carousel').appendChild(carousel);
+            });
+        } else {
+            console.error('store-body-media-carousel element not found');
+        }
+
+        // CAROUSEL// CAROUSEL// CAROUSEL// CAROUSEL// CAROUSEL// CAROUSEL
+
+
+
+
+
+
+
+
+
+        
+
+
+
+        const storeCurrentStatusHTMLss = getStoreCurrentStatusHTML(popularTime);
+        const storeCurrentStatusHTMLs = storeCurrentStatusHTML;
+      
+      
+        storeCurrentStatusHTMLss.forEach((chartsContainer, idx) => {
+            // Check if there is data for the current index
+            if (!popularTime[idx] || !Array.isArray(popularTime[idx]) || popularTime[idx].length < 2) return; 
+        
+                
+                // Logging for debugging
+                // console.log("Index:", idx, "Data:", popularTime[idx]);
+                
+            for (let dayIndex = 1; dayIndex < popularTime[idx][0].length; dayIndex++) {
+                // Additional safety checks to ensure we're not accessing data that doesn't exist
+                if (!popularTime[idx][currentHour + 1] || typeof popularTime[idx][currentHour + 1][dayIndex] === 'undefined') {
+                    continue;
+                }
+                
+                const currentValue = parseInt(popularTime[idx][currentHour + 1][dayIndex]);
+                
+                const dayContainer = document.createElement('div');
+                dayContainer.classList.add('chart');
+        
+                const header = document.createElement('div');
+                header.classList.add('day-title');
+            
+                dayContainer.appendChild(header);
+            
+                if (dayIndex === currentDay + 1) {
+                    const currentStatus = document.createElement('div');
+                    currentStatus.classList.add('status');
+        
+                    if (currentValue >= 0 && currentValue <= 5) {
+                        currentStatus.textContent = "NOT BUSY";
+                        currentStatus.classList.add('not-busy');
+                    } else if (currentValue > 5 && currentValue <= 10) {
+                        currentStatus.textContent = "MODERATELY BUSY";
+                        currentStatus.classList.add('moderately-busy');
+                    } else if (currentValue > 10 && currentValue <= 12) {
+                        currentStatus.textContent = "BUSY";
+                        currentStatus.classList.add('busy');
+                    } else {
+                        currentStatus.textContent = "PACKED";
+                        currentStatus.classList.add('packed');
+                    }
+        
+                    dayContainer.appendChild(currentStatus);
+                }
+                chartsContainer.appendChild(dayContainer);
+            }
+        });
+      
 
 
 
@@ -426,6 +566,53 @@ function generateStorePopularTimeHTML(popularTimes) {
             <div class="lineH"></div>
             `
         });
+      
+
+
+
+        //   Title
+        function generateTitle() {
+            return `
+            <div class="store-areas-item">
+            
+                <div class="store-areas-container">
+
+                    <span class="header04">
+                        ${categoryType}
+                    </span>
+                    <span class="header04">
+                        in
+                    </span>
+                    <span class="header04">
+                        ${store.location.region}
+                    </span>
+
+                </div>
+
+            </div>
+            
+            <div class="lineH"></div>
+            `;
+        }
+        const generateTitleHTML = generateTitle();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+
+
 
 
 
@@ -501,6 +688,7 @@ function generateStorePopularTimeHTML(popularTimes) {
         console.log("summaryText",summaryText);
         const limitedsummaryText04 = summaryText.slice(0, 4);
         const limitedsummaryDetails04 = summaryDetails.slice(0, 4);
+        // console.log("SUMMARYDETAILS", summaryText);
 
         let summaryTextHTML = '';
         limitedsummaryText04.forEach(summaryText => {
@@ -508,16 +696,16 @@ function generateStorePopularTimeHTML(popularTimes) {
             <div class="store-summary-item">
                 <div class="store-summary-icons">
                     <div class="store-summary-icons-container">
-                        <span class="bold03">
+                        <span class="bold02">
                             <i class="section-tag-icon icon-${summaryText.key}-21"></i>
                         </span>
                     </div>
                 </div>
                 <div class="store-summary-contemt">
-                    <span class="bold03">
+                    <span class="bold02">
                         ${summaryText.key}
                     </span>
-                    <span class="text03">
+                    <span class="text02">
                         ${summaryText.value}
                     </span>
                 </div>
@@ -533,16 +721,16 @@ function generateStorePopularTimeHTML(popularTimes) {
             <div class="store-summary-item">
                 <div class="store-summary-icons">
                     <div class="store-summary-icons-container">
-                        <span class="bold03">
+                        <span class="bold02">
                             <i class="section-tag-icon icon-${summaryDetails.key}-21"></i>
                         </span>
                     </div>
                 </div>
                 <div class="store-summary-contemt">
-                    <span class="bold03">
+                    <span class="bold02">
                         ${summaryDetails.key}
                     </span>
-                    <span class="text03">
+                    <span class="text02">
                         ${summaryDetails.value}
                     </span>
                 </div>
@@ -551,6 +739,215 @@ function generateStorePopularTimeHTML(popularTimes) {
             `
         });
         console.log("summaryDetailsHTML",summaryDetailsHTML);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////// Headline ////////// Headline ////////// Headline //////////
+        // Headline Eyebrow
+        function generateHeadlineEyebrow() {
+            const eyebrowContent = document.createElement('span');
+                eyebrowContent.className = 'current-storeRange current-storeType';
+                eyebrowContent.innerHTML = 'Neaby' + ' ' + categoryType;
+            const currentDistance = document.createElement('span');
+                currentDistance.className = 'current-storeDistance';
+                currentDistance.innerHTML = '12' + 'mi';
+            return `
+            <div class="headline-eyebrow">
+                <div class="eyebrow">
+                    <div class="icon">
+                        <i class="icon-point-24"></i>
+                    </div>
+                    <div class="text">
+                        <div class="title">
+                            <span class="eyebrow text02 bold">
+                                Business
+                            </span>
+                        </div>
+                        <div class="subtitle">
+                            <span class="eyebrow text02">
+                                ${eyebrowContent.innerHTML}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="label">
+                    <span class="eyebrow text02 ">
+                        ${currentDistance.innerHTML}
+                    </span>
+                </div>
+            </div>
+            `;
+        }
+        const headlineEyebrow = generateHeadlineEyebrow();
+
+
+        // ATTRIBUTES
+        function generateAttributesArray() {
+            let attributesArray = '';
+            limitedBest02.forEach(best => {
+                attributesArray += `
+                <div class="glyph-15-item">
+                   
+                    <span class="bold text02">${best}</span>
+                    <i class="glyph-check-15"></i>
+
+                </div>`;
+            });
+            return attributesArray;
+        }
+        
+        // Headline Text
+        function generateHeadlineText() {
+            const eyebrowContent = document.createElement('span');
+                eyebrowContent.className = 'card-postCarousel-item listingAStore';
+                eyebrowContent.innerHTML = 'Neaby' + ' ' + categoryType;
+            const currentDistance = document.createElement('span');
+                currentDistance.className = 'currentDistance';
+                currentDistance.innerHTML = '12' + 'mi';
+            const attributesArray = generateAttributesArray();
+            return `
+            <div class="headline">
+
+                <div class="text">
+                    <div class="primary">
+                        <span class="header05">
+                            ${store.headline.text}
+                        </span>
+                    </div>
+                    <div class="secondary">
+                        <span class="header05">
+                            ${store.location.region}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="array">
+                    ${attributesArray}
+                </div>
+
+            </div>
+            `;
+        }
+        const headlineText = generateHeadlineText();
+
+        // Headline Hero
+        function generateHeadlineHeroGallery() {
+            const eyebrowContent = document.createElement('span');
+                eyebrowContent.className = 'card-postCarousel-item listingAStore';
+                eyebrowContent.innerHTML = 'Neaby' + ' ' + categoryType;
+            const currentDistance = document.createElement('span');
+                currentDistance.className = 'currentDistance';
+                currentDistance.innerHTML = '12' + 'mi';
+            return `
+            <div class="headline-hero">
+                <div class="primary">
+                    <img src="${store.media.hero}" alt="" />
+                </div>
+                <div class="secondary">
+                    <div class="secondary-item" id="secondary01">
+                        <img src="${store.media.gallery[0].url}" alt="" />
+                    </div>
+                    <div class="secondary-item" id="secondary02">
+                        <img src="${store.media.gallery[1].url}" alt="" />
+                    </div>
+                </div>
+    
+            </div>
+            `;
+        }
+        const headlineHeroGallery = generateHeadlineHeroGallery();
+
+       // Headline Hero
+       function generateHeadlineHeroSingle() {
+        const eyebrowContent = document.createElement('span');
+            eyebrowContent.className = 'card-postCarousel-item listingAStore';
+            eyebrowContent.innerHTML = 'Neaby' + ' ' + categoryType;
+        const currentDistance = document.createElement('span');
+            currentDistance.className = 'currentDistance';
+            currentDistance.innerHTML = '12' + 'mi';
+        return `
+        <div class="headline-hero">
+            <div class="primary">
+                <img src="${store.media.hero}" alt="" />
+            </div>
+        </div>
+        `;
+    }
+    const headlineHeroSingle = generateHeadlineHeroSingle();
+////////// Headline ////////// Headline ////////// Headline //////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         return `
         <!--STORESCREEN-->
@@ -569,73 +966,401 @@ function generateStorePopularTimeHTML(popularTimes) {
                     <div class="store-headline">
 
                         <!------ STORE HEADER ------>
-                        <div class="store-header">
-                            ${headerEyebrow}
+                        <div class="headline">
+                            ${headlineEyebrow}
 
                             <!------ HEADLINE ------>
-                            <div class="store-headline">
-                                <span class="header06">
-                                    ${store.headline.text}
-                                </span>
+                            <div class="headline-container">
+                                
+                                ${headlineHeroSingle}
+                                ${headlineText}
+                                    
                             </div>
                             <!------ HEADLINE ------>
-
-                            <!------ NEUSTAR ------>
-                            <div class="store-neustars">
-                                <span class="text02">
-                                    ${neustarHTML}
-                                </span>
-                            </div>
-                            <!------ NEUSTAR ------>
-
-                            <!---- IMG ----> 
-                            <div class="store-headline-details-img">
-                                <div class="top store-hero-IMG">
-                                    <div class="store-hero-container">
-                                        <div class="store-hero-container-primary">
-                                            <img src="${store.media.hero}" alt="" />
-                                        </div>
-                                        <div class="store-hero-container-secondary">
-                                            <img src="${store.media.gallery[0].url}" alt="" />
-                                            <img src="${store.media.gallery[1].url}" alt="" />
-                                        </div>
-                                    </div>                   
-                                </div>
-                            </div>
-                            <!---- IMG ----> 
 
                         </div>
-                        <!------ STORE HEADER ------>
-                    
+                        <!------ STORE HEADER ------>  
                     </div>
-                    <!---- HEADLINE ----> 
+                </section>
+                <!---- HEADLINE ----> 
 
 
-
-
-
+                <section class="store-intro>
                     <!---- DETAILS ----> 
                     <div class="store-headline-details">
 
                         <!---- CONTENT ----> 
                         <div class="store-headline-details-content">
+                            <!--- TITLE --->    
+                            <div class="store-info">
+                                <div class="store-title">
+                                    ${generateTitleHTML}
 
+                                    ${bestHTML}
+                                </div>
+                            </div>
+                            <!--- TITLE --->  
+
+                            <div class="lineH"></div>
+
+                            <!--- OVERVIEW --->    
+                            <div class="store-overview">
+                                <div class="store-overview-title">
+                                    <span class="header04">
+                                        Overview
+                                    </span>
+                                </div>
+                                <div class="store-overview-body">
+                                    <span class="text02">
+                                        ${snippetOverview}
+                                    </span>
+                                </div>
+                            </div>
+                            <!--- OVERVIEW --->
+
+                            <div class="lineH"></div>
+
+                            <!--- LIST --->  
+                            <div class="content-summary">
+                                <div class="blog-data">
+                                    <div class="store-summary">
+                                        ${summaryTextHTML}
+                                    </div>
+                                </div>
+                            </div>
+                            <!--- LIST --->  
+
+                            <div class="lineH"></div>
+
+                        </div>
+                    </div>
+                </section>
+
+
+
+
+                <div class="lineH"></div>
+
+
+
+                <!------ EXPERIENCE ------>
+                <section class="store-facility"> 
+                
+                    <!------ HEADLINE ------>
+                    <div class="store-title">
+                        <div class="store-body-title-container"> 
+                            <span class="header04">
+                                Experience
+                            </span>   
+                        </div>   
+
+                        <!------ SUMMARY LIST ------>
+                        <div class="body-title">
+                            <span class="text02 bold">
+                                Space
+                            </span>
+                        </div>
+                        <div class="blog-data">
+                            <div class="store-summary">
+                                <span class="text02">
+                                    ${summaryTextHTML}
+                                </spanz>
+                            </div>
+                        </div>
+                        <!------ SUMMARY LIST ------>
+
+                        <div class="store-body-media-carousel">
+                            ${carouselArea}
+                        </div>
+                        <div class="store-body-title-subtext">
+                        
+                            <span class="text02">
+                                ${summaryDetailsHTML}
+                            </span>   
+                    
+                        </div>
+                    </div>
+                    <!------ HEADLINE ------>
+
+                    <!------ OVERVIEW ------>
+                    <div class="store-snippet">
+                        <span class="text02">
+                            Facility Overview
+                        </span>
+                        <span class="text02">
+                            ${store.snippet.facility}
+                        </span>
+                    </div>
+                    <!------ OVERVIEW ------>
+
+                    <div class="lineH"></div>
+                    
+                    <!------ SPACE ------>
+                    <div class="store-snippet">
+                        <div class="body-title">
+                            <span class="text02 bold">
+                                The Inside
+                            </span>
+                        </div>
+                        <div class="store-snippet-body">
+                            <span class="text02">
+                                The seating arrangement of the facility is thoughtfully arranged to embraced the shared space in order to create an environment similar to a school yard during lunch break.
+                            </span>
+                        </div>
+                    </div>
+                    <!------ SPACE ------>
+
+                    <div class="lineH"></div>
+
+                    <!------ LIST ------>
+                    <div class="blog-data">
+                        <div class="store-summary">
+                            <div class="store-storeAttributes-">
+                                ${summaryFacilityHTML}
+                            </div>
+                        </div>
+                    </div>
+                    <!------ LIST ------>
+
+                    <div class="lineH"></div>
+
+                </section>
+                <!------ EXPERIENCE ------>
+
+
+
+                <!------ SERVICE ------>
+                <section class="store-service"> 
+                
+                    <!------ HEADLINE ------>
+                    <div class="store-title">
+                        <div class="store-body-title-container"> 
+                            <span class="header04">
+                                Services
+                            </span>   
+                        </div>   
+                        <div class="store-body-media-carousel">
+                            ${carouselServices}
+                        </div>
+                        
+                        
+                    </div>
+                    <!------ HEADLINE ------>
+
+                    <!------ OVERVIEW ------>
+                    <div class="store-body-title-container"> 
+                        <span class="text02 bold">
+                            Services
+                        </span>   
+                    </div>   
+                    <div class="store-body-title-container"> 
+                        <span class="text02">
+                            ${store.snippet.service}
+                        </span>   
+                    </div>   
+                    <!------ OVERVIEW ------>
+
+                    <div class="lineH"></div>
+
+                    
+                    <!------ LIST ------>
+                    <div class="body-title">
+                        <span class="text02 bold">
+                            Space
+                        </span>
+                    </div>
+                    <div class="store-snippet-body">
+                    <div class="blog-data">
+                        <div class="store-summary">
+                            <div class="store-storeAttributes-">
+                                <span class="text02">
+                                    ${summaryServiceHTML}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!------ LIST ------>
+
+                </section>
+                <!------ SERVICE ------>
+
+                <!------ LOCATION ------>
+                <section class="store-location"> 
+                
+                    <!------ HEADLINE ------>
+                    <div class="store-title">
+                        <div class="store-body-title-container"> 
+                            <span class="header04">
+                                LOCATION
+                            </span>   
+                        </div>   
+                        
+
+                        <!------ MAP ------>
+                        <div class="map nearbyMap" id="map">
+                            <div id="map-container" class="nearbyMap-container"></div>
+                        </div>
+                        <div class="store-body-media-carousel">
+                            ${nearbyGalleryHTML}
+                        </div>
+                        <!------ MAP ------>
+
+                        <div class="store-body-title-subtext">
+                        
+                            <span class="header04">
+                                ${summaryDetailsHTML}
+                            </span>   
+                    
+                        </div>
+                    </div>
+                    <!------ HEADLINE ------>
+
+                    <!------ OVERVIEW ------>
+                    <div class="store-snippet">
+                        <span class="text02">
+                            Facility Overview
+                        </span>
+                        <span class="text02">
+                            ${store.snippet.service}
+                        </span>
+                    </div>
+                    <!------ OVERVIEW ------>
+
+                    <div class="lineH"></div>
+
+                    <!------ LIST ------>
+                    <div class="blog-data">
+                        <div class="store-summary">
+                            <div class="store-storeAttributes-">
+                                ${summaryServiceHTML}
+                            </div>
+                        </div>
+                    </div>
+                    <!------ LIST ------>
+
+                </section>
+                <!------ LOCATION ------>
+
+
+
+
+
+
+
+
+
+                <span class="header06">
+                <br><br><br><br>
+                TEST         TEST         TEST         TEST         TEST         TEST
+                <br><br><br><br>
+                </span>
+
+
+                <div class="w-full max-w-xs" id="carouselContainer>
+                    <div class="w-full max-w-xs" id="carouselContainer">
+                        <img class="carouselImage" src="image1.jpg" alt="Image 1">
+                        <img class="carouselImage" src="image2.jpg" alt="Image 2">
+                        <img class="carouselImage" src="image3.jpg" alt="Image 3">
+                    </div>
+                </div>
+
+
+
+
+                <span class="header06">
+                <br><br><br><br>
+                TEST         TEST         TEST         TEST         TEST         TEST
+                <br><br><br><br>
+                </span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <span class="header06">
+                <br><br><br><br>
+                OLD   OLD   OLD   OLD   OLD   OLD   OLD   OLD   OLD   OLD   OLD   OLD
+                <br><br><br><br>
+                </span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+
+                <section class="store-intro>
+                    <!---- DETAILS ----> 
+                    <div class="store-headline-details">
+
+                        <!---- CONTENT ----> 
+                        <div class="store-headline-details-content">
                             <!---- INFO ---->    
                             <div class="store-info">
                                 <div class="store-subtext">
-                                    <span class="bold03">
+                                    <span class="bold02">
                                         Hours
                                     </span>
-                                    <span class="text03">
+                                    <span class="text02">
                                         ${store.hours}
                                     </span>
                                 </div>
 
                                 <div class="store-subtext">
-                                    <span class="bold03">
+                                    <span class="bold02">
                                         Location
                                     </span>
-                                    <span class="text03">
+                                    <span class="text02">
                                         ${store.location.region}
                                     </span>
                                 </div>
@@ -668,6 +1393,8 @@ function generateStorePopularTimeHTML(popularTimes) {
                                         </span>
                                     </span>
                                 </div>
+
+                                
                                 <div class="store-subtext">
                                     <span class="oneLine">
                                         <span class="text02">
@@ -741,10 +1468,10 @@ function generateStorePopularTimeHTML(popularTimes) {
 
                         <!------ OVERVIEW ------>
                         <div class="store-snippet">
-                            <span class="text03">
+                            <span class="text02">
                                 Overview
                             </span>
-                            <span class="text03">
+                            <span class="text02">
                                 ${store.snippet.overview}
                             </span>
                         </div>
@@ -770,174 +1497,13 @@ function generateStorePopularTimeHTML(popularTimes) {
                 
 
                 
-                    <!------ FACILITY ------>
-                    <section class="store-facility"> 
-                    
-                        <!------ HEADLINE ------>
-                        <div class="store-title">
-                            <div class="store-body-title-container"> 
-                                <span class="header04">
-                                    Facility
-                                </span>   
-                            </div>   
-                            <div class="store-body-media-carousel">
-                                ${carouselGalleryHTML}
-                            </div>
-                            <div class="store-body-title-subtext">
-                            
-                                <span class="header04">
-                                    ${summaryDetailsHTML}
-                                </span>   
-                        
-                            </div>
-                        </div>
-                        <!------ HEADLINE ------>
-
-                        <!------ OVERVIEW ------>
-                        <div class="store-snippet">
-                            <span class="text03">
-                                Facility Overview
-                            </span>
-                            <span class="text03">
-                                ${store.snippet.facility}
-                            </span>
-                        </div>
-                        <!------ OVERVIEW ------>
-
-                        <div class="lineH"></div>
-
-                        <!------ LIST ------>
-                        <div class="blog-data">
-                            <div class="store-summary">
-                                <div class="store-storeAttributes-">
-                                    ${summaryFacilityHTML}
-                                </div>
-                            </div>
-                        </div>
-                        <!------ LIST ------>
-
-                    </section>
-                    <!------ FACILITY ------>
-
-
 
 
 
                 
 
                 
-                    <!------ SERVICE ------>
-                    <section class="store-service"> 
-                    
-                        <!------ HEADLINE ------>
-                        <div class="store-title">
-                            <div class="store-body-title-container"> 
-                                <span class="header04">
-                                    Service
-                                </span>   
-                            </div>   
-                            <div class="store-body-media-carousel">
-                                ${carouselGalleryHTML}
-                            </div>
-                            <div class="store-body-title-subtext">
-                            
-                                <span class="header04">
-                                    ${summaryDetailsHTML}
-                                </span>   
-                        
-                            </div>
-                        </div>
-                        <!------ HEADLINE ------>
 
-                        <!------ OVERVIEW ------>
-                        <div class="store-snippet">
-                            <span class="text03">
-                                Facility Overview
-                            </span>
-                            <span class="text03">
-                                ${store.snippet.service}
-                            </span>
-                        </div>
-                        <!------ OVERVIEW ------>
-
-                        <div class="lineH"></div>
-
-                        <!------ LIST ------>
-                        <div class="blog-data">
-                            <div class="store-summary">
-                                <div class="store-storeAttributes-">
-                                    ${summaryServiceHTML}
-                                </div>
-                            </div>
-                        </div>
-                        <!------ LIST ------>
-
-                    </section>
-                    <!------ SERVICE ------>
-
-
-
-
-
-                
-
-                
-                    <!------ LOCATION ------>
-                    <section class="store-location"> 
-                    
-                        <!------ HEADLINE ------>
-                        <div class="store-title">
-                            <div class="store-body-title-container"> 
-                                <span class="header04">
-                                    LOCATION
-                                </span>   
-                            </div>   
-                            
-
-                            <!------ MAP ------>
-                            <div class="map nearbyMap" id="map">
-                                <div id="map-container" class="nearbyMap-container"></div>
-                            </div>
-                            <div class="store-body-media-carousel">
-                                ${nearbyGalleryHTML}
-                            </div>
-                            <!------ MAP ------>
-
-                            <div class="store-body-title-subtext">
-                            
-                                <span class="header04">
-                                    ${summaryDetailsHTML}
-                                </span>   
-                        
-                            </div>
-                        </div>
-                        <!------ HEADLINE ------>
-
-                        <!------ OVERVIEW ------>
-                        <div class="store-snippet">
-                            <span class="text03">
-                                Facility Overview
-                            </span>
-                            <span class="text03">
-                                ${store.snippet.service}
-                            </span>
-                        </div>
-                        <!------ OVERVIEW ------>
-
-                        <div class="lineH"></div>
-
-                        <!------ LIST ------>
-                        <div class="blog-data">
-                            <div class="store-summary">
-                                <div class="store-storeAttributes-">
-                                    ${summaryServiceHTML}
-                                </div>
-                            </div>
-                        </div>
-                        <!------ LIST ------>
-
-                    </section>
-                    <!------ LOCATION ------>
 
 
 
@@ -959,6 +1525,7 @@ function generateStorePopularTimeHTML(popularTimes) {
 
                             <div class="chart-container" id="chartsContainer">
                                 <!-- Dynamic content will be appended here -->
+                                ${storeCurrentStatusHTMLss.map(container => container.outerHTML).join('')}
                             </div>
                             <!------ GRAPH ------>
 
@@ -974,11 +1541,11 @@ function generateStorePopularTimeHTML(popularTimes) {
 
                         <!------ OVERVIEW ------>
                         <div class="store-snippet">
-                            <span class="text03">
+                            <span class="text02">
                                 Facility Overview
                             </span>
-                            <span class="text03">
-                                ${store.snippet.service}
+                            <span class="text02">
+                                ${store.snippet.facility}
                             </span>
                         </div>
                         <!------ OVERVIEW ------>
@@ -1146,7 +1713,7 @@ function generateStorePopularTimeHTML(popularTimes) {
                                         </span>
                                     </div>
                                     <div class="store-attributes"> 
-                                        <span class="bold03">
+                                        <span class="bold02">
                                             What ${store.storeNickname} has to offer
                                         <span>
                                         <div class="store-storeArea-container">
@@ -1323,7 +1890,7 @@ function generateStorePopularTimeHTML(popularTimes) {
                         <!-- //SUMMARY// -->
                         <div class="store-content">
                             
-                            <span class="text03">
+                            <span class="text02">
                             Summary:
                             </span>
                             <ul class="summary-container">  
@@ -1353,7 +1920,7 @@ function generateStorePopularTimeHTML(popularTimes) {
                     <!-- /// HEADER SIDEPANEL /// -->
                     <div class="content store-sidepanel">
                         <div class="store-content">
-                        <span class="header03">
+                        <span class="header02">
                             Related Stores
                         </span>
 
@@ -1404,17 +1971,17 @@ function generateStorePopularTimeHTML(popularTimes) {
                     <!-- /// STORE CONTENT /// -->
                     <div class="content">
                         <div class="store-content">
-                        <span class="text03">
+                        <span class="text02">
                             {store.content.body}
                         </span>
                         </div>
                         <div class="store-content">
-                        <span class="text03">
+                        <span class="text02">
                         {store.content.conclusion}
                         </span>
                         </div>
                         <div class="store-content">
-                        <span class="text03">
+                        <span class="text02">
                         {store.content.postscript}
                         </span>
                         </div>
@@ -1431,7 +1998,7 @@ function generateStorePopularTimeHTML(popularTimes) {
                     <!-- /// STORE SIDEPANEL /// -->
                     <div class="content">
                         <div class="store-content">
-                        <span class="header03">
+                        <span class="header02">
                             Related Stores
                         </span>
 
@@ -1571,12 +2138,41 @@ function generateCarouselItem(content) {
     return mediaGalleryHTML;
 }
 
-
-function generateCarouselHTML(mediaGallery) {
+function generateMediaCarouselHTML(mediaGallery, limit) {
     let mediaGalleryHTML = '';
-    mediaGallery.slice(0, 3).forEach(mediaGalleryItem => {
+    const summaryText = store.summary && store.summary.text && store.summary.text.length ? store.summary.text : [];
+    console.log("SUMMARYDETAILS", summaryText);
+    mediaGallery.slice(0, limit).forEach(mediaGalleryItem => {
       mediaGalleryHTML += `
-                <img src="${mediaGalleryItem.url}" class="galleryItem" alt="" />
+            <div class="gallery-item">
+                <img src="${mediaGalleryItem.url}" class="gallery-item-img" alt="" />
+                <div class="gallery-item-details">
+                    <span class="text02">
+                        ${mediaGalleryItem.description}
+                    </span>
+                </div>
+            </div>
+            
+      `;
+    });
+    return mediaGalleryHTML;
+}
+
+function generateSectionHTML(header, features, overview, summary) {
+    let mediaGalleryHTML = '';
+    const summaryText = store.summary && store.summary.text && store.summary.text.length ? store.summary.text : [];
+    console.log("SUMMARYDETAILS", summaryText);
+    mediaGallery.slice(0, limit).forEach(mediaGalleryItem => {
+      mediaGalleryHTML += `
+            <div class="gallery-item">
+                <img src="${mediaGalleryItem.url}" class="gallery-item-img" alt="" />
+                <div class="gallery-item-details">
+                    <span class="text02">
+                        ${mediaGalleryItem.description}
+                    </span>
+                </div>
+            </div>
+            
       `;
     });
     return mediaGalleryHTML;
@@ -1592,3 +2188,26 @@ function generateLogoCarouselHTML(nearbyLogo) {
     console.log("mediaGallery",nearbyLogo);
     return nearbyLogoHTML;
 }   // Generate the HTML for the carousel
+
+
+
+
+
+
+
+
+
+// let index = 0;
+// let images = document.querySelectorAll('.carouselImage');
+
+// function carousel() {
+//     for(let i = 0; i < images.length; i++) {
+//         images[i].style.display = 'none';
+//     }
+//     index++;
+//     if(index > images.length) {index = 1}
+//     images[index-1].style.display = 'block';
+//     setTimeout(carousel, 2000); // Change image every 2 seconds
+// }
+
+// carousel();

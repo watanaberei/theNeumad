@@ -230,11 +230,12 @@
   .metadata-tag {
     display: flex;
     border-radius: 3px;
-    background-color: #F3F4F7 !important;
+    background-color: #F3F4F700 !important;
     outline-width: 1px;
+    width: fit-content;
     outline-color: #EBEBEB;
     outline-style: solid;
-    background: var(--texture);
+    /* background: var(--texture); */
     /* background-color: var(--grey01); */
     /* box-shadow: var(--shadowOutline01); */
     gap: 3px;

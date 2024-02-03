@@ -100,6 +100,12 @@ export async function getStore(limit = 1, collectionLimit = 6, skip = 0) {
                   description
                 }
               }
+              areaCollection {
+                items {
+                  url
+                  description
+                }
+              }
             }
           }
           snippet {
@@ -305,6 +311,7 @@ export async function getStore(limit = 1, collectionLimit = 6, skip = 0) {
           thumbnail: stores?.media?.thumbnail?.url,
           gallery: stores?.media?.galleryCollection?.items.map((item) => ({
             url: item?.url,
+            description: item?.description,
           })),
           service: stores?.media?.serviceCollection?.items.map(
             (item) => ({
@@ -316,6 +323,10 @@ export async function getStore(limit = 1, collectionLimit = 6, skip = 0) {
             url: item?.url,
             description: item?.description,
           })),
+          arrangement: stores?.media?.arrangementCollection?.items.map((item) => ({
+            url: item?.url,
+            description: item?.description,
+          })),         
         },
 
         nearbyStore: stores?.nearbyStoresCollection?.items.map((item) => ({

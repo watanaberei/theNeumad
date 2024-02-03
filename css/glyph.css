@@ -1,0 +1,10 @@
+/* Lists */
+.glyph-check-15 {
+    background: url('./../assets/glyph/check/glyph-check15.svg') no-repeat;
+    height: 18px;
+    width: 18px;
+    bottom: 0px;
+    background-position-y: inherit;
+    display: block;
+    /* Other styles here */
+  }

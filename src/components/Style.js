@@ -23,6 +23,7 @@ import '../../css/map.css';
 import '../../css/tag.css';
 import '../../css/image.css';
 import '../../css/icon.css';
+import '../../css/glyph.css';
 import '../../css/loader.css';
 import '../../css/color.css';    
 import '../../css/grid.css';

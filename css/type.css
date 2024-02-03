@@ -47,14 +47,14 @@
   --header02_D: 1.30rem;
   --header03_D: 2.10rem;
   --header04_D: 27px;
-  --header05_D: 51px;
+  --header05_D:  4.7em;
   --header06_D: 6.00rem;
   --header00-tracking_D: -0.030rem;
   --header01-tracking_D:  0.015rem;
   --header02-tracking_D: 0.024rem;
   --header03-tracking_D: -0.009rem;
   --header04-tracking_D: -0.30px;
-  --header05-tracking_D: -1.50px;
+  --header05-tracking_D: -0.06em;
   --header06-tracking_D: -0.015rem;
   --header00-letting_D: 1.00rem;
   --header01-letting_D: 1.00rem;
@@ -125,7 +125,7 @@
 
 @font-face {
   font-family: 'bold';
-  src: url(../assets//font/Helvetica-Neue/OpenType-CFF-Pro/HelveticaNeueLTPro-Bd.otf);
+  src: url(../assets/font/Helvetica-Neue/OpenType-CFF-Pro/HelveticaNeueLTPro-Bd.otf);
   font-style: normal;
 }
 @font-face {
@@ -136,32 +136,32 @@ font-style: italic;
 }
 @font-face {
 font-family: 'medium';
-src: url(../assets//font/Helvetica-Neue/OpenType-CFF-Pro/HelveticaNeueLTPro-Md.otf);
+src: url(../assets/font/Helvetica-Neue/OpenType-CFF-Pro/HelveticaNeueLTPro-Md.otf);
 font-style: normal;
 }
 @font-face {
 font-family: 'mediumItalic';
-src: url(../assets//font/Helvetica-Neue/OpenType-CFF-Pro/HelveticaNeueLTPro-Md.otf);
+src: url(../assets/font/Helvetica-Neue/OpenType-CFF-Pro/HelveticaNeueLTPro-Md.otf);
 font-style: italic;
 }
 @font-face {
 font-family: 'light';
-src: url(../assets//font/Helvetica-Neue/OpenType-CFF-Pro/HelveticaNeueLTPro-Lt.otf);
+src: url(../assets/font/Helvetica-Neue/OpenType-CFF-Pro/HelveticaNeueLTPro-Lt.otf);
 font-style: normal;
 }
 @font-face {
 font-family: 'lightItalic';
-src: url(../assets//font/Helvetica-Neue/OpenType-CFF-Pro/HelveticaNeueLTPro-Lt.otf);
+src: url(../assets/font/Helvetica-Neue/OpenType-CFF-Pro/HelveticaNeueLTPro-Lt.otf);
 font-style: italic;
 }
 @font-face {
 font-family: 'regular';
-src: url(../assets//font/Helvetica-Neue/OpenType-CFF-Pro/HelveticaNeueLTPro-Roman.otf);
+src: url(../assets/font/Helvetica-Neue/OpenType-CFF-Pro/HelveticaNeueLTPro-Roman.otf);
 font-style: normal;
 }
 @font-face {
 font-family: 'italic';
-src: url(../assets//font/Helvetica-Neue/OpenType-CFF-Pro/HelveticaNeueLTPro-Roman.otf);
+src: url(../assets/font/Helvetica-Neue/OpenType-CFF-Pro/HelveticaNeueLTPro-Roman.otf);
 font-style: italic;
 }
 /* @font-face {
