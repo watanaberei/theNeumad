@@ -23,6 +23,14 @@ app.get('/', (req, res) => res.render('index'));
 app.use(authRoutes);
 
 
+// const port = process.env.PORT;
+// app.listen(port, () => {
+//   console.log(`Server listening on port ${port}`);
+// });
+
+
+
+
 // const port = process.env.PORT || 3000; // Fallback to 3000 if process.env.PORT is undefined
 
 app.listen(port, () => {

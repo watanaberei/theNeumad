@@ -225,12 +225,12 @@ li {
 }
 
 .container {
-  width: 100vw;
+  /* width: 100vw; */
   /* max-width: 100%; */
   /* padding-left: var(--border);
   padding-right: var(--border); */
   /* max-width: 110rem; */
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 @media (max-width: 1200px) {

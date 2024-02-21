@@ -1,3 +1,26 @@
+.low-opacity {
+  opacity: 0.3;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .article-container .content img.article_authorImg {
     width: 1.5rem;
     height: 1.5rem;
@@ -5,6 +28,78 @@
   }
 
   img {
-    width: 100%;
-    height: 100%;
+    /* width: 100%;
+    height: 100%; */
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* Hero */
+  .media-img-1-x-1-x-hero,
+  .media-img-1-x-1-x-hero * {
+    box-sizing: border-box;
+  }
+  .media-img-1-x-1-x-hero {
+    background: #a76e6e;
+    /* height: 1116px; */
+    aspect-ratio: 2.414 / 1;
+    width: 100%;
+    height: 0 auto;
+    z-index: 10;
+    position: relative;
+    overflow: hidden;
+}
+
+
+
+.media-img-container-hero,
+.media-img-container-hero * {
+  box-sizing: border-box;
+}
+.media-img-container-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  /* height: 591px; */
+  width: 100%;
+  aspect-ratio: 2.414 / 1;
+  position: relative;
+  overflow: hidden;
+}
+.media-img-plt-container {
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 690px;
+  position: relative;
+  overflow: hidden;
+}
+.media-img-1-x-1-x-hero {
+  background: #a76e6e;
+  flex-shrink: 0;
+  width: 1980px;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hero */

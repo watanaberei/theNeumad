@@ -7,20 +7,97 @@
   /* Other styles here */
 }
 
+.neustar-gold-active {
+  background: url('./../assets/_brand/neustar/neustar-gold-active.svg') no-repeat;
+  height: 60px;
+  width: 60px;
+  display: block;
+}
+.neustar-gold-inactive {
+  background: url('./../assets/_brand/neustar/neustar-gold-inactive.svg') no-repeat;
+  height: 60px;
+  width: 60px;
+  display: block;
+}
+.neubranch-gold-start {
+  background: url('./../assets/_brand/neustar/neubranch-gold-start.svg') no-repeat;
+  height: 60px;
+  width: 60px;
+  display: block;
+}
+.neubranch-gold-end {
+  background: url('./../assets/_brand/neustar/neubranch-gold-end.svg') no-repeat;
+  height: 60px;
+  width: 60px;
+  display: block;
+}
+
+.neustar-silver-active {
+  background: url('./../assets/_brand/neustar/neustar-silver-active.svg') no-repeat;
+  height: 60px;
+  width: 60px;
+  display: block;
+}
+.neustar-silver-inactive {
+  background: url('./../assets/_brand/neustar/neustar-silver-inactive.svg') no-repeat;
+  height: 60px;
+  width: 60px;
+  display: block;
+}
+.neubranch-silver-start {
+  background: url('./../assets/_brand/neustar/neubranch-silver-start.svg') no-repeat;
+  height: 60px;
+  width: 60px;
+  display: block;
+}
+.neubranch-silver-end {
+  background: url('./../assets/_brand/neustar/neubranch-silver-end.svg') no-repeat;
+  height: 60px;
+  width: 60px;
+  display: block;
+}
+
+.neustar-bronze-active {
+  background: url('./../assets/_brand/neustar/neustar-bronze-active.svg') no-repeat;
+  height: 60px;
+  width: 60px;
+  display: block;
+}
+.neustar-bronze-inactive {
+  background: url('./../assets/_brand/neustar/neustar-bronze-inactive.svg') no-repeat;
+  height: 60px;
+  width: 60px;
+  display: block;
+}
+.neubranch-bronze-start {
+  background: url('./../assets/_brand/neustar/neubranch-bronze-start.svg') no-repeat;
+  height: 60px;
+  width: 60px;
+  display: block;
+}
+.neubranch-bronze-end {
+  background: url('./../assets/_brand/neustar/neubranch-bronze-end.svg') no-repeat;
+  height: 60px;
+  width: 60px;
+  display: block;
+}
+
+
+
 .neustar-gold60 {
-  background: url('./../assets/_brand/neustar/neustar-gold60.svg') no-repeat;
+  background: url('./../assets/_brand/neustar/neustar-gold-metal60.svg') no-repeat;
   height: 60px;
   width: 60px;
   display: block;
 }
 .neustar-silver60 {
-  background: url('./../assets/_brand/neustar/neustar-silver60.svg') no-repeat;
+  background: url('./../assets/_brand/neustar/neustar-silver-metal60.svg') no-repeat;
   height: 60px;
   width: 60px;
   display: block;
 }
 .neustar-bronze60 {
-  background: url('./../assets/_brand/neustar/neustar-bronze60.svg') no-repeat;
+  background: url('./../assets/_brand/neustar/neustar-bronze-metal60.svg') no-repeat;
   height: 60px;
   width: 60px;
   display: block;
@@ -361,64 +438,64 @@ color: var(--white01);
 
 
 /* SERVICE */
-.icon-service-coffee {
-background: url('../assets/icon/service/icon-service-coffee.svg') no-repeat;
+.icon-service-coffee-21 {
+background: url('../assets/icon/service/icon-service-coffee-21.svg') no-repeat;
 height: 18px;
 width: 18px;
 display: block;
 color: var(--white01);
 }
 
-.icon-service-hotBeverage {
-background: url('../assets/icon/service/icon-service-hotBeverage.svg') no-repeat;
+.icon-service-hotBeverage-21 {
+background: url('../assets/icon/service/icon-service-hotBeverage-21.svg') no-repeat;
 height: 18px;
 width: 18px;
 display: block;
 color: var(--white01);
 }
 
-.icon-service-tea {
-background: url('../assets/icon/service/icon-service-tea.svg') no-repeat;
+.icon-service-tea-21 {
+background: url('../assets/icon/service/icon-service-tea-21.svg') no-repeat;
 height: 18px;
 width: 18px;
 display: block;
 color: var(--white01);
 }
 
-.icon-service-beverage {
-background: url('../assets/icon/service/icon-service-beverage.svg') no-repeat;
+.icon-service-beverage-21 {
+background: url('../assets/icon/service/icon-service-beverage-21.svg') no-repeat;
 height: 18px;
 width: 18px;
 display: block;
 color: var(--white01);
 }
 
-.icon-service-seasonal, .icon-service-limitedTime {
-background: url('../assets/icon/service/icon-service-seasonal.svg') no-repeat;
+.icon-service-seasonal-21, .icon-service-limitedTime-21 {
+background: url('../assets/icon/service/icon-service-seasonal-21.svg') no-repeat;
 height: 18px;
 width: 18px;
 display: block;
 color: var(--white01);
 }
 
-.icon-service-pastry {
-background: url('../assets/icon/service/icon-service-pastry.svg') no-repeat;
+.icon-service-pastry-21 {
+background: url('../assets/icon/service/icon-service-pastry-21.svg') no-repeat;
 height: 18px;
 width: 18px;
 display: block;
 color: var(--white01);
 }
 
-.icon-service-lunch {
-background: url('../assets/icon/service/icon-service-lunch.svg') no-repeat;
+.icon-service-lunch-21 {     
+background: url('../assets/icon/service/icon-service-lunch-21.svg') no-repeat;
 height: 18px;
 width: 18px;
 display: block;
 color: var(--white01);
 }
 
-.icon-service-breakfast {
-background: url('../assets/icon/service/icon-service-breakfast.svg') no-repeat;
+.icon-service-breakfast-21 {
+background: url('../assets/icon/service/icon-service-breakfast-21.svg') no-repeat;
 height: 18px;
 width: 18px;
 display: block;

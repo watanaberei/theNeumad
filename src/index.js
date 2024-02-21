@@ -135,6 +135,22 @@ try {
 
 };
 // The load event listener has been removed
+if (module.hot) {
+  module.hot.accept('./screens/AboutScreen.js', function() {
+    console.log('AboutScreen.js or its dependencies were updated, reinitializing the app or specific components.');
+    // Implement any necessary re-initialization logic here
+  });
+
+  module.hot.accept('./components/modal.js', function() {
+    console.log('modal.js was updated, reinitializing modals.');
+    // Assuming modals.init() is a method to initialize your modals
+    // You might need to reimport modals here if necessary and then call modals.init()
+  });
+}
+
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
   router();
   window.addEventListener('popstate', router);

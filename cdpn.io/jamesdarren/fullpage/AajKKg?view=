@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  
+
+    <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+    <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111" />
+
+
+
+  
+    <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
+
+
+  <title>CodePen - Responsive Sticky Sidebar</title>
+
+    <link rel="canonical" href="https://codepen.io/jamesdarren/pen/AajKKg">
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" />
+  
+  <link rel='stylesheet' href='https://cdn.rawgit.com/filamentgroup/fixed-sticky/master/fixedsticky.css'>
+  
+<style>
+/* formatting */
+*, *:before, *:after {
+	margin: 0;
+	padding: 0;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+html {
+	height: 100%;
+	font-size: 100%;
+}
+body {
+	height: 100%;
+	font: 1em/1.5 Georgia, serif;
+	background-color: #222;
+	color: #fff;
+}
+h1 {
+	font: 2.25em/1 Helvetica, sans-serif;
+	margin-bottom: .667em;
+}
+h2 {
+	font: 1.5em/1 Helvetica, sans-serif;
+	text-transform: uppercase;
+	margin-bottom: .667em;
+}
+p {
+	margin-bottom: 1em;
+}
+.button {
+	display: block;
+	border-radius: 4px;
+	text-decoration: none;
+	text-align: center;
+	color: #fff;
+	background-color: #0071fc;
+	padding: .5em
+}
+header, footer {
+	background: #1a1a1a;
+	padding: 1em;
+	color: #fff;
+	height: 300px;
+	min-height: 10em;
+	text-align: center;
+}
+footer {
+	height: 100%;
+}
+.main {
+	padding: 1.5em 3em 1.5em 1.5em;
+}
+.sidebar {
+	padding: 2em 1.5em;
+	background-color: #333;
+}
+.large-photo {
+	height: 0;
+	padding-top: 61.9%;
+	background-color: #333;
+	margin-bottom: 1em;
+}
+@media (min-width:43.75em) {
+
+	/* responsive layout */
+	.candy-wrapper {
+		max-width: 60em;
+		margin: 0 auto;
+		position: relative;
+	}
+	.main {
+		display: inline-block;
+		width: 75%;
+		height: 300vh;
+		vertical-align: top;
+	}
+	.sidebar {
+		display: inline-block;
+		width: 25%;
+		vertical-align: top;
+	}
+
+	/* loaded fixed-sticky polyfill
+	https://github.com/filamentgroup/fixed-sticky */
+	.fixedsticky {
+		top: 0;
+	}
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+</head>
+
+<body translate="no">
+  <header><p>Scroll down to see the magic!</p></header>
+<section class="candy-wrapper">
+  <article class="main"><h1>I have lots of content</h1><p>Donec sed odio dui. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis risus eget urna mollis ornare vel eu leo. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p><p>Donec sed odio dui. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Sed posuere consectetur est at lobortis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p><div class="large-photo"></div><p>Donec ullamcorper nulla non metus auctor fringilla. Donec id elit non mi porta gravida at eget metus. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Maecenas sed diam eget risus varius blandit sit amet non magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas faucibus mollis interdum.</p><p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p></article><!-- Leave No Space 
+  --><aside class="sidebar fixedsticky"><h2>Sticky!</h2><p>Maecenas sed diam eget risus varius blandit sit amet non magna. Maecenas faucibus mollis interdum. Maecenas sed diam eget risus varius blandit sit amet non magna justo sit amet risus.</p><a href="#" class="button">Do Something!</a></aside>
+</section>
+<footer><p>Don't overlap me!</p></footer>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script src='https://cdn.rawgit.com/filamentgroup/fixed-sticky/master/fixedsticky.js'></script>
+      <script id="rendered-js" >
+// loaded fixed-sticky polyfill
+// https://github.com/filamentgroup/fixed-sticky
+
+$('.sidebar').fixedsticky();
+//# sourceURL=pen.js
+    </script>
+
+  
+</body>
+
+</html>

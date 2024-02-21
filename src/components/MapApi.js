@@ -1,7 +1,7 @@
 // src/components/MapApi.js
 // import mapboxgl from "mapbox-gl";
-mapboxgl.accessToken =
-  "pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsaHZxdzJrMDBhbjkzZm4weXI1bGlybTMifQ.oQDmvQmIA04AVPDNOV-l8Q";
+// mapboxgl.accessToken =
+//   "pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsaHZxdzJrMDBhbjkzZm4weXI1bGlybTMifQ.oQDmvQmIA04AVPDNOV-l8Q";
 
 // src/component/MapApi061223.js
 import mapboxgl from 'mapbox-gl';

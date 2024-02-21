@@ -45,7 +45,7 @@
   --header00_D: 0.51rem;
   --header01_D: 0.75rem;
   --header02_D: 1.30rem;
-  --header03_D: 2.10rem;
+  --header03_D: 60px;
   --header04_D: 27px;
   --header05_D:  4.7em;
   --header06_D: 6.00rem;
@@ -53,13 +53,13 @@
   --header01-tracking_D:  0.015rem;
   --header02-tracking_D: 0.024rem;
   --header03-tracking_D: -0.009rem;
-  --header04-tracking_D: -0.30px;
+  --header04-tracking_D: -0.45px;
   --header05-tracking_D: -0.06em;
   --header06-tracking_D: -0.015rem;
   --header00-letting_D: 1.00rem;
   --header01-letting_D: 1.00rem;
   --header02-letting_D: 1.00rem;
-  --header03-letting_D: 1.26rem;
+  --header03-letting_D: 63px;
   --header04-letting_D: -1.5%;
   --header05-letting_D: -4.5%;
   --header06-letting_D: 4.10rem;

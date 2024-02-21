@@ -9,6 +9,7 @@ import { format, parseISO } from "date-fns";
 import mapboxgl from "mapbox-gl";
 import { initMap } from "../components/MapApi";
 import { storePopularTimes } from "../components/StorePopularTimes";
+import * as section from "../components/section"
 
 
 const renderOptions = {
@@ -52,16 +53,16 @@ function generateStorePopularTimeHTML(popularTimes) {
   const StoreScreen = {
     render: async () => {
         const request = parseRequestUrl();
-        console.log("Request slug:", request.slug);
-        console.log("store:", store);
+        // console.log("Request slug:", request.slug);
+        // console.log("store:", store);
         // const storeDetails = await dataBlog.getData();
         const storeDetails = await dataBlog.getData();
         store = storeDetails.find(store => store.slug === request.slug);
-        console.log("storeDetails", storeDetails);
+        // console.log("storeDetails", storeDetails);
         const validStores = storeDetails.filter(store => store.slug);
-        console.log("Valid stores:", validStores);
+        // console.log("Valid stores:", validStores);
         // store = validStores.find(store => store.slug === request.slug);
-        console.log("store", store);
+        // console.log("store", store);
 
                 
         // SNIPPET
@@ -76,7 +77,7 @@ function generateStorePopularTimeHTML(popularTimes) {
         // NEARBY STORE
         const nearbyStore = store.nearbyStore || [];
         const nearbyHeadline = nearbyStore.headline;
-        console.log("nearbyHeadline", nearbyStore.nearbyHeadline    );
+        // console.log("nearbyHeadline", nearbyStore.nearbyHeadline    );
         const nearbyHours = nearbyStore.hours;
         const nearbyLocation = nearbyStore.nearbyLocation;
         // let nearbyHeadline = '';
@@ -84,10 +85,10 @@ function generateStorePopularTimeHTML(popularTimes) {
         // let nearbyLogo = '';
         // let nearbyLocation = '';
         const nearbyStores = store.nearbyStore || [];
-        console.log("nearbyHeadline", nearbyHeadline);
-        console.log("nearbyHours", nearbyHours);
-        console.log("nearbyLocation", nearbyLocation);
-        console.log("NEARBY", nearbyStore);
+        // console.log("nearbyHeadline", nearbyHeadline);
+        // console.log("nearbyHours", nearbyHours);
+        // console.log("nearbyLocation", nearbyLocation);
+        // console.log("NEARBY", nearbyStore);
         // nearbyStores.forEach(nearbyStore => {
         //     // Accessing each store's details safely
         //     const nearbyHeadline = nearbyStores.nearbyHeadline;
@@ -95,28 +96,28 @@ function generateStorePopularTimeHTML(popularTimes) {
         //     const nearbyLocation = nearbyStore.locationCollection.items;
         //     const nearbyLogo = nearbyStore.logo ? nearbyStore.logo : '';
         // });
-        console.log("nearbyStores", nearbyStore.nearbyHeadline, nearbyStore.nearbyHours, nearbyStore.nearbyLocation, nearbyStore.nearbyLogo);
+        // console.log("nearbyStores", nearbyStore.nearbyHeadline, nearbyStore.nearbyHours, nearbyStore.nearbyLocation, nearbyStore.nearbyLogo);
                         
         // TIME
         const popularTime = store?.popularTimes || [];
         storePopularTimes(popularTime);
-        console.log("storePopularTimes", storePopularTimes, popularTime);
+        // console.log("storePopularTimes", storePopularTimes, popularTime);
 
 
         // Summary
         const limitedBest02 = store?.summary?.best?.length ? store.summary.best.slice(0, 3) : [];
-        console.log("limitedBest02", limitedBest02);
+        // console.log("limitedBest02", limitedBest02);
 
         
         // Neustart        
         const neustar = store.neustar || [];
-        console.log("neustar",neustar);
+        // console.log("neustar",neustar);
 
        // Store
         const categoryType = store?.category?.genre || [];
-        console.log("categoryType", categoryType);
+        // console.log("categoryType", categoryType);
         const address = store?.address || [];
-        console.log("address", store?.locationaddress); 
+        // console.log("address", store?.locationaddress); 
 
 
         // MEDIA
@@ -143,12 +144,12 @@ function generateStorePopularTimeHTML(popularTimes) {
         // Current
         const currentHour = new Date().getHours();
         const currentDay = new Date().getDay();
-        console.log("time",currentHour, currentDay);
+        // console.log("time",currentHour, currentDay);
 
         // TAGS
         const tags = store.tag && store.tag.length ? store.tag[0].tags : [];
         const attributeTags = store.tag && store.tag.length ? store.tag[0].attributeTags : [0];
-        //   console.log("Header tags",tags);
+        //   // console.log("Header tags",tags);
         const limitedTags01 = tags.slice(0, 1);
         const originalTag = store.tag && store.tag.length ? store.tag : [];
         const limitedTags02 = originalTag && originalTag.length ? originalTag[0].tags.slice(0, 3) : [];
@@ -192,7 +193,7 @@ function generateStorePopularTimeHTML(popularTimes) {
 
         //   ATTRIBUTES
         const storeAttributes = store.storeAttributes && store.storeAttributes.length ? store.storeAttributes : [];
-        console.log("storeAttributes",storeAttributes);
+        // console.log("storeAttributes",storeAttributes);
         function generateStoreAttributesHTML(storeAttributes) {
             return storeAttributes.slice(0, 6).map(attr => `
             <div class="store-attributes-item">
@@ -215,7 +216,7 @@ function generateStorePopularTimeHTML(popularTimes) {
 
         //   FACILITY
         const summaryFacility = store.summary.facility && store.summary.facility.length ? store.summary.facility : [];
-        console.log("summaryFacility",summaryFacility);
+        // console.log("summaryFacility",summaryFacility);
         function generateSummaryFacilityHTML(summaryFacility) {
             return summaryFacility.slice(0, 6).map(attr => `
             <div class="store-attributes-item">
@@ -237,7 +238,7 @@ function generateStorePopularTimeHTML(popularTimes) {
 
         //   SERVUCE
         const summaryService = store.summary.service && store.summary.service.length ? store.summary.service : [];
-        console.log("summaryService",summaryService);
+        // console.log("summaryService",summaryService);
         function generateSummaryServiceHTML(summaryService) {
             return summaryService.slice(0, 6).map(attr => `
             <div class="store-attributes-item">
@@ -258,7 +259,7 @@ function generateStorePopularTimeHTML(popularTimes) {
         }
 
         const limitedstoreAttributes06 = storeAttributes.slice(0, 6);
-        console.log("limitedstoreAttributes04",limitedstoreAttributes06);
+        // console.log("limitedstoreAttributes04",limitedstoreAttributes06);
         let storeAttributesHTML = '';
         limitedstoreAttributes06.forEach(storeAttributes => {
             let iconString = storeAttributes.key.trim();
@@ -285,13 +286,13 @@ function generateStorePopularTimeHTML(popularTimes) {
             <div class="lineH"></div>
             `
         });
-        console.log("storeAttributesHTML",storeAttributesHTML);
-        console.log("store.storeAttributes", storeDetails.storeAttributes);
+        // console.log("storeAttributesHTML",storeAttributesHTML);
+        // console.log("store.storeAttributes", storeDetails.storeAttributes);
 
 
         // FACILITY
         const limitedSummaryFacility06 = summaryFacility.slice(0, 6);
-        console.log("limitedstoreAttributes04",limitedSummaryFacility06);
+        // console.log("limitedstoreAttributes04",limitedSummaryFacility06);
         let summaryFacilityHTML = '';
         limitedSummaryFacility06.forEach(summaryFacility => {
             let iconString = summaryFacility.key.trim();
@@ -319,13 +320,13 @@ function generateStorePopularTimeHTML(popularTimes) {
             <div class="lineH"></div>
             `
         });
-        console.log("summaryFacilityHTML",summaryFacilityHTML);
-        console.log("store.storeAttributes", storeDetails.storeAttributes);
+        // console.log("summaryFacilityHTML",summaryFacilityHTML);
+        // console.log("store.storeAttributes", storeDetails.storeAttributes);
 
 
         // SERVICE
         const limitedSummaryService06 = summaryService.slice(0, 6);
-        console.log("limitedstoreService04",limitedSummaryService06);
+        // console.log("limitedstoreService04",limitedSummaryService06);
         let summaryServiceHTML = '';
         limitedSummaryService06.forEach(summaryService => {
             // Convert the first letter to lowercase and remove spaces
@@ -354,8 +355,8 @@ function generateStorePopularTimeHTML(popularTimes) {
             <div class="lineH"></div>
             `
         });
-        console.log("summaryServiceHTML",summaryServiceHTML);
-        console.log("store.storeService", storeDetails.storeService);
+        // console.log("summaryServiceHTML",summaryServiceHTML);
+        // console.log("store.storeService", storeDetails.storeService);
 
 
 
@@ -384,7 +385,7 @@ function generateStorePopularTimeHTML(popularTimes) {
             return iconsHTML;
         };
         const neustarHTML = `${store.neustar} ${generateNeustarIcons(store.neustar)}`;
-        console.log("neustarHTML",neustarHTML);
+        // console.log("neustarHTML",neustarHTML);
 
 
         // Neustar
@@ -499,7 +500,7 @@ function generateStorePopularTimeHTML(popularTimes) {
         
                 
                 // Logging for debugging
-                // console.log("Index:", idx, "Data:", popularTime[idx]);
+                // // console.log("Index:", idx, "Data:", popularTime[idx]);
                 
             for (let dayIndex = 1; dayIndex < popularTime[idx][0].length; dayIndex++) {
                 // Additional safety checks to ensure we're not accessing data that doesn't exist
@@ -627,7 +628,7 @@ function generateStorePopularTimeHTML(popularTimes) {
             for (let dayIndex = 1; dayIndex < popularTime[idx][0].length; dayIndex++) {
                 
                 // Logging for debugging
-                console.log("Index:", idx, "Data:", popularTime[idx]);
+                // console.log("Index:", idx, "Data:", popularTime[idx]);
                 
                 // Additional safety checks to ensure we're not accessing data that doesn't exist
                 if (!popularTime[idx][currentHour + 1] || typeof popularTime[idx][currentHour + 1][dayIndex] === 'undefined') {
@@ -669,10 +670,10 @@ function generateStorePopularTimeHTML(popularTimes) {
         });
 
       if (!store) {
-          console.log(`No store found with slug: ${request.slug}`);
+          // console.log(`No store found with slug: ${request.slug}`);
         } else {
-          console.log(`Store found:`, store);
-          console.log(`Slug:`, store.slug);
+          // console.log(`Store found:`, store);
+          // console.log(`Slug:`, store.slug);
         }
 
 
@@ -682,13 +683,13 @@ function generateStorePopularTimeHTML(popularTimes) {
         const recommendations = store.recommendation[0];
         const recommend = recommendations.key || [];
         const recommendation = recommendations.value || [];
-      console.log("recommendation",recommendation);
+      // console.log("recommendation",recommendation);
         const summaryText = store.summary && store.summary.text && store.summary.text.length ? store.summary.text : [];
         const summaryDetails = store.summary && store.summary.overview && store.summary.overview.length ? store.summary.overview : [];
-        console.log("summaryText",summaryText);
+        // console.log("summaryText",summaryText);
         const limitedsummaryText04 = summaryText.slice(0, 4);
         const limitedsummaryDetails04 = summaryDetails.slice(0, 4);
-        // console.log("SUMMARYDETAILS", summaryText);
+        // // console.log("SUMMARYDETAILS", summaryText);
 
         let summaryTextHTML = '';
         limitedsummaryText04.forEach(summaryText => {
@@ -713,7 +714,7 @@ function generateStorePopularTimeHTML(popularTimes) {
             <div class="lineH"></div>
             `
         });
-        console.log("summaryTextHTML",summaryTextHTML);
+        // console.log("summaryTextHTML",summaryTextHTML);
         
         let summaryDetailsHTML = '';
         limitedsummaryDetails04.forEach(summaryDetails => {
@@ -738,7 +739,7 @@ function generateStorePopularTimeHTML(popularTimes) {
             <div class="lineH"></div>
             `
         });
-        console.log("summaryDetailsHTML",summaryDetailsHTML);
+        // console.log("summaryDetailsHTML",summaryDetailsHTML);
 
 
 
@@ -2057,15 +2058,15 @@ function generateStorePopularTimeHTML(popularTimes) {
                       { lat: store.location.geolocation.lat, lon: store.location.geolocation.lon } : 
                       { lat: 0, lon: 0 }; // Default values if location is not defined
                 // Initialize the map object
-                console.log("storeLocation",storeLocation);
-                // console.log("store.location.geolocation",[store.location.geolocation.lat,store.location.geolocation.lon]);
-                // console.log("popularTime",popularTime);
-                // console.log("popularTimes",popularTimes);
+                // console.log("storeLocation",storeLocation);
+                // // console.log("store.location.geolocation",[store.location.geolocation.lat,store.location.geolocation.lon]);
+                // // console.log("popularTime",popularTime);
+                // // console.log("popularTimes",popularTimes);
                 
                 // Ensure storePopularTimes is called after the DOM is fully loaded
                 if (document.getElementById('chartsContainer')) {
                     const popularTimesData = [popularTimes]; // Replace with actual data
-                    console.log("popularTimesData",popularTimesData);
+                    // console.log("popularTimesData",popularTimesData);
                     storePopularTimes(popularTimesData);
                 } else {
                     console.error('chartsContainer element not found');
@@ -2086,7 +2087,7 @@ function generateStorePopularTimeHTML(popularTimes) {
                 //     .addTo(map);
                 // const bounds = new mapboxgl.LngLatBounds();
                 // bounds.extend(new mapboxgl.LngLat([storeLocation.lon, storeLocation.lat]));
-                // console.log()
+                // // console.log()
                 
 
                 new mapboxgl.Marker()
@@ -2141,7 +2142,7 @@ function generateCarouselItem(content) {
 function generateMediaCarouselHTML(mediaGallery, limit) {
     let mediaGalleryHTML = '';
     const summaryText = store.summary && store.summary.text && store.summary.text.length ? store.summary.text : [];
-    console.log("SUMMARYDETAILS", summaryText);
+    // console.log("SUMMARYDETAILS", summaryText);
     mediaGallery.slice(0, limit).forEach(mediaGalleryItem => {
       mediaGalleryHTML += `
             <div class="gallery-item">
@@ -2161,7 +2162,7 @@ function generateMediaCarouselHTML(mediaGallery, limit) {
 function generateSectionHTML(header, features, overview, summary) {
     let mediaGalleryHTML = '';
     const summaryText = store.summary && store.summary.text && store.summary.text.length ? store.summary.text : [];
-    console.log("SUMMARYDETAILS", summaryText);
+    // console.log("SUMMARYDETAILS", summaryText);
     mediaGallery.slice(0, limit).forEach(mediaGalleryItem => {
       mediaGalleryHTML += `
             <div class="gallery-item">
@@ -2185,7 +2186,7 @@ function generateLogoCarouselHTML(nearbyLogo) {
                 <img src="${nearbyLogoItem}" class="galleryItem" alt="" />
       `;
     });
-    console.log("mediaGallery",nearbyLogo);
+    // console.log("mediaGallery",nearbyLogo);
     return nearbyLogoHTML;
 }   // Generate the HTML for the carousel
 

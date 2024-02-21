@@ -1,4 +1,64 @@
 :root {
+    --workLight01: #E7F8F2;
+    --workLight02: #C9E5D9;
+    --workLight03: #050E08;
+    --workLight04: #92B6A4;
+    --workLight05: #779B88;
+
+    --workPrimary01: #5B7A69;
+    --workPrimary02: #415C4E;
+    --workPrimary03: #2E4237;
+    --workPrimary04: #203328;
+    --workPrimary05: #112218;
+
+    --workDark01: #0C1A11;
+    --workDark02: #06120A;
+    --workDark03: #050E08;
+    --workDark04: #020904;
+    --workDark05: #010502;
+
+    --workAccent: #F3B440;
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /* PRIMARY */
     --primary01: #052213;
     --primary02: #6FCF97;
@@ -103,3 +163,32 @@
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.workLight03 {
+    color: var(--workLight03) !important;
+}
+.workPrimary03 {
+    color: var(--workPrimary03) !important;
+}
+.workPrimary04 {
+    color: var(--workPrimary04) !important;
+}
+.workDark03 {
+    color: var(--workDark03) !important;
+}
+.workAccent {
+    color: var(--workAccent) !important;
+}

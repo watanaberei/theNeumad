@@ -241,7 +241,7 @@ function sortFeaturesByDistance(features, center) {
   });
 }
 
-function renderFeatures(features, map) {
+async function renderFeatures(features, map) {
   // References to DOM elements
   const elements = {
     postListing: document.getElementById("postListing"),
@@ -258,13 +258,20 @@ function renderFeatures(features, map) {
     }
   }
 
-  features.forEach((feature) => {
+for (const feature of features) {
     let element;
-    console.log("feature.properties.variant", feature.properties.type);
     switch (feature.properties.variant) {
       case 'stores':
-        element = createGeojsonStoreListing(feature);
-        elements.postStore.appendChild(element);
+        element = await createGeojsonStoreListing(feature); // Note the await keyword
+        // elements.postStore.appendChild(element);
+        // break;
+        createGeojsonStoreListing(feature).then(element => {
+          if (element && element instanceof Node) {
+            elements.postStore.appendChild(element);
+          } else {
+            console.error('Element is not a valid node', element);
+          }
+        }).catch(error => console.error('Error creating store listing:', error));
         break;
       case 'reviews':
         element = createGeojsonReviewListing(feature);
@@ -281,9 +288,9 @@ function renderFeatures(features, map) {
       // Include additional cases as necessary
       default:
         console.warn('Unknown feature type:', feature.properties.type);
+      }
     }
-  });
-}
+  }
 
 function flyToStore(store, map) {
   map.flyTo({
@@ -482,7 +489,7 @@ export default DineScreen;
 //         const route = data.routes[0].geometry;
 //         const routeId= `route-${index}`; // Unique id for each layer
 //       const decoded = polyline.toGeoJSON(route);
-//       // console.log(decoded);
+//       // // console.log(decoded);
 //       // If layer already exists, remove it
 //       if (map.getLayer(routeId)) {
 //         map.removeLayer(routeId);

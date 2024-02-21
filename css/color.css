@@ -1,13 +1,48 @@
 :root {
+    --grey01: #8E908A;
+    --grey02: #C1C1C1;
+    --grey03: #8E908A;
+    --grey05: #D8E1E3;
+    --grey06: #F7F8FD;
+    --accent03: #F3B440;
+    --inkw03: #E1ECF4;
+
+
+
+    --wWhite01: #E7F8F2;
+    --wWhite02: #C9E5D9;
+    --wWhite03: #ACCDBD;
+    --wWhite04: #92B6A4;
+    --wWhite05: #779B88;
+
+    --wPrimary01: #5B7A69;
+    --wPrimary02: #415C4E;
+    --wPrimary03: #2E4237;
+    --wPrimary04: #203328;
+    --wPrimary05: #112218;
+
+    --wBlack01: #0C1A11;
+    --wBlack02: #06120A;
+    --wBlack03: #050E08;
+    --wBlack04: #020904;
+    --wBlack05: #010502;
+
+
+
+
+
+
+
+
     /* PRIMARY */
     --primary01: #052213;
     --primary02: #6FCF97;
     --primary03: #49af74;
   
     /* INK */
-    --ink01: #165937;
+    /* --ink01: #165937;
     --ink02: #6FCF97;
-    --ink03: #052213;
+    --ink03: #052213; */
   
     /* SECONDART */
     --secondary01: #6eaade;
@@ -86,7 +121,7 @@
   
   
   
-    --white01: #FDFDFD;
+    /* --white01: #FDFDFD;
     --white02: #FDFDFD;
     --white03: #E9E9E9;
     --black01: #202521;
@@ -97,9 +132,61 @@
     --grey04: #41414388;
     --grey05: #4141438b;
     --grey06: #41414324;
-    --orange: #ffa238;
+    --orange: #ffa238; */
 
 
 }
 
 
+
+
+
+
+
+
+.inkw03 {
+    color: var(--inkw03) !important;
+    border-color: var(--inkw03) !important;
+}
+
+.grey01 {
+    color: var(--grey01) !important;
+    border-color: var(--grey01) !important;
+}
+.grey02 {
+    color: var(--grey02) !important;
+    border-color: var(--grey02) !important;
+}
+.grey03 {
+    color: var(--grey03) !important;
+    border-color: var(--grey03) !important;
+}
+.grey04 {
+    color: var(--grey04) !important;
+    border-color: var(--grey04) !important;
+}
+.grey05 {
+    color: var(--grey05) !important;
+    border-color: var(--grey05) !important;
+}
+.grey06 {
+    color: var(--grey06) !important;
+    border-color: var(--grey06) !important;
+}
+
+
+.wWhite03 {
+    color: var(--wWhite03) !important;
+}
+.wPrimary03 {
+    color: var(--wPrimary03) !important;
+}
+.wPrimary04 {
+    color: var(--wPrimary04) !important;
+}
+.wBlack03 {
+    color: var(--wBlack03) !important;
+}
+.accent03 {
+    color: var(--accent03) !important;
+}

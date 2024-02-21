@@ -12,9 +12,9 @@ export function createGeojsonReviewListing(store, map, userCoordinates) {
     categoryType, genre, text, subtext, eyebrow, location, hours, summary, publishedAt,
   } = store.properties;
 
-  console.log("seriesName",seriesName)
-  console.log("neustar",neustar)
-  console.log("genre",genre)
+  // console.log("seriesName",seriesName)
+  // console.log("neustar",neustar)
+  // console.log("genre",genre)
 
   const tags = tag && tag.length ? tag[0].tags : [];
   const bests = best || [];
@@ -28,10 +28,10 @@ export function createGeojsonReviewListing(store, map, userCoordinates) {
 
 
   
-  // console.log("logo", logo);
-  // console.log("subtitle", subtitle);
-  // console.log("title", title);
-  // console.log("eyebrow", eyebrow);
+  // // console.log("logo", logo);
+  // // console.log("subtitle", subtitle);
+  // // console.log("title", title);
+  // // console.log("eyebrow", eyebrow);
 
 
   // const galleryData = originalGallery && Array.isArray(originalGallery) && originalGallery.length ? originalGallery : [];

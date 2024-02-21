@@ -1,0 +1,110 @@
+.neustar-award-03,
+.neustar-award-03 * {
+  box-sizing: border-box;
+}
+.neustar-award-03 {
+  z-index: 1;
+  padding: 45px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  flex-shrink: 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.neustar-award-03 .container {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.neubranch-start {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.neubranch-item {
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.icon-temp {
+  flex-shrink: 0;
+  width: 37px;
+  height: 68px;
+  position: relative;
+  overflow: hidden;
+}
+.neustar-metal {
+  margin: 0 0 0 -45px;
+  padding: 0px 24px 7.5px 24px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.neustar-item {
+  padding: 3px 0px 3px 0px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.neustar-item .icon {
+  flex-shrink: 0;
+  width: 55px;
+  height: 55px;
+  position: relative;
+  overflow: hidden;
+  transform: rotate(-15deg);
+}
+.neustar-item:nth-child(2n+1) {
+    transform: rotate(15deg);
+}
+.neubranch-end {
+  margin: 0 0 0 -45px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  position: relative;
+  transform-origin: 0 0;
+}
+.neubranch-item {
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.neubranch-item .icon {
+  flex-shrink: 0;
+  width: 37px;
+  height: 68px;
+  position: relative;
+  transform-origin: 0 0;
+  overflow: hidden;
+}

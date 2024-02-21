@@ -1,3 +1,16 @@
+export const popularTimeHTML = {
+    render: (popularTimes) => {
+         storePopularTimes(popularTimes).init();
+      return `
+              <div id="chartsContainer">
+                 chartsContainer
+              </div>
+              `;
+    },
+  };
+  
+
+
 export async function storePopularTimes(popularTimes) {
     try {
  const currentHour = new Date().getHours();

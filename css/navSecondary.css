@@ -1,11 +1,11 @@
 /* Header */
 .header {
-    background-color: var(--white01);
+    /* background-color: var(--white01); */
     /* height: 6.00rem; */
     /* line-height: 1.5rem; */
     /* display: grid; */
     gap: var(--s03);
-    margin: auto;
+    /* margin: auto; */
     /* padding: 0 3%; */
     position: absolute;
     border-bottom: none;

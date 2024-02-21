@@ -1,45 +1,177 @@
 
-/* Details */
-/* .store-detail {
-  max-width: 125rem;
-  margin: 0 auto;
+
+container#ngrid\ platinum {
+  width: 100vw;
+  display: grid !important;
+  grid-gap: 12px !important;
+  grid-template-columns: 
+    [ b1-start] 1fr  
+    [ b1-end c1-start ] 1fr 
+    [ c1-end c2-start ] 1fr 
+    [ c2-end c3-start ] 1fr 
+    [ c3-end c4-start ] 1fr 
+    [ c4-end c5-start ] 1fr 
+    [ c5-end c6-start ] 1fr 
+    [ c6-end c7-start ] 1fr 
+    [ c7-end c8-start ] 1fr 
+    [ c8-end c9-start ] 1fr 
+    [ c9-end c10-start ] 1fr 
+    [ c10-end c11-start ] 1fr 
+    [ c11-end c12-start ] 1fr 
+    [ c12-end c13-start ]  1fr 
+    [ c13-end c14-start ] 1fr /* p1-start */
+    [ c14-end c15-start ] 1fr  /* p1-end p2-start */
+    [ c15-end c16-start ] 1fr /* p2-end */
+    [ c16-end c17-start ] 1fr
+    [ c17-end c18-start ] 1fr 
+    [ c18-end b2-start ] 1fr 
+    [ b2-end end-end ]
+    !important;
+} 
+
+
+.store-details.main-container, #platinum {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  padding: 0 12px;
+  /* overflow: hidden; */
+}
+
+.store.primary {
+  width: 100% !important;
+  /* grid-column-start: b1-start;
+  grid-column-end: c13-end; */
+  grid-column: 1 / 14 !important;
+  grid-row: span 1 !important;
+  /* width: 69.9vw; */
   display: grid;
-  grid-template-columns: 1fr 800px 1fr;
-  gap: 2rem;
+  gap: 12px;
+  grid-template-columns:
+    [ b1-start ] 1fr 
+    [ b1-end c1-start ] 1fr
+    [ c1-end c2-start ] 1fr 
+    [ c2-end c3-start ] 1fr 
+    [ c3-end c4-start ] 1fr 
+    [ c4-end c5-start ] 1fr 
+    [ c5-end c6-start ] 1fr 
+    [ c6-end c7-start ] 1fr 
+    [ c7-end c8-start ] 1fr 
+    [ c8-end c9-start ] 1fr 
+    [ c9-end c10-start ] 1fr 
+    [ c10-end c11-start ] 1fr 
+    [ c11-end c12-start ] 1fr 
+    [ c12-end c13-start ] 
+
+    !important;
+  /* overflow: hidden; */
+}
+/* 
+.store.primary:not(.section.store-service) {
+  overflow: hidden;
+} */
+
+.store.secondary {
+  grid-column-start: c14-start !important;
+  grid-column-end: c18-end !important;
+  /* width: auto; */
+  width: 100% !important;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  margin-inline-start: auto;
+}
+
+
+.store-primary {
+  /* background-color: orange; */
+  width: 100% !important;
+}
+
+/* .store .section {
+  display: grid;
+  grid-template-columns: 
+  [ c1-start ] 1fr
+  [ c1-end c2-start ] 1fr 
+  [ c2-end c3-start ] 1fr 
+  [ c3-end c4-start ] 1fr 
+  [ c4-end c5-start ] 1fr 
+  [ c5-end c6-start ] 1fr 
+  [ c6-end c7-start ] 1fr 
+  [ c7-end c8-start ] 1fr 
+  [ c8-end c9-start ] 1fr 
+  [ c9-end c10-start ] 1fr 
+  [ c10-end c11-start ] 1fr 
+  [ c11-end c12-start ] 1fr 
+  [ c12-end c13-start ] 
+  !important;
+  /* overflow: hidden; 
 } */
 
 
+.section.store-overview.overview {
+  grid-column: 2 / -1;
+  grid-row: span 1;
+  /* background-color: red; */
+}
 
-.store-experience {
-  background-color: blue;
+.section.store-experience.experience {
+  /* background-color: blue;
   width: 100%;
+  grid-column: 2 / -1;
+  grid-row: span 1; */
   /* height:100%; */
-  padding: 150px;
 } 
-.store-facility {
-  background-color: pink;
+
+.store .section .container, .container {
+}
+
+
+
+
+
+
+.section.store-facility.facility {
+  /* background-color: pink; */
   width: 100%;
+  grid-column: 2 / 13;
+  grid-row: span 1;
+  overflow: hidden !important;
   /* height:100%; */
-  padding: 150px;
 } 
-.store-service {
-  background-color: teal;
-  width: 100%;
-  /* height:100%; */
-  padding: 150px;
+.section.store-service.service {
+  /* background-color: pink;
+  grid-row: span 1;
+  grid-column: 1 / -1 !important;
+  overflow: visible !important;
+  height: 100%; */
+  grid-row: span 1;
+  grid-column: 1 / 14 !important;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: [ b1-start ] 1fr [ b1-end c1-start ] 1fr [ c1-end c2-start ] 1fr [ c2-end c3-start ] 1fr [ c3-end c4-start ] 1fr [ c4-end c5-start ] 1fr [ c5-end c6-start ] 1fr [ c6-end c7-start ] 1fr [ c7-end c8-start ] 1fr [ c8-end c9-start ] 1fr [ c9-end c10-start ] 1fr [ c10-end c11-start ] 1fr [ c11-end c12-start ] 1fr [ c12-end c13-start ] !important;
+  /* margin-right: calc(-100vw + 100%); */
+  /* grid-row: span 1;
+  grid-column: 1 / 14 !important;
+  overflow: visible !important;
+  height: 100%;
+  margin-right: calc(-100vw + 100%); */
 } 
 .store-location {
   background-color: orange;
   width: 100%;
   /* height:100%; */
-  padding: 150px;
 } 
 .store-hour {
   background-color: purple;
   width: 100%;
   /* height:100%; */
-  padding: 150px;
 } 
+
+
+
+
+
 
 
 
@@ -62,7 +194,10 @@
 }
 
 
-
+.u-release {
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
 
 
 
@@ -98,7 +233,7 @@
     /* padding-left: var(--border);
     padding-right: var(--border); */
     grid-gap: var(--s09);
-    grip-row: 1fr 1fr;
+    grid-row: 1fr 1fr;
     grid-row-start: initial;
     align-items: left;
     /* flex-direction: column; */
@@ -542,9 +677,9 @@
 .hero * {
   box-sizing: border-box;
 }
-.hero {
+.store .hero {
   background: #ffffff;
-  padding: 0px 78px 0px 78px;
+  /* padding: 0px 78px 0px 78px; */
   display: flex;
   flex-direction: column;
   gap: 0px;

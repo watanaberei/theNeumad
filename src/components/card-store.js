@@ -71,7 +71,9 @@ const createStoreCard = {
 
         </div>
             <div class="data-time">
-                <span class="data-time-text text01">12m</span>
+                <span class="data-time-text text01">
+                    ${storeData.storeDistanceHTML}
+                </span>
             </div>
         </div>
 

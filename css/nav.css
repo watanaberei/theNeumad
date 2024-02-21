@@ -1,6 +1,6 @@
 /* Header */
 .header {
-  background-color: var(--white01);
+  /* background-color: var(--white01); */
   z-index: 333;
   width: 100vw;
 }
@@ -9,7 +9,7 @@
   background-color: var(--white01);
   z-index: 333;
   width: 100vw; 
-  height: 
+  height: 150px;
 }
 
 .header.fix {
@@ -116,7 +116,9 @@ gap: var(--g);
 
 /* NAV TOP */
 .nav-main {
-height: 9rem;
+/* background-color: var(--white01);
+height: 9rem; */
+height: 65px;
 position: sticky;
 width: fit-content;
 align-content: center;
