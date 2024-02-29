@@ -125,48 +125,48 @@ export const modals = {
 
 
 
-  // // Ensure the DOM is fully loaded before attaching event listeners
-  // const modal = {
-  //   init: function() {
-  //     document.addEventListener('DOMContentLoaded', (event) => {
-  //       const bindModel = (targetModel) => {
-  //         var modal = document.getElementById(targetModel);
+//   // Ensure the DOM is fully loaded before attaching event listeners
+//   const modal = {
+//     init: function() {
+//       document.addEventListener('DOMContentLoaded', (event) => {
+//         const bindModel = (targetModel) => {
+//           var modal = document.getElementById(targetModel);
   
-  //         if (modal) {
-  //           modal.style.display = "block";
+//           if (modal) {
+//             modal.style.display = "block";
   
-  //           document.getElementById(targetModel + "-close").onclick = function () {
-  //             modal.style.display = "none";
-  //           };
+//             document.getElementById(targetModel + "-close").onclick = function () {
+//               modal.style.display = "none";
+//             };
   
-  //           window.onclick = function (event) {
-  //             if (event.target == modal) {
-  //               modal.style.display = "none";
-  //             }
-  //           };
-  //         }
-  //       };
+//             window.onclick = function (event) {
+//               if (event.target == modal) {
+//                 modal.style.display = "none";
+//               }
+//             };
+//           }
+//         };
   
-  //       const myBtn = document.getElementById("myBtn");
-  //       const myBtn1 = document.getElementById("myBtn1");
+//         const myBtn = document.getElementById("myBtn");
+//         const myBtn1 = document.getElementById("myBtn1");
   
-  //       if (myBtn) {
-  //         myBtn.onclick = function () {
-  //           bindModel("myModal");
-  //         };
-  //       }
+//         if (myBtn) {
+//           myBtn.onclick = function () {
+//             bindModel("myModal");
+//           };
+//         }
   
-  //       if (myBtn1) {
-  //         myBtn1.onclick = function () {
-  //           bindModel("myModal1");
-  //         };
-  //       }
-  //     });
-  //   }
-  // };
+//         if (myBtn1) {
+//           myBtn1.onclick = function () {
+//             bindModel("myModal1");
+//           };
+//         }
+//       });
+//     }
+//   };
   
-  // // Export the modal object
-  // export { modal };
+//   // Export the modal object
+//   export { modal };
 
 
 

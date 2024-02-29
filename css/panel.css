@@ -3,10 +3,10 @@
     box-sizing: border-box;
 }
 
-.secondary .panel {
+.panel .secondary {
     /* padding-top: 78px; */
 }
-.secondary {
+.panel .secondary {
     /* padding: 30px 78px 0px 0px; */
     /* display: flex; */
     flex-direction: column;

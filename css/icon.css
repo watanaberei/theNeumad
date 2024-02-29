@@ -293,6 +293,30 @@ gap: 3px;
 
 
 
+/* INDICATOR */
+.icon-indicator-active {
+  background: url('../assets/icon/indicator/icon-indicator-active.svg') no-repeat;
+  height: 21px;
+  width: 21px;
+  display: block;
+  color: var(--ink03);
+  }
+
+  /* INDICATOR */
+.icon-indicator-inactive {
+  background: url('../assets/icon/indicator/icon-indicator-inactive.svg') no-repeat;
+  height: 21px;
+  width: 21px;
+  display: block;
+  color: var(--ink03);
+  }
+
+
+
+
+
+
+
 
 /* SUMMARY */
 .icon-Foundations-21 {

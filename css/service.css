@@ -122,7 +122,7 @@
 .service .summary-container > .bullets > .item {
   display: flex;
   flex-direction: row;
-  gap: 12px;
+  gap: 3px;
   grid-template-columns: 1fr 1fr !important;
   min-width: 300px;
   width: 100%;
@@ -184,6 +184,10 @@
 .service .icon {
   /* background: #cdd3d6; */
   display: flex;
+  flex-direction: row;
+  gap: 0px;
+  filter: invert(87%) sepia(82%) saturate(576%) hue-rotate(328deg) brightness(93%) contrast(96%); 
+  background-size: cover;
   flex-direction: row;
   gap: 10px;
   align-items: center;
@@ -377,6 +381,9 @@
 }
 .service .icon {
   display: flex;
+  /* filter: invert(1); */
+  filter: invert(87%) sepia(82%) saturate(576%) hue-rotate(328deg) brightness(93%) contrast(96%); 
+  background-size: cover;
   flex-direction: row;
   gap: 0px;
   align-items: flex-start;

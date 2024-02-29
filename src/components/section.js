@@ -1,6 +1,7 @@
 import { format, parseISO } from "date-fns";
 import * as element from "../components/elements";
-import { modals } from "../components/modal";
+import { model } from "mongoose";
+// import { modals } from "../components/modal";
 
 // export const mediaHero = {
 //     render: (hero) => {
@@ -19,10 +20,11 @@ import { modals } from "../components/modal";
 // };
 
 export const section = {
-  render: (store) => {
+    render: async (store) => {
     // const title = store.overviewTitle;
     const title = "What to expect";
     const snippet = store.snippetOverview;
+
     const areaNames = store.mediaArea;
     // const areaNames = store.mediaArea.description && Array.isArray(store.mediaArea.description) && store.mediaArea.description.length ? store.mediaArea.description : [];
     // console.log("areaNames", areaNames);
@@ -61,7 +63,10 @@ export const section = {
 
     // BEST
     let attributesOverviewHTML = "";
+   
     limitedAttributeOverview04.forEach((attributesOverview) => {
+        let iconString = attributesOverview.key.trim();
+        iconString = iconString.charAt(0).toLowerCase() + iconString.slice(1).replace(/\s/g, '');
       attributesOverviewHTML += `
         <div class="item">
             <i class="section-tag-icon icon-${attributesOverview.key}-21"></i>
@@ -80,34 +85,6 @@ export const section = {
         `;
     });
 
-    // //
-
-    // let attributesOverviewHTML = "";
-    // attributesOverview.forEach((attributesOverview) => {
-    //     let iconString = attributesOverview.key.trim();
-    //     // iconString = iconString.charAt(0).toLowerCase() + iconString.slice(1).replace(/\s/g, '');
-
-    //     attributesOverviewTML += `
-    //           <div class="store-summaryFacility-item">
-    //               <div class="store-summaryFacility-icon">
-    //                   <div class="store-summaryFacility-icons-container">
-    //                       <span class="bold02">
-    //                           <i class="store-attributes-icon icon-attributes-${iconString}"></i>
-    //                       </span>
-    //                   </div>
-    //               </div>
-    //               <div class="store-summaryFacility-contemt">
-    //                   <span class="bold02">
-    //                       ${attributesOverview.key}
-    //                   </span>
-    //                   <span class="text02">
-    //                       ${attributesOverview.value}
-    //                   </span>
-    //               </div>
-    //           </div>
-    //           <div class="lineH"></div>
-    //           `;
-    //   });
     document.addEventListener('DOMContentLoaded', () => {
         modals.init();
         // console.log("modals.init()", modals.init());
@@ -122,7 +99,7 @@ export const section = {
       areaName.forEach((best) => {
         attributesArray += `
             <div class="item">
-                <a class="coffee-bar">${best.description}r</a>
+                <a class="coffee-bar">${best.description}</a>
                 <span class="div">,</span>
             </div>
             `;
@@ -132,204 +109,365 @@ export const section = {
 
     const attributesArray = generateAttributesArray(areaName);
 
-    console.log("store", store);
-    return `
+
+
+
+    ///////////////////////////////////////////////////////
+    //////////////////////// MODAL ////////////////////////
+    ///////////////////////////////////////////////////////
+    const modalComponent = () => {
+        const modalHTML = `
+          <button id="myBtn">Open Modal</button>
+          <div id="myModal" class="modal">
+            <div class="modal-content">
+              <span class="modal-close">&times;</span>
+              <p>Some text in the Modal..</p>
+            </div>
+          </div>
+        `;
+      
+        document.addEventListener('click', (event) => {
+          if (event.target.matches('.modal-close') || event.target.matches('.modal')) {
+            document.getElementById('myModal').style.display = 'none';
+          } else if (event.target.matches('#myBtn')) {
+            document.getElementById('myModal').style.display = 'block';
+          }
+        });
+      
+        return modalHTML;
+      };
+    ///////////////////////////////////////////////////////
+    //////////////////////// MODAL ////////////////////////
+    ///////////////////////////////////////////////////////
+
+
+
+
+
+    /////////////////////////////////////////////////////////
+    //////////////////////// SNIPPET ////////////////////////
+    /////////////////////////////////////////////////////////
+    const createOverviewText = (snippet) => {
+        const fullText = snippet; // The full text to display
+        const limitedText = snippet.length > 50 ? snippet.substring(0, 50) + '...' : snippet; // Limited text
+        const overviewHTML = `
+            <div id="overview-text-container" class="body">
+                <div id="overview-text" class="container">
+                    <span id="snippet-text" class="text text02">${limitedText}</span>
+                    <span id="toggle-text" class="text text02 button-more">Show More</span>
+                </div>
+            </div>
+        `;
     
-<section class="section store-overview overview">
+        // Attach this HTML to the DOM as appropriate for your application
+    
+        document.addEventListener('click', (event) => {
+            if (event.target.matches('#toggle-text')) {
+                const snippetTextElement = document.getElementById('snippet-text');
+                const toggleTextElement = event.target;
+    
+                if (toggleTextElement.textContent === "Show More") {
+                    snippetTextElement.textContent = fullText; // Show full text
+                    toggleTextElement.textContent = "Show Less";
+                } else {
+                    snippetTextElement.textContent = limitedText; // Revert to limited text
+                    toggleTextElement.textContent = "Show More";
+                }
+            }
+        });
+    
+        return overviewHTML;
+    };
+    
+    
+    
+    // function createOverviewText(snippet) {
+    //     const overviewTextHTML = `
+    //     <div id="overview-text-container" class="body">
+    //         <div id="overview-text" class="container">
+    //             <span class="text text02">
+    //                 ${snippet}
+    //             </span>
+    //         </div>
+    //         <div id="button-more" class="button-more">
+    //             <span id="text-close"class="text text02">
+    //                 Show More
+    //             </span>
+    //         </div>
+    //         `;
+    //         const buttonMore = document.getElementById("button-more");
 
-    <div class="overview">
+    //         document.addEventListener('click', (event) => {
+    //             // if #overview-text matches button-more, class morecontent style display = none, html text = 'Show More'.
+    //             // else if #overview-text #button-less, class morecontent style display = BLOCKS, html text = 'Show Less'
+    //             if (event.target.matches('.modal-close') || event.target.matches('#button-more')) {
+    //               document.getElementById('overview-text').style.display = 'none';
+    //             } else if (event.target.matches('#button-more')) {
+    //               document.getElementById('overview-text').style.display = 'block';
+    //             }
+    //           });
+            
+    //     // const buttonMore = document.createElement('span');
+    //     //     buttonMore.classList.add('text', 'text02', 'button-more');
+    //     //     buttonMore.textContent = 'Show More';
+      
+       
+    //     // container.appendChild(text);
+    //     // container.appendChild(buttonMore);
+      
+    //     // // Logic to toggle showing more or less
+    //     // buttonMore.addEventListener('click', function() {
+    //     //   // This logic should toggle the class or directly manipulate styles
+    //     //   // to show all lines of the text and change the button text accordingly
+    //     // });
 
-        <div class="title">
-            <span class="what-to-expect">
-                ${title}
-            </span>
-        </div>
+    //     return overviewTextHTML;
+    //   }
 
-        <div class="body">
-            <div class="container">
-                <span class="text text02">
-                    ${snippet}
-                </span>
-            </div>
-            <div class="button-more">
-                <span class="text text02">
-                    Show More
-                </span>
-            </div>
-        </div>
-    </div>
+    const overviewText = createOverviewText(store.snippetOverview);
+    /////////////////////////////////////////////////////////
+    //////////////////////// SNIPPET ////////////////////////
+    /////////////////////////////////////////////////////////
 
 
 
-    ${element.lineH.render(30)}
+    
+    
+    
+    
+    
+    // If this script needs to be used in a context where its functionality is required elsewhere,
+    // consider attaching necessary functions or objects to the `window` object for global accessibility.
+  
 
 
-    <div class="attributes">
-        <div class="card">
-            <div class="snippet">
-                <div class="primary">
-                    <div class="header">
-                        <span class="text02 bold">
-                            Title
+
+
+
+    
+    return `
+        <section class="section store-overview overview">
+
+            <div class="overview">
+
+                <div class="title">
+                    <span class="what-to-expect">
+                        ${title}
+                    </span>
+                </div>
+
+                ${overviewText}
+
+                <!--
+                <div class="body">
+                    <div class="container">
+                        <span class="text text02">
+                            $ {overviewText}
+                            $ {snippet}
                         </span>
-                        <button class="tag">
-                            <span class="text02 bold">
-                                <span class="percent">
-                                    93%
-                                </span>
-                                <span class="percent">
-                                    Recommended
-                                </span> 
-                            </span>
-                        </button>
                     </div>
-                    <div class="array">
-                        ${attributesArray}
+                    <div class="button-more">
+                        <span class="text text02">
+                            Show More
+                        </span>
                     </div>
                 </div>
-                <div class="array">
-                        <div class="pictogram">
-                            <i class="pictogram-facility-indoor-30"></i>
-                        </div>
-                        <div class="pictogram">
-                            <i class="pictogram-facility-outdoor-30"></i>
-                        </div>
-                    </div>
-                </div>
+                -->
             </div>
-            <div class="card">
-                <div class="snippet">
-                    <div class="primary">
-                        <div class="header">
-                            <div class="text">
-                                <span class="title text02 bold">Title</span>
+
+
+
+            ${element.lineH.render(30)}
+
+
+            <div class="attributes">
+                <div class="card">
+                    <div class="snippet">
+                        <div class="primary">
+                            <div class="header">
+                                <span class="text02 bold">
+                                    Title
+                                </span>
+                                <button class="tag">
+                                    <span class="text02 bold">
+                                        <span class="percent">
+                                            93%
+                                        </span>
+                                        <span class="percent">
+                                            Recommended
+                                        </span> 
+                                    </span>
+                                </button>
                             </div>
-                            <button class="tag">
-                                <div class="text">
-                                    <span class="text02">93% Recommended</span>
-                                </div>
-                            </button>
+                            <div class="array">
+                                ${attributesArray}
+                            </div>
                         </div>
                         <div class="array">
-                        ${attributesFacilityHTML} 
-                        </div>
-                    </div>
-                    <div class="array">
-                    
-                        <div class="pictogram">
-                            <i class="pictogram-table-indoor-30"></i>
-                        </div>
-                        <div class="pictogram">
-                            <i class="pictograph-table-outdoor-30"></i>
-                        </div>
-                        <div class="pictogram">
-                            <i class="pictogram-amenities-wifi-30"></i>
-                        </div>
-                        <div class="pictogram">
-                            <i class="pictogram-amenities-outlet-30"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        ${element.lineH.render(30)}
-
-        
-        <div class="summary">
-            <div class="list">
-                <div class="title">
-                    <div class="text">
-                        <span class="text02 bold">Title</span>
-                    </div>
-                </div>
-                <div class="bullets">
-                    ${attributesOverviewHTML}   
-                </div>
-            </div>
-
-
-
-            <div class="button">
-                <div class="button-anchor">
-                    
-<button id="myBtn">Open Modal</button>
-<button id="myBtn1">Open Modal 1</button>
-
-<div id="myModal" class="bottom-sheet">
-  <div class="bottom-sheet-content">
-    <div class="container">
-      <div class="bottom-sheet-header">
-        <span id="myModal-close" class="bottom-sheet-close">&times;</span>
-        <h2>Modal Header</h2>
-      </div>
-      <div class="bottom-sheet-body">
-        <p>Some text in the Modal Body</p>
-        <p> Where can I get some?
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is theref.
-          Where can I get some?
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is theref.</p>
-        </p>
-      </div>
-      <div class="bottom-sheet-footer">
-        <h3>Modal Footer</h3>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="myModal1" class="bottom-sheet">
-  <div class="bottom-sheet-content">
-    <div class="container">
-      <div class="bottom-sheet-header">
-        <span id="myModal1-close" class="bottom-sheet-close">&times;</span>
-        <h2>Modal Header 1</h2>
-      </div>
-      <div class="bottom-sheet-body">
-        <p>Some text in the Modal Body</p>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-          Why do we use it?
-          It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-
-          Where does it come from?
-          Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-          The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-
-          Where can I get some?
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is theref.
-
-          Where can I get some?
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is theref.
-          Where can I get some?
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is theref.</p>
-      </div>
-      <div class="bottom-sheet-footer">
-        <h3>Modal Footer</h3>
-      </div>
-    </div>
-  </div>
-</div>
-                    <button id="myBtn" class="container">
-                        <div class="label-glyph">
-                            <div class="text3">
-                                <div class="button2">button</div>
-                            </div>
-                            <div class="glyph">
-                                <div class="glyph-temp2"></div>
+                                <div class="pictogram">
+                                    <i class="pictogram-facility-indoor-30"></i>
+                                </div>
+                                <div class="pictogram">
+                                    <i class="pictogram-facility-outdoor-30"></i>
+                                </div>
                             </div>
                         </div>
-                    </button>
+                    </div>
+                    <div class="card">
+                        <div class="snippet">
+                            <div class="primary">
+                                <div class="header">
+                                    <div class="text">
+                                        <span class="title text02 bold">Title</span>
+                                    </div>
+                                    <button class="tag">
+                                        <div class="text">
+                                            <span class="text02">93% Recommended</span>
+                                        </div>
+                                    </button>
+                                </div>
+                                <div class="array">
+                                ${attributesFacilityHTML} 
+                                </div>
+                            </div>
+                            <div class="array">
+                            
+                                <div class="pictogram">
+                                    <i class="pictogram-table-indoor-30"></i>
+                                </div>
+                                <div class="pictogram">
+                                    <i class="pictograph-table-outdoor-30"></i>
+                                </div>
+                                <div class="pictogram">
+                                    <i class="pictogram-amenities-wifi-30"></i>
+                                </div>
+                                <div class="pictogram">
+                                    <i class="pictogram-amenities-outlet-30"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                ${element.lineH.render(30)}
+
+                
+                <div class="summary">
+                    <div class="list">
+                        <div class="title">
+                            <div class="text">
+                                <span class="text02 bold">Title</span>
+                            </div>
+                        </div>
+                        <div class="bullets">
+                            ${attributesOverviewHTML}   
+                        </div>
+                    </div>
+
+
+
+                    <div class="button">
+                        <div class="button-anchor">
+
+                            <button id="myBtn33" class="container">
+                                <div class="label-glyph">
+                                    <div class="text3">
+                                        <div class="button2">button</div>
+                                    </div>
+                                    <div class="glyph">
+                                        <div class="glyph-temp2"></div>
+                                    </div>
+                                </div>
+                            </button>
+
+                        </div>
+                    </div>
+
+
+
+
+
+                    <!-- The Modal -->
+                    ${modalComponent()}
+                    <!--
+                    <h2>Bottom Sheet</h2>
+
+                    <button id="myBtn" data-target="myModal">Open Modal</button>
+                    <button id="myBtn" data-target="myModal1">Open Modal 1</button>
+
+                    <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <div class="container">
+                        <div class="modal-header">
+                            <span id="myModal-close" class="modal-close">&times;</span>
+                            <h2>Modal Header</h2>
+                        </div>
+                        <div class="modal">
+                            <p>Some text in the Modal Body</p>
+                            <p> Where can I get some?
+                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is theref.
+                            Where can I get some?
+                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is theref.</p>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <h3>Modal Footer</h3>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div id="myModal1" class="modal">
+                    <div class="modal-content">
+                        <div class="container">
+                        <div class="modal-header">
+                            <span id="myModal1-close" class="modal-close">&times;</span>
+                            <h2>Modal Header 1</h2>
+                        </div>
+                        <div class="modal-body">
+                            <p>Some text in the Modal Body</p>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+                            Why do we use it?
+                            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+
+                            Where does it come from?
+                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+
+                            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+
+                            Where can I get some?
+                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is theref.
+
+                            Where can I get some?
+                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is theref.
+                            Where can I get some?
+                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is theref.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <h3>Modal Footer</h3>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    -->
+                    <!-- The Modal End -->
+
+
+
 
                 </div>
-            </div>
-        
+                ${element.lineH.render(30)}
 
-        </div>
-        ${element.lineH.render(30)}
-
-</section>
+        </section>
     `;
   },
 };
+
+
+
+
+
+
+
+

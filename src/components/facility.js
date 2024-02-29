@@ -1,17 +1,87 @@
 import { format, parseISO } from "date-fns";
 import * as element from "../components/elements";
 import * as media from "../components/media";
+import { popularTimeHTML } from "./StorePopularTimes";
 
 export const facilities = {
   render: (store) => {
     const mediaTopThree = store.mediaTopThree;
     const mediaGallery = store.mediaGallery;
+
+
+
+
+    ///////////////////////////////////////////////////////////////
+    //////////////////////// NEARBY STORES ////////////////////////
+    ///////////////////////////////////////////////////////////////
+    let nearbyObject = [];
+    let nearbyHeadline = [];
+    let nearbyHours = [];
+    let nearbyLocation = [];
+    let nearbyLogo = [];
+    const nearbyStore = store.nearbyStoresCollection || [];
+    if (nearbyStore.length > 0) {
+        for (let i = 0; i < nearbyStore.length; i++) {
+            nearbyObject = nearbyStore[i]; 
+            nearbyHeadline = nearbyObject.nearbyHeadline;
+            nearbyHours = nearbyObject.nearbyHours;
+            nearbyLocation = nearbyObject.nearbyLocation;
+            nearbyLogo = nearbyObject.nearbyLogo;
+
+            // console.log(`!!!!!nearbyStore[${i}]!!!!!`, nearbyObject);
+            // console.log(`!!!!!nearbyHeadline[${i}]!!!!!`, nearbyHeadline);
+            // console.log(`!!!!!nearbyHours[${i}]!!!!!`, nearbyHours);
+            // console.log(`!!!!!nearbyLocation[${i}]!!!!!`, nearbyLocation);
+            // console.log(`!!!!!nearbyLogo[${i}]!!!!!`, nearbyLogo);
+        }
+    } else {
+        console.log('No nearby stores found');
+    }
+    const limitedNearbyStore = nearbyStore;
+    // BEST
+    let allNearbyStoresHTML = "";
+    limitedNearbyStore.forEach((nearbyStore) => {
+      allNearbyStoresHTML += `
+        <div class="item">
+          <div class="content">
+            <div class="header">
+              <div class="primary">
+                <div class="i"></div>
+              </div>
+              <div class="secondary">
+                <span class="text03 bold">
+                  0.3mi
+                </span>
+              </div>
+            </div>
+            <div class="image">
+              <img src="${nearbyLogo}" class="galleryItem" alt="" />
+            </div>
+            <div class="label">
+              <span class="text03 bold">
+                ${nearbyHeadline}
+              </span>
+            </div>
+          </div>
+        </div>
+      
+        `;
+    });
+    
+    ///////////////////////////////////////////////////////////////
+    //////////////////////// NEARBY STORES ////////////////////////
+    ///////////////////////////////////////////////////////////////
+
+
+
+
+
     // const mediaGalleryCount = mediaGallery.length;
     const snippetFacility = store.snippetFacility;
     const attributeFacility = store.attributeFacility || [];
-    console.log("attributeFacility", attributeFacility, "// snippetFacility", snippetFacility, "// mediaGallery", mediaGallery);
+    // console.log("attributeFacility", attributeFacility, "// snippetFacility", snippetFacility, "// mediaGallery", mediaGallery);
 
-
+    
     const limitedAttributesFacility04 = attributeFacility.slice(0, 5);
 
     // BEST
@@ -32,7 +102,248 @@ export const facilities = {
        
         `;
     });
-    console.log("attributeFacilityHTML", attributeFacilityHTML);
+    // console.log("attributeFacilityHTML", attributeFacilityHTML);
+
+
+
+
+
+    ///////////////////////////////////////////////////////////////
+    //////////////////////// POPULAR TIMES ////////////////////////
+    ///////////////////////////////////////////////////////////////
+    const popularTimesHTML = () => {
+      const currentHour = new Date().getHours(); // Assuming hours range from 0-23
+      const currentDay = new Date().getDay(); // Assuming days range from 0 (Sunday) - 6 (Saturday)
+      const data = store.popularTimes; // Assuming 'store' is accessible and contains the popular times data
+      
+      let popularTimesContent = '<div id="chartsContainer" class="infograph">';
+    
+      for (let dayIndex = 1; dayIndex < data[0].length; dayIndex++) {
+        popularTimesContent += '<div class="status">';
+        popularTimesContent += `<div class="day-title">${data[0][dayIndex]}</div>`;
+    
+        if (dayIndex === currentDay + 1) {
+          const currentValue = parseInt(data[currentHour + 1][dayIndex]);
+          let statusClass = '';
+          let statusText = '';
+    
+          if (currentValue >= 0 && currentValue <= 5) {
+            statusClass = 'not-busy';
+            statusText = "NOT BUSY";
+          } else if (currentValue > 5 && currentValue <= 10) {
+            statusClass = 'moderately-busy';
+            statusText = "MODERATELY BUSY";
+          } else if (currentValue > 10 && currentValue <= 12) {
+            statusClass = 'busy';
+            statusText = "BUSY";
+          } else {
+            statusClass = 'packed';
+            statusText = "PACKED";
+          }
+    
+          popularTimesContent += `<div class="status ${statusClass}">${statusText}</div>`;
+        }
+    
+        for (let i = 1; i < data.length; i++) {
+          let hourClass = 'item';
+          if (i === currentHour + 1) {
+            hourClass += ' current-hour';
+          }
+
+          let iconClass = 'icon-indicator';
+          if (i === currentHour + 1) {
+            iconClass += '-active';
+          } else {
+            iconClass += '-inactive';
+          }
+
+          const iconIndicator = `<div class="icon-container"><i class="${iconClass} icon"></i></div>`;
+
+          popularTimesContent += `<div class="${hourClass}">`;
+
+          popularTimesContent += `<div class="label">${iconIndicator} ${data[i][0]}</div>`;
+          popularTimesContent += `<div class="${barClass}"><div class="${activeClass}" style="height: ${barHeight}%;"></div></div>`;
+          
+    
+          const barHeight = `${parseInt(data[i][dayIndex]) * (100 / 15)}`;
+          let barClass = 'bar';
+          if (i === currentHour + 1) {
+            barClass += ' current-time';
+          }
+
+          let activeClass = 'active';
+          if (barHeight <= 33.33) {
+              activeClass = 'active';
+          } else if (barHeight > 33.33 && barHeight < 66.66) {
+              activeClass += ' active5';
+          } else if (barHeight >= 66.66 && barHeight <= 100) {
+              activeClass += ' active3';
+          } else {
+              activeClass = 'active';
+          }
+
+          
+    
+          
+          popularTimesContent += '</div>'; // Close hour container
+        }
+    
+        popularTimesContent += '</div>'; // Close day container
+      }
+
+      const scrollIntoView = () => {
+        window.addEventListener('load', () => {
+          const now = new Date();
+          const currentHour = now.getHours();
+          const items = document.querySelectorAll('.item');
+          const targetItem = items[currentHour]; // assuming each item represents an hour
+        
+          if (targetItem) {
+            targetItem.scrollIntoView({
+              behavior: 'smooth',
+              inline: 'start'
+            });
+          }
+        });
+        
+      };
+      scrollIntoView();
+    
+      popularTimesContent += '</div>'; // Close chartsContainer
+      return popularTimesContent;
+
+    };
+    
+    // const popularTimesHTML = () => {
+    //   const currentHour = new Date().getHours();
+    //   const data = store.popularTimes; // Assuming 'store' is accessible
+    //   const currentDay = new Date().getDay();
+    
+    //   let popularTimesContent = '<div id="chartsContainer" class="infograph">';
+    
+    //   data.forEach((dayData, index) => {
+    //     if (index === 0) return; // Skip the header row
+    
+    //     popularTimesContent += `<div class="chart">`;
+    //     popularTimesContent += `<div class="day-title">${dayData[0]}</div>`;
+    
+    //     if (index === currentDay + 1) {
+    //       // Add current status based on business logic
+    //       popularTimesContent += `<div class="status">Today's Status</div>`;
+    //     }
+    
+    //     dayData.slice(1).forEach((hourData, hourIndex) => {
+    //       const hourClass = hourIndex === currentHour ? 'current-hour' : ''; // Example class for current hour
+    //       popularTimesContent += `<div class="hour ${hourClass}">`;
+    //       popularTimesContent += `<span class="hour-label">${hourIndex}:00</span>`; // Adjusted to show hour
+    //       popularTimesContent += `<span class="hour-data">${hourData}</span>`; // Display hour data
+    //       popularTimesContent += `</div>`; // Close hour
+    //     });
+    
+    //     popularTimesContent += `</div>`; // Close chart
+    //   });
+    
+    //   popularTimesContent += `</div>`; // Close chartsContainer
+    
+    //   return popularTimesContent;
+    // };
+    
+    // const popularTimesHTML = () => {
+    //   const currentHour = new Date().getHours();
+    //     const data = store.popularTimes;
+    //     console.log("data", data, "currentHour", currentHour);
+    //     const currentDay = new Date().getDay();
+    //     const chartsContainer = document.getElementById('chartsContainer');
+          
+        
+    //   const PopularTimesHTML = `
+    //   <div id="chartsContainer" class="infograph">
+    //     <!--
+    //     <div class="status">
+    //       <div class="item">
+    //       <div class="bar">
+    //         <div class="active"></div>
+    //       </div>
+    //       <div class="label2">
+    //         <div class="icon-container">
+    //           <div class="icon"></div>
+    //         </div>
+    //         <div class="text2">
+    //           <div class="title4">
+    //             <img class="_12" src="_120.png" />
+    //           </div>
+    //           <div class="subtitle">
+    //             <img class="am" src="am0.png" />
+    //           </div>
+    //         </div>
+    //       </div>
+    //       -->
+    //     </div>
+    //   `;
+      
+    //   for (let dayIndex = 1; dayIndex < data[0].length; dayIndex++) {
+    //     const dayContainer = document.createElement('div');
+    //     dayContainer.classList.add('chart');
+
+    //     const header = document.createElement('div');
+    //     header.classList.add('day-title');
+    //     header.textContent = data[0][dayIndex];
+    //     dayContainer.appendChild(header);
+
+    //     if (dayIndex === currentDay + 1) {
+    //         const currentStatus = document.createElement('div');
+    //         currentStatus.classList.add('status');
+    //         const currentValue = parseInt(data[currentHour + 1][dayIndex]);
+    //         if (currentValue >= 0 && currentValue <= 5) {
+    //             currentStatus.textContent = "NOT BUSY";
+    //             currentStatus.classList.add('not-busy');
+    //         } else if (currentValue > 5 && currentValue <= 10) {
+    //             currentStatus.textContent = "MODERATELY BUSY";
+    //             currentStatus.classList.add('moderately-busy');
+    //         } else if (currentValue > 10 && currentValue <= 12) {
+    //             currentStatus.textContent = "BUSY";
+    //             currentStatus.classList.add('busy');
+    //         } else {
+    //             currentStatus.textContent = "PACKED";
+    //             currentStatus.classList.add('packed');
+    //         }
+
+    //         dayContainer.appendChild(currentStatus);
+    //     }
+
+    //     for (let i = 1; i < data.length; i++) {
+    //         const hourContainer = document.createElement('div');
+    //         hourContainer.classList.add('hour');
+    //         if (i === currentHour + 0) {
+    //             hourContainer.classList.add('current-hour');
+    //         }
+
+    //         const hourLabel = document.createElement('div');
+    //         hourLabel.classList.add('hour-label');
+    //         hourLabel.textContent = data[i][0];
+    //         hourContainer.appendChild(hourLabel);
+
+    //         const bar = document.createElement('div');
+    //         bar.classList.add('bar');
+    //         bar.style.height = `${parseInt(data[i][dayIndex]) * 10}px`; // 10 times the value
+    //         if (i === currentHour + 1) {
+    //             bar.classList.add('current-time');
+    //         }
+    //         hourContainer.appendChild(bar);
+
+    //         dayContainer.appendChild(hourContainer);
+    //     }
+
+    //     chartsContainer.appendChild(dayContainer);
+    // }
+    
+    //   return PopularTimesHTML;
+    // };
+    ///////////////////////////////////////////////////////////////
+    //////////////////////// POPULAR TIMES ////////////////////////
+    ///////////////////////////////////////////////////////////////
+
+
     return `
     <section class="section store-facility facility">
       <div class="header">
@@ -41,6 +352,7 @@ export const facilities = {
         </div>
       </div>
             ${element.lineH.render(30)}
+            ${popularTimesHTML()}
       <div class="media-carousel">
         <div class="title">
           <div class="eyebrow">
@@ -61,7 +373,9 @@ export const facilities = {
             </div>
           </div>
         </div>
-        <div class="infograph">
+       
+       
+        <div  id="chartsContainer" class="infograph">
           <div class="status">
             <div class="item">
               <div class="bar">
@@ -81,7 +395,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar2">
                 <div class="active2"></div>
               </div>
@@ -99,7 +413,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar3">
                 <div class="active3"></div>
               </div>
@@ -117,7 +431,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar3">
                 <div class="active4"></div>
               </div>
@@ -135,7 +449,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar2">
                 <div class="active5"></div>
               </div>
@@ -171,7 +485,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar2">
                 <div class="active2"></div>
               </div>
@@ -189,7 +503,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar3">
                 <div class="active3"></div>
               </div>
@@ -207,7 +521,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar3">
                 <div class="active4"></div>
               </div>
@@ -225,7 +539,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar2">
                 <div class="active5"></div>
               </div>
@@ -243,7 +557,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar2">
                 <div class="active5"></div>
               </div>
@@ -261,7 +575,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar2">
                 <div class="active5"></div>
               </div>
@@ -297,7 +611,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar2">
                 <div class="active2"></div>
               </div>
@@ -315,7 +629,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar3">
                 <div class="active3"></div>
               </div>
@@ -333,7 +647,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar3">
                 <div class="active4"></div>
               </div>
@@ -351,7 +665,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar2">
                 <div class="active5"></div>
               </div>
@@ -369,7 +683,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar4">
                 <div class="active6"></div>
               </div>
@@ -387,7 +701,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar4">
                 <div class="active6"></div>
               </div>
@@ -405,7 +719,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar4">
                 <div class="active6"></div>
               </div>
@@ -423,7 +737,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar4">
                 <div class="active6"></div>
               </div>
@@ -441,7 +755,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar4">
                 <div class="active6"></div>
               </div>
@@ -459,7 +773,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar4">
                 <div class="active6"></div>
               </div>
@@ -477,7 +791,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar4">
                 <div class="active6"></div>
               </div>
@@ -495,7 +809,7 @@ export const facilities = {
                 </div>
               </div>
             </div>
-            <div class="item2">
+            <div class="item">
               <div class="bar4">
                 <div class="active6"></div>
               </div>
@@ -515,6 +829,9 @@ export const facilities = {
             </div>
           </div>
         </div>
+
+
+
       </div>
       <svg
         class="divider2"
@@ -575,58 +892,58 @@ export const facilities = {
                   <div class="map nearbyMap" id="map">
                     <div id="map-container" class="nearbyMap-container"></div>
                   </div>
-                  <svg
-                    class="highlight"
-                    width="126"
-                    height="64"
-                    viewBox="0 0 126 64"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                  >
-                    <mask
-                      id="mask0_423_124271"
-                      style="mask-type: alpha"
-                      maskUnits="userSpaceOnUse"
-                      x="-1"
-                      y="-1"
-                      width="128"
-                      height="66"
-                    >
-                      <path
-                        d="M11 63.9688L8.5 46.9688H3.5L0 26.9688L4.5 26.4688L2.5 8.96875L73.5 0.46875L80.5 34.4688L121 30.4688L126 49.9688L11 63.9688Z"
-                        fill="#D9D9D9"
-                        stroke="black"
-                      />
-                    </mask>
-                    <g mask="url(#mask0_423_124271)">
-                      <rect
-                        x="-1526.5"
-                        y="-820.031"
-                        width="3344"
-                        height="2194"
-                        fill="url(#pattern0)"
-                      />
-                    </g>
-                    <defs>
-                      <pattern
-                        id="pattern0"
-                        patternContentUnits="objectBoundingBox"
-                        width="1"
-                        height="1"
-                      >
-                        <use
-                          xlink:href="#image0_423_124271"
-                          transform="scale(0.000557103 0.000849112)"
-                        />
-                      </pattern>
-                      <image
-                        id="image0_423_124271"
-                        width="1795"
-                        height="1178"
-                      />
-                    </defs>
-                  </svg>
+                              <svg
+                                class="highlight"
+                                width="126"
+                                height="64"
+                                viewBox="0 0 126 64"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                              >
+                                <mask
+                                  id="mask0_423_124271"
+                                  style="mask-type: alpha"
+                                  maskUnits="userSpaceOnUse"
+                                  x="-1"
+                                  y="-1"
+                                  width="128"
+                                  height="66"
+                                >
+                                  <path
+                                    d="M11 63.9688L8.5 46.9688H3.5L0 26.9688L4.5 26.4688L2.5 8.96875L73.5 0.46875L80.5 34.4688L121 30.4688L126 49.9688L11 63.9688Z"
+                                    fill="#D9D9D9"
+                                    stroke="black"
+                                  />
+                                </mask>
+                                <g mask="url(#mask0_423_124271)">
+                                  <rect
+                                    x="-1526.5"
+                                    y="-820.031"
+                                    width="3344"
+                                    height="2194"
+                                    fill="url(#pattern0)"
+                                  />
+                                </g>
+                                <defs>
+                                  <pattern
+                                    id="pattern0"
+                                    patternContentUnits="objectBoundingBox"
+                                    width="1"
+                                    height="1"
+                                  >
+                                    <use
+                                      xlink:href="#image0_423_124271"
+                                      transform="scale(0.000557103 0.000849112)"
+                                    />
+                                  </pattern>
+                                  <image
+                                    id="image0_423_124271"
+                                    width="1795"
+                                    height="1178"
+                                  />
+                                </defs>
+                              </svg>
                 </div>
                 <div class="markers">
                   <svg
@@ -773,6 +1090,151 @@ export const facilities = {
                   </div>
                 </div>
               </div>
+              
+              <div class="nearby2">
+                <div class="controller">
+                ${allNearbyStoresHTML}
+                  <!--
+                  <div class="item">
+                    <div class="content">
+                      <div class="header">
+                        <div class="primary">
+                          <div class="i"></div>
+                        </div>
+                        <div class="secondary">
+                          <div class="span">
+                            <div class="_0-3-m">0.3m</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="image">
+                        <div class="image-657"></div>
+                      </div>
+                      <div class="label">
+                        <div class="span2">
+                          <div class="sprouts-farmers-market">SPROUTS FARMERS MARKET</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="content">
+                      <div class="header">
+                        <div class="primary">
+                          <div class="i"></div>
+                        </div>
+                        <div class="secondary">
+                          <div class="span">
+                            <div class="_0-3-m">0.3m</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="image">
+                        <div class="image-657"></div>
+                      </div>
+                      <div class="label">
+                        <div class="span2">
+                          <div class="sprouts-farmers-market">SPROUTS FARMERS MARKET</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="content">
+                      <div class="header">
+                        <div class="primary">
+                          <div class="i"></div>
+                        </div>
+                        <div class="secondary">
+                          <div class="span">
+                            <div class="_0-3-m">0.3m</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="image">
+                        <div class="image-657"></div>
+                      </div>
+                      <div class="label">
+                        <div class="span2">
+                          <div class="sprouts-farmers-market">SPROUTS FARMERS MARKET</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="content">
+                      <div class="header">
+                        <div class="primary">
+                          <div class="i"></div>
+                        </div>
+                        <div class="secondary">
+                          <div class="span">
+                            <div class="_0-3-m">0.3m</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="image">
+                        <div class="image-657"></div>
+                      </div>
+                      <div class="label">
+                        <div class="span2">
+                          <div class="sprouts-farmers-market">SPROUTS FARMERS MARKET</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="content">
+                      <div class="header">
+                        <div class="primary">
+                          <div class="i"></div>
+                        </div>
+                        <div class="secondary">
+                          <div class="span">
+                            <div class="_0-3-m">0.3m</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="image">
+                        <div class="image-657"></div>
+                      </div>
+                      <div class="label">
+                        <div class="span2">
+                          <div class="sprouts-farmers-market">SPROUTS FARMERS MARKET</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item2">
+                    <div class="content">
+                      <div class="header">
+                        <div class="primary">
+                          <div class="i"></div>
+                        </div>
+                        <div class="secondary">
+                          <div class="span">
+                            <div class="_0-3-m">0.3m</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="image">
+                        <div class="image-657"></div>
+                      </div>
+                      <div class="label">
+                        <div class="span2">
+                          <div class="sprouts-farmers-market">SPROUTS FARMERS MARKET</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  -->
+                </div>
+              </div>
+         
+
+
+
+              <!--
               <div class="nearby2">
                 <div class="item3">
                   <div class="content">
@@ -989,6 +1451,10 @@ export const facilities = {
                   </div>
                 </div>
               </div>
+              -->
+
+
+
             </div>
           </div>
         </div>

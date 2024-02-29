@@ -85,6 +85,7 @@ function generateStorePopularTimeHTML(popularTimes) {
         // let nearbyLogo = '';
         // let nearbyLocation = '';
         const nearbyStores = store.nearbyStore || [];
+        
         // console.log("nearbyHeadline", nearbyHeadline);
         // console.log("nearbyHours", nearbyHours);
         // console.log("nearbyLocation", nearbyLocation);
@@ -104,7 +105,7 @@ function generateStorePopularTimeHTML(popularTimes) {
         // console.log("storePopularTimes", storePopularTimes, popularTime);
 
 
-        // Summary
+        // Suaxmmary
         const limitedBest02 = store?.summary?.best?.length ? store.summary.best.slice(0, 3) : [];
         // console.log("limitedBest02", limitedBest02);
 

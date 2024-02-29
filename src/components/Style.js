@@ -50,3 +50,5 @@ import '../../css/partners.css';
 import '../../css/carousel.css';
 import '../../css/scroll.css';
 import '../../css/modal.css';
+import '../../css/text.css';
+import '../../css/controller.css';

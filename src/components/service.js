@@ -10,7 +10,7 @@ export const services = {
     const mediaGalleryCount = mediaGallery.length;
     const snippetService = store.snippetService;
     const attributeService = store.attributeService || [];
-    console.log("attributeService", attributeService, "// snippetService", snippetService, "// mediaGallery", mediaGallery);
+    // console.log("attributeService", attributeService, "// snippetService", snippetService, "// mediaGallery", mediaGallery);
 
 
     const limitedAttributesService04 = attributeService.slice(0, 5);
@@ -37,7 +37,7 @@ export const services = {
        
         `;
     });
-    console.log("attributeServiceHTML", attributeServiceHTML);
+    // console.log("attributeServiceHTML", attributeServiceHTML);
 
     return `
     <section class="section store-service service">

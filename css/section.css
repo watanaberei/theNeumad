@@ -74,7 +74,7 @@
 .section > .overview > .body > .container {
   padding: 0px 240px 0px 0px;
   /* display: flex; */
-  flex-direction: row;
+  /* flex-direction: row; */
   gap: 10px;
   align-items: flex-start;
   justify-content: flex-start;
@@ -1529,6 +1529,9 @@ summary > .list > .bullets > .item > .icon {
   border-color: #c0ff6f;
   border-width: 1px; */
   flex-shrink: 0;
+  filter: invert(87%) sepia(82%) saturate(576%) hue-rotate(328deg) brightness(93%) contrast(96%);
+  height: 30px;
+  background-size: cover;
   width: 18px;
   height: 18px;
   position: relative;

@@ -211,6 +211,7 @@ export const neustarAward = {
 export const headlineEyebrow = {
   render: () => {
     return `
+    <!--
                 <div class="headline-eyebrow">
                     <div class="eyebrow">
                     <div class="icon-container">
@@ -230,7 +231,7 @@ export const headlineEyebrow = {
                     <img class="_12-mi-away" src="_12-mi-away0.png" />
                     </div>
                 </div>
-      
+      -->
             `;
   },
 };

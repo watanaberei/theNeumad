@@ -68,6 +68,7 @@ export async function getStore(limit = 1, collectionLimit = 6, skip = 0) {
               }
               address
               region
+              locatedIn
               
             }
           }
@@ -272,6 +273,7 @@ export async function getStore(limit = 1, collectionLimit = 6, skip = 0) {
           },
           address: stores?.location?.address,
           region: stores?.location?.region,
+          locatedIn: stores?.location?.locatedIn,
         },
         hours: stores?.hours,
         storeWebsite: stores?.storeWebsite,

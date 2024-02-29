@@ -1,6 +1,8 @@
 import { format, parseISO } from "date-fns";
 import * as element from "./elements";
 import * as suggestion from "../components/suggestion";
+import * as address from "../components/address";
+import * as handle from "../components/handle";
 
 
 
@@ -8,7 +10,115 @@ import * as suggestion from "../components/suggestion";
 
 export const panel = {
   render: (store) => {
+
+  const storeGenre = store.storeGenre;
+  const storeType = store.storeType;
+
+  // LOCATION
+  const storeAddress = store.storeAddress;
+  const storeRegion = store.storeRegion;
+  const storeCity = address.city(storeAddress);
+  console.log("City Part:", storeCity);
+
+
+
+  const currentDistance = store.currentDistance;
+  const storeRange = store.storeRange;
+  const storeName = store.storeName;
+  const storeHours = store.storeHours;
+  const storeRatings = store.storeRatings;
+  const storeReviews = store.storeReviews;
+  const storeLogo = store.storeLogo;
+  const storeContact = store.storeContact;
+  const storeLocatedIn = store.storeLocatedIn;
+  console.log(storeRegion, storeAddress, currentDistance, storeRange, storeName, storeHours, storeRatings, storeReviews, storeContact);
+
+
+
+    // STORE RATING
+    // GOOGLE
+    const storeRatingGoogle = store.storeRatingGoogle;
+    const ratingGoogleRate = storeRatingGoogle[0].key;
+    const ratingGoogleCount = storeRatingGoogle[0].value;
+    const ratingGoogleLink = "https://www.google.com/search?q=" + storeName;
+    // YELP
+    const storeRatingYelp = store.storeRatingYelp;
+    const ratingYelpRate = storeRatingYelp[0].key;
+    const ratingYelpCount = storeRatingYelp[0].value;
+
+    const storeHandle = store.storeHandle;
+    const ratingYelpLink = handle.getYelpLink(storeHandle);
     
+
+  
+    const iconRatingStar = `
+      <div class="indicator">
+        <svg
+          class="glyph"
+          width="13"
+          height="11"
+          viewBox="0 0 13 11"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M6.50079 0C6.85472 0 7.17796 0.200921 7.33462 0.518292L8.60329 3.08848L11.4405 3.50318C11.7907 3.55436 12.0814 3.79985 12.1906 4.13648C12.2997 4.4731 12.2083 4.8425 11.9548 5.08941L9.90259 7.0883L10.3869 9.91224C10.4468 10.2611 10.3033 10.6137 10.017 10.8218C9.73057 11.0298 9.35091 11.0572 9.03762 10.8924L6.50079 9.55835L3.96395 10.8924C3.65066 11.0572 3.271 11.0298 2.98462 10.8218C2.69823 10.6137 2.5548 10.2611 2.61464 9.91224L3.09898 7.0883L1.04673 5.08941C0.793223 4.8425 0.70184 4.4731 0.810987 4.13648C0.813465 4.12884 0.816036 4.12124 0.818699 4.1137L0.765847 4.06222L0.843466 4.05088C0.971102 3.75866 1.24131 3.54991 1.56105 3.50318L4.39828 3.08848L5.66695 0.518292C5.80057 0.247598 6.05538 0.06162 6.34705 0.0127697L6.35325 0.00019455L6.35855 0.0109177C6.40517 0.00370987 6.45269 0 6.50079 0Z"
+            fill="#101011"
+          />
+        </svg>
+      </div>`;
+
+
+      let googleRating = {
+        sourceLink: ratingGoogleLink,
+        sourceCount: ratingGoogleCount,
+        sourceRating: ratingGoogleRate
+      };
+
+      let yelpRating = {
+        sourceLink: ratingYelpLink,
+        sourceCount: ratingYelpCount,
+        sourceRating: ratingYelpRate,
+      }
+  
+  
+      
+      
+      const generateRating = (source) => {
+        const sourceLink = source.sourceLink;
+        const souceRating = source.sourceRating;
+        const sourceCount = source.sourceCount;
+        const ratingHTML = `
+          <div class="text03 medium">
+            <a href="${sourceLink}" class="title">
+              <div class="title">Google: ${souceRating}</div>${iconRatingStar} <div class="subtitle">(${sourceCount})</div>
+            </a>
+          </div>
+        `;
+        return ratingHTML;
+      };
+
+      const ratingGoogle = generateRating(googleRating);
+      const ratingYelp = generateRating(yelpRating);
+
+
+
+    // const rating = `
+    // <div class="text03 medium">
+    //     <a href="https://www.google.com/search?q=${storeName}" class="title">
+    //       <div class="title">Google: ${ratingGoogleRate}</div>${iconRatingStar} <div class="subtitle">(${ratingGoogleCount})</div>
+    //     </a>
+    //   </div>
+    //   `;
+
+
+
+  
+  // const storeAddressShort = ;
+  const storeAddressStreet = storeAddress.split(",")[0];
+  console.log(storeAddressStreet);
     return `
 
 
@@ -20,11 +130,11 @@ export const panel = {
               <div class="ellipse-244"></div>
               <img
                 class="ca-cerritos-southwest-cerritos-smoking-tiger-bread-factory-logo-white"
-                src="ca-cerritos-southwest-cerritos-smoking-tiger-bread-factory-logo-white0.png"
+                src="${storeLogo}"
               />
             </div>
             <div class="text">
-              <span class="text03 bold">Golden State Coffee</span>
+              <span class="text03 bold">${storeName}</span>
             </div>
           </div>
         </div>
@@ -56,7 +166,7 @@ export const panel = {
                 </span>
               </div>
               <div class="subtitle">
-                <span class="text03">8AM</span>
+                <span class="text03">${storeHours}</span>
                 <span class="text03">to</span>
                 <span class="text03">10PM</span>
               </div>
@@ -83,7 +193,7 @@ export const panel = {
             <div class="text">
               <div class="title">
                
-                  <span class="text03 bold">4.34</span>
+                  <span class="text03 bold">${storeRatings}</span>
              
                 <div class="indicator">
                   <svg
@@ -128,8 +238,11 @@ export const panel = {
           <div class="container">
             <div class="text">
               <div class="title">
-             
-                  <span class="text03 bold">(333) 333-3333</span>
+                  ${ratingGoogle}
+                  <br>
+                  ${ratingYelp}
+                  <br>
+                  <span class="text03 bold">${storeContact[0]}</span>
            
               </div>
             </div>
@@ -156,9 +269,9 @@ export const panel = {
               <div class="title">
                 
                   <span class="text03 bold">
-                    19232 Plymouth st.
-                    <br />
-                    Cerritos CA
+                    ${storeRegion}
+                     in
+                    ${storeCity}
                   </span>
                 
               </div>
@@ -182,18 +295,22 @@ export const panel = {
         </div>
       </div>
       ${element.lineH.render(21)}
-      <div class="cta">
+      <button class="cta">
         <div class="item">
           <div class="info">
             <span class="send-to-your-phone text03 bold">Send to your phone</span>
           </div>
         </div>
-      </div>
+      </button>
       ${element.lineH.render(21)}
       <div class="panel-footer footer">
         <div class="item">
           <div class="title">
-            <div class="text03 medium">Google</div>
+            <div class="text03 medium">
+              <a href="https://www.google.com/search?q=${storeName}" class="title">
+                <div class="title">Google: ${ratingGoogleRate}</div>${iconRatingStar} <div class="subtitle">(${ratingGoogleCount})</div>
+              </a>
+            </div>
           </div>
           <div class="button partners-google-logo-30">
             <!--<img class="image-690" src="partners-google-logo-30" />-->
@@ -201,7 +318,7 @@ export const panel = {
         </div>
         <div class="item">
           <div class="title">
-            <div class="text03 medium">Yelp</div>
+            <div class="text03 medium">Yelp: ${ratingYelpRate} (${ratingYelpCount})</div>
           </div>
           <div class="button partners-yelp-logo-30">
             <!--<img class="image-691" src="partners-yelp-logo-30" />-->

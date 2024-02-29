@@ -66,6 +66,32 @@
   position: relative;
   overflow: hidden;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#chartsContainer {
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.item {
+  scroll-snap-align: start;
+}
 .facility .title {
   padding: 15px 0px 15px 0px;
   display: flex;
@@ -193,8 +219,9 @@
   align-items: flex-start;
   justify-content: center;
   flex-shrink: 0;
-  width: 864px;
-  position: relative;
+  overflow-x: scroll;
+  width: 100%;
+  /* position: relative; */
 }
 .facility .status {
   display: flex;
@@ -203,7 +230,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-shrink: 0;
-  position: absolute;
+  /* position: absolute; */
   left: -1728px;
   top: 0px;
 }
@@ -234,7 +261,8 @@
   height: 22px;
   position: absolute;
   right: 0px;
-  top: 38px;
+  bottom: 0;
+  /* top: 38px; */
   overflow: hidden;
 }
 .facility .label2 {
@@ -258,9 +286,9 @@
   position: relative;
 }
 .facility .icon {
-  background: var(--ink, #101011);
+  /* background: var(--ink, #101011);
   border-radius: 333px;
-  padding: 9px 15px 9px 18px;
+  padding: 9px 15px 9px 18px; */
   flex-shrink: 0;
   width: 12px;
   height: 12px;
@@ -309,7 +337,7 @@
   font-weight: 400;
   position: relative;
 }
-.facility .item2 {
+.facility .item {
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -337,7 +365,8 @@
   height: 27px;
   position: absolute;
   left: 0px;
-  top: 33px;
+  bottom: 0;
+  /* top: 33px; */
   overflow: hidden;
 }
 .facility ._1 {
@@ -368,7 +397,8 @@
   height: 49px;
   position: absolute;
   left: 0.5px;
-  top: 11.07px;
+  /* top: 11.07px; */
+  bottom: 0;
   overflow: hidden;
 }
 .facility ._2 {
@@ -389,7 +419,8 @@
   height: 40px;
   position: absolute;
   left: 0.5px;
-  top: 20.07px;
+  /* top: 20.07px; */
+  bottom: 0;
   overflow: hidden;
 }
 .facility ._3 {
@@ -410,7 +441,8 @@
   height: 30px;
   position: absolute;
   left: -0.5px;
-  top: 30.07px;
+  /* top: 30.07px; */
+  bottom: 0;
   overflow: hidden;
 }
 .facility ._4 {
@@ -538,7 +570,7 @@
   height: 60px;
   position: absolute;
   left: 0px;
-  bottom: -0.33px;
+  bottom: 0;
   overflow: hidden;
 }
 .facility .icon2 {
@@ -1555,11 +1587,11 @@
   position: relative;
 }
 .facility .icon {
-  background: rgba(192, 255, 111, 0.75);
+  /* background: rgba(192, 255, 111, 0.75);
   border-radius: 9px;
   border-style: solid;
   border-color: #c0ff6f;
-  border-width: 1px;
+  border-width: 1px; */
   flex-shrink: 0;
   width: 18px;
   height: 18px;

@@ -79,15 +79,16 @@ const AboutScreen = {
     const request = parseRequestUrl();
     // console.log("Request slug:", request.slug);
     // console.log("store:", store);
-    // const storeDetails = await dataBlog.getData();
-    const storeDetails = await dataBlog.getData();
-    // store = storeDetails.find(store => store.slug === request.slug);
-    store = storeDetails[27];
-    // console.log("storeDetails", storeDetails);
-    const validStores = storeDetails.filter((store) => store.slug);
+    // const storeData = await dataBlog.getData();
+    const storeData = await dataBlog.getData();
+    // store = storeData.find(store => store.slug === request.slug);
+    store = storeData[22];
+    // console.log("storeData", storeData);
+    const validStores = storeData.filter((store) => store.slug);
     // console.log("Valid stores:", validStores);
     // store = validStores.find(store => store.slug === request.slug);
     // console.log("slug", store.slug);
+    console.log("store", store);
 
     // DISTANCE
     let userCoordinates = null;
@@ -171,7 +172,7 @@ const AboutScreen = {
 
     
     const thumbnails = store?.media?.thumbnail;
-    const heroModuleHtml = hero.heroModule.render(store.media.thumbnail);
+    const heroModuleHtml = hero.heroModule.render(store.media.hero);
     const neustar = store.neustar;
     const headline = store?.headline?.text;
     const locationRegion = store?.location?.region;
@@ -262,7 +263,7 @@ const AboutScreen = {
 
     let heroMediaHTML = hero.mediaHero.render(storeObject);
     let eyebrowHeroHTML = eyebrow.eyebrowHero.render(storeObject);
-    let overviewSection = section.section.render(storeObject);
+    let overviewSection = await section.section.render(storeObject);
     let experienceSection = experience.experiences.render(storeObject);
     // console.log(storeObject);
     // const heroModuleHtml = hero.heroModule.render( thumbnails );
@@ -464,7 +465,7 @@ ${summaryServiceHTML}
       storeType: store.category.categoryType,
       storeCategory: store.location.type,
     };
-console.log("storeServices", storeServices);
+// console.log("storeServices", storeServices);
     const sectionServiceHTML = service.services.render(storeServices);
     ///////////////////////////////////////////////////////////////
     /////////////////////////// SERVICE ///////////////////////////
@@ -472,8 +473,25 @@ console.log("storeServices", storeServices);
 
 
 
-
-
+    const nearbyStore = store.nearbyStore || [];
+    const nearbyHeadline = nearbyStore.headline;
+    const nearbyHours = nearbyStore.hours;
+    const nearbyLocation = nearbyStore.nearbyLocation;
+    const nearbyStores = store.nearbyStore || [];
+    const nearbyLogoData = nearbyStores.nearbyLogo && Array.isArray(nearbyStores.nearbyLogo) && nearbyStores.nearbyLogo.length ? nearbyStores.nearbyLogo : [];
+    const nearbyGalleryHTML = generateLogoCarouselHTML(nearbyLogoData);
+    // console.log("nearby", nearbyStore, nearbyHeadline, nearbyHours, nearbyLocation, nearbyStores, nearbyLogoData, nearbyGalleryHTML);
+    function generateLogoCarouselHTML(nearbyLogo) {
+      let nearbyLogoHTML = '';
+      nearbyLogo.slice(0, 3).forEach(nearbyLogoItem => {
+          nearbyLogoHTML += `
+                  <img src="${nearbyLogoItem}" class="galleryItem" alt="" />
+        `;
+      });
+      // console.log("mediaGallery",nearbyLogo);
+      return nearbyLogoHTML;
+  }   // Generate the HTML for the carousel
+  
         
     
 
@@ -503,10 +521,17 @@ console.log("storeServices", storeServices);
       storeTypes: store.category.genre,
       storeType: store.category.categoryType,
       storeCategory: store.location.type,
+
+      nearbyStore: store.nearbyStore || [],
+      nearbyHeadlines: store.nearbyStore.nearbyHeadline || [],
+      nearbyHeadline: store.nearbyStoresCollection.items.nearbyHeadline && Array.isArray(store.nearbyStoresCollection.items.nearbyHeadline) && store.nearbyStoresCollection.items.nearbyHeadline.length ? store.nearbyStoresCollection.items.nearbyHeadline : [],
+      // nearbyHeadlinesss:  store.nearbyStore?.items.headline || [],
+
        // ATTRIBUTES
       attributesFacility: store.summary.facility && store.summary.facility.length ? store.summary.facility : [],
       mediaArea: store.media.area && Array.isArray(store.media.area) && store.media.area.length ? store.media.area : [],
       snippetFacility:store.snippet.facility || [],
+      popularTimes: store.popularTimes || [],
 
 
       // storeLocation: store.location,
@@ -528,8 +553,8 @@ console.log("storeServices", storeServices);
     /////////////////////////// POPULAR TIMES ///////////////////////////
     /////////////////////////////////////////////////////////////////////
     const popularTimesHTML = await storePopularTimes(popularTimesData);
-    console.log("popularTimesHTML", popularTimesHTML);  
-    console.log("popularTimesData", popularTimesData);  
+    // console.log("popularTimesHTML", popularTimesHTML);  
+    // console.log("popularTimesData", popularTimesData);  
     /////////////////////////////////////////////////////////////////////
     /////////////////////////// POPULAR TIMES ///////////////////////////
     /////////////////////////////////////////////////////////////////////
@@ -541,8 +566,28 @@ console.log("storeServices", storeServices);
     ///////////////////////////////////////////////////////////////
     /////////////////////////// DETAILS ///////////////////////////
     ///////////////////////////////////////////////////////////////
+    let storeDetails = {
+      storeGenre: store.category.genre,
+      storeType: store.category.categoryType,
+      storeContact: store.contact,
+      storeAddress: store?.location.address || [],
+      storeLocatedIn: store.location.locatedIn,
+      storeRegion: store?.location?.region || "Default Region", // Provide a default value
+      currentDistance: MapDistance.calculateDistance(userLocation,storeLocation),
+      storeRange: getStoreRange(calculateDistance),
+      storeName: store?.headline?.text || "Default Headline", // Provide a default value
+      storeHours: store?.hours,
+      storeRatings: store.ratings[0].key || [],
+      storeRatingGoogle: store.googleRatings,
+      storeRatingYelp: store.yelpRatings,
+      storeHandle: store.handles,
+      storeReviews: store.ratings[0].value || [], 
+      storeLogo: store.media.logo
+    };
 
-    const detailsPanel = panel.panel.render(store);
+    console.log("storeDetails", storeDetails);
+    
+    const detailsPanel = panel.panel.render(storeDetails);
 
     ///////////////////////////////////////////////////////////////
     /////////////////////////// DETAILS ///////////////////////////
@@ -835,11 +880,11 @@ function generateMediaCarouselHTML(mediaGallery, limit) {
 //         const request = parseRequestUrl();
 //         console.log("Request slug:", request.slug);
 //         console.log("store:", store);
-//         // const storeDetails = await dataBlog.getData();
-//         const storeDetails = await dataBlog.getData();
-//         store = storeDetails.find(store => store.slug === request.slug);
-//         console.log("storeDetails", storeDetails);
-//         const validStores = storeDetails.filter(store => store.slug);
+//         // const storeData = await dataBlog.getData();
+//         const storeData = await dataBlog.getData();
+//         store = storeData.find(store => store.slug === request.slug);
+//         console.log("storeData", storeData);
+//         const validStores = storeData.filter(store => store.slug);
 //         console.log("Valid stores:", validStores);
 //         // store = validStores.find(store => store.slug === request.slug);
 //         console.log("store", store);
