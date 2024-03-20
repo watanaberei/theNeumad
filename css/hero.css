@@ -223,6 +223,7 @@
 }
 .image-featured {
     background: #a76e6e;
+    border-radius: 30px;
     flex-shrink: 0;
     width: 100%;
     height: 100%;

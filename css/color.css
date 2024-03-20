@@ -135,6 +135,12 @@
     --orange: #ffa238; */
 
 
+
+
+
+    --filter-work: filter: invert(87%) sepia(82%) saturate(576%) hue-rotate(328deg) brightness(93%) contrast(96%);
+    --filter-accent: filter: invert(87%) sepia(82%) saturate(576%) hue-rotate(328deg) brightness(93%) contrast(96%);
+
 }
 
 

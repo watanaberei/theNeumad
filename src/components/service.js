@@ -128,11 +128,11 @@ export const services = {
             ${element.lineDarkH.render(30)}
             <div class="overview">
                 <div class="title2">
-                    <span class="text02 inkw03">Services and Offerings</span>
+                    <span class="text03 inkw03">Services and Offerings</span>
                 </div>
                 <div class="body-collapsable">
                     <div class="body">
-                        <span class="text02 inkw03">${snippetService}</span>
+                        <span class="text03 inkw03">${snippetService}</span>
                     </div>
                     <div class="button-more2">
                         <div class="show-more" />

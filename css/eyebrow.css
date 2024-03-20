@@ -13,7 +13,7 @@
   position: relative;
 }
 .eyebrow-headline .eyebrow {
-  padding: 12px 0px 12px 0px;
+  /* padding: 12px 0px 12px 0px; */
   display: flex;
   flex-direction: row;
   gap: 9px;
@@ -23,7 +23,7 @@
   position: relative;
 }
 .eyebrow-headline .eyebrow .icon-container {
-  padding: 6px 0px 6px 0px;
+  /* padding: 6px 0px 6px 0px; */
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -35,7 +35,7 @@
 .eyebrow-headline .eyebrow .icon-container .icon {
   background: #e1ecf4;
   border-radius: 333px;
-  padding: 9px 15px 9px 18px;
+  /* padding: 9px 15px 9px 18px; */
   flex-shrink: 0;
   width: 12px;
   height: 12px;

@@ -108,3 +108,19 @@
   transform-origin: 0 0;
   overflow: hidden;
 }
+
+
+.neustar-gold path {
+  fill: #FFBD00;
+  stroke: #DB9A00;
+}
+
+.neustar-silver path {
+  fill: #A4A4A4;
+  stroke: #DBDBDB;
+}
+
+.neustar-bronze path {
+  fill: #BB7B6C;
+  stroke: #DBDBDB;
+}

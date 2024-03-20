@@ -49,11 +49,14 @@ export const section = {
     let attributesFacilityHTML = "";
     attributesFacility.forEach((array) => {
       attributesFacilityHTML += `
-            <div class="item">
-                <span class="text02">
-                    <a class="">
+            <div class="item"> 
+                <a class="">
+                    <span class="text03">
                         ${array.key}
-                    </a>, 
+                    </span>
+                </a>
+                <span class="text03 div">
+                    ,
                 </span>
             </div>
             `;
@@ -72,11 +75,15 @@ export const section = {
             <i class="section-tag-icon icon-${attributesOverview.key}-21"></i>
             <div class="text">
                 <div class="title">
-                    <span class="text02 bold">${attributesOverview.key}</span>
+                    <span class="text03 bold">
+                        ${attributesOverview.key}
+                    </span>
                 </div>
                 <div class="array">
                     <a class="list-item">
-                        <span class="text02">${attributesOverview.value}</span>
+                        <span class="text03">
+                            ${attributesOverview.value}
+                        </span>
                         <i class="glyph"></i>
                     </a>
                 </div>
@@ -99,8 +106,14 @@ export const section = {
       areaName.forEach((best) => {
         attributesArray += `
             <div class="item">
-                <a class="coffee-bar">${best.description}</a>
-                <span class="div">,</span>
+                <a class="coffee-bar">
+                    <span class="text03">
+                        ${best.description}
+                    </span>
+                </a>
+                <span class="text03 div">
+                    ,
+                </span>
             </div>
             `;
       });
@@ -121,7 +134,7 @@ export const section = {
           <div id="myModal" class="modal">
             <div class="modal-content">
               <span class="modal-close">&times;</span>
-              <p>Some text in the Modal..</p>
+              <span class="header03">Some text in the Modal..</p>
             </div>
           </div>
         `;
@@ -147,14 +160,20 @@ export const section = {
     /////////////////////////////////////////////////////////
     //////////////////////// SNIPPET ////////////////////////
     /////////////////////////////////////////////////////////
-    const createOverviewText = (snippet) => {
+    const limit = "270";
+    const createOverviewText = (snippet, limit) => {
+        const limits = limit;
         const fullText = snippet; // The full text to display
-        const limitedText = snippet.length > 50 ? snippet.substring(0, 50) + '...' : snippet; // Limited text
+        const limitedText = snippet.length >limit ? snippet.substring(0, limit) + '...' : snippet; // Limited text
         const overviewHTML = `
             <div id="overview-text-container" class="body">
                 <div id="overview-text" class="container">
-                    <span id="snippet-text" class="text text02">${limitedText}</span>
-                    <span id="toggle-text" class="text text02 button-more">Show More</span>
+                    <span id="snippet-text" class="text text03">
+                        ${limitedText}
+                    </span>
+                    <span id="toggle-text" class="text text03 button-more">
+                        Show More
+                    </span>
                 </div>
             </div>
         `;
@@ -185,12 +204,12 @@ export const section = {
     //     const overviewTextHTML = `
     //     <div id="overview-text-container" class="body">
     //         <div id="overview-text" class="container">
-    //             <span class="text text02">
+    //             <span class="text text03">
     //                 ${snippet}
     //             </span>
     //         </div>
     //         <div id="button-more" class="button-more">
-    //             <span id="text-close"class="text text02">
+    //             <span id="text-close"class="text text03">
     //                 Show More
     //             </span>
     //         </div>
@@ -208,7 +227,7 @@ export const section = {
     //           });
             
     //     // const buttonMore = document.createElement('span');
-    //     //     buttonMore.classList.add('text', 'text02', 'button-more');
+    //     //     buttonMore.classList.add('text', 'text03', 'button-more');
     //     //     buttonMore.textContent = 'Show More';
       
        
@@ -224,7 +243,7 @@ export const section = {
     //     return overviewTextHTML;
     //   }
 
-    const overviewText = createOverviewText(store.snippetOverview);
+    const overviewText = createOverviewText(store.snippetOverview, limit);
     /////////////////////////////////////////////////////////
     //////////////////////// SNIPPET ////////////////////////
     /////////////////////////////////////////////////////////
@@ -251,7 +270,7 @@ export const section = {
             <div class="overview">
 
                 <div class="title">
-                    <span class="what-to-expect">
+                    <span class="text03 bold">
                         ${title}
                     </span>
                 </div>
@@ -261,13 +280,13 @@ export const section = {
                 <!--
                 <div class="body">
                     <div class="container">
-                        <span class="text text02">
+                        <span class="text text03">
                             $ {overviewText}
                             $ {snippet}
                         </span>
                     </div>
                     <div class="button-more">
-                        <span class="text text02">
+                        <span class="text text03">
                             Show More
                         </span>
                     </div>
@@ -285,11 +304,11 @@ export const section = {
                     <div class="snippet">
                         <div class="primary">
                             <div class="header">
-                                <span class="text02 bold">
+                                <span class="text03 bold">
                                     Title
                                 </span>
                                 <button class="tag">
-                                    <span class="text02 bold">
+                                    <span class="text03 bold">
                                         <span class="percent">
                                             93%
                                         </span>
@@ -318,16 +337,16 @@ export const section = {
                             <div class="primary">
                                 <div class="header">
                                     <div class="text">
-                                        <span class="title text02 bold">Title</span>
+                                        <span class="title text03 bold">Title</span>
                                     </div>
                                     <button class="tag">
                                         <div class="text">
-                                            <span class="text02">93% Recommended</span>
+                                            <span class="text03">93% Recommended</span>
                                         </div>
                                     </button>
                                 </div>
                                 <div class="array">
-                                ${attributesFacilityHTML} 
+                                    ${attributesFacilityHTML} 
                                 </div>
                             </div>
                             <div class="array">
@@ -356,7 +375,7 @@ export const section = {
                     <div class="list">
                         <div class="title">
                             <div class="text">
-                                <span class="text02 bold">Title</span>
+                                <span class="text03 bold">Title</span>
                             </div>
                         </div>
                         <div class="bullets">

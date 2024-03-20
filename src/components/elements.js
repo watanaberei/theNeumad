@@ -52,11 +52,11 @@ export const subtitle = {
   render: (text) => {
     return `
                 <span class="subtitle">
-                    <span class="nearby text02">
+                    <span class="nearby text03">
                         ${text.primary}
                         store.currentRange
                     </span>
-                    <span class="text02 nearby">
+                    <span class="text03 nearby">
                         ${text.secondary}
                         store.storeType
                     </span>
@@ -69,7 +69,7 @@ export const label = {
   render: (text) => {
     return `
             <span class="label">
-                <span class="nearby text02">
+                <span class="nearby text03">
                     ${text}
                 </span>
             </span>
