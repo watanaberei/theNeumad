@@ -1,6 +1,7 @@
 import { format, parseISO } from "date-fns";
 import * as element from "../components/elements";
 import { model } from "mongoose";
+import * as modal from "../components/modal";
 // import { modals } from "../components/modal";
 
 // export const mediaHero = {
@@ -37,6 +38,10 @@ export const section = {
     const attributesFacility = store.attributesFacility;
     const attributesBest = store.storeAttributesBest;
     const attributesOverview = store.attributesOverview;
+
+    // MEDIA
+    const mediaGallery = store.mediaGallery || [];
+    const mediaArea = store.mediaArea || [];
     // const initModal = modal.modals;
 
     //////////////////////////// SUMMARY ////////////////////////////
@@ -125,33 +130,38 @@ export const section = {
 
 
 
-    ///////////////////////////////////////////////////////
-    //////////////////////// MODAL ////////////////////////
-    ///////////////////////////////////////////////////////
-    const modalComponent = () => {
-        const modalHTML = `
-          <button id="myBtn">Open Modal</button>
-          <div id="myModal" class="modal">
-            <div class="modal-content">
-              <span class="modal-close">&times;</span>
-              <span class="header03">Some text in the Modal..</p>
-            </div>
-          </div>
-        `;
+    // ///////////////////////////////////////////////////////
+    // //////////////////////// MODAL ////////////////////////
+    // ///////////////////////////////////////////////////////
+    const modalSectionData = {
+        gallery: mediaGallery,
+        area: mediaArea,
+    }
+    const modalSection = modal.modalGallery(modalSectionData);
+    // const modalComponent = () => {
+    //     const modalHTML = `
+    //       <button id="myBtn">Open Modal</button>
+    //       <div id="myModal" class="modal">
+    //         <div class="modal-content">
+    //           <span class="modal-close">&times;</span>
+    //           <span class="header03">Some text in the Modal..</p>
+    //         </div>
+    //       </div>
+    //     `;
       
-        document.addEventListener('click', (event) => {
-          if (event.target.matches('.modal-close') || event.target.matches('.modal')) {
-            document.getElementById('myModal').style.display = 'none';
-          } else if (event.target.matches('#myBtn')) {
-            document.getElementById('myModal').style.display = 'block';
-          }
-        });
+    //     document.addEventListener('click', (event) => {
+    //       if (event.target.matches('.modal-close') || event.target.matches('.modal')) {
+    //         document.getElementById('myModal').style.display = 'none';
+    //       } else if (event.target.matches('#myBtn')) {
+    //         document.getElementById('myModal').style.display = 'block';
+    //       }
+    //     });
       
-        return modalHTML;
-      };
-    ///////////////////////////////////////////////////////
-    //////////////////////// MODAL ////////////////////////
-    ///////////////////////////////////////////////////////
+    //     return modalHTML;
+    //   };
+    // ///////////////////////////////////////////////////////
+    // //////////////////////// MODAL ////////////////////////
+    // ///////////////////////////////////////////////////////
 
 
 
@@ -407,7 +417,7 @@ export const section = {
 
 
                     <!-- The Modal -->
-                    ${modalComponent()}
+                    ${modalSection}
                     <!--
                     <h2>Bottom Sheet</h2>
 

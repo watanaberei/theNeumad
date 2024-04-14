@@ -152,7 +152,7 @@ body {
 		[c4-end] var(--d) [c5-start] var(--colWidth) var(--g) var(--colWidth) var(--g) var(--colWidth) 
 		[c5-end] var(--d) [c6-start] var(--colWidth) var(--g) var(--colWidth) var(--g) var(--colWidth) 
 		[c6-end] var(--d) [p2-start] var(--paddingWidth)   
-		[c2-end] var(--d) [c3-stzrt] var(--paddingWidth)  
+		[c2-end] var(--d) [c3-start] var(--paddingWidth)  
 		[p3-end] var(--d) [c7-start] var(--colWidth) var(--g) var(--colWidth) var(--g) var(--colWidth) 
 		[c7-end] var(--d) [c8-start] var(--colWidth) var(--g) var(--colWidth) var(--g) var(--colWidth) 
 		[c8-end] var(--d) [p4-start] var(--paddingWidth) 
@@ -245,6 +245,8 @@ body {
 	margin: 0; 
 	padding: 0;
 	grid-gap: 0;
+	row-gap: 30px !important;
+	overflow: hidden;
 	grid-column: main-start / main-end;
 	grid-template-columns: 
 	  [main-start p1-start] var(--colWidth) [p1-end] 
@@ -345,6 +347,7 @@ body {
 	display: grid;
 	margin: 0; 
 	margin-right:var(--g);
+	overflow: hidden;
 	/* grid-gap: 0; */
 	grid-column: secondary-start / secondary-end;
 	grid-template-columns: 

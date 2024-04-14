@@ -1,7 +1,7 @@
 // src/components/GeopostReviews.js
 
 import * as turf from '@turf/turf';
-import { getStoresNeumadsReview, getArticleNeumadsTrail } from '../api.js';
+import { getStoresNeumadsReview, getArticleNeumadsTrail } from '../../middleware/api.js';
 
 class GeopostReviews {
   constructor() {

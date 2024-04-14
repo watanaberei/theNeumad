@@ -1,5 +1,5 @@
 // HomeScreen.js
-import { getShortsBlog, getShortsFeaturedBlog } from "../api.js";
+import { getShortsBlog, getShortsFeaturedBlog } from "../../middleware/api.js";
 
 import ShortsBlog from "../components/ShortsBlog.js";
 import ShortsFeaturedBlog from "../components/ShortsFeaturedBlog.js";

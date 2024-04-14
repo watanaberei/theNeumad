@@ -1,6 +1,9 @@
 {
     "recommendations": [
         "github.copilot-labs",
-        "github.copilot-chat"
+        "github.copilot-chat",
+        "github.codespaces",
+        "github.copilot",
+        "figma.figma-vscode-extension"
     ]
 }

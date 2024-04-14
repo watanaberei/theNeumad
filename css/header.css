@@ -1,10 +1,11 @@
-.headline,
-.headline * {
+header.headline,
+header.headline * {
   box-sizing: border-box;
 }
-.headline {
+header.headline {
   padding: 15px 0px 45px 0px;
   display: flex;
+  background-color: var(--bg03);
   /* flex-flow: wrap; */
   flex-direction: column;
   gap: 0px;

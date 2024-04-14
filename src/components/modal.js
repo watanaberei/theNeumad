@@ -64,6 +64,114 @@ export const modals = {
 
 
 
+  ///////////////////////////////////////////////////////
+  //////////////////////// MODAL ////////////////////////
+  ///////////////////////////////////////////////////////
+  export const modalGallery = (modalGalleryData) => {
+    const gallery = modalGalleryData.gallery || [];
+    const area = modalGalleryData.area || [];
+
+    function modalGalleryHTML(gallery) {
+      console.log('gallery', gallery);
+      // Generate the HTML
+      let mediaGalleryHTML = "";
+      gallery.forEach((array) => {
+        mediaGalleryHTML += `
+        <div class="media-img-m">
+            <div class="media-img">
+                <img src="${array.url}" class="gallery-item-img media-img-1-x-1-x-m" alt="" />
+            </div>
+            <!--
+            <div class="text2">
+                <span class="caption">
+                    <span class="icon">
+                        <i class="icon-container2"></i>
+                    </span>
+                    <span class="text03 bold">
+                        ${array.description}
+                    </span>
+                </span>
+            </div>
+            -->
+        </div>
+              `;
+      });
+      return mediaGalleryHTML; // Add this line
+    }
+
+    function modalAreaHTML(area) {
+      console.log('area', area);
+      // Generate the HTML
+      let mediaAreaHTML = "";
+      area.forEach((array) => {
+        mediaAreaHTML += `
+              <div class="media-img-m">
+                  <div class="media-img">
+                      <img src="${array.url}" class="gallery-item-img media-img-1-x-1-x-m" alt="" />
+                  </div>
+                  <div class="text2">
+                      <span class="caption">
+                          <span class="icon">
+                              <i class="icon-container2"></i>
+                          </span>
+                          <span class="text03 bold">
+                              ${array.description}
+                          </span>
+                      </span>
+                  </div>
+              </div>
+              `;
+      });
+      return mediaAreaHTML; // Add this line
+    }
+
+    const mediaGallery = modalGalleryHTML(gallery);
+    const mediaArea = modalAreaHTML(area);
+
+    
+    
+    const modalHTML = `
+      <button id="myBtn">Open Modal</button>
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="modal-close">&times;</span>
+          
+          <span class="header03">Gallery</p>
+          <div class="gallery mediaGallery">
+            ${mediaGallery}
+          </div>
+          
+          <span class="header03">Area</p>
+          <div class="gallery mediaArea">
+            ${mediaArea}
+          </div>
+        </div>
+      </div>
+      
+    `;
+  
+    document.addEventListener('click', (event) => {
+      if (event.target.matches('.modal-close') || event.target.matches('.modal')) {
+        document.getElementById('myModal').style.display = 'none';
+      } else if (event.target.matches('#myBtn')) {
+        document.getElementById('myModal').style.display = 'block';
+      }
+    });
+  
+    return modalHTML;
+  };
+  ///////////////////////////////////////////////////////
+  //////////////////////// MODAL ////////////////////////
+  ///////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
 
 
 

@@ -7,7 +7,7 @@ import { sortByDistance } from "../utils";
 import { createGeojsonListing } from "../components/GeojsonListing";
 import DataBlog from "../components/DataPost";
 import DataFilter from "../components/DataFilter";
-import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../api.js";
+import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../../middleware/api.js";
 
 let dataBlog = new DataBlog();
 

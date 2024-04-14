@@ -20,15 +20,13 @@ const HeaderHome = {
           <nav class="nav navigation container nav-top">
             <section class="grid base nav-main">
           
-              <div class="nav-main-left left">
+            <div class="nav-main-left left">
                   <div class="nav-main-logo">
                       <!-- hamburger --> 
-
-                      <a class="nav-topbar-logo" href="/">
-                        <div class="nav-topbar-logo-container">
-                          <i class="icon-neumad-30"></i>
-                        </div>
-                        <!--<img class="img-logo" src="../assets/_brand/logomark/logomark-neumad.svg" alt="">-->
+        
+                      <a class="nav-topbar-logo-container" href="/">
+                          <i class="brand-logomark-18px"></i>                   
+                          <span class="text03 bold">TheNeumad</div>
                       </a>
                   </div>
               </div>
@@ -42,7 +40,7 @@ const HeaderHome = {
                     <div class="searchBar-categoryType-container category">
                         <div class="categoryType-text">
                             <span class="text03">
-                                <input type="text" id="category" placeholder="Category" />
+                                <input class="text03 bold" type="text" id="category" placeholder="Category" />
                             </span>
                         </div>
 
@@ -53,7 +51,7 @@ const HeaderHome = {
                   <div class="search-filler">
                     <div class="filler">
                       <div class="cta-input">
-                        <span class="field-text">
+                        <span class="text03 field-text">
                           in
                         </span>
                       </div>
@@ -65,7 +63,7 @@ const HeaderHome = {
                   <div class="searchBar-location">
                     <div id='geocoder' class='geocoder text03'></div>
                       <!--<div class="text03" id="geocoder"></div>-->
-                      <pre id="result"></pre>
+                      <pre  class="text03 bold" id="result"></pre>
                     </div>
                   </div>
                   <!--LOCATION-->
@@ -86,7 +84,7 @@ const HeaderHome = {
                     <div class="section-tag" id="Location">
                       <div class="section-tag-container">
                         <i class="section-tag-icon icon-Map"></i>
-                        <span class="section-tag-text bold03">
+                        <span class="section-tag-text text03 bold">
                         Map View
                         </span>
                       </div>

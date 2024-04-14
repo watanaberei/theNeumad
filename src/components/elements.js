@@ -20,7 +20,7 @@ export const neustars = {
   render: (rank, state) => {
     return `
             <span class="neustar-item">
-                <i class="icon neustar-${rank}-${state}"></i>
+                <i class="icon neustar-${rank}-${state}"></i> 
             </span>
             `;
   },

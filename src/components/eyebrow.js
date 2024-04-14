@@ -5,11 +5,14 @@ import * as Geolocate from "./Geolocate";
 
 export const eyebrowHero = {
   render: (store) => {
-    const currentDistance = store.currentDistance;
+    const storeDistance = store.storeDistance;
+    const storeRange = store.storeRange;
     const storeType = store.storeTypes;
     const storeCategories = store.storeCategory;
     const storeRanges = store.storeRange;
     const storeRegions = store.storeRegion;
+    const titlePrimary = storeRange + " " + storeCategories;
+    console.log("titlePrimary", titlePrimary);
     console.log("store", store);
     const button = element.buttonFloating.render(eyebrowHero.buttonFloating);
 
@@ -37,7 +40,7 @@ export const eyebrowHero = {
             </div>
             <div class="label">
                 <span class="text03 bold">
-                    ${currentDistance}mi Away
+                    ${storeDistance}mi Away
                 </span>
             </div>
         </div>
@@ -51,7 +54,7 @@ export const eyebrowHero = {
 
 // export const eyebrowHero = {
 //     render: ( storeLocation, userLocation, store, storeCategory ) => {
-//         const currentDistance = calculateDistance( storeLocation, userLocation );
+//         const storeDistance = calculateDistance( storeLocation, userLocation );
 //         const currentRange = calculateDistance( storeLocation, userLocation );
 //         const stores= store;
 //         const storeCategories = storeCategory;

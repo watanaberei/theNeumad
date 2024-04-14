@@ -25,7 +25,7 @@ export const panel = {
   const designator = address.designator(storeAddress);
   const storeAddressMin = address.address(storeAddress);
   
-  const currentDistance = store.currentDistance;
+  const storeDistance = store.storeDistance;
   const storeRange = store.storeRange;
   const storeName = store.storeName;
 
@@ -37,7 +37,7 @@ export const panel = {
 
 
   console.log(
-    "LOCATION = ", "storeAddressMin: ", storeAddressMin, " ,designator: ", designator, ",storeCity: ", storeCity, " ,storeRegion: ", storeRegion, " ,storeAddress: ", storeAddress, " ,currentDistance: ", currentDistance, " ,storeRange: ", storeRange, "/ ",
+    "LOCATION = ", "storeAddressMin: ", storeAddressMin, " ,designator: ", designator, ",storeCity: ", storeCity, " ,storeRegion: ", storeRegion, " ,storeAddress: ", storeAddress, " ,storeDistance: ", storeDistance, " ,storeRange: ", storeRange, "/ ",
     );
 
 
@@ -189,7 +189,7 @@ export const panel = {
 
     console.log(
       "storeName", storeName, "/ ", 
-      "LOCATION = ", "storeAddressMin: ", storeAddressMin, " ,designator: ", designator, ",storeCity: ", storeCity, " ,storeRegion: ", storeRegion, " ,storeAddress: ", storeAddress, " ,currentDistance: ", currentDistance, " ,storeRange: ", storeRange, "/ ",
+      "LOCATION = ", "storeAddressMin: ", storeAddressMin, " ,designator: ", designator, ",storeCity: ", storeCity, " ,storeRegion: ", storeRegion, " ,storeAddress: ", storeAddress, " ,storeDistance: ", storeDistance, " ,storeRange: ", storeRange, "/ ",
       "FACILITY = ", "storeHours: ", storeHours, " ,storeRatings: ", storeRatings, " ,storeReviews: ", storeReviews, "/ ",
       "DETAILS = ", "storeContact: ", storeContact
       );

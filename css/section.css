@@ -289,17 +289,17 @@
   position: relative;
 }
 .div {
-  color: var(--ink-b, #101011);
-  text-align: left;
+  /* color: var(--ink-b, #101011);
+  text-align: left; */
   /*
   font-family: "HelveticaNeue-Regular", sans-serif;
   font-size: 12px;
   */
-  line-height: 24px;
+  /* line-height: 24px;
   font-weight: 400;
   opacity: 0.800000011920929;
   position: relative;
-  width: 9px;
+  width: 9px; */
 }
 .main-room {
   color: var(--ink-b, #101011);

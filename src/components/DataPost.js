@@ -1,5 +1,5 @@
 // src/components/DataPost.js
-import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../api.js";
+import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../../middleware/api.js";
 
 export default class DataBlog {
   constructor() {

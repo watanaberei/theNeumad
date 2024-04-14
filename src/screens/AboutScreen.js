@@ -6,7 +6,7 @@ import {
   getArticleNeumadsTrail,
   getArticlePost,
   getStore,
-} from "../api.js";
+} from "../../middleware/api.js";
 import DataBlog from "../components/DataPost";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import { format, parseISO } from "date-fns";
@@ -184,7 +184,7 @@ const AboutScreen = {
       attributesArrays: attributesArray,
       storeRegion: store.region,
       // userLocation: coordinateUser,
-      currentDistance: MapDistance.calculateDistance(
+      storeDistance: MapDistance.calculateDistance(
         userLocation,
         storeLocation
       ),
@@ -386,7 +386,7 @@ const AboutScreen = {
       headlineText: store?.headline?.text || "Default Headline", // Provide a default value
       locationRegion: store?.location?.region || "Default Region", // Provide a default value
       storeRegion: store.region,
-      currentDistance: MapDistance.calculateDistance(
+      storeDistance: MapDistance.calculateDistance(
         userLocation,
         storeLocation
       ),
@@ -447,7 +447,7 @@ const AboutScreen = {
       storeAddress: store?.location.address || [],
       storeLocatedIn: store.location.locatedIn,
       storeRegion: store?.location?.region || "Default Region", // Provide a default value
-      currentDistance: MapDistance.calculateDistance(
+      storeDistance: MapDistance.calculateDistance(
         userLocation,
         storeLocation
       ),

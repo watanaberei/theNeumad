@@ -1,23 +1,23 @@
 :root {  
   --text00_D: 0.45rem;
   --text01_D: 9px;
-  --text02_D: 0.75rem;
-  --text03_D: 13.5px;
-  --text04_D: 1.50rem;
+  --text02_D: 12px;
+  --text03_D: 12px;
+  --text04_D: 12px;
   --text05_D: 2.10rem;
   --text06_D: 3.00rem;
   --text00-tracking_D: -0.030rem;
   --text01-tracking_D: 0px;
-  --text02-tracking_D: -0.015rem;
-  --text03-tracking_D: -0.9%;
-  --text04-tracking_D: -0.015rem;
+  --text02-tracking_D: 0.03%;
+  --text03-tracking_D: 0.03%;
+  --text04-tracking_D: 0.03%;
   --text05-tracking_D: 0.012rem;
   --text06-tracking_D: 0.012rem;
   --text00-letting_D: 1.00rem;
   --text01-letting_D: 11px;
-  --text02-letting_D: 1.00rem;
-  --text03-letting_D: 150%;
-  --text04-letting_D: 2.10rem;
+  --text02-letting_D: 18px;
+  --text03-letting_D: 18px;
+  --text04-letting_D: 18px;
   --text05-letting_D: 2.40rem;
   --text06-letting_D: 3.00rem;
 
@@ -349,21 +349,21 @@ word-spacing: var(--header05-spacing_D);
 
 
 
-.text06 {
+.text06, .text-06 {
   font-family: 'regular', sans-serif;
   font-size: var(--text06_D);
   letter-spacing: var(--text06-tracking_D);
   line-height: var(--text06-letting_D);
 }
 
-.text05 {
+.text05, .text-05 {
   font-family: 'regular', sans-serif;
   font-size: var(--text03_D);
   letter-spacing: var(--text05-tracking_D);
   line-height: var(--text05-letting_D);
 }
 
-.text04  {
+.text04, .text-05  {
   font-family: 'regular', sans-serif;
   font-size: var(--text04_D);
   letter-spacing: var(--text04-tracking_D);
@@ -373,14 +373,14 @@ word-spacing: var(--header05-spacing_D);
   /* font-weight: 500; */
 }
 
-.text03 {
+.text03, .text-03 {
   font-family: 'regular', sans-serif;
-  font-size: var(--text03);
+  font-size: var(--text03_D);
   letter-spacing: var(--text03-tracking_D);
   line-height: var(--text03-letting_D);
 }
 
-.text02  {
+.text02, .text-02 {
   font-family: 'regular', sans-serif;
   font-size: var(--text02_D);
   letter-spacing: var(--text02-tracking_D);
@@ -390,7 +390,7 @@ word-spacing: var(--header05-spacing_D);
   /* font-weight: 500; */
 }
 
-.text01  {
+.text01, .text-01  {
   font-family: 'regular', sans-serif;
   font-size: var(--text01_D);
   letter-spacing: var(--text01-tracking_D);
@@ -400,7 +400,7 @@ word-spacing: var(--header05-spacing_D);
   /* font-weight: 500; */
 }
 
-.text00  {
+.text00, .text-00  {
   font-family: 'regular', sans-serif;
   font-size: var(--text00_D);
   letter-spacing: var(--text00-tracking_D);
@@ -411,39 +411,39 @@ word-spacing: var(--header05-spacing_D);
 }
 
 
-.bold06 {
+.bold06, .bold-06 {
   font-family: 'bold', sans-serif;
   font-size: var(--text06_D);
 }
 
-.bold05 {
+.bold05, .bold-05 {
   font-family: 'bold', sans-serif;
   font-size: var(--text05_D);
 }
 
-.bold04  {
+.bold04, .bold-04  {
   font-family: 'bold', sans-serif;
   font-size: var(--text04_D);
 }
 
-.bold03 {
+.bold03, .bold-03 {
   font-family: 'bold', sans-serif;
   font-size: var(--text03);
   letter-spacing: var(--text03-tracking_D);
   line-height: var(--text03-letting_D);
 }
 
-.bold02  {
+.bold02, .bold-02  {
   font-family: 'bold', sans-serif;
   font-size: var(--text02_D);
 }
 
-.bold01  {
+.bold01, .bold-01  {
   font-family: 'bold', sans-serif;
   font-size: var(--text01_D);
 }
 
-.bold00  {
+.bold00, .bold-00  {
   font-family: 'bold', sans-serif;
   font-size: var(--text00_D);
 }
@@ -451,39 +451,39 @@ word-spacing: var(--header05-spacing_D);
 
 
 
-.medium06 {
+.medium-06 .medium06 {
   font-family: 'medium', sans-serif;
   font-size: var(--text06_D);
 }
 
-.medium05 {
+.medium-05 .medium05 {
   font-family: 'medium', sans-serif;
   font-size: var(--text05_D);
 }
 
-.medium04  {
+.medium-04 .medium04  {
   font-family: 'medium', sans-serif;
   font-size: var(--text04_D);
 }
 
-.medium03 {
+.medium-03 .medium03 {
   font-family: 'medium', sans-serif;
   font-size: var(--text03);
   letter-spacing: var(--text03-tracking_D);
   line-height: var(--text03-letting_D);
 }
 
-.medium02  {
+.medium-02 .medium02  {
   font-family: 'medium', sans-serif;
   font-size: var(--text02_D);
 }
 
-.medium01  {
+.medium-01 .medium01  {
   font-family: 'medium', sans-serif;
   font-size: var(--text01_D);
 }
 
-.medium00  {
+.medium-00 .medium00  {
   font-family: 'medium', sans-serif;
   font-size: var(--text00_D);
 }
@@ -504,3 +504,11 @@ word-spacing: var(--header05-spacing_D);
 
 
 
+
+button, input, input[type="text"] {
+  font-family: 'bold', sans-serif !important;
+  font-size: var(--text03_D) !important;
+  letter-spacing: var(--text03-tracking_D) !important;
+  line-height: var(--text03-letting_D) !important;
+  color: #272727 !important;
+}

@@ -37,7 +37,7 @@ const HeaderWork = {
                     <div class="navSecondary-utility-mid-logo">
                         <!-- logo -->
                         <a class="navSecondary-utility-mid-logo-container" href="/"> 
-                            <img src="./images/brand/twn_brand_logo-H-med_v08.svg" alt="">
+                            <i class="brand-logo-18px"></i>
                         </a>
                     </div>
                 </div>

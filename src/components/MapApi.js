@@ -45,16 +45,16 @@ export function initMap() {
     // -----------------FOG----------------- //
     // -----------------BOUNDARIES----------------- //
     ////// SOURCE //////
-    // map.addSource("counties", {
-    //   type: "vector",
-    //   url: "mapbox://mapbox.82pkq93d",
-    //   promoteId: "mapbox-countries_id",
-    // });
-    // map.addSource("admin-1", {
-    //   type: "vector",
-    //   url: "mapbox://mapbox.boundaries-adm1-v4",
-    //   promoteId: "mapbox-boundaries_id",
-    // });
+    map.addSource("counties", {
+      type: "vector",
+      url: "mapbox://mapbox.82pkq93d",
+      promoteId: "mapbox-countries_id",
+    });
+    map.addSource("admin-1", {
+      type: "vector",
+      url: "mapbox://mapbox.boundaries-adm1-v4",
+      promoteId: "mapbox-boundaries_id",
+    });
     // CITY
     map.addSource("city-boundaries", {
       type: "geojson",
@@ -74,55 +74,65 @@ export function initMap() {
 
 
    ////// LAYER //////
-    // map.addLayer(
-    //   {
-    //     id: "admin-1-fill",
-    //     type: "fill",
-    //     source: "admin-1",
-    //     "source-layer": "boundaries_admin_1",
-    //     filter: worldviewFilter,
-    //     paint: {
-    //       "fill-color": "#CCCCCC",
-    //       "fill-opacity": 0.5,
-    //     },
-    //   },
-    //   // This final argument indicates that we want to add the Boundaries layer
-    //   // before the `waterway-label` layer that is in the map from the Mapbox
-    //   // Light style. This ensures the admin polygons are rendered below any labels
-    //   "waterway-label"
-    // );
+   map.addLayer({
+    'id': 'city-boundaries-layer',
+    'type': 'line',
+    'source': 'city-boundaries',
+    'layout': {},
+    'paint': {
+      'line-color': '#FF0000',
+      'line-width': 2
+    }
+  });
+    map.addLayer(
+      {
+        id: "admin-1-fill",
+        type: "fill",
+        source: "admin-1",
+        "source-layer": "boundaries_admin_1",
+        filter: worldviewFilter,
+        paint: {
+          "fill-color": "#CCCCCC",
+          "fill-opacity": 0.5,
+        },
+      },
+      // This final argument indicates that we want to add the Boundaries layer
+      // before the `waterway-label` layer that is in the map from the Mapbox
+      // Light style. This ensures the admin polygons are rendered below any labels
+      "waterway-label"
+    );
 
-  //  map.addLayer(
-  //     {
-  //       id: "counties",
-  //       type: "fill",
-  //       source: "counties",
-  //       "source-layer": "original",
-  //       paint: {
-  //         "fill-outline-color": "rgba(0,0,0,0.1)",
-  //         "fill-color": "rgba(0,0,0,0.1)",
-  //       },
-  //     },
-  //     // Place polygons under labels, roads and ildings.
-  //     "building"
-  //   );
+   map.addLayer(
+      {
+        id: "counties",
+        type: "fill",
+        source: "counties",
+        "source-layer": "original",
+        paint: {
+          "fill-outline-color": "rgba(0,0,0,0.1)",
+          "fill-color": "rgba(0,0,0,0.1)",
+        },
+      },
+      // Place polygons under labels, roads and ildings.
+      "building"
+    );
 
-    // map.addLayer(
-    //   {
-    //     id: "counties-highlighted",
-    //     type: "fill",
-    //     source: "counties",
-    //     "source-layer": "original",
-    //     paint: {
-    //       "fill-outline-color": "#484896",
-    //       "fill-color": "#6e599f",
-    //       "fill-opacity": 0.75,
-    //     },
-    //     filter: ["in", "FIPS", ""],
-    //   },
-    //   // Place polygons under labels, roads and buildings.
-    //   "building"
-    // );
+    map.addLayer(
+      {
+        id: "counties-highlighted",
+        type: "fill",
+        source: "counties",
+        "source-layer": "original",
+        paint: {
+          "fill-outline-color": "#484896",
+          "fill-color": "#6e599f",
+          "fill-opacity": 0.75,
+        },
+        filter: ["in", "FIPS", ""],
+      },
+      // Place polygons under labels, roads and buildings.
+      "building"
+    );
 
     // // Create a layer to display city boundaries
     map.addLayer({
@@ -221,60 +231,60 @@ export function initNearbyMap() {
       "star-intensity": 0.0,
     });
     // -----------------FOG----------------- //
-  //  nearbyMap.addSource('my-building-footprints', {
-  //     type: 'vector',
-  //     url: '_assets/geojson/building/RhodeIsland.ldgeojson'
-  //     });
-  //     // Use the source to add a layer to the nearbyMap.
-  //     nearbyMap.addLayer({
-  //     'id': 'buildings-i1',
-  //     'type': 'line',
-  //     'source': 'my-building-footprints',
-  //     'source-layer': 'building_footprints',
-  //     'layout': {
-  //     'line-join': 'round',
-  //     'line-cap': 'round'
-  //     },
-  //     'paint': {
-  //     'line-color': '#ff69b4',
-  //     'line-width': 1
-  //     }
-  //     });
+   nearbyMap.addSource('my-building-footprints', {
+      type: 'vector',
+      url: '_assets/geojson/building/RhodeIsland.ldgeojson'
+      });
+      // Use the source to add a layer to the nearbyMap.
+      nearbyMap.addLayer({
+      'id': 'buildings-i1',
+      'type': 'line',
+      'source': 'my-building-footprints',
+      'source-layer': 'building_footprints',
+      'layout': {
+      'line-join': 'round',
+      'line-cap': 'round'
+      },
+      'paint': {
+      'line-color': '#ff69b4',
+      'line-width': 1
+      }
+      });
 
 
     // -----------------BOUNDARIES----------------- //
-    // // Add a vector source for admin-1 boundaries
-    // nearbyMap.addSource("admin-1", {
-    //   type: "vector",
-    //   url: "nearbyMapbox://nearbyMapbox.boundaries-adm1-v4",
-    //   promoteId: "nearbyMapbox_id",
-    // });
+    // Add a vector source for admin-1 boundaries
+    nearbyMap.addSource("admin-1", {
+      type: "vector",
+      url: "nearbyMapbox://nearbyMapbox.boundaries-adm1-v4",
+      promoteId: "nearbyMapbox_id",
+    });
 
-    // // Define a filter for US worldview boundaries
-    // let worldviewFilter = [
-    //   "any",
-    //   ["==", "all", ["get", "worldview"]],
-    //   ["in", "US", ["get", "worldview"]],
-    // ];
+    // Define a filter for US worldview boundaries
+    let worldviewFilter = [
+      "any",
+      ["==", "all", ["get", "worldview"]],
+      ["in", "US", ["get", "worldview"]],
+    ];
 
     // Add a style layer with the admin-1 source below nearbyMap labels
-    // nearbyMap.addLayer(
-    //   {
-    //     id: "admin-1-fill",
-    //     type: "fill",
-    //     source: "admin-1",
-    //     "source-layer": "boundaries_admin_1",
-    //     filter: worldviewFilter,
-    //     paint: {
-    //       "fill-color": "#CCCCCC",
-    //       "fill-opacity": 0.5,
-    //     },
-    //   },
-    //   // This final argument indicates that we want to add the Boundaries layer
-    //   // before the `waterway-label` layer that is in the nearbyMap from the Mapbox
-    //   // Light style. This ensures the admin polygons are rendered below any labels
-    //   "waterway-label"
-    // );
+    nearbyMap.addLayer(
+      {
+        id: "admin-1-fill",
+        type: "fill",
+        source: "admin-1",
+        "source-layer": "boundaries_admin_1",
+        filter: worldviewFilter,
+        paint: {
+          "fill-color": "#CCCCCC",
+          "fill-opacity": 0.5,
+        },
+      },
+      // This final argument indicates that we want to add the Boundaries layer
+      // before the `waterway-label` layer that is in the nearbyMap from the Mapbox
+      // Light style. This ensures the admin polygons are rendered below any labels
+      "waterway-label"
+    );
 
     nearbyMap.addSource("counties", {
       type: "vector",
@@ -287,11 +297,11 @@ export function initNearbyMap() {
         type: "fill",
         source: "counties",
         "source-layer": "original",
-        // paint: {
-        //   "fill-outline-color": "#484896",
-        //   "fill-color": "#6e599f",
-        //   "fill-opacity": 0.75,
-        // },
+        paint: {
+          "fill-outline-color": "#484896",
+          "fill-color": "#6e599f",
+          "fill-opacity": 0.75,
+        },
         filter: ["in", "FIPS", ""],
       },
       // Place polygons under labels, roads and buildings.
@@ -314,10 +324,10 @@ export function initNearbyMap() {
         // Make the layer visible by default.
         visibility: "visible",
       },
-      // paint: {
-      //   "circle-radius": 8,
-      //   "circle-color": "rgba(55,148,179,1)",
-      // },
+      paint: {
+        "circle-radius": 8,
+        "circle-color": "rgba(55,148,179,1)",
+      },
       "source-layer": "museum-cusco",
     });
     // -----------------POIS----------------- //
@@ -339,32 +349,32 @@ export function initNearbyMap() {
         filter: ["==", "extrude", "true"],
         type: "fill-extrusion",
         minzoom: 15,
-      // paint: {
-        //   "fill-extrusion-color": "#aaa",
+      paint: {
+          "fill-extrusion-color": "#aaa",
 
-        //   // Use an 'interpolate' expression to
-        //   // add a smooth transition effect to
-        //   // the buildings as the user zooms in.
-        //   "fill-extrusion-height": [
-        //     "interpolate",
-        //     ["linear"],
-        //     ["zoom"],
-        //     15,
-        //     0,
-        //     15.05,
-        //     ["get", "height"],
-        //   ],
-        //   "fill-extrusion-base": [
-        //     "interpolate",
-        //     ["linear"],
-        //     ["zoom"],
-        //     15,
-        //     0,
-        //     15.05,
-        //     ["get", "min_height"],
-       //   ],
-        //   "fill-extrusion-opacity": 0.6,
-        // },
+          // Use an 'interpolate' expression to
+          // add a smooth transition effect to
+          // the buildings as the user zooms in.
+          "fill-extrusion-height": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            15,
+            0,
+            15.05,
+            ["get", "height"],
+          ],
+          "fill-extrusion-base": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            15,
+            0,
+            15.05,
+            ["get", "min_height"],
+         ],
+          "fill-extrusion-opacity": 0.6,
+        },
       },
       labelLayerId
     );
@@ -379,6 +389,6 @@ export function initNearbyMap() {
       map.setCenter(userCoordinates);
     });
   }
-  // window.requestAnimationFrame(frame);
+  window.requestAnimationFrame(frame);
   return map;
 }

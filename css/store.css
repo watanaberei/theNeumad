@@ -656,7 +656,7 @@ section.store-introduction {
   background: var(--black-03, linear-gradient(to left, #101011, #101011));
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  /* -webkit-text-fill-color: transparent; */
   /* text-align: left;
   font-family: "HelveticaNeue-Regular", sans-serif;
   font-size: 18px;
@@ -668,7 +668,7 @@ section.store-introduction {
   background: var(--black-03, linear-gradient(to left, #101011, #101011));
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  /* -webkit-text-fill-color: transparent; */
   /* text-align: left;
   font-family: "HelveticaNeue-Regular", sans-serif;
   font-size: 18px;
@@ -689,7 +689,7 @@ section.store-introduction {
   background: var(--black-03, linear-gradient(to left, #101011, #101011));
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  /* -webkit-text-fill-color: transparent; */
   /* text-align: right;
   font-family: "HelveticaNeue-Bold", sans-serif;
   font-size: 18px;

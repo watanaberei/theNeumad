@@ -1,5 +1,5 @@
 // src/index.js
-import { getArticleNeumadsTrail } from "./api.js";
+import { getArticleNeumadsTrail } from "../middleware/api.js";
 import "./components/Style.js";   
 import * as Components from './components/Components.js';
 import HeaderSecondary from "./components/HeaderSecondary";

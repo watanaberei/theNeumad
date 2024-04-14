@@ -73,7 +73,7 @@ div#map-discover-container {
   top: 0;
   left: 0;
   overflow: hidden;
-  border-right: 1px solid rgba(0, 0, 0, 0.25);
+  /* border-right: 1px solid rgba(0, 0, 0, 0.25); */
 }
 .pad2 {
   padding: 20px;

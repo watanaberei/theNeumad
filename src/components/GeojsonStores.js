@@ -1,6 +1,9 @@
 //src/components/GeojsonStores.js
-import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../api.js";
+import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../../middleware/api.js";
 import DataBlog from "./DataPost";
+import * as Geolocate from "../components/Geolocate";
+import * as GeolocationRange from "../components/GeolocationRange"
+
 
 let dataBlog = new DataBlog();
 
@@ -31,6 +34,8 @@ export async function geojsonStore() {
         });
     }
 
+
+    
     
     // Log the raw data you're receiving from the API
     // console.log("Raw BlogData: ", JSON.stringify(BlogData, null, 2));
@@ -68,7 +73,8 @@ export async function geojsonStore() {
         },
         tag,
       } = store;
-
+      const storeRange = Geolocate.GeolocateToStore(store);
+      console.log("%%%%%%%%%%%%%%%%storeDistance%%%%%%%%%%%%%%%%", storeRange);
       // Log the store object and the extracted properties
       // console.log("Store object: ", JSON.stringify(store, null, 2));
       
@@ -87,6 +93,7 @@ export async function geojsonStore() {
           // nearbyHours,
           // nearbyLogo,
           // nearbyLocation,
+          location,
           text,
           subtext,
           eyebrow,
@@ -106,6 +113,7 @@ export async function geojsonStore() {
           neustar,
           environment,
           categoryType,
+          storeRange,
           genre,
           thumbnail,
           logo,

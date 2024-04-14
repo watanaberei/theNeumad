@@ -1,6 +1,6 @@
 /* Header */
-.header {
-    /* background-color: var(--white01); */
+header.header {
+    background-color: var(--bg03);
     /* height: 6.00rem; */
     /* line-height: 1.5rem; */
     /* display: grid; */

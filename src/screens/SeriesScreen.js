@@ -1,5 +1,5 @@
 // SeriesScreen.js
-import { getArticleNeumadsTrail, getDineFeaturedBlog } from "../api.js";
+import { getArticleNeumadsTrail, getDineFeaturedBlog } from "../../middleware/api.js";
 
 import ArticleNeumadsTrail from "../components/ArticleNeumadsTrail.js";
 import DineFeaturedBlog from "../components/DineFeaturedBlog.js";

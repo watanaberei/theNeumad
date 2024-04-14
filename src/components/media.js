@@ -88,6 +88,30 @@ export const generateMediaCarouselSmall = {
       return mediaGalleryHTML;
     }
   };
+
+
+
+
+export const mediaThumbnail = {
+  render: (media, limit) => {
+    let mediaThumbnailHTML = '';
+    media.slice(0, limit).forEach((mediaThumbnailItem, index) => {
+      const opacityClass = index >= 3 ? 'low-opacity' : '';
+      const opacityPeakClass = index >= 3 ? 'low-opacity' : '';
+      const opacityOuterClass = index >= 4 ? 'low-opacity' : '';
+      mediaThumbnailHTML += `
+      <div class="media-img-m ${opacityClass}">
+        <div class="media-img">
+          <img src="${mediaThumbnailItem.url}" class="media-img-1-x-1-x-m"></img>
+        </div>
+      </div>
+      `;
+    });
+    return mediaThumbnailHTML;
+  }
+};
+
+
   
 // media.js
 // export const generateMediaCarouselSmall = {

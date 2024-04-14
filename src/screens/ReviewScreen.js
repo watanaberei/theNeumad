@@ -1,7 +1,7 @@
 // src/screens/ReviewScreens.js
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { parseRequestUrl } from "../utils.js";
-import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../api.js";
+import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../../middleware/api.js";
 import DataBlog from "../components/DataPost";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import { format, parseISO } from "date-fns";

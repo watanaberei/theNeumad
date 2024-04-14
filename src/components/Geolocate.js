@@ -34,7 +34,7 @@ coordinateUser().then((coordinates) => {
 });
 
 export const coordinateStore = (store) => {
-    if (store.location && store.location.geolocation) {
+    if (store && store.location && store.location.geolocation) {
         console.log("!!!!!store geolocate", store);
         console.log("!!!!!geometry geolocate", store.location.geolocation);
         return [store.location.geolocation.lon, store.location.geolocation.lat];
@@ -59,14 +59,25 @@ export function storeDistance(pointA, pointB) {
 }
 
 
-export const GeolocateToStore = (store) => {
-    const pointA = coordinateUser();
+export const GeolocateToStore = async (store) => {
+    const pointA = await coordinateUser();
     const pointB = coordinateStore(store);
     if (pointA && pointB) {
-          return storeDistance(pointA, pointB);
+        return storeDistance(pointA, pointB);
     } else {
         console.log("User location or store location not available");
         return null;
     }
 }
+
+// export const GeolocateToStore = (store) => {
+//     const pointA = coordinateUser();
+//     const pointB = coordinateStore(store);
+//     if (pointA && pointB) {
+//           return storeDistance(pointA, pointB);
+//     } else {
+//         console.log("User location or store location not available");
+//         return null;
+//     }
+// }
 

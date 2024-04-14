@@ -54,6 +54,12 @@ export async function getStore(limit = 1, collectionLimit = 6, skip = 0) {
             }
           }
           slug
+          attributes {
+            experiences
+            services
+            facility
+            location
+          }
           storeAttributes
           category {
             categoryType
@@ -254,6 +260,7 @@ export async function getStore(limit = 1, collectionLimit = 6, skip = 0) {
         },
         storeNickname: stores?.storeNickName,
         slug: stores?.slug,
+        attributes: stores?.attributes,
         featured: stores?.featured,
         category: {
           categoryType: stores?.category?.categoryType,

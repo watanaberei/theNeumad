@@ -10,10 +10,10 @@ import { createGeojsonArticleListing } from "../components/GeojsonArticleListing
 import { createGeojsonBlogListing } from "../components/GeojsonBlogListing";
 import { createGeocoderInput } from "../components/GeocoderInput";
 import AllBlog from "../components/AllBlog.js";
-import HeaderHome from "../components/HeaderHome"; 
+import HeaderHome from "../components/HeaderHome";
 import mapRoute from "../components/mapRoute";
-import polyline from '@mapbox/polyline';
-
+import { geoPopup } from "../components/GeoPopup";
+import polyline from "@mapbox/polyline";
 
 const DineScreen = {
   render: async () => {
@@ -27,7 +27,7 @@ const DineScreen = {
               <div class="heading">
                 <span class="header01">21 Stores</span>
               </div>
-              <div id="postStore" class="postStore">
+              <div id="postStore" class="postStore card-store">
               </div>
             </div>
 
@@ -35,7 +35,7 @@ const DineScreen = {
               <div class="heading">
                 <span class="header01">Blog</span>
               </div>
-              <div id="postBlog" class="postBlog">
+              <div id="postBlog" class="postBlog card-blog">
               </div>
             </div>
 
@@ -43,7 +43,7 @@ const DineScreen = {
               <div class="heading">
                 <span class="header01">Article</span>
               </div>
-              <div id="postArticle" class="postArticle">
+              <div id="postArticle" class="postArticle card-article">
               </div>
             </div>
 
@@ -51,7 +51,7 @@ const DineScreen = {
               <div class="heading">
                 <span class="header01">Reviewed</span>
               </div>
-              <div id="postReview" class="postReview">
+              <div id="postReview" class="postReview card-review">
               </div>
             </div>
 
@@ -59,7 +59,7 @@ const DineScreen = {
               <div class="heading">
                 <span class="header01">Nearby Stores</span>
               </div>
-              <div id="postListing" class="postListing">
+              <div id="postListing" class="postListing card-listing">
               </div>
             </div>
 
@@ -80,40 +80,59 @@ const DineScreen = {
     // Initialize the geocoder object
     const geocoder = createGeocoderInput(HeaderHome.getLastSelectedResult());
     geocoder.on("result", handleGeocoderResult);
-    geocoder.on('clear', () => { results.innerText = ''; });
+    geocoder.on("clear", () => {
+      results.innerText = "";
+    });
 
     // Add marker logic from DineScreen
     var markers = [];
-    features.forEach(function(marker) {
-      var el = document.createElement('div');
-      el.className = 'marker';
+    features.forEach(function (marker) {
+      var el = document.createElement("div");
+      el.className = "marker";
       var newMarker = new mapboxgl.Marker(el)
         .setLngLat(marker.geometry.coordinates)
-        .setPopup(new mapboxgl.Popup({ offset: 25 })
-        .setHTML('<h3>' + marker.properties.title + '</h3><p>' + '<div id="category">' + marker.properties.categoryType + '</div>' + marker.properties.address + '</p>'))
+        .setPopup(
+          new mapboxgl.Popup({ offset: 25 }).setHTML(
+            "<h3>" +
+              marker.properties.title +
+              "</h3><p>" +
+              '<div id="category">' +
+              marker.properties.categoryType +
+              "</div>" +
+              marker.properties.address +
+              "</p>"
+          )
+        )
         .addTo(map);
       markers.push({ marker: newMarker, feature: marker });
     });
 
-    const categories = markers.map(m => m.feature.properties.categoryType);
-    var allMarkers = markers;        
+    const categories = markers.map((m) => m.feature.properties.categoryType);
+    var allMarkers = markers;
 
-    document.getElementById('search-btn').addEventListener('click', function() {
-      var location = HeaderHome.getLastSelectedResult();
-      var categoryType = document.getElementById('category').value;
-      if (categoryType || location) {
-        allMarkers.forEach(m => {
-          var el = m.marker.getElement();
-          el.id = (!categoryType || m.feature.properties.categoryType.toLowerCase() !== categoryType.toLowerCase()) ? 'markerInactive' : 'markerActive';
-        });
-        
-        if (location) {
-          map.flyTo({ center: location.geometry.coordinates, zoom: 14 });
-        } 
-      } else {
-        alert('Please enter a categoryType or select a location');
-      }
-    });
+    document
+      .getElementById("search-btn")
+      .addEventListener("click", function () {
+        var location = HeaderHome.getLastSelectedResult();
+        var categoryType = document.getElementById("category").value;
+        if (categoryType || location) {
+          allMarkers.forEach((m) => {
+            var el = m.marker.getElement();
+            el.id =
+              !categoryType ||
+              m.feature.properties.categoryType.toLowerCase() !==
+                categoryType.toLowerCase()
+                ? "markerInactive"
+                : "markerActive";
+          });
+
+          if (location) {
+            map.flyTo({ center: location.geometry.coordinates, zoom: 15 });
+          }
+        } else {
+          alert("Please enter a categoryType or select a location");
+        }
+      });
 
     map.on("moveend", function () {
       const mapBounds = map.getBounds();
@@ -122,18 +141,62 @@ const DineScreen = {
       const sortedFeatures = sortFeaturesByDistance(filteredFeatures, center);
 
       // Example call to renderFeatures with a specific container ID
-      renderFeatures(sortedFeatures, map, 'postListing');
+      renderFeatures(sortedFeatures, map, "postListing");
     });
-
-
-    map.on("click", (e) => {
-      const bbox = [[e.point.x - 5, e.point.y - 5], [e.point.x + 5, e.point.y + 5]];
-      const selectedFeatures = map.queryRenderedFeatures(bbox, { layers: ["counties"] });
-      const fips = selectedFeatures.map((feature) => feature.properties.FIPS);
-      map.setFilter("counties-highlighted", ["in", "FIPS", ...fips]);
-      new mapboxgl.Popup().setLngLat(e.lngLat).setHTML(e.features[0].properties.name).addTo(map);
+    map.on('click', function(e) {
+      const features = map.queryRenderedFeatures(e.point);
+    
+      if (features.length > 0) {
+        const feature = features[0];
+        if (['city-boundaries', 'counties', 'admin-1'].includes(feature.source)) {
+          flyToCity(map, feature);
+        }
+        const bbox = [
+          [e.point.x - 5, e.point.y - 5],
+          [e.point.x + 5, e.point.y + 5],
+        ];
+        const selectedFeatures = map.queryRenderedFeatures(bbox, {
+          layers: ["counties"],
+        });
+        const fips = selectedFeatures.map((feature) => feature.properties.FIPS);
+        map.setFilter("counties-highlighted", ["in", "FIPS", ...fips]);
+    
+        if (features.length > 0) {
+          const feature = features[0];
+    
+          let color;
+          switch (feature.source) {
+            case "counties":
+              color = "#FF0000"; // Red
+              break;
+            case "admin-1":
+              color = "#00FF00"; // Green
+              break;
+            case "city-boundaries":
+              color = "#0000FF"; // Blue
+              break;
+            default:
+              color = "#000000"; // Black
+          }
+          if (['city-boundaries', 'counties', 'admin-1'].includes(feature.source)) {
+            flyToCity(map, feature);
+          }
+          geoPopup(feature, map); // Pass the map object to the geoPopup function
+    
+          new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(
+              '<pre style="color: ' +
+                color +
+                ';">' +
+                JSON.stringify(feature.properties, null, 2) +
+                "</pre>"
+            )
+            .addTo(map);
+        }
+      }
     });
-
+    
     setCurrentLocation(map, features);
   },
 };
@@ -141,12 +204,20 @@ const DineScreen = {
 function handleGeocoderResult(result) {
   HeaderHome(result);
   const searchedCityName = result.result.text;
-  const cityBoundaryFeatures = map.querySourceFeatures("city-boundaries", { filter: ["==", "NAME", searchedCityName] });
+  const cityBoundaryFeatures = map.querySourceFeatures("city-boundaries", {
+    filter: ["==", "NAME", searchedCityName],
+  });
 
   if (cityBoundaryFeatures.length > 0) {
     const cityBoundary = cityBoundaryFeatures[0];
     const cityBoundaryCoordinates = cityBoundary.geometry.coordinates;
-    const bounds = cityBoundaryCoordinates.reduce((bounds, coord) => bounds.extend(coord), new mapboxgl.LngLatBounds(cityBoundaryCoordinates[0][0], cityBoundaryCoordinates[0][0]));
+    const bounds = cityBoundaryCoordinates.reduce(
+      (bounds, coord) => bounds.extend(coord),
+      new mapboxgl.LngLatBounds(
+        cityBoundaryCoordinates[0][0],
+        cityBoundaryCoordinates[0][0]
+      )
+    );
     map.fitBounds(bounds, { padding: 50, duration: 1000 });
 
     if (map.getLayer("searched-city-boundary")) {
@@ -155,13 +226,51 @@ function handleGeocoderResult(result) {
     if (map.getLayer("searched-city-fill")) {
       map.removeLayer("searched-city-fill");
     }
-    map.addLayer({ id: "searched-city-boundary", type: "line", source: "city-boundaries", filter: ["==", "NAME", searchedCityName] });
-    map.addLayer({ id: "searched-city-fill", type: "fill", source: "city-boundaries", filter: ["==", "NAME", searchedCityName] });
+    map.addLayer({
+      id: "searched-city-boundary",
+      type: "line",
+      source: "city-boundaries",
+      filter: ["==", "NAME", searchedCityName],
+    });
+    map.addLayer({
+      id: "searched-city-fill",
+      type: "fill",
+      source: "city-boundaries",
+      filter: ["==", "NAME", searchedCityName],
+    });
 
-    map.addLayer({ id: "counties", type: "fill", source: "counties", "source-layer": "original", paint: { "fill-outline-color": "rgba(0,0,0,0.1)", "fill-color": "rgba(0,0,0,0.1)" } }, "building");
-    map.addLayer({ id: "counties-highlighted", type: "fill", source: "counties", "source-layer": "original", paint: { "fill-outline-color": "#484896", "fill-color": "#6e599f", "fill-opacity": 0.75 }, filter: ["in", "FIPS", ""], }, "building");
+    map.addLayer(
+      {
+        id: "counties",
+        type: "fill",
+        source: "counties",
+        "source-layer": "original",
+        paint: {
+          "fill-outline-color": "rgba(0,0,0,0.1)",
+          "fill-color": "rgba(0,0,0,0.1)",
+        },
+      },
+      "building"
+    );
+    map.addLayer(
+      {
+        id: "counties-highlighted",
+        type: "fill",
+        source: "counties",
+        "source-layer": "original",
+        paint: {
+          "fill-outline-color": "#484896",
+          "fill-color": "#6e599f",
+          "fill-opacity": 0.75,
+        },
+        filter: ["in", "FIPS", ""],
+      },
+      "building"
+    );
   } else {
-    const store = { geometry: { coordinates: result.result.geometry.coordinates } };
+    const store = {
+      geometry: { coordinates: result.result.geometry.coordinates },
+    };
     const bbox = result.result.bbox;
     flyToSearch(store, map, bbox);
   }
@@ -170,12 +279,18 @@ function handleGeocoderResult(result) {
 function setCurrentLocation(map, features) {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
-      const userCoordinates = [position.coords.longitude, position.coords.latitude];
+      const userCoordinates = [
+        position.coords.longitude,
+        position.coords.latitude,
+      ];
       const userLocationMarker = createUserLocationMarker(userCoordinates, map);
 
       const mapBounds = map.getBounds();
       const filteredFeatures = filterFeaturesInBounds(features, mapBounds);
-      const sortedFeatures = sortFeaturesByDistance(filteredFeatures, userCoordinates);
+      const sortedFeatures = sortFeaturesByDistance(
+        filteredFeatures,
+        userCoordinates
+      );
       renderFeatures(sortedFeatures, map);
 
       zoomToShowAtLeastThreePins(map, features, userCoordinates);
@@ -185,44 +300,47 @@ function setCurrentLocation(map, features) {
   }
 }
 
-
 function mapRoutes(userCoordinates, features) {
   features.forEach((feature, index) => {
-    const YOUR_MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsa3R6aG93YzAyeDUzZXBoY2h6ZDBjN2gifQ.ef675JLTqdzPlw1tu_wHOA";
+    const YOUR_MAPBOX_ACCESS_TOKEN =
+      "pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsa3R6aG93YzAyeDUzZXBoY2h6ZDBjN2gifQ.ef675JLTqdzPlw1tu_wHOA";
     let userLonLat = [userCoordinates[1], userCoordinates[0]];
-    let featureLonLat = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
+    let featureLonLat = [
+      feature.geometry.coordinates[1],
+      feature.geometry.coordinates[0],
+    ];
 
     const directionsUrl = `https://api.mapbox.com/directions/v5/mapbox/driving/${userLonLat[0]}%2C${userLonLat[1]}%3B${featureLonLat[0]}%2C${featureLonLat[1]}?alternatives=false&geometries=polyline&language=en&overview=simplified&steps=true&access_token=${YOUR_MAPBOX_ACCESS_TOKEN}`;
 
     fetch(directionsUrl)
-    .then(response => response.json())
-    .then(data => {
-      const route = data.routes[0].geometry;
-      const routeId = `route-${index}`;
-      const decoded = polyline.toGeoJSON(route);
-      if (map.getLayer(routeId)) {
-        map.removeLayer(routeId);
-        map.removeSource(routeId);
-      }
-      map.addLayer({
-        id: routeId,
-        type: 'line',
-        source: {
-          type: 'geojson',
-          data: {
-            type: 'Feature',
-            geometry: decoded,
+      .then((response) => response.json())
+      .then((data) => {
+        const route = data.routes[0].geometry;
+        const routeId = `route-${index}`;
+        const decoded = polyline.toGeoJSON(route);
+        if (map.getLayer(routeId)) {
+          map.removeLayer(routeId);
+          map.removeSource(routeId);
+        }
+        map.addLayer({
+          id: routeId,
+          type: "line",
+          source: {
+            type: "geojson",
+            data: {
+              type: "Feature",
+              geometry: decoded,
+            },
           },
-        },
-        paint: {
-          'line-width': 2,
-          'line-color': '#007cbf',
-        },
+          paint: {
+            "line-width": 2,
+            "line-color": "#007cbf",
+          },
+        });
+      })
+      .catch((error) => {
+        console.error(`Failed to fetch route data: ${error}`);
       });
-    })
-    .catch(error => {
-      console.error(`Failed to fetch route data: ${error}`);
-    });
   });
 }
 
@@ -241,14 +359,14 @@ function sortFeaturesByDistance(features, center) {
   });
 }
 
-async function renderFeatures(features, map) {
+function renderFeatures(features, map) {
   // References to DOM elements
   const elements = {
     postListing: document.getElementById("postListing"),
     postStore: document.getElementById("postStore"),
     postReview: document.getElementById("postReview"),
     postArticle: document.getElementById("postArticle"),
-    postBlog: document.getElementById("postBlog")
+    postBlog: document.getElementById("postBlog"),
   };
 
   // Clear out old listings
@@ -258,39 +376,32 @@ async function renderFeatures(features, map) {
     }
   }
 
-for (const feature of features) {
+  features.forEach((feature) => {
     let element;
+    console.log("feature.properties.variant", feature.properties.type);
     switch (feature.properties.variant) {
-      case 'stores':
-        element = await createGeojsonStoreListing(feature); // Note the await keyword
-        // elements.postStore.appendChild(element);
-        // break;
-        createGeojsonStoreListing(feature).then(element => {
-          if (element && element instanceof Node) {
-            elements.postStore.appendChild(element);
-          } else {
-            console.error('Element is not a valid node', element);
-          }
-        }).catch(error => console.error('Error creating store listing:', error));
+      case "stores":
+        element = createGeojsonStoreListing(feature);
+        elements.postStore.appendChild(element);
         break;
-      case 'reviews':
+      case "reviews":
         element = createGeojsonReviewListing(feature);
         elements.postReview.appendChild(element);
         break;
-      case 'articles':
+      case "articles":
         element = createGeojsonArticleListing(feature);
         elements.postArticle.appendChild(element);
         break;
-      case 'blogs':
+      case "blogs":
         element = createGeojsonBlogListing(feature);
         elements.postBlog.appendChild(element);
         break;
       // Include additional cases as necessary
       default:
-        console.warn('Unknown feature type:', feature.properties.type);
-      }
+        console.warn("Unknown feature type:", feature.properties.type);
     }
-  }
+  });
+}
 
 function flyToStore(store, map) {
   map.flyTo({
@@ -300,14 +411,19 @@ function flyToStore(store, map) {
   });
 }
 
+function flyToCity(map, feature) {
+  map.flyTo({
+    center: feature.geometry.coordinates[0][0], // Assuming the city's coordinates are the first coordinates of the geometry
+    zoom: 6,
+    essential: true, // This option enables the animation even if the user has prefers-reduced-motion enabled
+  });
+}
+
 function createUserLocationMarker(userCoordinates, map) {
   const marker = document.createElement("div");
   marker.className = "icon-mapMarker-userLocation";
   return new mapboxgl.Marker(marker).setLngLat(userCoordinates).addTo(map);
 }
-
-
-
 
 function zoomToShowAtLeastThreePins(map, features, center) {
   const zoomOut = () => {
@@ -323,29 +439,67 @@ function zoomToShowAtLeastThreePins(map, features, center) {
   zoomOut();
 }
 
+// function geoPopup(feature) {
+//   // Get the map container
+//   const mapContainer = document.getElementById('map-container');
+
+//   // Remove the existing card if there is one
+//   const existingCard = mapContainer.querySelector('.geo-popup-card');
+//   if (existingCard) {
+//     mapContainer.removeChild(existingCard);
+//   }
+
+//   // Create a new div element for the card
+//   const card = document.createElement('div');
+//   card.className = 'geo-popup-card';
+
+//   // Create a new div element for the card content
+//   const content = document.createElement('div');
+//   content.className = 'geo-popup-content';
+//   content.innerHTML = '<pre>' + JSON.stringify(feature.properties, null, 2) + '</pre>';
+//   card.appendChild(content);
+
+//   // Create a new button element for the close button
+//   const closeButton = document.createElement('button');
+//   closeButton.className = 'geo-popup-close-button';
+//   closeButton.innerHTML = 'Close';
+//   closeButton.onclick = function() {
+//     card.style.display = 'none';
+//   };
+//   card.appendChild(closeButton);
+
+//   // Append the card to the map container
+//   mapContainer.appendChild(card);
+// }
+
 function filterFeaturesInBound(features, bounds, currentLocation) {
   const MAX_FEATURES = 6;
   let featureLists = {
-      stores: [],
-      blogs: [],
-      articles: [],
-      reviews: []
+    stores: [],
+    blogs: [],
+    articles: [],
+    reviews: [],
   };
 
   for (let feature of features) {
-      if (bounds.contains(feature.geometry.coordinates)) {
-          // Calculate the distance from the current location to the feature
-          let distance = calculateDistance(currentLocation, feature.geometry.coordinates);
+    if (bounds.contains(feature.geometry.coordinates)) {
+      // Calculate the distance from the current location to the feature
+      let distance = calculateDistance(
+        currentLocation,
+        feature.geometry.coordinates
+      );
 
-          // Add the feature to the appropriate list, along with its distance
-          featureLists[feature.type].push({ feature, distance });
-      }
+      // Add the feature to the appropriate list, along with its distance
+      featureLists[feature.type].push({ feature, distance });
+    }
   }
 
   // For each type of feature, sort the features by distance and take the closest MAX_FEATURES
   for (let type in featureLists) {
-      featureLists[type].sort((a, b) => a.distance - b.distance);
-      featureLists[type] = featureLists[type].slice(0, MAX_FEATURES).map(item => item.feature);
+    featureLists[type].sort((a, b) => a.distance - b.distance);
+    featureLists[type] = featureLists[type]
+      .slice(0, MAX_FEATURES)
+      .map((item) => item.feature);
   }
 
   // Combine all the feature lists into one array
@@ -362,9 +516,12 @@ function getDistance(coord1, coord2) {
   const deltaLat = toRadians(coord2[1] - coord1[1]);
   const deltaLng = toRadians(coord2[0] - coord1[0]);
 
-  const a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
-            Math.cos(lat1) * Math.cos(lat2) * 
-            Math.sin(deltaLng / 2) * Math.sin(deltaLng / 2);
+  const a =
+    Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+    Math.cos(lat1) *
+      Math.cos(lat2) *
+      Math.sin(deltaLng / 2) *
+      Math.sin(deltaLng / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
   return R * c; // Distance in meters
@@ -375,14 +532,46 @@ export default DineScreen;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // function mapRoutes(userCoordinates, features) {
 //     features.forEach((feature, index) => {
 //       const YOUR_MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsa3R6aG93YzAyeDUzZXBoY2h6ZDBjN2gifQ.ef675JLTqdzPlw1tu_wHOA";
 //       let userLonLat = [userCoordinates[1], userCoordinates[0]];
 //       let featureLonLat = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
-  
+
 //       const directionsUrl = `https://api.mapbox.com/directions/v5/mapbox/driving/${userLonLat[0]}%2C${userLonLat[1]}%3B${featureLonLat[0]}%2C${featureLonLat[1]}?alternatives=false&geometries=polyline&language=en&overview=simplified&steps=true&access_token=${YOUR_MAPBOX_ACCESS_TOKEN}`;
-  
+
 //       fetch(directionsUrl)
 //       .then(response => response.json())
 //       .then(data => {
@@ -414,66 +603,64 @@ export default DineScreen;
 //       });
 //     });
 //   }
-  
-  // function filterFeaturesInBounds(features, bounds) {
-  //   return features.filter((feature) => {
-  //     const coordinates = feature.geometry.coordinates;
-  //     return bounds.contains(coordinates);
-  //   });
-  // }
-  
-  // function sortFeaturesByDistance(features, center) {
-  //   return features.sort((a, b) => {
-  //     const distanceA = getDistance(center, a.geometry.coordinates);
-  //     const distanceB = getDistance(center, b.geometry.coordinates);
-  //     return distanceA - distanceB;
-  //   });
-  // }
-  
-  // function renderFeatures(features, map) {
-  //   // References to DOM elements
-  //   const elements = {
-  //     postListing: document.getElementById("postListing"),
-  //     postStore: document.getElementById("postStore"),
-  //     postReview: document.getElementById("postReview"),
-  //     postArticle: document.getElementById("postArticle"),
-  //     postBlog: document.getElementById("postBlog")
-  //   };
-  
-  //   // Clear out old listings
-  //   for (let key in elements) {
-  //     if (elements[key]) {
-  //       elements[key].innerHTML = "";
-  //     }
-  //   }
-  
-  //   features.forEach((feature) => {
-  //     let element;
-  //     switch (feature.properties.type) {
-  //       case 'store':
-  //         element = createGeojsonStoreListing(feature);
-  //         elements.postStore.appendChild(element);
-  //         break;
-  //       case 'review':
-  //         element = createGeojsonReviewListing(feature);
-  //         elements.postReview.appendChild(element);
-  //         break;
-  //       case 'article':
-  //         element = createGeojsonArticleListing(feature);
-  //         elements.postArticle.appendChild(element);
-  //         break;
-  //       case 'blog':
-  //         element = createGeojsonBlogListing(feature);
-  //         elements.postBlog.appendChild(element);
-  //         break;
-  //       // Include additional cases as necessary
-  //       default:
-  //         console.warn('Unknown feature type:', feature.properties.type);
-  //     }
-  //   });
-  // }
 
+// function filterFeaturesInBounds(features, bounds) {
+//   return features.filter((feature) => {
+//     const coordinates = feature.geometry.coordinates;
+//     return bounds.contains(coordinates);
+//   });
+// }
 
+// function sortFeaturesByDistance(features, center) {
+//   return features.sort((a, b) => {
+//     const distanceA = getDistance(center, a.geometry.coordinates);
+//     const distanceB = getDistance(center, b.geometry.coordinates);
+//     return distanceA - distanceB;
+//   });
+// }
+
+// function renderFeatures(features, map) {
+//   // References to DOM elements
+//   const elements = {
+//     postListing: document.getElementById("postListing"),
+//     postStore: document.getElementById("postStore"),
+//     postReview: document.getElementById("postReview"),
+//     postArticle: document.getElementById("postArticle"),
+//     postBlog: document.getElementById("postBlog")
+//   };
+
+//   // Clear out old listings
+//   for (let key in elements) {
+//     if (elements[key]) {
+//       elements[key].innerHTML = "";
+//     }
+//   }
+
+//   features.forEach((feature) => {
+//     let element;
+//     switch (feature.properties.type) {
+//       case 'store':
+//         element = createGeojsonStoreListing(feature);
+//         elements.postStore.appendChild(element);
+//         break;
+//       case 'review':
+//         element = createGeojsonReviewListing(feature);
+//         elements.postReview.appendChild(element);
+//         break;
+//       case 'article':
+//         element = createGeojsonArticleListing(feature);
+//         elements.postArticle.appendChild(element);
+//         break;
+//       case 'blog':
+//         element = createGeojsonBlogListing(feature);
+//         elements.postBlog.appendChild(element);
+//         break;
+//       // Include additional cases as necessary
+//       default:
+//         console.warn('Unknown feature type:', feature.properties.type);
+//     }
+//   });
+// }
 
 // function mapRoutes(userCoordinates, features) {
 //   features.forEach((feature, index) => {
@@ -489,7 +676,7 @@ export default DineScreen;
 //         const route = data.routes[0].geometry;
 //         const routeId= `route-${index}`; // Unique id for each layer
 //       const decoded = polyline.toGeoJSON(route);
-//       // // console.log(decoded);
+//       // console.log(decoded);
 //       // If layer already exists, remove it
 //       if (map.getLayer(routeId)) {
 //         map.removeLayer(routeId);
@@ -512,7 +699,7 @@ export default DineScreen;
 //             'line-color': '#007cbf',
 //           },
 //         });
-        
+
 //       })
 //       .catch(error => {
 //         console.error(`Failed to fetch route data: ${error}`);
@@ -569,8 +756,6 @@ export default DineScreen;
 //   });
 // }
 
-
-
 // function renderFeatures(features, map, containerId) {
 //   const container = document.getElementById(containerId);
 //   if (!container) {
@@ -607,8 +792,6 @@ export default DineScreen;
 //   });
 // }
 
-
-
 // // function renderFeatures(features, map) {
 // //   const elements = {
 // //     postListing: document.getElementById("postListing"),
@@ -639,10 +822,6 @@ export default DineScreen;
 // //     }
 // //   });
 // // }
-
-
-
-
 
 // function flyToStore(store, map) {
 //   map.flyTo({
@@ -704,7 +883,6 @@ export default DineScreen;
 //     .addTo(map);
 // }
 
-
 // // function createUserLocationMarker(userLocation, map) {
 // //   createMapMarker(userLocation, map, someClickHandlerFunction);
 // //   const marker = document.createElement("div");
@@ -746,54 +924,4 @@ export default DineScreen;
 //   return R * c;
 // }
 
-
 // export default DineScreen;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
