@@ -1,6 +1,84 @@
 import { format, parseISO } from "date-fns";
 import * as element from "../components/elements";
 
+
+// export const thumbnail = {
+//   render: (img, limit) => {
+//   const imgs = img.url;
+//    return `
+//       <div class="media-img">
+//         <img src="${imgs}" class="media-img-1-x-1-x-m2"></img>
+//       </div>
+//         `;
+//       },
+//     };
+
+
+export const thumbnail = {
+  render: (media, limit) => {
+    let mediaThumbnailHTML = '';
+    media.slice(0, limit).forEach((mediaThumbnailItem, index) => {
+      const opacityClass = index >= 3 ? 'low-opacity' : '';
+      const opacityPeakClass = index >= 3 ? 'low-opacity' : '';
+      const opacityOuterClass = index >= 4 ? 'low-opacity' : '';
+      mediaThumbnailHTML += `
+        <div class="media-img">
+          <div class="media-img-1-x-1-x-m"></div>
+          <img src="${mediaThumbnailItem.url}" class="media-item"></img>
+        </div>
+      
+      `;
+    });
+    return mediaThumbnailHTML;
+  }
+};
+
+
+
+
+
+
+  //   function thumbnail(galleryHTML, limit) {
+  //     // Parse the galleryHTML string to get the URLs
+  //     const parser = new DOMParser();
+  //     const doc = parser.parseFromString(galleryHTML, 'text/html');
+  //     const imgElements = Array.from(doc.getElementsByTagName('img'));
+  //     const imgs = imgElements.map(img => img.src);
+  
+  //     // Generate the HTML
+  //     let mediaGalleryHTML = '';
+  //     imgs.slice(0, limit).forEach((imgs, index) => {
+  //         // const opacityClass = index >= 4 ? 'low-opacity' : '';
+  //         mediaGalleryHTML += `
+  //           <div class="media-img">
+  //             <div class="media-img-1-x-1-x-m"></div>
+  //             <img src="${imgs}" class="media-img-1-x-1-x-m2"></img>
+  //           </div>
+  //         `;
+  //     });
+  //     return mediaGalleryHTML;
+  // }
+  //////////// THUMBNAIL ////////////
+
+    // export const mediaThumbnail = {
+    //   render: (media, limit) => {
+    //     let mediaThumbnailHTML = '';
+    //     media.slice(0, limit).forEach((mediaThumbnailItem, index) => {
+    //       const opacityClass = index >= 3 ? 'low-opacity' : '';
+    //       const opacityPeakClass = index >= 3 ? 'low-opacity' : '';
+    //       const opacityOuterClass = index >= 4 ? 'low-opacity' : '';
+    //       mediaThumbnailHTML += `
+    //       <div class="media-img-m ${opacityClass}">
+    //         <div class="media-img">
+    //           <img src="${mediaThumbnailItem.url}" class="media-img-1-x-1-x-m"></img>
+    //         </div>
+    //       </div>
+    //       `;
+    //     });
+    //     return mediaThumbnailHTML;
+    //   }
+    // };
+
 export const mediaImgS = {
   render: (image) => {
     return `

@@ -1,8 +1,8 @@
-.neustar-award-03,
-.neustar-award-03 * {
+.hero-media .neustar-award-03,
+.hero-media .neustar-award-03 * {
   box-sizing: border-box;
 }
-.neustar-award-03 {
+.hero-media .neustar-award-03 {
   z-index: 1;
   padding: 45px;
   display: flex;
@@ -14,7 +14,7 @@
   left: 0;
   bottom: 0;
 }
-.neustar-award-03 .container {
+.hero-media .neustar-award-03 .container {
   display: flex;
   flex-direction: row;
   gap: 6px;
@@ -23,7 +23,7 @@
   flex-shrink: 0;
   position: relative;
 }
-.neubranch-start {
+.hero-media .neubranch-start {
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -32,7 +32,7 @@
   flex-shrink: 0;
   position: relative;
 }
-.neubranch-item {
+.hero-media .neubranch-item {
   display: flex;
   flex-direction: row;
   gap: 0px;
@@ -41,14 +41,14 @@
   flex-shrink: 0;
   position: relative;
 }
-.icon-temp {
+.hero-media .icon-temp {
   flex-shrink: 0;
   width: 37px;
   height: 68px;
   position: relative;
   overflow: hidden;
 }
-.neustar-metal {
+.hero-media .neustar-metal {
   margin: 0 0 0 -45px;
   padding: 0px 24px 7.5px 24px;
   display: flex;
@@ -59,7 +59,7 @@
   flex-shrink: 0;
   position: relative;
 }
-.neustar-item {
+.hero-media .neustar-item {
   padding: 3px 0px 3px 0px;
   display: flex;
   flex-direction: row;
@@ -69,7 +69,7 @@
   flex-shrink: 0;
   position: relative;
 }
-.neustar-item .icon {
+.hero-media .neustar-item .icon {
   flex-shrink: 0;
   width: 55px;
   height: 55px;
@@ -77,10 +77,10 @@
   overflow: hidden;
   transform: rotate(-15deg);
 }
-.neustar-item:nth-child(2n+1) {
+.hero-media .neustar-item:nth-child(2n+1) {
     transform: rotate(15deg);
 }
-.neubranch-end {
+.hero-media .neubranch-end {
   margin: 0 0 0 -45px;
   display: flex;
   flex-direction: row;
@@ -91,7 +91,7 @@
   position: relative;
   transform-origin: 0 0;
 }
-.neubranch-item {
+.hero-media .neubranch-item {
   display: flex;
   flex-direction: row;
   gap: 0px;
@@ -100,7 +100,7 @@
   flex-shrink: 0;
   position: relative;
 }
-.neubranch-item .icon {
+.hero-media .neubranch-item .icon {
   flex-shrink: 0;
   width: 37px;
   height: 68px;
@@ -122,5 +122,5 @@
 
 .neustar-bronze path {
   fill: #BB7B6C;
-  stroke: #DBDBDB;
+  stroke: #F5D1C5;
 }

@@ -44,6 +44,7 @@ module.exports = {
       "zlib": require.resolve("browserify-zlib"),
       "net": false, // Set to false if not used on client-side
       "async_hooks": false, // Typically a server-side module
+      "querystring": require.resolve("querystring-es3"),
     },
   },
   plugins: [
@@ -67,8 +68,11 @@ module.exports = {
     static: {
       directory: path.resolve(__dirname, "dist"),
     },
+    // proxy: {
+    //   '/': 'http://localhost:5000'
+    // },
     compress: true,
-    port: 3000,
+    // port: 3000,
     open: true,
     historyApiFallback: true,
   },

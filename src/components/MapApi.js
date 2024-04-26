@@ -6,7 +6,8 @@
 // src/component/MapApi061223.js
 import mapboxgl from 'mapbox-gl';
 
-mapboxgl.accessToken = 'pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsaHZxdzJrMDBhbjkzZm4weXI1bGlybTMifQ.oQDmvQmIA04AVPDNOV-l8Q';
+// mapboxgl.accessToken = 'pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsaHZxdzJrMDBhbjkzZm4weXI1bGlybTMifQ.oQDmvQmIA04AVPDNOV-l8Q';
+mapboxgl.accessToken = 'pk.eyJ1IjoibmV1bWFkIiwiYSI6ImNsaG53eXJjbjFwbWEzbnFzNms1bzhpYXUifQ.y-7_YrQsMtwBcyreTeqOww';
 
 
 
@@ -19,7 +20,8 @@ export function initMap() {
   const map = new mapboxgl.Map({
     container: "map-container",
     // style: "mapbox://styles/neumad/clj0u2c9b00o601pw61e31wdc",
-    style: "mapbox://styles/neumad/clk1hynd6003d01px8uxw4sz8",
+    // style: "mapbox://styles/neumad/clk1hynd6003d01px8uxw4sz8",
+    style: "mapbox://styles/neumad/clv1lmab801et01nrck4562dt",
     // style: "mapbox://styles/neumad/cljbyenya003401ps5vqkdya3",
     center: defaultCoordinates,
     pitch: 0,
@@ -34,14 +36,14 @@ export function initMap() {
     map.resize();
 
     // -----------------FOG----------------- //
-    map.setFog({
-      range: [-1, 2],
-      "horizon-blend": 0.15,
-      color: "white",
-      "high-color": "#add8e6",
-      "space-color": "#d8f2ff",
-      "star-intensity": 0.0,
-    });
+    // map.setFog({
+    //   range: [-1, 2],
+    //   "horizon-blend": 0.15,
+    //   color: "white",
+    //   "high-color": "#add8e6",
+    //   "space-color": "#d8f2ff",
+    //   "star-intensity": 0.0,
+    // });
     // -----------------FOG----------------- //
     // -----------------BOUNDARIES----------------- //
     ////// SOURCE //////
@@ -80,8 +82,11 @@ export function initMap() {
     'source': 'city-boundaries',
     'layout': {},
     'paint': {
-      'line-color': '#FF0000',
-      'line-width': 2
+      'line-color': '#ffffff',
+      'line-opacity': 0.75,
+      // 'line-gap-width': 1,
+      // 'line-dasharray': [1, 2],
+      'line-width': 0.3
     }
   });
     map.addLayer(
@@ -92,8 +97,8 @@ export function initMap() {
         "source-layer": "boundaries_admin_1",
         filter: worldviewFilter,
         paint: {
-          "fill-color": "#CCCCCC",
-          "fill-opacity": 0.5,
+          "fill-color": "#ffffff",
+          "fill-opacity": 0.15,
         },
       },
       // This final argument indicates that we want to add the Boundaries layer
@@ -109,8 +114,8 @@ export function initMap() {
         source: "counties",
         "source-layer": "original",
         paint: {
-          "fill-outline-color": "rgba(0,0,0,0.1)",
-          "fill-color": "rgba(0,0,0,0.1)",
+          "fill-outline-color": "#2E4237",
+          "fill-color": "#2E4237",
         },
       },
       // Place polygons under labels, roads and ildings.
@@ -124,9 +129,9 @@ export function initMap() {
         source: "counties",
         "source-layer": "original",
         paint: {
-          "fill-outline-color": "#484896",
-          "fill-color": "#6e599f",
-          "fill-opacity": 0.75,
+          "fill-outline-color": "#F3B440",
+          "fill-color": "#F3B440",
+          "fill-opacity": 1,
         },
         filter: ["in", "FIPS", ""],
       },
@@ -140,7 +145,7 @@ export function initMap() {
       type: "line",
       source: "city-boundaries",
       paint: {
-        "line-color": "#000",
+        "line-color": "#ffffff",
         "line-width": 1,
       },
     });
@@ -300,7 +305,7 @@ export function initNearbyMap() {
         paint: {
           "fill-outline-color": "#484896",
           "fill-color": "#6e599f",
-          "fill-opacity": 0.75,
+          "fill-opacity": 1,
         },
         filter: ["in", "FIPS", ""],
       },

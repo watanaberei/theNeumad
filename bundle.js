@@ -30,7 +30,7 @@ const placeholderText = {
 };
 
 const adTopBanner = `
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6192736694961269" crossorigin="anonymous"></script>
+  <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6192736694961269" crossorigin="anonymous"></script>-->
   <!-- ad_top-banner -->
   <ins class="adsbygoogle"
     style="display:block"
@@ -44,7 +44,7 @@ const adTopBanner = `
 `;
 
 const adFooter = `
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6192736694961269" crossorigin="anonymous"></script>
+  <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6192736694961269" crossorigin="anonymous"></script>-->
   <!-- ad-footer -->
   <ins class="adsbygoogle"
     style="display:block"

@@ -1,3 +1,375 @@
+import * as elements from './elements.js';
+
+export const metaTag = {
+    render: (metaTagData, limit) => {
+
+        let metatagDataHTML = '';
+        metaTagData.slice(0, limit).forEach((metaTagData, index) => {
+            metatagDataHTML += `
+                <div class="metatag loading">
+                    <div class="tag">
+                        <span class="text03">
+                            ${metaTagData}
+                        </span>
+                    </div>
+                </div>
+            `;
+            // if (index !== limit - 1) {
+            //     metatagDataHTML += ', ';
+            // }
+        });
+        return metatagDataHTML;
+    }
+};
+
+
+
+export const objTag = {
+    render: (objTagData) => {
+        const text = objTagData.text;
+        return `
+            <div class="objtag">
+                <div class="tag">
+                    <span class="text03">${text}</span>
+                </div>
+            </div>
+        `;
+    },
+};
+
+// export const objTagNeustar = {
+//     render: (objTagNeustarData) => {
+//         const year = objTagNeustarData.year;
+//         return `
+//             <div class="objtag-lg">
+//                 <div class="tag">
+//                     <div class="neuanchor-left"></div>
+//                     <div class="award">
+//                         <span class="text03 bold">
+//                             ${year}
+//                         </span>
+//                         <div class="neustar-award"></div>
+//                     </div>
+//                     <div class="neuanchor-right"></div>
+//                 </div>
+//             </div>
+//         `;
+//     },
+// };
+
+
+// Neustar
+export const objTagNeustar = {
+    render: (objTagNeustarData) => {
+      let metal = "";
+      const start = "start";
+      const end = "end";
+      const active = "active";
+      const inactive = "inactive";
+      const key = objTagNeustarData.key;
+      console.log("objTagNeustarData.key", key);
+      switch (key) {
+        case 1:
+          metal = "bronze";
+          return `
+                    <div class="objtag-lg">
+                      <div class="tag">
+                        <div class="neuanchor-left">
+                          ${elements.neubranchTag.render(metal, start)}
+                        </div>
+                        <div class="award">
+                          <span class="text03 bold">
+                            ${metal}
+                          </span>
+                          <div class="neustar-award">
+                            ${elements.neustarTag.render(metal, active)}
+                          </div>
+                        </div>
+                        <div class="neuanchor-right">
+                          ${elements.neubranchTag.render(metal, end)}
+                        </div>
+                      </div>
+                    </div>`;
+        case 2:
+          metal = "silver";
+          return `
+                    <div class="objtag-lg">
+                      <div class="tag">
+                        
+                          ${elements.neubranchTag.render(metal, start)}
+                        
+                        <div class="award">
+                          <span class="text03 bold">
+                            ${metal}
+                          </span>
+                          
+                            ${elements.neustarTag.render(metal, active)}
+                          
+                        </div>
+                        
+                          ${elements.neubranchTag.render(metal, end)}
+                        
+                      </div>
+                    </div>`;
+        case 3:
+          metal = "gold";
+          return `
+                    <div class="objtag-lg">
+                      <div class="tag">
+                        <div class="neuanchor-left">
+                          ${elements.neubranchTag.render(metal, start)}
+                        </div>
+                        <div class="award">
+                          <span class="text03 bold">
+                            ${metal}
+                          </span>
+                          <div class="neustar-award">
+                            ${elements.neustarTag.render(metal, active)}
+                          </div>
+                        </div>
+                        <div class="neuanchor-right">
+                          ${elements.neubranchTag.render(metal, end)}
+                        </div>
+                      </div>
+                    </div>`;
+        default:
+          metal = "bronze";
+          return `
+                `;
+      }
+    },
+  };
+
+
+
+export const attrTag = {
+    render: (attrTagData) => {
+        let result = '';
+        const limit = Number(attrTagData.limit);
+        const datas = attrTagData.data;
+        for (let i = 0; i < limit; i++) {
+            const data = datas[i];
+            if (data && data.key && data.value) {
+                result += `
+                    <div class="attrtag loading">
+                        <div class="tag">
+                            <span class="span">
+                                <span class="text03">${data.key}</span>
+                                <span class="text03">
+                                    <span class="div">(</span>
+                                    <span class="text03">${data.value}</span>
+                                    <span class="div">)</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>`;
+                // if (i !== limit - 1) {
+                //     result += '<span class="spacer"> / </span>';
+                // }
+            }
+        }
+        return result;
+    }
+};
+
+
+// const attrTag = (data) => {
+//     const key = data.key; // The full text to display
+//     const value = data.value;
+//     const attrTagHTML = `
+//         <div class="attrtag loading">
+//           <div class="tag">
+//             <div class="span">
+//               <div class="key">${key}</div>
+//               <span class="value">
+//                 <span class="div">(</span>
+//                 <span class="_111">${value}</span>
+//                 <span class="div">)</span>
+//               </span>
+//             </div>
+//           </div>
+//         </div>
+//     `;
+//     return attrTagHTML;
+// };
+
+
+
+
+// export const attrTag = {
+//     render: (attrTagData, attrTagLimit) => {
+//         let attrTagHTML = '';
+//         attrTagData.slice(0, attrTagLimit).forEach((attrTagData, index) => {
+//             const key = attrTagData.key;
+//             const value = attrTagData.value;
+//             attrTagHTML += `
+//                 <div class="attrtag loading">
+//                     <div class="tag">
+//                         <div class="span">
+//                             <div class="key">${key}</div>
+//                             <span class="value">
+//                             <span class="div">(</span>
+//                             <span class="_111">${value}</span>
+//                             <span class="div">)</span>
+//                             </span>
+//                         </div>
+//                     </div>
+//                 </div>
+//             `;
+//             if (index !== attrTagLimit - 1) {
+//                 attrTagHTML += ', ';
+//             }
+//         });
+//         return attrTagHTML;
+//     }
+// };
+
+
+// export const attrTag = {
+//     render: (data) => {
+//         const key = data.key;
+//         const value = data.value;
+//         return `
+//             <div class="attrtag loading">
+//                 <div class="tag">
+//                 <div class="span">
+//                     <div class="key">${key}</div>
+//                     <span class="value">
+//                     <span class="div">(</span>
+//                     <span class="_111">${value}</span>
+//                     <span class="div">)</span>
+//                     </span>
+//                 </div>
+//                 </div>
+//             </div>
+//         `;
+//     },
+// };
+
+export const infoTag = {
+    render: (infoTagData) => {
+        const text = infoTagData.text;
+        return `
+            <div class="infotag">
+                <div class="tag">
+                    <span class="text03">
+                        ${text}
+                    </span>
+                </div>
+            </div>
+        `;
+    },
+};
+
+export const infoTagLg = {
+    render: (infoTagLgData) => {
+        const key = infoTagLgData.key;
+        const value = infoTagLgData.value;
+        const glyph = infoTagLgData.glyph;
+        return `
+            <div class="infotag-lg">
+                <div class="tag">
+                    <span class="span">
+                        <span class="key">
+                            <span class="text03">${key}</span>
+                        </span>
+                        <span class="value">
+                            <span class="div">(</span>
+                            <span class="text03">${value}</span>
+                            <span class="div">)</span>
+                        </span>
+                    </span>
+                    <div class="glyph">
+                        <i class="${glyph}15"></i>
+                    </div>
+                </div>
+            </div>
+        `;
+    },
+};
+
+export const statTag = {
+    render: (statTagData) => {
+        const text = statTagData;
+        return `
+            <div class="stattag loading">
+                <div class="tag">
+                    <span class="text03">
+                        ${text}
+                    </span>
+                </div>
+            </div>
+        `;
+    },
+};
+
+export const statTagLg = {
+    render: (statTagLgData) => {
+        const text = statTagLgData.text;
+        const key = statTagLgData.key;
+        const value = statTagLgData.value;
+        return `
+            <div class="stattag-lg ">
+                <div class="tag">
+                <div class="text">
+                    <span class="text03">${statTagLgData.text}</span>
+                </div>
+                </div>
+                <div class="subtag">
+                    <span class="text03">
+                        ${statTagLgData.value}
+                        <span class="number-parentheses">
+                            <span class="div">(</span>
+                            <span class="text03">${statTagLgData.key}</span>
+                            <span class="div">)</span>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        `;
+    },
+};
+
+
+
+export const tagSpacer = {
+    render: (tagSpacer) => {
+        const text = tagSpacer.text;
+        return `
+            <div class="spacer loading">
+                <span class="glyph glyph-dot">
+                    ${tagSpacer.text}
+                </span>
+            </div>
+        `;
+    },
+};
+
+// export const metaTag = {
+//     render: (metaTagData) => {
+//         const text = metaTagData.text;
+//         return `
+//             <div class="metatag loading">
+//                 <div class="tag">
+//                 <span class="text03">
+//                     ${text}
+//                 </span>
+//                 </div>
+//             </div>
+//         `;
+//     },
+// };
+
+
+
+
+
+
+
+
+
+
+
 export const tagNeustar = {
   render: (neustar) => {
     return `
@@ -76,43 +448,43 @@ export const tagNeustar = {
             return `
             <div class="tag-rating">
                 <div class="label">
-                <div class="score">
-                    <div class="text03 medium">
-                        ${rating.score}
-                    </div>
-                </div>
-                <svg
-                    class="glyph-rating-star"
-                    width="14"
-                    height="13"
-                    viewBox="0 0 14 13"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <mask id="path-1-inside-1_215_36556" fill="white">
-                    <path
+                    <span class="score">
+                        <span class="text03 medium">
+                            ${rating.score}
+                        </span>
+                    </span>
+                    <svg
+                        class="glyph-rating-star"
+                        width="14"
+                        height="13"
+                        viewBox="0 0 14 13"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <mask id="path-1-inside-1_215_36556" fill="white">
+                        <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M8.92278 4.82746L6.97324 0.87793L5.02371 4.82746L0.664062 5.46468L3.81865 8.53724L3.07417 12.8779L6.97324 10.8275L10.8723 12.8779L10.1278 8.53724L13.2824 5.46468L8.92278 4.82746Z"
+                        />
+                        </mask>
+                        <path
                         fill-rule="evenodd"
                         clip-rule="evenodd"
                         d="M8.92278 4.82746L6.97324 0.87793L5.02371 4.82746L0.664062 5.46468L3.81865 8.53724L3.07417 12.8779L6.97324 10.8275L10.8723 12.8779L10.1278 8.53724L13.2824 5.46468L8.92278 4.82746Z"
-                    />
-                    </mask>
-                    <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M8.92278 4.82746L6.97324 0.87793L5.02371 4.82746L0.664062 5.46468L3.81865 8.53724L3.07417 12.8779L6.97324 10.8275L10.8723 12.8779L10.1278 8.53724L13.2824 5.46468L8.92278 4.82746Z"
-                    fill="#F3B440"
-                    />
-                    <path
-                    d="M6.97324 0.87793L8.3183 0.213991L6.97324 -2.51094L5.62818 0.213991L6.97324 0.87793ZM8.92278 4.82746L7.57772 5.4914L7.92639 6.19776L8.70584 6.31169L8.92278 4.82746ZM5.02371 4.82746L5.24065 6.31169L6.0201 6.19776L6.36877 5.4914L5.02371 4.82746ZM0.664062 5.46468L0.447121 3.98045L-2.55857 4.41978L-0.382534 6.53922L0.664062 5.46468ZM3.81865 8.53724L5.29707 8.7908L5.43044 8.01319L4.86525 7.4627L3.81865 8.53724ZM3.07417 12.8779L1.59576 12.6244L1.0819 15.6204L3.77234 14.2055L3.07417 12.8779ZM6.97324 10.8275L7.67142 9.49984L6.97324 9.13268L6.27507 9.49984L6.97324 10.8275ZM10.8723 12.8779L10.1741 14.2055L12.8646 15.6204L12.3507 12.6244L10.8723 12.8779ZM10.1278 8.53724L9.08124 7.4627L8.51605 8.01319L8.64942 8.7908L10.1278 8.53724ZM13.2824 5.46468L14.329 6.53922L16.5051 4.41978L13.4994 3.98045L13.2824 5.46468ZM5.62818 1.54187L7.57772 5.4914L10.2678 4.16352L8.3183 0.213991L5.62818 1.54187ZM6.36877 5.4914L8.3183 1.54187L5.62818 0.213991L3.67865 4.16352L6.36877 5.4914ZM0.881004 6.94891L5.24065 6.31169L4.80676 3.34323L0.447121 3.98045L0.881004 6.94891ZM4.86525 7.4627L1.71066 4.39014L-0.382534 6.53922L2.77206 9.61178L4.86525 7.4627ZM4.55258 13.1315L5.29707 8.7908L2.34024 8.28367L1.59576 12.6244L4.55258 13.1315ZM6.27507 9.49984L2.37599 11.5503L3.77234 14.2055L7.67142 12.1551L6.27507 9.49984ZM11.5705 11.5503L7.67142 9.49984L6.27507 12.1551L10.1741 14.2055L11.5705 11.5503ZM8.64942 8.7908L9.3939 13.1315L12.3507 12.6244L11.6062 8.28367L8.64942 8.7908ZM12.2358 4.39014L9.08124 7.4627L11.1744 9.61178L14.329 6.53922L12.2358 4.39014ZM8.70584 6.31169L13.0655 6.94891L13.4994 3.98045L9.13972 3.34323L8.70584 6.31169Z"
-                    fill="#F3B440"
-                    mask="url(#path-1-inside-1_215_36556)"
-                    />
-                </svg>
-                <div class="number-parentheses">
-                    <div class="div">(</div>
-                    <div class="_111">111</div>
-                    <div class="div">)</div>
-                </div>
+                        fill="#F3B440"
+                        />
+                        <path
+                        d="M6.97324 0.87793L8.3183 0.213991L6.97324 -2.51094L5.62818 0.213991L6.97324 0.87793ZM8.92278 4.82746L7.57772 5.4914L7.92639 6.19776L8.70584 6.31169L8.92278 4.82746ZM5.02371 4.82746L5.24065 6.31169L6.0201 6.19776L6.36877 5.4914L5.02371 4.82746ZM0.664062 5.46468L0.447121 3.98045L-2.55857 4.41978L-0.382534 6.53922L0.664062 5.46468ZM3.81865 8.53724L5.29707 8.7908L5.43044 8.01319L4.86525 7.4627L3.81865 8.53724ZM3.07417 12.8779L1.59576 12.6244L1.0819 15.6204L3.77234 14.2055L3.07417 12.8779ZM6.97324 10.8275L7.67142 9.49984L6.97324 9.13268L6.27507 9.49984L6.97324 10.8275ZM10.8723 12.8779L10.1741 14.2055L12.8646 15.6204L12.3507 12.6244L10.8723 12.8779ZM10.1278 8.53724L9.08124 7.4627L8.51605 8.01319L8.64942 8.7908L10.1278 8.53724ZM13.2824 5.46468L14.329 6.53922L16.5051 4.41978L13.4994 3.98045L13.2824 5.46468ZM5.62818 1.54187L7.57772 5.4914L10.2678 4.16352L8.3183 0.213991L5.62818 1.54187ZM6.36877 5.4914L8.3183 1.54187L5.62818 0.213991L3.67865 4.16352L6.36877 5.4914ZM0.881004 6.94891L5.24065 6.31169L4.80676 3.34323L0.447121 3.98045L0.881004 6.94891ZM4.86525 7.4627L1.71066 4.39014L-0.382534 6.53922L2.77206 9.61178L4.86525 7.4627ZM4.55258 13.1315L5.29707 8.7908L2.34024 8.28367L1.59576 12.6244L4.55258 13.1315ZM6.27507 9.49984L2.37599 11.5503L3.77234 14.2055L7.67142 12.1551L6.27507 9.49984ZM11.5705 11.5503L7.67142 9.49984L6.27507 12.1551L10.1741 14.2055L11.5705 11.5503ZM8.64942 8.7908L9.3939 13.1315L12.3507 12.6244L11.6062 8.28367L8.64942 8.7908ZM12.2358 4.39014L9.08124 7.4627L11.1744 9.61178L14.329 6.53922L12.2358 4.39014ZM8.70584 6.31169L13.0655 6.94891L13.4994 3.98045L9.13972 3.34323L8.70584 6.31169Z"
+                        fill="#F3B440"
+                        mask="url(#path-1-inside-1_215_36556)"
+                        />
+                    </svg>
+                    <div class="number-parentheses">
+                        <div class="div">(</div>
+                        <div class="_111">111</div>
+                        <div class="div">)</div>
+                    </div>
                 </div>
             </div>
           
@@ -189,7 +561,7 @@ export const tagNeustar = {
             result += `
             <div class="attribute-item">
                 <div class="attribute-label">
-                    <span class="text-03">${attributeTagData[i]}</span>
+                    <span class="text03">${attributeTagData[i]}</span>
                 </div>
             </div>`;
             if (i !== attributeTagData.length - 1) {
@@ -202,32 +574,32 @@ export const tagNeustar = {
 
 
 
-export const metaTag = {
-    render: (metaTagDataLabel, metaTagDataLimit) => {
-        let metatagDataHTML = '';
-        metaTagDataLabel.slice(0, metaTagDataLimit).forEach((metaTagDataLabel, index) => {
-            metatagDataHTML += `
-            <div class="metatag">
-                <div class="label">
-                    <div class="text-03">${metaTagDataLabel.key}</div>
-                    <span class="number-parentheses">
-                        <span class="text-03">(</span>
-                        <span class="text-03">
-                            ${metaTagDataLabel.value}
-                        </span>
-                        <span class="text-03">
-                            )
-                        </span>
-                    </span>
-                </div>
-            </div>`;
-            if (index !== metaTagDataLimit - 1) {
-                metatagDataHTML += ', ';
-            }
-        });
-        return metatagDataHTML;
-    }
-};
+// export const metaTag = {
+//     render: (metaTagDataLabel, metaTagDataLimit) => {
+//         let metatagDataHTML = '';
+//         metaTagDataLabel.slice(0, metaTagDataLimit).forEach((metaTagDataLabel, index) => {
+//             metatagDataHTML += `
+//             <div class="metatag">
+//                 <div class="label">
+//                     <div class="text-03">${metaTagDataLabel.key}</div>
+//                     <span class="number-parentheses">
+//                         <span class="text-03">(</span>
+//                         <span class="text-03">
+//                             ${metaTagDataLabel.value}
+//                         </span>
+//                         <span class="text-03">
+//                             )
+//                         </span>
+//                     </span>
+//                 </div>
+//             </div>`;
+//             if (index !== metaTagDataLimit - 1) {
+//                 metatagDataHTML += ', ';
+//             }
+//         });
+//         return metatagDataHTML;
+//     }
+// };
 
 
 

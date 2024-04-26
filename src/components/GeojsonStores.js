@@ -1,5 +1,5 @@
 //src/components/GeojsonStores.js
-import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../../middleware/api.js";
+import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../api.js";
 import DataBlog from "./DataPost";
 import * as Geolocate from "../components/Geolocate";
 import * as GeolocationRange from "../components/GeolocationRange"
@@ -56,11 +56,13 @@ export async function geojsonStore() {
         series: {seriesName},
         hours, 
         neustar,
+  
         // ratings,
         nearbyStore,
         // nearbyStoresCollection : nearbyStores,
         // nearbyStoresCollection: { nearbyHeadline: nearbyHeadline, hours: nearbyHours... },
         variant,
+        ratings,
         media: { 
           thumbnail,
           logo,
@@ -114,6 +116,7 @@ export async function geojsonStore() {
           environment,
           categoryType,
           storeRange,
+          ratings,
           genre,
           thumbnail,
           logo,

@@ -4,7 +4,7 @@ import {
   getReviewNeumadsTrail,
   getStoresNeumadsReview,
   getReviewPost,
-} from "../../middleware/api.js";
+} from "../api.js";
 import { weatherData, fetchCityWeatherData } from "./weatherReport.js";
 import LocationInput from "../components/locationInput.js";
 import fetchDateTime from "../components/timeApi.js";

@@ -1,5 +1,5 @@
 // src/index.js
-import { getArticleNeumadsTrail } from "../middleware/api.js";
+import { getArticleNeumadsTrail } from "./api.js";
 import "./components/Style.js";   
 import * as Components from './components/Components.js';
 import HeaderSecondary from "./components/HeaderSecondary";
@@ -18,8 +18,8 @@ import HomeScreen from "./screens/HomeScreen.js";
 import WorkScreen from "./screens/WorkScreen.js";
 import UnwindScreen from "./screens/UnwindScreen.js";
 import DineScreen from "./screens/DineScreen.js";
-// import SignupScreen from "./screens/SignupScreen.js";
-// import LoginScreen from "./screens/LoginScreen.js";
+import SignupScreen from "./screens/SignupScreen.js";
+import LoginScreen from "./screens/LoginScreen.js";
 import BlogScreen from "./screens/BlogScreen.js";
 import ArticleScreen from "./screens/ArticleScreen.js";
 import StoreScreen from "./screens/StoreScreen.js";
@@ -32,6 +32,8 @@ import ReviewScreen from "./screens/ReviewScreen.js";
 import Error404Page from "./screens/Error404Page.js";
 import { parseRequestUrl, showLoading, hideLoading } from "./utils.js";
 import { createAuth0Client } from '@auth0/auth0-spa-js';
+// import "./mongodb.js";
+// import "./setupProxy.js";
 
 /// Enable CORS
 const routes = {
@@ -39,8 +41,8 @@ const routes = {
   "/work": WorkScreen,
   "/unwind": UnwindScreen,
   "/dine": DineScreen,
-  // "/signup": SignupScreen,
-  // "/login": LoginScreen,
+  "/signup": SignupScreen,
+  "/login": LoginScreen,
   "/shorts": ShortsScreen,
   "/blogs/:slug": BlogScreen,
   "/stores/:slug": StoreScreen,
@@ -89,11 +91,11 @@ const router = async () => {
     header.innerHTML = await HeaderHome.render();
     await HeaderHome.after_render();
   // } else if (parseUrl === "/signup") {
-  //   header.innerHTML = await HeaderHome.render();
-  //   await HeaderHome.after_render();
+  //   header.innerHTML = await HeaderSecondary.render();
+  //   await HeaderSecondary.after_render();
   // } else if (parseUrl === "/login") {
-  //   header.innerHTML = await HeaderHome.render();
-  //   await HeaderHome.after_render();
+  //   header.innerHTML = await HeaderSecondary.render();
+  //   await HeaderSecondary.after_render();
   } else if (parseUrl === "/map") {
     header.innerHTML = await HeaderHome.render();
     await HeaderHome.after_render();
@@ -135,22 +137,6 @@ try {
 
 };
 // The load event listener has been removed
-if (module.hot) {
-  module.hot.accept('./screens/AboutScreen.js', function() {
-    console.log('AboutScreen.js or its dependencies were updated, reinitializing the app or specific components.');
-    // Implement any necessary re-initialization logic here
-  });
-
-  module.hot.accept('./components/modal.js', function() {
-    console.log('modal.js was updated, reinitializing modals.');
-    // Assuming modals.init() is a method to initialize your modals
-    // You might need to reimport modals here if necessary and then call modals.init()
-  });
-}
-
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
   router();
   window.addEventListener('popstate', router);
@@ -170,8 +156,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // The load event listener has been removed
 document.addEventListener('DOMContentLoaded', router);
-
-
-
-
-

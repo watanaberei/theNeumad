@@ -10,6 +10,7 @@
 	--paddingWidth: var(--colWidth);
 	--g: 1.14vw;
 	--d: 0.47vw;
+	
 
 	--cluster1All: 'col1 col2 col3';
 	--cluster2All: 'col4 col5 col6';
@@ -98,6 +99,118 @@ body {
   }
   /* ROW */
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* MAIN */
+main.home.grid .content.grid-platinum {
+	padding-right: var(--g03);
+	padding-left: var(--g03);
+  }
+  
+  main {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+  }
+  
+  main.home {
+	height: 100vh;
+	width: 100vw;
+	padding-bottom: var(--g03);
+	overflow: hidden;
+  }
+  
+  
+  
+  
+  /* GRID */
+  main.home.grid {
+	display: grid;  
+  }
+  
+  .grid {
+	display: grid;
+  }
+  
+  .home.grid .grid-platinum {
+	display: grid;
+	grid-column: 1 / -1;
+	grid-template-columns: 
+		[c0-start c1-start] 
+		var(--grid-row) [c1-end c2-start] 
+		var(--grid-row) [c2-end c3-start] 
+		var(--grid-row) [c3-end c0-end] 
+	;
+	gap: var(--g03);
+	width: 100vw;
+	height: inherit;
+  /*   background-color: red; */
+  }
+  
+  .grid-platinum container {
+	
+  }
+  
+  
+  
+  /* PRIMARY */
+  .grid-platinum container.primary {
+	display: grid;
+	grid-column: c0-start / c2-end;  
+  /*   background-color: #00FFFF30; */
+	height: 100%;
+	overflow-y: scroll;
+	
+  }
+
+  
+  /* SECONDARY */
+  .grid-platinum container.secondary {
+	display: grid;
+	grid-column: c3-start / c0-end;
+	gap: var(--g03);
+	background-color: #FFD60030;
+	height: inherit;
+  /*   padding-bottom: calc(var(--p03) * 6vh); */
+  }
+  .grid-platinum container.secondary .content {
+	top: 0;
+	width: 100%;
+	height: 100%;
+  /*   padding-bottom: var(--g03); */
+  }
+  
+  .grid-platinum container.secondary .content .container {
+	display: grid;
+	background-color: blue;
+	width: 100%;
+	height: inherit;
+  /*   padding-bottom: var(--g03);   */
+	overflow: hidden;
+  }
+  
+  .grid-platinum container.secondary .content .container .item {
+	display: grid;
+	width: 100%;
+	height: 100%;
+  /*   padding-bottom: var(--g03); */
+  }
+  
+
+  
+
 
 
 
@@ -346,18 +459,20 @@ body {
   .grid > .s, .grid > div .s, .grid .s > div, .grid > a .s, .grid .s > a {
 	display: grid;
 	margin: 0; 
-	margin-right:var(--g);
+	/* margin-right:var(--g); */
 	overflow: hidden;
 	/* grid-gap: 0; */
-	grid-column: secondary-start / secondary-end;
-	grid-template-columns: 
+	/* grid-column: secondary-start / secondary-end; */
+	grid-column: 1 / -1;
+	justify-content: stretch;
+	/* grid-template-columns: 
 	  [p3-start] var(--colWidth) [p3-end] 
 	  var(--d) 
 	  [c7-start] var(--colWidth) var(--g) var(--colWidth) var(--g) var(--colWidth) [c7-end] 
 	  var(--d) 
 	  [c8-start] var(--colWidth) var(--g) var(--colWidth) var(--g) var(--colWidth) [c8-end] 
 	  var(--d) 
-	  [p4-start] var(--colWidth) [p4-end];
+	  [p4-start] var(--colWidth) [p4-end]; */
   } 
   /* .grid > .s > .full {grid-column: secondary-start / secondary-end; background-color: var(--testF);} */
   
@@ -527,6 +642,20 @@ body {
   
   
   
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   
   

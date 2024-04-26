@@ -1,5 +1,5 @@
-// src/screens/DineScreen.js
-// import mapboxgl from "mapbox-gl";
+// src/screens/Signup.js
+import mapboxgl from "mapbox-gl";
 import { initMap } from "../components/MapApi.js";
 import { geojsonStore } from "../components/GeojsonStores.js";
 import { createMapMarker } from "../components/MapMarker.js";
@@ -14,9 +14,9 @@ import storeSelectedLocation from "../components/Header.js";
 import mapRoute from "../components/mapRoute.js";
 import polyline from '@mapbox/polyline';
 import HeaderHome from "../components/HeaderHome";
+import { createAuth0Client } from '@auth0/auth0-spa-js';
 
 
-//////////////////////////////// ./src/screens/SignupScreen.js
 const SignupScreen = {
   render: async () => {
     return `
@@ -27,30 +27,83 @@ const SignupScreen = {
           <div class="signup-container">
             <!------ HERO ------> 
             <section class="signup-hero">
+            
                 <!---- HEADLINE ----> 
                 <div class="signup-headline">
-                    <!------ STORE HEADER ------>
+
+                    <!------ SIGNUP HEADER ------>
                     <div class="signup-header">
+
                         <!------ HEADLINE ------>
                         <div class="signup-headline">
-                            <span class="header06">
-                              Sign Up
-                            </span>
+
+                        
+                          <!--<form action="/signup" id="signup-form" method="post">-->
+
+                            <fieldset class="step-hide">
+                              <div class="title">
+                                <span class="header06">
+                                  Welcome Neumad
+                                </span>
+                              </div>
+                              <div class="form-container">
+                                <span class="text02 medium">
+                                  Login or sign up
+                                </span>
+                                <form action="/signup" id="signup-form" method="post">
+                                  <input email type="email" id="email" name="email" placeholder="Email" required>
+                                  <input password type="password" id="password" name="password" placeholder="Password" required>
+                                  <input submit type="submit">
+                                </form>
+
+                                <a href="/signup" class="text02 medium">Make a new account
+                                <!--<button type="submit">Login</button>-->
+                              </div>
+                            </fieldset>
+
+                            
+                            <!--
+                            <fieldset class="step-hide">
+                              <div class="title">
+                                <span class="header06">
+                                  Finish singing up
+                                </span>
+                              </div>
+                              <div class="container form">
+                                <span class="text02 medium>
+                                  Name
+                                </span>
+                                <input type="text" id="firstName" placeholder="First Name" required />
+                                <input type="text" id="lastName" placeholder="Last Name" required /> 
+                              </div>
+                              <div class="container form">
+                                <span class="text02 medium>
+                                  Birthdate
+                                </span>
+                                <input type="date" name="birthdate" id="birthdate" required />
+                              </div>
+                              <div class="container form">
+                                <span class="text02 medium>
+                                  Confirm email
+                                </span>
+                                <input type="email" id="email" placeholder="Confirm Email" required />
+                              </div>
+                             </fieldset>
+                            -->
+                          <!--</form>-->
+
                         </div>
-                        <form id="signup-form">
-                            <input type="email" id="email" required />
-                            <input type="password" id="password" required />
-                            <button type="submit">Signup</button>
-                        </form>
                         <!------ HEADLINE ------>
+
                     </div>
-                    <!------ STORE HEADER ------>
+                    <!------ SIGNUP HEADER ------>
 
                 </div>
                 <!---- HEADLINE ---->
 
             </section>
             <!------ HERO ------>
+
           </div>
       </div>
       <!------ SIGNUP CONTENT ------> 
@@ -59,9 +112,31 @@ const SignupScreen = {
     <!------ SIGNUP SCREEN ------> 
     `;
   },
-  after_render: async () => {
 
-    // setCurrentLocation(map, features);
-  },
+  after_render: async () => {
+    const signupForm = document.getElementById('signup-form');
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const response = await fetch('http://localhost:4000/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: email, password: password })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        // Handle successful signup (e.g., show a success message, redirect to login page, etc.)
+      } else {
+        // Handle error (e.g., show an error message)
+        console.error(data);
+      }
+    });
+  }
 };
 export default SignupScreen;

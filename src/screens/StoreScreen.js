@@ -6,7 +6,7 @@ import {
   getArticleNeumadsTrail,
   getArticlePost,
   getStore,
-} from "../../middleware/api.js";
+} from "../api.js";
 import DataBlog from "../components/DataPost";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import { format, parseISO } from "date-fns";

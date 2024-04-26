@@ -31,7 +31,7 @@
 
 
 
-  
+
 
 
 
@@ -53,7 +53,7 @@
   background: var(--stroke-grey, #ebebeb);
   border-radius: 6px;
   border-style: solid;
-  border-color: var(--ink-white-03, #d3d8dc);
+  border-color: var(--inkw04, #d3d8dc);
   border-width: 1px;
   padding: 1.5px 4.5px 1.5px 4.5px;
   display: flex;

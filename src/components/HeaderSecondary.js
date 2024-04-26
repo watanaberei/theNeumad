@@ -1,6 +1,6 @@
 // Header.js
 
-import { getBlogs } from "../../middleware/api";
+import { getBlogs } from "../api";
 
 const HeaderSecondary = {
   

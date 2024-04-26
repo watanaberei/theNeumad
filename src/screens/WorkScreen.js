@@ -1,5 +1,5 @@
 // src/Screen/WorkScreen.js
-import { getWorkBlog, getWorkFeaturedBlog } from "../../middleware/api.js";
+import { getWorkBlog, getWorkFeaturedBlog } from "../api.js";
 
 import WorkBlog from "../components/WorkBlog.js";
 import WorkFeaturedBlog from "../components/WorkFeaturedBlog.js";

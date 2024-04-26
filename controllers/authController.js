@@ -1,4 +1,19 @@
 // controllers/authController.js
+
+const collection = require("../src/mongodb");
+
+
+// controllers/authController.js
+module.exports.logout_get = (req, res) => {
+    console.log("logout get");
+    res.render('HomeScreen');
+  };
+  
+module.exports.admin_get = (req, res) => {
+    console.log("admin get");
+    res.render('HomeScreen');
+};
+
 module.exports.signup_get = (req, res) => {
     console.log("signup get");
     res.render('SignupScreen');
@@ -9,15 +24,28 @@ module.exports.login_get = (req, res) => {
     res.render('LoginScreen');
 };
 
-module.exports.login_post = (req, res) => {
+
+module.exports.signup_post = async (req, res) => {
+    console.log("signup post");
+    const { email, password } = req.body;
+    const user = { email, password };
+    await collection.insertOne(user);
+    res.send('new signup');
+};
+
+module.exports.login_post = async (req, res) => {
     console.log("login post");
-    console.log(req.body);
-    res.send('LoginScreen');
+    const { email, password } = req.body;
+    const user = await collection.findOne({ email, password });
+    if (user) {
+        console.log("User found");
+        res.send('user login');
+    } else {
+        console.log("User not found");
+        res.status(400).send('Invalid credentials');
+    }
 };
 
-module.exports.signup_post = (req, res) => {
-    res.send('SignupScreen');
-};
 
 
 
@@ -39,6 +67,26 @@ module.exports.signup_post = (req, res) => {
 
 
 
+// module.exports.signup_get = (req, res) => {
+//     console.log("signup get");
+//     res.render('signup');
+// };
+
+// module.exports.login_get = (req, res) => {
+//     console.log("login get");
+//     res.render('login');
+// };
+
+// module.exports.signup_post = (req, res) => {
+//     console.log("signup post");
+//     res.send('new signup');
+// };
+
+// module.exports.login_post = (req, res) => {
+//     console.log("login post");
+//     console.log(req.body);
+//     res.send('user login');
+// };
 
 
 
@@ -46,6 +94,38 @@ module.exports.signup_post = (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+// // import '../src/screens/LoginScreen';
+// module.exports.signup_get = (req, res) => {
+//     console.log("signup get");
+//     res.render('../src/screens/SignupScreen');
+// };
+
+// module.exports.login_get = (req, res) => {
+//     console.log("login get");
+//     res.render('../src/screens/LoginScreen');
+// };
+
+// module.exports.login_post = (req, res) => {
+//     console.log("login post");
+//     console.log(req.body);
+//     res.send('../src/screens/LoginScreen');
+// };
+
+// module.exports.signup_post = (req, res) => {
+//     res.send('../src/screens/SignupScreen');
+// };
 
 
 

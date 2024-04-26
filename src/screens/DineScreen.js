@@ -18,6 +18,85 @@ import polyline from "@mapbox/polyline";
 const DineScreen = {
   render: async () => {
     return `
+    
+      <container class="primary">
+        <div class="content">
+          <div class="title">
+            <span class="text03">
+              primary
+            </span>
+          </div>
+          <div class="container">
+            <div id="postStores" class="postStores list"> 
+            </div>
+            
+        
+
+
+       
+            <div class="list" id="listing-blog">
+              <div class="heading">
+                <span class="header01">Blog</span>
+              </div>
+              <div id="postBlog" class="postBlog card-blog">
+              </div>
+            </div>
+
+            <div class="list" id="listing-article">
+              <div class="heading">
+                <span class="header01">Article</span>
+              </div>
+              <div id="postArticle" class="postArticle card-article">
+              </div>
+            </div>
+
+            <div class="list" id="listing-review">
+              <div class="heading">
+                <span class="header01">Reviewed</span>
+              </div>
+              <div id="postReview" class="postReview card-review">
+              </div>
+            </div>
+
+            <div class="list" id="listing-store">
+              <div class="heading">
+                <span class="header01">Nearby Stores</span>
+              </div>
+              <div id="postListing" class="postListing card-listing">
+              </div>
+            </div>
+     
+
+
+          </div>
+
+        </div>
+
+      </container>
+
+      <container class="secondary">
+        <div class="content">
+          <div class="title">
+            <span class="text03">
+              secondary
+            </span>
+          </div>
+          <div class="container">
+            <div class="item">
+              <div class="s map map-discover" id="map map-discover">
+                <div id="map-container" class="fullBleed"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </container>
+
+
+
+
+
+
+<!--
     <div class="main">
       <div class="map-container map-discover-container  grid platinum postContainer">
         <div class="m sidebar">
@@ -27,7 +106,7 @@ const DineScreen = {
               <div class="heading">
                 <span class="header01">21 Stores</span>
               </div>
-              <div id="postStore" class="postStore card-store">
+              <div id="postStores" class="postStores card-store">
               </div>
             </div>
 
@@ -70,6 +149,8 @@ const DineScreen = {
         </div>
       </div>
     </div>
+    -->
+
     `;
   },
   after_render: async () => {
@@ -363,7 +444,7 @@ function renderFeatures(features, map) {
   // References to DOM elements
   const elements = {
     postListing: document.getElementById("postListing"),
-    postStore: document.getElementById("postStore"),
+    postStores: document.getElementById("postStores"),
     postReview: document.getElementById("postReview"),
     postArticle: document.getElementById("postArticle"),
     postBlog: document.getElementById("postBlog"),
@@ -382,7 +463,7 @@ function renderFeatures(features, map) {
     switch (feature.properties.variant) {
       case "stores":
         element = createGeojsonStoreListing(feature);
-        elements.postStore.appendChild(element);
+        elements.postStores.appendChild(element);
         break;
       case "reviews":
         element = createGeojsonReviewListing(feature);
@@ -623,7 +704,7 @@ export default DineScreen;
 //   // References to DOM elements
 //   const elements = {
 //     postListing: document.getElementById("postListing"),
-//     postStore: document.getElementById("postStore"),
+//     postStores: document.getElementById("postStores"),
 //     postReview: document.getElementById("postReview"),
 //     postArticle: document.getElementById("postArticle"),
 //     postBlog: document.getElementById("postBlog")
@@ -641,7 +722,7 @@ export default DineScreen;
 //     switch (feature.properties.type) {
 //       case 'store':
 //         element = createGeojsonStoreListing(feature);
-//         elements.postStore.appendChild(element);
+//         elements.postStores.appendChild(element);
 //         break;
 //       case 'review':
 //         element = createGeojsonReviewListing(feature);
@@ -795,7 +876,7 @@ export default DineScreen;
 // // function renderFeatures(features, map) {
 // //   const elements = {
 // //     postListing: document.getElementById("postListing"),
-// //     postStore: document.getElementById("postStore"),
+// //     postStores: document.getElementById("postStores"),
 // //     postReview: document.getElementById("postReview"),
 // //     postArticle: document.getElementById("postArticle"),
 // //     postBlog: document.getElementById("postBlog")
@@ -809,7 +890,7 @@ export default DineScreen;
 // //   features.forEach((store) => {
 // //     const listings = {
 // //       postListing: createGeojsonListing(store),
-// //       postStore: createGeojsonStoreListing(store),
+// //       postStores: createGeojsonStoreListing(store),
 // //       postReview: createGeojsonReviewListing(store),
 // //       postArticle: createGeojsonArticleListing(store),
 // //       postBlog: createGeojsonBlogListing(store)

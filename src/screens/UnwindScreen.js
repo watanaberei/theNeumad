@@ -1,5 +1,5 @@
 // UnwindScreen.js
-import { getUnwindBlog, getUnwindFeaturedBlog } from "../../middleware/api.js";
+import { getUnwindBlog, getUnwindFeaturedBlog } from "../api.js";
 
 import UnwindBlog from "../components/UnwindBlog.js";
 import UnwindFeaturedBlog from "../components/UnwindFeaturedBlog.js";

@@ -36,6 +36,27 @@ export const neubranch = {
   },
 };
 
+
+export const neustarTag = {
+  render: (rank, state) => {
+    return `
+       
+            <i class="icon neustar-${rank}15"></i> 
+           
+            `;
+  },
+};
+
+export const neubranchTag = {
+  render: (rank, order) => {
+    return `
+           
+            <i class="icon neubranch-${rank}15-${order}"></i>
+           
+            `;
+  },
+};
+
 export const title = {
   render: (text) => {
     return `
@@ -207,6 +228,89 @@ export const neustarAward = {
     }
   },
 };
+
+
+// Neustar
+export const neustar = {
+  render: (neustar) => {
+    let metal = "";
+    const start = "start";
+    const end = "end";
+    const active = "active";
+    const inactive = "inactive";
+    console.log("neustar", neustar);
+    switch (neustar) {
+      case 1:
+        metal = "bronze";
+        return `
+                  <div class="objtag-lg">
+                    <div class="tag">
+                      <div class="neuanchor-left">
+                        ${neubranch.render(metal, start)}
+                      </div>
+                      <div class="award">
+                        <span class="text03 bold">
+                          ${metal}
+                        </span>
+                        <div class="neustar-award">
+                          ${neustars.render(metal, active)}
+                        </div>
+                      </div>
+                      <div class="neuanchor-right">
+                        ${neubranch.render(metal, end)}
+                      </div>
+                    </div>
+                  </div>`;
+      case 2:
+        metal = "silver";
+        return `
+                  <div class="objtag-lg">
+                    <div class="tag">
+                      <div class="neuanchor-left">
+                        ${neubranch.render(metal, start)}
+                      </div>
+                      <div class="award">
+                        <span class="text03 bold">
+                          ${metal}
+                        </span>
+                        <div class="neustar-award">
+                          ${neustars.render(metal, active)}
+                        </div>
+                      </div>
+                      <div class="neuanchor-right">
+                        ${neubranch.render(metal, end)}
+                      </div>
+                    </div>
+                  </div>`;
+      case 3:
+        metal = "gold";
+        return `
+                  <div class="objtag-lg">
+                    <div class="tag">
+                      <div class="neuanchor-left">
+                        ${neubranch.render(metal, start)}
+                      </div>
+                      <div class="award">
+                        <span class="text03 bold">
+                          ${metal}
+                        </span>
+                        <div class="neustar-award">
+                          ${neustars.render(metal, active)}
+                        </div>
+                      </div>
+                      <div class="neuanchor-right">
+                        ${neubranch.render(metal, end)}
+                      </div>
+                    </div>
+                  </div>`;
+      default:
+        metal = "bronze";
+        return `
+              `;
+    }
+  },
+};
+
 
 export const headlineEyebrow = {
   render: () => {

@@ -104,6 +104,64 @@
 }
 
 
+.neustar-gold15 {
+  background: url('./../assets/_brand/neustar/neustar-gold-metal15.svg') no-repeat;
+  height: 15px;
+  width: 15px;
+  display: block;
+}
+.neustar-silver15 {
+  background: url('./../assets/_brand/neustar/neustar-silver-metal15.svg') no-repeat;
+  height: 15px;
+  width: 15px;
+  display: block;
+}
+.neustar-bronze15 {
+  background: url('./../assets/_brand/neustar/neustar-bronze-metal15.svg') no-repeat;
+  height: 15px;
+  width: 15px;
+  display: block;
+}
+.neubranch-gold15-start {
+  background: url('./../assets/_brand/neustar/neubranch-gold15-start.svg') no-repeat;
+  height: 15px;
+  width: 9px;
+  display: block;
+}
+.neubranch-gold15-end {
+  background: url('./../assets/_brand/neustar/neubranch-gold15-end.svg') no-repeat;
+  height: 15px;
+  width: 9px;
+  display: block;
+}
+.neubranch-silver15-start {
+  background: url('./../assets/_brand/neustar/neubranch-silver15-start.svg') no-repeat;
+  height: 15px;
+  width: 9px;
+  display: block;
+}
+.neubranch-silver15-end {
+  background: url('./../assets/_brand/neustar/neubranch-silver15-end.svg') no-repeat;
+  height: 15px;
+  width: 9px;
+  display: block;
+}
+.neubranch-bronze15-start {
+  background: url('./../assets/_brand/neustar/neubranch-bronze15-start.svg') no-repeat;
+  height: 15px;
+  width: 9px;
+  display: block;
+}
+.neubranch-bronze15-end {
+  background: url('./../assets/_brand/neustar/neubranch-bronze15-end.svg') no-repeat;
+  height: 15px;
+  width: 9px;
+  display: block;
+}
+
+
+
+
 
 .icon-search {
   background: url('./../assets/icon/icon_search.svg') no-repeat;

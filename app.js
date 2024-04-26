@@ -1,46 +1,25 @@
-auth0.createAuth0Client({
-  domain: "dev-6rixmw8fmaozoez8.us.auth0.com",
-  clientId: "Fj6mB1Rq0gZl7ZrQGwa4nEoQKjwsVRnq",
-  authorizationParams: {
-    redirect_uri: window.location.origin
-  }
-}).then(async (auth0Client) => {
-  // Assumes a button with id "login" in the DOM
-  const loginButton = document.getElementById("login");
+// const express = require('express');
+// const mongoose = require('mongoose');
 
-  loginButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    auth0Client.loginWithRedirect();
-  });
+// const app = express();
 
-  if (location.search.includes("state=") && 
-      (location.search.includes("code=") || 
-      location.search.includes("error="))) {
-    await auth0Client.handleRedirectCallback();
-    window.history.replaceState({}, document.title, "/");
-  }
+// //middleware
+// app.use(express.static('./src/screens'));
 
-  // Assumes a button with id "logout" in the DOM
-  const logoutButton = document.getElementById("logout");
+// //view engine
+// app.set('view engine', 'ejs');
 
-  logoutButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    auth0Client.logout();
-  });
+// // database connection
+// const dbURI = 'mongodb+src://user:sshkey@cluster0.del96.mongodb.net/node-auth';  
+// mongoose.connect(dbURI)
+//     .then((result) => app.listen(3000))
+//     .catch((err) => console.log(err)); 
 
-  const isAuthenticated = await auth0Client.isAuthenticated();
-  const userProfile = await auth0Client.getUser();
+// //routes
+// app.get('/', (req, res) => {
+//     res.render('index');
+// });
 
-  // Assumes an element with id "profile" in the DOM
-  const profileElement = document.getElementById("profile");
-
-  if (isAuthenticated) {
-    profileElement.style.display = "block";
-    profileElement.innerHTML = `
-            <p>${userProfile.name}</p>
-            <img src="${userProfile.picture}" />
-          `;
-  } else {
-    profileElement.style.display = "none";
-  }
-});
+// app.get('/signup', (req, res) => {
+//     res.render('signup');
+// });

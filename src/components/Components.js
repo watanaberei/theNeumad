@@ -9,7 +9,7 @@ import { Style2DPrimary, StyleSatellitePrimary } from "./MapStyles";
 import * as turf from "@turf/turf";
 import GeopostReviews from "./GeopostReviews";
 // CONTENTFUL
-import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../../middleware/api.js";
+import { getStoresNeumadsReview, getArticleNeumadsTrail, getArticlePost, getStore } from "../api.js";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 // YELP

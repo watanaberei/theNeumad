@@ -1,3 +1,9 @@
+.loading {
+    background-color: red;
+}
+
+
+
 .blog-img-loader {
     height: 9rem;
     background-color: var(--green02);

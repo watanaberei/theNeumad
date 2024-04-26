@@ -53,6 +53,9 @@ export function createGeojsonStoreListing(store, map, userCoordinates) {
     storeAttributes,
     publishedAt,
   } = store.properties;
+  console.log("store", store);
+  console.log("storeRange", storeRange);
+  console.log("store.properties", store.properties);
 
   const popularTime = popularTimes || [];
   // console.log(popularTime);
@@ -65,6 +68,7 @@ export function createGeojsonStoreListing(store, map, userCoordinates) {
       ? originalGallery
       : [];
   const galleryHTML = generateGalleryHTML(galleryData);
+  const gallery = galleryData;
   const galleryUrl = galleryData.url;
   const galleryLimit = 3;
   const currentHour = new Date().getHours();
@@ -198,7 +202,7 @@ export function createGeojsonStoreListing(store, map, userCoordinates) {
     mapRoute(userCoordinates, store.geometry.coordinates);
   };
   const carousel = document.createElement("a");
-  carousel.className = "card-postCarousel-item";
+  carousel.className = "card-store";
   carousel.href = "/" + variant + "/" + slug;
   carousel.rel = "noopener noreferrer nofollow";
   carousel.target = categoryType + "-${store.sys.id}";
@@ -206,7 +210,7 @@ export function createGeojsonStoreListing(store, map, userCoordinates) {
     mapRoute(userCoordinates, store.geometry.coordinates);
   };
   const cardContainer = document.createElement("div");
-  cardContainer.className = "card-store";
+  cardContainer.className = "card-container";
 
   const neustarHTML = `${store.properties.neustar} ${generateNeustarIcons(
     store.properties.neustar
@@ -324,9 +328,11 @@ export function createGeojsonStoreListing(store, map, userCoordinates) {
       thumbnail: thumbnail,
       logo: logo,
       title: title,
+      gallery: gallery,
       galleryHTML: galleryHTML,
       galleryURL: galleryUrl,
       galleryLimit: galleryLimit,
+      tagLimit: tagLimit,
       headline: headline,
       publishedAt: publishedAt,
       storeType: storeType,
@@ -354,16 +360,39 @@ export function createGeojsonStoreListing(store, map, userCoordinates) {
       metaTagLabel: metaTagLabel,
       metaTagLimit: metaTagLimit,
       storeRange: storeRanges,
+      storeAttributes: storeAttributes,
       tagAttributes: tagAttributes,
       tagLimit: tagLimit,
       addressMin: storeAddressMin,
     };
     console.log("storeStatus", storeStatus);
 
-    const storeContent = createStoreCard.render(storeContentData);
-    const storeCarouselItem = generateCarouselItem(storeContent);
-    cardContainer.appendChild(storeCarouselItem);
-    carousel.appendChild(cardContainer);
+
+    createStoreCard.render(storeContentData)
+    .then(storeContent => {
+      const storeCarouselItem = generateCarouselItem(storeContent);
+      cardContainer.appendChild(storeCarouselItem);
+      carousel.appendChild(cardContainer);
+
+      // Add 'loading' class to the elements
+      storeCarouselItem.classList.add('loading');
+      cardContainer.classList.add('loading');
+      carousel.classList.add('loading');
+
+      // Remove 'loading' class after a specified time (e.g., 5000ms)
+      setTimeout(() => {
+        storeCarouselItem.classList.remove('loading');
+        cardContainer.classList.remove('loading');
+        carousel.classList.remove('loading');
+      }, 5000);
+    })
+    .catch(error => {
+      console.error('An error occurred:', error);
+    });
+    // const storeContent = createStoreCard.render(storeContentData);
+    // const storeCarouselItem = generateCarouselItem(storeContent);
+    // cardContainer.appendChild(storeCarouselItem);
+    // carousel.appendChild(cardContainer);
   }
 
   return carousel;
@@ -383,7 +412,7 @@ function getStoreStatus(currentValue) {
 
 function generateCarouselItem(content) {
   const carouselItem = document.createElement("div");
-  carouselItem.className = "card-postCarousel-item listingAStore";
+  carouselItem.className = "card card-store item";
   carouselItem.innerHTML = content;
   return carouselItem;
 }
