@@ -19,6 +19,8 @@ import { createAuth0Client } from '@auth0/auth0-spa-js';
 
 const SignupScreen = {
   render: async () => {
+    // Retrieve the entered email from localStorage
+  const email = localStorage.getItem('email') || '';
     return `
     <!------ SIGNUP SCREEN ------> 
     <div class="main">
@@ -50,10 +52,10 @@ const SignupScreen = {
                                 <span class="text02 medium">
                                   Login or sign up
                                 </span>
-                                <form action="http://localhost:5000/signup" id="signup-form" method="post">
-                                  <input type="email" id="email" name="email" placeholder="Email" required>
-                                  <input type="password" id="password" name="password" placeholder="Password" required>
-                                  <input type="submit" value="Submit">
+                                <form id="signup-form">
+                                  <input type="email" id="email" placeholder="Email" value="${email}" required />
+                                  <input type="password" id="password" placeholder="Password" required />
+                                  <button type="submit">Signup</button>
                                 </form>
 
                                 <a href="/signup" class="text02 medium">Make a new account

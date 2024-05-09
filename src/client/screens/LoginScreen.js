@@ -21,6 +21,8 @@ import { createAuth0Client } from '@auth0/auth0-spa-js';
 //////////////////////////////// ./src/screens/LoginScreen.js
 const LoginScreen = {
   render: async () => {
+  // Retrieve the entered email from localStorage
+  const email = localStorage.getItem('email') || '';
     return `
     <!------ LOGIN SCREEN ------> 
     <div class="main">
@@ -44,7 +46,7 @@ const LoginScreen = {
                         </div>
                         
                         <form id="login-form">
-                          <input type="email" id="email" placeholder="Email" required />
+                          <input type="email" id="email" placeholder="Email" value="${email}" required />
                           <input type="password" id="password" placeholder="Password" required />
                           <button type="submit">Login</button>
                         </form>

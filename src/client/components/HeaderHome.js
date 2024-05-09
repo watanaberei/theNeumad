@@ -2,6 +2,8 @@
 import mapboxgl from "mapbox-gl";
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import DineScreen from '../screens/DineScreen.js';
+import { modalAccount } from '../components/modal.js';
+
 let lastSelectedResult = null;
 // Initialize the geocoder only once
 var geocoder = new MapboxGeocoder({
@@ -100,23 +102,16 @@ const HeaderHome = {
               </div>
               <div class="nav-main-right right">
                 <div class="nav-main-right-container">
-                  ${isAuthenticated ? `
-                    <a href="/user">
-                      <button id="btn-account">
-                        Account
-                      </button>
-                    </a>
+                  <a href="/account">
+                    <button id="btn-account">
+                      Account
+                    </button>
+                  </a>
+                  ${localStorage.getItem('accessToken') !== null ? `
                     <button id="btn-logout">
                       Log out
                     </button>
-                  ` : `
-                    <button id="btn-login">
-                      Log in
-                    </button>
-                    <button id="btn-signup">
-                      Sign up
-                    </button>
-                  `}
+                  ` : ''}
                 </div>
               </div>
             </section>
@@ -148,6 +143,7 @@ const HeaderHome = {
       // Your search button click handler code here...
     });
     
+    
 
     // // Add event listener to the login button
     // document.getElementById('btn-signup').addEventListener('click', function() {
@@ -161,6 +157,10 @@ const HeaderHome = {
 
     //  // Log the result of document.getElementById('btn-signup')
     // console.log('btn-signup element:', document.getElementById('btn-signup'));
+    const btnAccount = document.getElementById('btn-account');
+
+
+
     const isAuthenticated = localStorage.getItem('accessToken') !== null;
 
     if (isAuthenticated) {
@@ -173,17 +173,26 @@ const HeaderHome = {
         window.location.href = '/';
       });
     } else {
-      document.getElementById('btn-login').addEventListener('click', function() {
-        // Redirect to the login page
-        window.location.href = '/login';
-      });
-
-      document.getElementById('btn-signup').addEventListener('click', function() {
-        // Redirect to the signup page
-        window.location.href = '/signup';
+      document.getElementById('btn-account').addEventListener('click', function() {
+        // Redirect to the account page
+        window.location.href = '/account';
       });
     }
+
+
+    if (localStorage.getItem('accessToken') !== null) {
+      document.getElementById('btn-logout').addEventListener('click', function() {
+        // Log out the user
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+
+        // Redirect to the home page
+        window.location.href = '/';
+      });
+    }
+
   },
+  
 
 
 

@@ -24,6 +24,9 @@ import('d3').then(d3 => {
 app.use(cors());
 app.use(express.json());
 
+
+
+
 app.get('/signup', (req, res) => {
    res.sendFile(path.join(__dirname, '../src/client/screens/SignupScreen.js'));
 });
@@ -40,38 +43,73 @@ const posts = [
 ]
 
 
-app.post('/signup', checkNotAuthenticated, async (req, res) => {
-   console.log(req.body); // Add this line
+app.post('/account', async (req, res) => {
    const email = req.body.email;
-   const password = req.body.password; // Assuming you're sending password in the request
  
-   // Hash the password
+   const user = await User.findOne({ email: email });
+ 
+   if (user) {
+     res.json({ userExists: true });
+   } else {
+     res.json({ userExists: false });
+   }
+ });
+ 
+ 
+ app.post('/signup', checkNotAuthenticated, async (req, res) => {
+   const email = req.body.email;
+   const password = req.body.password; 
+ 
    const hashedPassword = await bcrypt.hash(password, 10);
  
-   // Create new user
    const newUser = new User({
-      email: email,
-      password: hashedPassword
+     email: email,
+     password: hashedPassword
    });
-
+ 
    newUser.save()
-  .then(() => {
-    res.json({ message: 'User created' });
-  })
-  .catch(err => {
-    console.error(err);
-    res.status(500).send('Server error');
-  });
-   // Save the user in MongoDB
-   // newUser.save()
-   //    .then(() => res.json({ message: 'User created' }))
-   //    .catch(err => {
-   //       console.error(err);
-   //       res.status(500).send('Server error');
-   //    });
-       
-   // res.send('Signup successful');
+   .then(() => {
+     res.json({ message: 'User created' });
+   })
+   .catch(err => {
+     console.error(err);
+     res.status(500).send('Server error');
+   });
  });
+
+
+// app.post('/signup', checkNotAuthenticated, async (req, res) => {
+//    console.log(req.body); // Add this line
+//    const email = req.body.email;
+//    const password = req.body.password; // Assuming you're sending password in the request
+ 
+//    // Hash the password
+//    const hashedPassword = await bcrypt.hash(password, 10);
+ 
+//    // Create new user
+//    const newUser = new User({
+//       email: email,
+//       password: hashedPassword
+//    });
+
+//    newUser.save()
+//   .then(() => {
+//     res.json({ message: 'User created' });
+//   })
+//   .catch(err => {
+//     console.error(err);
+//     res.status(500).send('Server error');
+//   });
+//    // Save the user in MongoDB
+//    // newUser.save()
+//    //    .then(() => res.json({ message: 'User created' }))
+//    //    .catch(err => {
+//    //       console.error(err);
+//    //       res.status(500).send('Server error');
+//    //    });
+       
+//    // res.send('Signup successful');
+//  });
 
 
 // app.post('/signup', async (req, res) => {
@@ -155,6 +193,12 @@ app.listen(port, () => console.log(`Server running on port ${port}`));
 
 
 
+
+
+
+
+
+
 function checkNotAuthenticated(req, res, next) {
    const authHeader = req.headers['authorization'];
    const token = authHeader && authHeader.split(' ')[1];
@@ -165,7 +209,6 @@ function checkNotAuthenticated(req, res, next) {
  
    next();
  }
-
 
 
 

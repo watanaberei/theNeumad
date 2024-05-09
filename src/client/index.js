@@ -8,6 +8,7 @@ import HeaderMicro from "./components/HeaderMicro.js";
 import HomeScreen from "./screens/HomeScreen.js";
 import SignupScreen from "./screens/SignupScreen.js";
 import LoginScreen from "./screens/LoginScreen.js";
+import AccountScreen from "./screens/AccountScreen.js";
 import UserScreen from "./screens/UserScreen.js";
 import ProfileScreen from "./screens/ProfileScreen.js";
 import StoreScreen from "./screens/StoreScreen.js";
@@ -43,6 +44,7 @@ const routes = {
   "/": HomeScreen,
   "/signup": SignupScreen,
   "/login": LoginScreen,
+  "/account": AccountScreen,
   "/user": UserScreen,
   "/profile": ProfileScreen, 
   "/stores/:slug": StoreScreen,
@@ -84,6 +86,9 @@ const router = async () => {
     header.innerHTML = await HeaderHome.render();
     await HeaderHome.after_render();
   } else if (parseUrl === "/user") {
+    header.innerHTML = await HeaderHome.render();
+    await HeaderHome.after_render();
+  } else if (parseUrl === "/account") {
     header.innerHTML = await HeaderHome.render();
     await HeaderHome.after_render();
   } else if (parseUrl === "/stores/:slug") {

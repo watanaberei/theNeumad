@@ -27,27 +27,42 @@ let refreshTokens = []
 
 
 app.post('/login', async (req, res) => {
-   const { email, password } = req.body;
+   const email = req.body.email;
+   const password = req.body.password;
  
-   const user = await User.findOne({ email });
-   if (!user) {
-     return res.status(404).json({ message: 'User not found' });
+   const user = await User.findOne({ email: email });
+ 
+   if (user && await bcrypt.compare(password, user.password)) {
+     const accessToken = jwt.sign({ user: user.email }, process.env.ACCESS_TOKEN_SECRET);
+     res.json({ accessToken: accessToken });
+   } else {
+     res.status(401).send('Login failed');
    }
- 
-   const isMatch = await bcrypt.compare(password, user.password);
-   if (!isMatch) {
-     return res.status(400).json({ message: 'Invalid password' });
-   }
- 
-   const accessToken = generateAccessToken({ name: user.email });
-   const refreshToken = jwt.sign({ name: user.email }, process.env.REFRESH_TOKEN_SECRET);
-   refreshTokens.push(refreshToken);
- 
-   res.json({ accessToken, refreshToken });
  });
 
 
+// app.post('/login', async (req, res) => {
+//    const { email, password } = req.body;
  
+//    const user = await User.findOne({ email });
+//    if (!user) {
+//      return res.status(404).json({ message: 'User not found' });
+//    }
+ 
+//    const isMatch = await bcrypt.compare(password, user.password);
+//    if (!isMatch) {
+//      return res.status(400).json({ message: 'Invalid password' });
+//    }
+ 
+//    const accessToken = generateAccessToken({ name: user.email });
+//    const refreshToken = jwt.sign({ name: user.email }, process.env.REFRESH_TOKEN_SECRET);
+//    refreshTokens.push(refreshToken);
+ 
+//    res.json({ accessToken, refreshToken });
+//  });
+
+
+
 
  app.get('/user', authenticateToken, async (req, res) => {
    const user = await User.findOne({ email: req.user.name });

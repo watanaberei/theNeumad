@@ -294,9 +294,11 @@ export const statTag = {
         return `
             <div class="stattag loading">
                 <div class="tag">
-                    <span class="text03">
-                        ${text}
-                    </span>
+                    <!--<div class="text">-->
+                        <span class="text03">
+                            ${text}
+                        </span>
+                    <!--</div>-->
                 </div>
             </div>
         `;
@@ -311,9 +313,9 @@ export const statTagLg = {
         return `
             <div class="stattag-lg ">
                 <div class="tag">
-                <div class="text">
-                    <span class="text03">${statTagLgData.text}</span>
-                </div>
+                    <!--<div class="text">-->
+                        <span class="text03">${statTagLgData.text}</span>
+                    <!--</div>-->
                 </div>
                 <div class="subtag">
                     <span class="text03">

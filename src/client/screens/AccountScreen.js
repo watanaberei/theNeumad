@@ -37,32 +37,22 @@ const AccountScreen = {
                         <!------ HEADLINE ------>
                         <div class="account-headline">
 
-                        
-                          <!--<form action="/account" id="account-form" method="post">-->
-
-                            <fieldset class="step-hide">
-                              <div class="title">
-                                <span class="header06">
-                                    Log in or create an account
-                                </span>
-                              </div>
-                              <div class="form-container">
-                                <span class="text02 medium">
-                                  Login or sign up
-                                </span>
-                                <form action="http://localhost:5000/account" id="account-form" method="post">
+                          <fieldset class="step-hide">
+                            <div class="title">
+                              <span class="header06">
+                                  Log in or create an account
+                              </span>
+                            </div>
+                            <div class="form-container">
+                              <span class="text02 medium">
+                                Enter your email
+                              </span>
+                              <form id="account-form">
                                 <input type="email" id="email" name="email" placeholder="Email" required>
-                                <input type="password" id="password" name="password" placeholder="Password" required>
-                                <input type="submit" value="Submit">
-                                </form>
-
-                                <a href="/account" class="text02 medium">Make a new account
-                                <!--<button type="submit">Login</button>-->
-                              </div>
-                            </fieldset>
-
-                            
-                          <!--</form>-->
+                                <button type="submit">Submit</button>
+                              </form>
+                            </div>
+                          </fieldset>
 
                         </div>
                         <!------ HEADLINE ------>
@@ -87,33 +77,36 @@ const AccountScreen = {
 
   after_render: async () => {
     document.getElementById('account-form').addEventListener('submit', async (event) => {
-      event.preventDefault();
+        event.preventDefault();
     
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-    
+        const email = document.getElementById('email').value;
+
+    // Store the entered email in localStorage
+    localStorage.setItem('email', email);
+
       const response = await fetch('http://localhost:5000/account', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email })
       });
-    
+
       if (response.ok) {
         const data = await response.json();
 
-        if (data.isNewUser) {
+        if (data.userExists) {
+          // Redirect to the login page
+          window.location.href = '/login';
+        } else {
           // Redirect to the signup page
           window.location.href = '/signup';
-        } else {
-          // Redirect to the user page
-          window.location.href = '/user';
         }
       } else {
-        console.error('Account creation failed');
+        console.error('Account check failed');
       }
     });
   }
 };
+
 export default AccountScreen;
